@@ -1,0 +1,3 @@
+rootProject.name = 'xtrack_mobile'
+
+include ':app'
