@@ -1,19 +1,18 @@
-import React, {Component} from "react";
-import {View, Text, Button } from "react-native";
+import { connect } from 'react-redux';
+import Component from './component';
 
-import { withNavigation } from "react-navigation";
+export default connect(
+  (state) => {
+    return {
+      darkMode: state.common.darkMode,
+      language: state.common.language
+    }
+  },
 
-import Screen from "../../components/screen"
-
-class Profile extends Component {
-
-  render(){
-    return(
-      <Screen>
-        <Text>Profile</Text>
-      </Screen>
-    )
+  (dispatch) => {
+    return {
+      toggleDarkMode: ()=>dispatch({type: "TOGGLE_DARK_MODE"}),
+      setLanguage: (language)=>dispatch({type:"SET_LANGUAGE", language})
+    }
   }
-}
-
-export default withNavigation(Profile);
+)(Component);

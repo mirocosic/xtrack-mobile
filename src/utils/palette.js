@@ -8,7 +8,7 @@ const lightGrey = '#a1a5a8';
 export default {
   blue: '#0072a0',
   light: '#f8f8fc',
-  dark: '#20556e',
+  dark: 'rgb(45,48,55)',
   orange: '#fe9700',
   gray: grey,
   grey: grey,

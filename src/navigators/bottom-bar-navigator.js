@@ -1,9 +1,11 @@
 import React from 'react';
-import { TabNavigator, DrawerNavigator, createBottomTabNavigator, BottomTabBar } from 'react-navigation';
+import { TabNavigator, DrawerNavigator, createBottomTabNavigator } from 'react-navigation';
 import { Dashboard, EntryForm, Profile, Splash, Categories } from '../screens';
 import palette from '../utils/palette';
 //import { primaryFont } from '../lib/fonts';
 //import { isIos } from '../lib/os-utils';
+
+import TabBarComponent from "./tab-bar-component";
 
 const iosStyle = {
   justifyContent: 'space-around',
@@ -43,15 +45,14 @@ const BottomBarNavigator = createBottomTabNavigator({
   Dashboard: { screen: Dashboard },
   EntryForm: { screen: EntryForm},
   Profile: { screen: Profile},
-  Splash: { screen: Splash},
   Categories: { screen: Categories}
 },{
-  initialRouteName: "Profile",
+  //initialRouteName: "Profile",
   tabBarPosition: 'bottom',
   lazy: false,
   swipeEnabled: true,
   animationEnabled: true,
-
+  //tabBarComponent: TabBarBottom,
   tabBarOptions: {
     activeTintColor: palette.secondary,
     inactiveTintColor: palette.black,

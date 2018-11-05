@@ -4,13 +4,13 @@ import Component from './component';
 export default connect(
   (state) => {
     return {
-      entries: state.transactions.entries,
-      total: state.transactions.total
+
     }
   },
 
   (dispatch) => {
     return {
+      delete: (transaction) => dispatch({type: "DELETE_TRANSACTION", transaction})
     }
   }
 )(Component);

@@ -10,7 +10,7 @@ export default class App extends Component<Props> {
   render() {
     return (
         <Provider store={store}>
-          <BottomBarNavigator />
+          <AppNavigator />
         </Provider>
     );
   }

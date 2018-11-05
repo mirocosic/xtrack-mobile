@@ -1,19 +1,16 @@
-import React, { Component } from "react";
-import { View , StyleSheet} from "react-native";
+import { connect } from 'react-redux';
+import Component from './component';
 
-export default class Screen extends Component {
+export default connect(
+  (state) => {
+    return {
+      darkMode: state.common.darkMode
+    }
+  },
 
-  render(){
-    return(
-      <View style={styles.container}>
-        {this.props.children}
-      </View>
-    )
+  (dispatch) => {
+    return {
+
+    }
   }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-  }
-})
+)(Component);
