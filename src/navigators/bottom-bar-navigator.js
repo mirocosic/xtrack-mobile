@@ -1,6 +1,6 @@
 import React from 'react';
 import { TabNavigator, DrawerNavigator, createBottomTabNavigator } from 'react-navigation';
-import { Dashboard, EntryForm, Profile, Splash, Categories } from '../screens';
+import { Dashboard, EntryForm, Profile, Splash, Categories, Accounts } from '../screens';
 import palette from '../utils/palette';
 //import { primaryFont } from '../lib/fonts';
 //import { isIos } from '../lib/os-utils';
@@ -45,7 +45,8 @@ const BottomBarNavigator = createBottomTabNavigator({
   Dashboard: { screen: Dashboard },
   EntryForm: { screen: EntryForm},
   Profile: { screen: Profile},
-  Categories: { screen: Categories}
+  Categories: { screen: Categories},
+  Accounts: { screen: Accounts}
 },{
   //initialRouteName: "Profile",
   tabBarPosition: 'bottom',

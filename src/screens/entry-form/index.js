@@ -6,13 +6,17 @@ export default connect(
     return {
       darkMode: state.common.darkMode,
       entries: state.transactions.entries,
-      selectedCategory: state.categories.selectedCategory
+      transferMode: state.transactions.transferMode,
+      selectedCategory: state.categories.selectedCategory,
+      toAccount: state.accounts.toAccount,
+      fromAccount: state.accounts.fromAccount
     }
   },
 
   (dispatch) => {
     return {
-      add: (transaction) => dispatch({type: "ADD_TRANSACTION", transaction})
+      add: (transaction) => dispatch({type: "ADD_TRANSACTION", transaction}),
+      setTransferMode: (value) => dispatch({type:"SET_TRANSFER_MODE", value})
     }
   }
 )(Component);

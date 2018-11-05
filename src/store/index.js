@@ -13,11 +13,13 @@ const persistConfig = {
 import common from './common/reducer';
 import transactions from './transactions/reducer';
 import categories from './categories/reducer';
+import accounts from './accounts/reducer';
 
 const reducers = combineReducers({
   common,
   transactions,
-  categories
+  categories,
+  accounts
 })
 
 const pReducer = persistReducer(persistConfig, reducers);

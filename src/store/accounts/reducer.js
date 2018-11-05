@@ -6,26 +6,16 @@ const makeId = (items) => {
 const categories = (state = initialState, action) => {
   switch(action.type){
 
-    case "ADD_NEW_CATEGORY":
+    case "ADD_ACCOUNT":
       return {
         ...state,
         items: [
           ...state.items,
-          {id: state.items[state.items.length-1].id+1, name: action.payload.name, note: action.payload.note}
+          {id: makeId(state.items), name: action.payload}
         ]
       }
 
-    case "ADD_CATEGORY":
-    console.log(action.payload);
-      return {
-        ...state,
-        items: [
-          ...state.items,
-          {id: makeId(state.items), name: action.payload.name, type:action.payload.type}
-        ]
-      }
-
-    case "DELETE_CATEGORY":
+    case "DELETE_ACCOUNT":
       return {
         ...state,
         items: state.items.filter((item)=>{
@@ -33,10 +23,22 @@ const categories = (state = initialState, action) => {
         })
       }
 
-    case "SELECT_CATEGORY":
+    case "SELECT_TO_ACCOUNT":
       return {
         ...state,
-        selectedCategory: action.payload
+        toAccount: action.payload
+      }
+
+    case "SELECT_FROM_ACCOUNT":
+      return {
+        ...state,
+        fromAccount: action.payload
+      }
+
+    case "CHANGE_ACCOUNT_FILTER":
+      return {
+        ...state,
+        accountFilter: action.account
       }
 
     case "ERASE":

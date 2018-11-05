@@ -21,12 +21,19 @@ class EntryForm extends Component<Props> {
         <Title style={styles.welcome}>Enter your expense now!</Title>
 
         <View style={styles.typeButtonsWrap}>
-          <TouchableOpacity onPress={()=>this.setState({type: "expense"})} style={[styles.typeButton, this.state.type === "expense" && styles.btnSelected]}>
+          <TouchableOpacity onPress={()=>{this.setState({type: "expense"}); this.props.setTransferMode(false) }}
+            style={[styles.typeButton, this.state.type === "expense" && styles.btnSelected, this.props.darkMode && styles.btnDark]}>
             <Copy style={this.state.type === "expense" && styles.copySelected}>{__("Expense")}</Copy>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={()=>this.setState({type: "income"})} style={[styles.typeButton, this.state.type === "income" && styles.btnSelected]}>
+          <TouchableOpacity onPress={()=>{this.setState({type: "income"}); ; this.props.setTransferMode(false)}}
+            style={[styles.typeButton, this.state.type === "income" && styles.btnSelected, this.props.darkMode && styles.btnDark]}>
               <Copy style={this.state.type === "income" && styles.copySelected}>{__("Income")}</Copy>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={()=>{this.setState({type: "transfer"}); ; this.props.setTransferMode(true)}}
+            style={[styles.typeButton, this.state.type === "transfer" && styles.btnSelected, this.props.darkMode && styles.btnDark]}>
+              <Copy style={this.state.type === "transfer" && styles.copySelected}>{__("Transfer")}</Copy>
           </TouchableOpacity>
 
 
@@ -51,12 +58,40 @@ class EntryForm extends Component<Props> {
             style={this.props.darkMode ? styles.textInputDark : styles.textInput}
             placeholder="note"
         />
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate("Categories")}>
-          <Text style={styles.textInput}>{this.props.selectedCategory.name}</Text>
+
+        { this.state.type === "transfer" &&
+          <View>
+            <Copy>From Account:</Copy>
+              <TouchableOpacity
+                style={[styles.selectBox, this.props.darkMode && styles.selectBoxDark]}
+                onPress={()=>this.props.navigation.navigate("Accounts", {accountField: "from"})}>
+                <Text style={this.props.darkMode ? styles.textInputDark : styles.textInput}>{this.props.fromAccount.name}</Text>
+              </TouchableOpacity>
+          </View>
+        }
+
+      <Copy>{this.state.type === "transfer" && "To "}Account:</Copy>
+        <TouchableOpacity
+          style={[styles.selectBox, this.props.darkMode && styles.selectBoxDark]}
+          onPress={()=>this.props.navigation.navigate("Accounts", {accountField: "to"})}>
+          <Text style={this.props.darkMode ? styles.textInputDark : styles.textInput}>{this.props.toAccount.name}</Text>
         </TouchableOpacity>
 
+
+
+        { this.state.type !== "transfer" &&
+          <View>
+            <Copy>Category:</Copy>
+            <TouchableOpacity
+              style={[styles.selectBox, this.props.darkMode && styles.selectBoxDark]}
+              onPress={()=>this.props.navigation.navigate("Categories")}>
+              <Text style={this.props.darkMode ? styles.textInputDark : styles.textInput}>{this.props.selectedCategory.name}</Text>
+            </TouchableOpacity>
+          </View>
+      }
         <Button title="Done!" onPress={()=>{
             this.props.add({
+              account: this.props.toAccount,
               type: this.state.type,
               amount: this.state.amount,
               note: this.state.note,
@@ -113,17 +148,30 @@ const styles = StyleSheet.create({
   typeButton: {
     paddingTop: 10,
     paddingBottom: 10,
-    paddingLeft: 30,
-    paddingRight: 30,
-    borderWidth: 1
+    paddingLeft: 20,
+    paddingRight: 20,
+    borderWidth: 1,
+    borderColor: "black"
   },
 
   btnSelected: {
     backgroundColor: "green",
   },
 
+  btnDark: {
+    borderColor: "white"
+  },
+
   copySelected: {
     color: "white"
+  },
+
+  selectBox: {
+    borderWidth: 1,
+  },
+
+  selectBoxDark: {
+    borderColor: "white"
   }
 
 });

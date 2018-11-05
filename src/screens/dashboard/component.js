@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, ScrollView, TextInput, Button, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, Text, View, ScrollView, TextInput, Button, TouchableOpacity, Alert} from 'react-native';
 
 import { withNavigation } from "react-navigation";
 
@@ -10,22 +10,46 @@ import __ from "../../utils/translations"
 
 class Dashboard extends Component {
 
+  changeAccountFilter = () => {
+    Alert.alert(
+      __("Select account"),
+      __("Please choose account"),
+      this.props.accounts.map((account)=>{
+        return {text: account.name, onPress: ()=>this.props.changeAccountFilter(account)}
+      })
+
+    )
+  }
+
   render(){
     return(
       <Screen>
         <ScrollView>
           <Title style={{alignSelf: "center"}}>{__("Dashboard", "hrv")}</Title>
 
-          <View>
-            <Copy>{__("Total")}: {this.props.total}</Copy>
+          <View style={{flexDirection: "row", justifyContent: "space-between"}}>
+            <View>
+              <Copy>{__("Expenses")}: {this.props.expenses}</Copy>
+              <Copy>{__("Income")}: {this.props.income}</Copy>
+              <Copy>{__("Total")}: {this.props.total}</Copy>
+            </View>
+
+            <TouchableOpacity onPress={this.changeAccountFilter}>
+              <Copy>Account: {this.props.accountFilter.name || "All accounts"}</Copy>
+            </TouchableOpacity>
           </View>
 
+
           <View>
 
-            {this.props.entries.map((value)=>(
-            <View>
-              <Transaction key={value.id} transaction={value} /></View>
-            )).reverse()}
+            {this.props.entries
+              .filter((item)=>{
+                if (!this.props.accountFilter) {return true}
+                if (!item.account) {return true}
+                return item.account.id === this.props.accountFilter.id
+              })
+              .map((value)=>(<Transaction key={value.id} transaction={value}/>))
+              .reverse()}
           </View>
 
         </ScrollView>
