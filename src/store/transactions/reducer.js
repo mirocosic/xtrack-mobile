@@ -9,26 +9,50 @@ const makeId = (entries)=>{
   }
 }
 
+const calculateTotal = (total, amount, type, inverse) => {
+  if ( (type === "expense" && !inverse) || (type === "income" && inverse)) {
+    return parseFloat(total) - parseFloat(amount)
+  } else if ( (type === "income" && !inverse) || (type === "expense" && inverse)) {
+    return parseFloat(total) + parseFloat(amount)
+  } else {
+    return total
+  }
+}
+
 const transactions = (state = initialState, action) => {
+
   switch(action.type){
 
-    case "ADD_NEW_ENTRY":
+    case "ADD_TRANSACTION":
+      const { amount, type, note, category} = action.transaction;
       return {
         ...state,
-        total: parseFloat(state.total)+parseFloat(action.payload.amount),
+        total: calculateTotal(state.total, amount, type, false),
         entries: [
           ...state.entries,
-          {id: makeId(state.entries), amount: action.payload.amount, note: action.payload.note}
+          {
+            id: makeId(state.entries),
+            type,
+            amount,
+            note,
+            category
+          }
         ]
       }
 
     case "DELETE_TRANSACTION":
+
       return {
         ...state,
-        total: parseFloat(state.total) - parseFloat(action.transaction.amount),
+        total: calculateTotal(state.total, action.transaction.amount, action.transaction.type, true),
         entries: state.entries.filter((item)=>{
           return item.id !== action.transaction.id
         })
+      }
+
+    case "ERASE":
+      return {
+        ...initialState
       }
 
     default:

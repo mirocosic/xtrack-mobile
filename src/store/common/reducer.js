@@ -15,6 +15,11 @@ const common = (state = initialState, action) => {
         language: action.language
       }
 
+    case "ERASE":
+      return {
+        ...initialState
+      }
+
     default:
       return state;
   }

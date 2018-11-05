@@ -12,7 +12,8 @@ export default connect(
   (dispatch) => {
     return {
       toggleDarkMode: ()=>dispatch({type: "TOGGLE_DARK_MODE"}),
-      setLanguage: (language)=>dispatch({type:"SET_LANGUAGE", language})
+      setLanguage: (language)=>dispatch({type:"SET_LANGUAGE", language}),
+      erase: ()=>dispatch({type: "ERASE"})
     }
   }
 )(Component);

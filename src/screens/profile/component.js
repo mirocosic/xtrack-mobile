@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, Button, Switch, Alert, TouchableOpacity } from "react-native";
+import {View, Text, Button, Switch, Alert, TouchableOpacity, StatusBar } from "react-native";
 
 import { withNavigation } from "react-navigation";
 
@@ -31,7 +31,15 @@ class Profile extends Component {
             <Copy>Settings</Copy>
             <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
               <Copy>Dark mode</Copy>
-              <Switch value={this.props.darkMode} onValueChange={this.props.toggleDarkMode}/>
+              <Switch value={this.props.darkMode} onValueChange={()=>{
+                  if (this.props.darkMode) {
+                    StatusBar.setBarStyle("dark-content");
+                  } else {
+                    StatusBar.setBarStyle("light-content")
+                  }
+
+                  this.props.toggleDarkMode()
+                }}/>
             </View>
 
             <TouchableOpacity
@@ -40,6 +48,8 @@ class Profile extends Component {
               <Copy>{__("Language") + ": "}</Copy>
               <Copy>{this.props.language.name}</Copy>
             </TouchableOpacity>
+
+            <Button title="ERASE DATA" onPress={this.props.erase}/>
 
 
           </View>

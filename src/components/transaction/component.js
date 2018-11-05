@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { View, TouchableOpacity, StyleSheet } from "react-native"
 
 import { Copy } from "../typography"
+import __ from "../../utils/translations"
 
 export default class Transaction extends Component {
 
@@ -10,11 +11,11 @@ export default class Transaction extends Component {
     return(
       <View key={transaction.id} style={styles.container}>
         <View>
-
-          <Copy>Amount: {transaction.amount}</Copy>
-          <Copy>Category: {transaction.category && transaction.category.name}</Copy>
-          <Copy>Date: {transaction.date}</Copy>
-          <Copy>Note: {transaction.note}</Copy>
+          <Copy>{__("Type")}: {transaction.type}</Copy>
+          <Copy>{__("Amount")}: {transaction.amount}</Copy>
+          <Copy>{__("Category")}: {transaction.category && transaction.category.name}</Copy>
+          <Copy>{__("Date")}: {transaction.date}</Copy>
+          <Copy>{__("Note")}: {transaction.note}</Copy>
         </View>
 
         <TouchableOpacity onPress={()=>this.props.delete(transaction)} style={styles.deleteTrans}>

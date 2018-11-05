@@ -21,12 +21,15 @@ class Categories extends Component {
           <View>
 
             <View style={styles.inputContainer}>
-              <TextInput style={styles.input}
+              <TextInput style={[styles.input, this.props.darkMode && styles.inputDark]}
                 onChangeText={(text)=>this.setState({categoryName: text})}
                 placeholder="new category"
+                value={this.state.categoryName}
                 />
               <TouchableOpacity style={styles.add}
-                onPress={()=>this.props.add(this.state.categoryName)}
+                onPress={()=>{
+                  this.setState({categoryName: ""})
+                  this.props.add(this.state.categoryName)}}
                 >
                 <Copy style={{color: "white"}}>Add</Copy>
               </TouchableOpacity>
@@ -36,7 +39,7 @@ class Categories extends Component {
               <TouchableOpacity key={cat.id}
 
                 onPress={()=>{this.props.selectCategory(cat); this.props.navigation.goBack()}}>
-                <View key={cat.id} style={styles.categoryWrap}>
+                <View key={cat.id} style={[styles.categoryWrap, this.props.darkMode && styles.catWrapDark]}>
                   <Copy>{cat.name}</Copy>
                   <TouchableOpacity style={styles.delete} onPress={()=>this.props.delete(cat.id)}>
                     <Text>-</Text>
@@ -44,7 +47,7 @@ class Categories extends Component {
                 </View>
               </TouchableOpacity>
 
-            ))}
+            )).reverse()}
           </View>
           <Button title="Select" onPress={()=>this.props.navigation.navigate("EntryForm")}/>
         </ScrollView>
@@ -65,6 +68,10 @@ const styles = StyleSheet.create({
     margin:10
   },
 
+  catWrapDark: {
+    borderColor: "white"
+  },
+
   inputContainer: {
     paddingLeft: 20,
     paddingRight: 20,
@@ -74,11 +81,17 @@ const styles = StyleSheet.create({
   },
 
   input: {
+    color: "black",
     fontSize: 20,
     padding: 20,
     margin: 20,
     width: 200,
     borderBottomWidth: 1
+  },
+
+  inputDark: {
+    color: "white",
+    borderColor: "white"
   },
 
   add: {

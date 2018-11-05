@@ -1,4 +1,4 @@
-import store from "../store"
+import { store } from "../store"
 const state = store.getState();
 
 const translations = {
@@ -11,7 +11,12 @@ const translations = {
     "Welcome to XTrack!" : "Dobrodošli u XTrack!",
     "Go to app" : "Kreni",
     "Dashboard" : "Pregled",
-    "Total": "Ukupno"
+    "Total": "Ukupno",
+    "Type": "Tip",
+    "Amount": "Iznos",
+    "Category": "Kategorija",
+    "Date": "Datum",
+    "Note": "Bilješka"
   },
 
 }

@@ -12,7 +12,7 @@ export default connect(
 
   (dispatch) => {
     return {
-      addNew: (payload) => dispatch({type: "ADD_NEW_ENTRY", payload})
+      add: (transaction) => dispatch({type: "ADD_TRANSACTION", transaction})
     }
   }
 )(Component);

@@ -4,19 +4,34 @@ import {Platform, StyleSheet, Text, View, TextInput, Button, TouchableOpacity} f
 import { withNavigation } from "react-navigation";
 import Screen from "../../components/screen"
 import { Copy, Title } from "../../components/typography"
+import __ from "../../utils/translations"
 
 class EntryForm extends Component<Props> {
 
   state = {
     amount: "500",
     date: "16.12.1983.",
-    note: "Vino i cigare..."
+    note: "Vino i cigare...",
+    type: "expense"
   }
 
   render() {
     return (
       <Screen>
         <Title style={styles.welcome}>Enter your expense now!</Title>
+
+        <View style={styles.typeButtonsWrap}>
+          <TouchableOpacity onPress={()=>this.setState({type: "expense"})} style={[styles.typeButton, this.state.type === "expense" && styles.btnSelected]}>
+            <Copy style={this.state.type === "expense" && styles.copySelected}>{__("Expense")}</Copy>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={()=>this.setState({type: "income"})} style={[styles.typeButton, this.state.type === "income" && styles.btnSelected]}>
+              <Copy style={this.state.type === "income" && styles.copySelected}>{__("Income")}</Copy>
+          </TouchableOpacity>
+
+
+        </View>
+
         <TextInput
             onChangeText={(value) => this.setState({amount: value})}
             value={this.state.amount}
@@ -41,7 +56,12 @@ class EntryForm extends Component<Props> {
         </TouchableOpacity>
 
         <Button title="Done!" onPress={()=>{
-            this.props.addNew({ amount: this.state.amount, note: this.state.note, category: this.props.selectCategory})
+            this.props.add({
+              type: this.state.type,
+              amount: this.state.amount,
+              note: this.state.note,
+              category: this.props.selectedCategory
+            })
             this.props.navigation.navigate("Dashboard")
           }}
         />
@@ -83,5 +103,27 @@ const styles = StyleSheet.create({
     borderColor: "white",
     padding: 10,
     margin: 10
+  },
+
+  typeButtonsWrap: {
+    flexDirection: "row",
+    justifyContent: "space-evenly"
+  },
+
+  typeButton: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+    borderWidth: 1
+  },
+
+  btnSelected: {
+    backgroundColor: "green",
+  },
+
+  copySelected: {
+    color: "white"
   }
+
 });

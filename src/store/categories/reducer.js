@@ -38,6 +38,11 @@ const categories = (state = initialState, action) => {
         selectedCategory: action.payload
       }
 
+    case "ERASE":
+      return {
+        ...initialState
+      }
+
     default:
       return state;
   }

@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, TextInput, Button} from 'react-native';
 
 import { Provider } from 'react-redux';
-import store from './store';
+//import store from './store';
+import { persistor, store } from './store';
+import { PersistGate } from 'redux-persist/lib/integration/react';
 import AppNavigator from "./navigators/app-navigator";
 import BottomBarNavigator from './navigators/bottom-bar-navigator';
 
@@ -10,7 +12,9 @@ export default class App extends Component<Props> {
   render() {
     return (
         <Provider store={store}>
-          <AppNavigator />
+          <PersistGate persistor={persistor}>
+            <AppNavigator />
+          </PersistGate>
         </Provider>
     );
   }

@@ -6,7 +6,7 @@ import { withNavigation } from "react-navigation";
 import Screen from "../../components/screen"
 import Transaction from "../../components/transaction"
 import { Copy, Title } from "../../components/typography"
-import translate from "../../utils/translations"
+import __ from "../../utils/translations"
 
 class Dashboard extends Component {
 
@@ -14,10 +14,10 @@ class Dashboard extends Component {
     return(
       <Screen>
         <ScrollView>
-          <Title style={{alignSelf: "center"}}>{translate("Dashboard", "hrv")}</Title>
+          <Title style={{alignSelf: "center"}}>{__("Dashboard", "hrv")}</Title>
 
           <View>
-            <Copy>Total: {this.props.total}</Copy>
+            <Copy>{__("Total")}: {this.props.total}</Copy>
           </View>
 
           <View>
@@ -25,7 +25,7 @@ class Dashboard extends Component {
             {this.props.entries.map((value)=>(
             <View>
               <Transaction key={value.id} transaction={value} /></View>
-            ))}
+            )).reverse()}
           </View>
 
         </ScrollView>
