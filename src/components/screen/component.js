@@ -7,7 +7,7 @@ export default class Screen extends Component {
 
   render(){
     return(
-      <View style={[styles.container, this.props.darkMode && styles.containerDark ] }>
+      <View style={[styles.container, this.props.style, this.props.darkMode && styles.containerDark ] }>
         {this.props.children}
       </View>
     )
@@ -18,9 +18,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: palette.light,
     flex: 1,
-    paddingTop: 20,
-    paddingLeft: 20,
-    paddingRight: 20
+    paddingTop: 20
   },
 
   containerDark: {

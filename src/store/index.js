@@ -14,12 +14,14 @@ import common from './common/reducer';
 import transactions from './transactions/reducer';
 import categories from './categories/reducer';
 import accounts from './accounts/reducer';
+import labels from './labels/reducer';
 
 const reducers = combineReducers({
   common,
   transactions,
   categories,
-  accounts
+  accounts,
+  labels
 })
 
 const pReducer = persistReducer(persistConfig, reducers);

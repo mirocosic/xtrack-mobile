@@ -1,8 +1,13 @@
 import React, { Component } from "react"
-import { View, TouchableOpacity, StyleSheet } from "react-native"
+import { Text, View, TouchableOpacity, StyleSheet } from "react-native"
+
+import { withNavigation } from "react-navigation"
 
 import { Copy } from "../typography"
 import __ from "../../utils/translations"
+import { formatCurrency } from "../../utils/currency"
+
+import styles from "./styles"
 
 const getTransactionColorCode = (type) => {
   switch(type){
@@ -15,66 +20,47 @@ const getTransactionColorCode = (type) => {
   }
 }
 
-export default class Transaction extends Component {
+const getAmountColor = (type) => {
+  switch(type){
+    case "expense":
+      return {color: "red"};
+    case "income":
+      return {color: "green"};
+    case "transfer":
+      return {color: "blue"};
+  }
+}
+
+class Transaction extends Component {
 
   render(){
     const { transaction } = this.props
     return(
-      <View key={transaction.id} style={styles.container}>
-        <View style={getTransactionColorCode(transaction.type)}></View>
-        <View>
+      <TouchableOpacity onPress={()=>this.props.navigation.navigate("TransactionForm", {transaction})}>
+        <View key={transaction.id} style={styles.container}>
+          <View style={{flexDirection: "row", alignItems: "center"}}>
+            <View style={getTransactionColorCode(transaction.type)}></View>
+            <View>
 
-          <Copy>{__("Amount")}: {transaction.amount}</Copy>
-          <Copy>{__("Category")}: {transaction.category && transaction.category.name}</Copy>
-          <Copy>{__("Date")}: {transaction.date}</Copy>
-          <Copy>{__("Note")}: {transaction.note}</Copy>
+              <Copy>{__("Category")}: {transaction.category && transaction.category.name}</Copy>
+              <Copy>{__("Date")}: {transaction.date}</Copy>
+              <Copy>{__("Note")}: {transaction.note}</Copy>
+            </View>
+          </View>
+
+          <Text style={[styles.amount, getAmountColor(transaction.type)]}>
+            {formatCurrency(transaction.amount)}
+          </Text>
+
+          { false &&
+            <TouchableOpacity onPress={()=>this.props.delete(transaction)} style={styles.deleteTrans}>
+              <Copy style={{fontSize: 26, color: "white"}}>-</Copy>
+            </TouchableOpacity>
+          }
         </View>
-
-        <TouchableOpacity onPress={()=>this.props.delete(transaction)} style={styles.deleteTrans}>
-          <Copy style={{fontSize: 26, color: "white"}}>-</Copy>
-        </TouchableOpacity>
-
-      </View>
+      </TouchableOpacity>
     )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 10,
-    marginTop: 10,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: "gray",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between"
-  },
-
-  deleteTrans: {
-    width: 40,
-    height: 40,
-    backgroundColor: "red",
-    borderRadius: 20,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  colorCode: {
-    width: 20,
-    height: "100%",
-    borderRadius: 10
-  },
-
-  expense: {
-    backgroundColor: "red",
-  },
-
-  income: {
-    backgroundColor: "green"
-  },
-
-  tranfer: {
-    backgroundColor: "blue"
-  }
-})
+export default withNavigation(Transaction)

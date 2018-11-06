@@ -1,15 +1,20 @@
 import Dashboard from './dashboard';
-import EntryForm from './entry-form';
+import TransactionForm from './transaction-form';
 import Profile from './profile';
 import Splash from './splash';
 import Categories from './categories';
 import Accounts from './accounts';
+import Labels from './labels';
+import Transactions from './transactions';
+
 
 export {
   Dashboard,
-  EntryForm,
+  TransactionForm,
   Profile,
   Splash,
   Categories,
-  Accounts
+  Accounts,
+  Labels,
+  Transactions
 }

@@ -5,7 +5,20 @@ import { withNavigation } from "react-navigation";
 import { NavigationEvents } from "react-navigation";
 
 import Screen from "../../components/screen"
+import Header from "../../components/header"
 import { Copy, Title } from "../../components/typography"
+
+const accountBalance = (account, transactions) => {
+  if (transactions.length === 0) return 0;
+
+  const accountTransactions = transactions.filter((item)=>account.id===item.account.id);
+
+  if (accountTransactions.length === 0) { return 0 }
+
+  const total = accountTransactions.reduce((a, b)=>({amount: parseFloat(a.amount) + parseFloat(b.amount)}));
+
+  return total.amount;
+}
 
 class Accounts extends Component {
 
@@ -16,8 +29,8 @@ class Accounts extends Component {
   render(){
     return(
       <Screen>
+        <Header title="Accounts" backBtn={true} backBtnPress={()=>this.props.navigation.goBack()}/>
         <ScrollView>
-          <Title style={{alignSelf: "center"}}>Accounts</Title>
           <View>
 
             <View style={styles.inputContainer}>
@@ -46,12 +59,14 @@ class Accounts extends Component {
                   }
 
                   this.props.navigation.goBack()}}>
+
                 <View key={account.id} style={[styles.wrap, this.props.darkMode && styles.wrapDark]}>
-                  <Copy>{account.name}</Copy>
+                  <Copy>{account.name + "  -  " + accountBalance(account, this.props.transactions)}</Copy>
                   <TouchableOpacity style={styles.delete} onPress={()=>this.props.delete(account.id)}>
                     <Text>-</Text>
                   </TouchableOpacity>
                 </View>
+
               </TouchableOpacity>
 
             ))}

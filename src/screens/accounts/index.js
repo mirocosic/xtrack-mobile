@@ -5,6 +5,7 @@ export default connect(
   (state) => {
     return {
       accounts: state.accounts.items,
+      transactions: state.transactions.entries,
       darkMode: state.common.darkMode,
       transferMode: state.transactions.transferMode
     }

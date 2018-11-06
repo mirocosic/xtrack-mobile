@@ -5,6 +5,7 @@ import { withNavigation } from "react-navigation";
 import { NavigationEvents } from "react-navigation";
 
 import Screen from "../../components/screen"
+import Header from "../../components/header"
 import { Copy, Title } from "../../components/typography"
 import __ from "../../utils/translations"
 
@@ -17,11 +18,10 @@ class Categories extends Component {
   }
 
   render(){
-    console.log(this.props.categories);
     return(
       <Screen>
+        <Header title="Categories" backBtn={true} backBtnPress={()=>this.props.navigation.goBack()}/>
         <ScrollView>
-          <Title style={{alignSelf: "center"}}>Categories</Title>
           <View>
 
             <View style={styles.typeButtonsWrap}>
