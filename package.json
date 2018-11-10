@@ -7,8 +7,13 @@
     "test": "jest"
   },
   "dependencies": {
+    "intl": "^1.2.5",
+    "lodash": "^4.17.11",
+    "moment": "^2.22.2",
     "react": "16.6.0-alpha.8af6728",
     "react-native": "0.57.4",
+    "react-native-animate-number": "^0.1.2",
+    "react-native-fontawesome": "^5.7.0",
     "react-native-material-kit": "^0.5.1",
     "react-navigation": "^2.18.2",
     "react-redux": "^5.1.0",

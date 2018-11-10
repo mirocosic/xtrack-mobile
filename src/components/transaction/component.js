@@ -3,10 +3,13 @@ import { Text, View, TouchableOpacity, StyleSheet } from "react-native"
 
 import { withNavigation } from "react-navigation"
 
-import { Copy } from "../typography"
+import Label from "../label"
+
+import { Copy, Title } from "../typography"
+import Icon from "../icon"
 import __ from "../../utils/translations"
 import { formatCurrency } from "../../utils/currency"
-
+import moment from "moment"
 import styles from "./styles"
 
 const getTransactionColorCode = (type) => {
@@ -36,15 +39,28 @@ class Transaction extends Component {
   render(){
     const { transaction } = this.props
     return(
-      <TouchableOpacity onPress={()=>this.props.navigation.navigate("TransactionForm", {transaction})}>
+      <TouchableOpacity onPress={()=>{
+          this.props.select(transaction)
+          this.props.navigation.navigate("TransactionForm", {transaction})
+        }
+
+        }>
         <View key={transaction.id} style={styles.container}>
           <View style={{flexDirection: "row", alignItems: "center"}}>
-            <View style={getTransactionColorCode(transaction.type)}></View>
+            <Icon style={{marginRight:10}}/>
             <View>
 
-              <Copy>{__("Category")}: {transaction.category && transaction.category.name}</Copy>
-              <Copy>{__("Date")}: {transaction.date}</Copy>
-              <Copy>{__("Note")}: {transaction.note}</Copy>
+              <Title>{transaction.category && transaction.category.name}</Title>
+              <Copy>{moment(transaction.date).format("D.MM.YYYY. HH:mm")}</Copy>
+              <Copy>{transaction.note}</Copy>
+              <View style={styles.labels}>
+                {transaction.labels &&
+                transaction.labels.map((label)=>{
+                  return(
+                    <Label label={label} />
+                  )
+                })}
+              </View>
             </View>
           </View>
 

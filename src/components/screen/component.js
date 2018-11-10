@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: palette.light,
     flex: 1,
-    paddingTop: 20
+    //paddingTop: 20
   },
 
   containerDark: {

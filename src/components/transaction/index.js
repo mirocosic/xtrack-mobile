@@ -10,6 +10,7 @@ export default connect(
 
   (dispatch) => {
     return {
+      select: (transaction) => dispatch({type: "SELECT_TRANSACTION", transaction}),
       delete: (transaction) => dispatch({type: "DELETE_TRANSACTION", transaction})
     }
   }

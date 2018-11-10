@@ -40,26 +40,59 @@ const calculateIncome = (total, amount, type, inverse) => {
 
 const transactions = (state = initialState, action) => {
 
+  if (action.transaction) {
+    console.log(action.transaction);
+    var { timestamp, account, amount, type, note, category, labels} = action.transaction;
+  }
+
+
   switch(action.type){
 
     case "ADD_TRANSACTION":
-      const { account, amount, type, note, category} = action.transaction;
       return {
         ...state,
-        total: calculateTotal(state.total, amount, type, false),
-        expenses: calculateExpense(state.expenses, amount, type, false),
-        income: calculateIncome(state.income, amount, type, false),
+        //total: calculateTotal(state.total, amount, type, false),
+        //expenses: calculateExpense(state.expenses, amount, type, false),
+        //income: calculateIncome(state.income, amount, type, false),
         entries: [
           ...state.entries,
           {
             id: makeId(state.entries),
+            timestamp,
             account,
             type,
             amount,
             note,
-            category
+            category,
+            labels
           }
         ]
+      }
+
+    case "EDIT_TRANSACTION":
+
+      return {
+        ...state,
+        entries: state.entries.map((item)=>{
+          if (item.id !== action.transaction.id) return item;
+
+          return {
+            id: item.id,
+            timestamp,
+            account,
+            type,
+            amount,
+            note,
+            category,
+            labels
+          }
+        })
+      }
+
+    case "SELECT_TRANSACTION":
+      return {
+        ...state,
+        selectedTransaction: action.transaction
       }
 
     case "DELETE_TRANSACTION":
@@ -73,10 +106,37 @@ const transactions = (state = initialState, action) => {
         })
       }
 
+    case "SELECT_CATEGORY":
+      return {
+        ...state,
+        selectedTransaction: {
+          ...state.selectedTransaction,
+          ...{category: action.payload}
+          }
+        }
+
+    case "SET_TYPE":
+      return {
+        ...state,
+        selectedTransaction: {
+          ...state.selectedTransaction,
+          ...{type: action.transactionType}
+          }
+      }
+
     case "SET_TRANSFER_MODE":
       return {
         ...state,
         transferMode: action.value
+      }
+
+    case "ATTACH_LABEL":
+      return {
+        ...state,
+        labels: [
+          ...state.labels,
+          action.payload
+        ]
       }
 
     case "ERASE":

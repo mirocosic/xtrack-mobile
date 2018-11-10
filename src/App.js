@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import {Platform, StyleSheet, Text, View, TextInput, Button, StatusBar} from 'react-native';
 
 import { Provider } from 'react-redux';
 //import store from './store';
@@ -7,6 +7,11 @@ import { persistor, store } from './store';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import AppNavigator from "./navigators/app-navigator";
 import BottomBarNavigator from './navigators/bottom-bar-navigator';
+
+import 'intl';
+import 'intl/locale-data/jsonp/en';
+
+StatusBar.setBarStyle('light-content', true);
 
 export default class App extends Component<Props> {
   render() {

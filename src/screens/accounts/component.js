@@ -8,10 +8,12 @@ import Screen from "../../components/screen"
 import Header from "../../components/header"
 import { Copy, Title } from "../../components/typography"
 
+import { get } from "lodash"
+
 const accountBalance = (account, transactions) => {
   if (transactions.length === 0) return 0;
 
-  const accountTransactions = transactions.filter((item)=>account.id===item.account.id);
+  const accountTransactions = transactions.filter((item)=>account.id === get(item, "account.id"));
 
   if (accountTransactions.length === 0) { return 0 }
 

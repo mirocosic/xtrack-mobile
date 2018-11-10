@@ -14,7 +14,6 @@ export default StyleSheet.create({
     fontSize: 20
   },
 
-
   deleteTrans: {
     width: 40,
     height: 40,
@@ -41,5 +40,14 @@ export default StyleSheet.create({
 
   tranfer: {
     backgroundColor: "blue"
+  },
+
+  labels: {
+    flexDirection: "row"
+  },
+
+  label: {
+    margin: 5,
+    padding: 5
   }
 })

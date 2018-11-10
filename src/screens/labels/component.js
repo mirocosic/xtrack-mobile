@@ -10,7 +10,7 @@ import { Copy, Title } from "../../components/typography"
 
 import styles from "./styles"
 
-const colors = ["red", "blue", "green", "yellow", "pink"];
+const colors = ["#FF5722", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
 
 class Labels extends Component {
 
@@ -56,10 +56,7 @@ class Labels extends Component {
 
             {this.props.labels.map((label)=>(
               <TouchableOpacity key={label.id}
-                onPress={()=>{
-                  this.props.select(label);
-                }}
-                  >
+                onPress={()=>{this.props.select(label); this.props.navigation.goBack()}}>
 
                 <View key={label.id} style={[styles.wrap, this.props.darkMode && styles.wrapDark]}>
                   <View style={{flexDirection: "row", alignItems: "center"}}>

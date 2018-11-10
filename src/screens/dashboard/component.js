@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, ScrollView, TextInput, Button, TouchableOpacity, Alert} from 'react-native';
+import {Platform, Animated, StyleSheet, Text, View, ScrollView, TextInput, Button, TouchableOpacity, Alert} from 'react-native';
 
 import { withNavigation } from "react-navigation";
 
@@ -8,10 +8,18 @@ import Header from "../../components/header"
 import Transaction from "../../components/transaction"
 import { Copy, Title } from "../../components/typography"
 import __ from "../../utils/translations"
+import { formatCurrency } from "../../utils/currency"
+import { get } from "lodash"
+
+import { HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT, HEADER_SCROLL_DISTANCE } from "../../utils/ui-utils"
 
 import styles from  "./styles"
 
 class Dashboard extends Component {
+
+  state = {
+    height: new Animated.Value(0)
+  }
 
   changeAccountFilter = () => {
     Alert.alert(
@@ -27,7 +35,7 @@ class Dashboard extends Component {
   calcExpenses = (account) => {
     const transactions = this.props.transactions;
     if (transactions.length === 0) return 0;
-    const accountTransactions = transactions.filter((item)=>account.id===item.account.id && item.type === "expense");
+    const accountTransactions = transactions.filter((item)=>account.id=== get(item, "account.id") && item.type === "expense");
     if (accountTransactions.length === 0) { return 0 }
     const total = accountTransactions.reduce((a, b)=>({amount: parseFloat(a.amount) + parseFloat(b.amount)}));
 
@@ -37,7 +45,7 @@ class Dashboard extends Component {
   calcIncome = (account) => {
     const transactions = this.props.transactions;
     if (transactions.length === 0) return 0;
-    const accountTransactions = transactions.filter((item)=>account.id===item.account.id && item.type === "income");
+    const accountTransactions = transactions.filter((item)=>account.id=== get(item ,"account.id") && item.type === "income");
     if (accountTransactions.length === 0) { return 0 }
     const total = accountTransactions.reduce((a, b)=>({amount: parseFloat(a.amount) + parseFloat(b.amount)}));
 
@@ -49,7 +57,7 @@ class Dashboard extends Component {
 
       if (transactions.length === 0) return 0;
 
-      const accountTransactions = transactions.filter((item)=>account.id===item.account.id);
+      const accountTransactions = transactions.filter((item)=>account.id=== get(item, "account.id"));
 
       if (accountTransactions.length === 0) { return 0 }
 
@@ -60,19 +68,49 @@ class Dashboard extends Component {
   }
 
   render(){
+
+    const headerHeight = this.state.height.interpolate({
+      inputRange: [0, HEADER_SCROLL_DISTANCE],
+      outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
+      extrapolate: 'clamp',
+    });
+
+    const headerScale = this.state.height.interpolate({
+        inputRange: [-150, 0],
+          outputRange: [3, 1],
+          extrapolate: 'clamp',
+    });
+
     return(
       <Screen>
-        <Header title="Dashboard"></Header>
-        <ScrollView>
+        <Animated.View style={{
+            justifyContent: "center",
+            backgroundColor: "teal",
+            overflow: 'hidden',
+            transform: [{scale: headerScale}],
+            height: headerHeight, backgroundColor:"teal"}}>
+          <Header title="Dashboard"></Header>
+        </Animated.View>
+        <ScrollView
+          scrollEventThrottle={16}
+          onScroll={Animated.event(
+           [{ nativeEvent: {
+                contentOffset: {
+                  y: this.state.height
+                }
+              }
+            }],
+
+         )}>
 
           { this.props.accounts.map((account)=>{
             return(
-              <View style={styles.accountCard}>
+              <View key={account.id} style={styles.accountCard}>
                 <Title>{account.name}</Title>
                 <View style={styles.accountDetails}>
-                  <Copy>{__("Expenses")}: {this.calcExpenses(account)}</Copy>
-                  <Copy>{__("Income")}: {this.calcIncome(account)}</Copy>
-                  <Copy>{__("Total")}: {this.calcTotal(account)}</Copy>
+                  <Copy>{__("Expenses")}: { formatCurrency(this.calcExpenses(account))}</Copy>
+                  <Copy>{__("Income")}: { formatCurrency(this.calcIncome(account))}</Copy>
+                  <Copy>{__("Total")}: { formatCurrency(this.calcTotal(account))}</Copy>
                 </View>
               </View>
             )
@@ -81,9 +119,9 @@ class Dashboard extends Component {
           <View style={styles.accountCard}>
             <Title>{"All accounts"}</Title>
             <View style={styles.accountDetails}>
-              <Copy>{__("Expenses")}: {this.props.expenses}</Copy>
-              <Copy>{__("Income")}: {this.props.income}</Copy>
-              <Copy>{__("Total")}: {this.props.total}</Copy>
+              <Copy>{__("Expenses")}: { formatCurrency(this.props.expenses)}</Copy>
+              <Copy>{__("Income")}: { formatCurrency(this.props.income)}</Copy>
+              <Copy>{__("Total")}: { formatCurrency(this.props.total)}</Copy>
             </View>
           </View>
 

@@ -1,20 +1,24 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, ScrollView, TextInput, Button, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image, ScrollView, TextInput, Button, TouchableOpacity} from 'react-native';
 
 import { withNavigation } from "react-navigation";
 import { NavigationEvents } from "react-navigation";
 
 import Screen from "../../components/screen"
 import Header from "../../components/header"
+import Icon from "../../components/icon"
 import { Copy, Title } from "../../components/typography"
 import __ from "../../utils/translations"
-
 
 class Categories extends Component {
 
   state = {
     categoryName: "",
     type: "expense"
+  }
+
+  countTransactions = (catId) => {
+    return this.props.transactions.filter((transaction)=>transaction.category.id === catId).length
   }
 
   render(){
@@ -53,21 +57,22 @@ class Categories extends Component {
             </View>
 
             {this.props.categories
-            .filter((item)=>{
-              console.log(item);
-              console.log(this.state.type);
-              return item.type === this.state.type
-            })
+            .filter((item)=>item.type === this.state.type)
             .map((cat)=>(
               <TouchableOpacity key={cat.id}
-
                 onPress={()=>{this.props.selectCategory(cat); this.props.navigation.goBack()}}>
+
                 <View key={cat.id} style={[styles.categoryWrap, this.props.darkMode && styles.catWrapDark]}>
-                  <Copy>{cat.name}</Copy>
+                  <View style={{flexDirection: "row", alignItems: "center"}}>
+                    <Icon style={{marginRight: 10}}/>
+                    <Title>{cat.name + " ("+this.countTransactions(cat.id)+")"}</Title>
+                  </View>
+
                   <TouchableOpacity style={styles.delete} onPress={()=>this.props.delete(cat.id)}>
-                    <Text>-</Text>
+                    <Copy>-</Copy>
                   </TouchableOpacity>
                 </View>
+
               </TouchableOpacity>
 
             ))
@@ -88,9 +93,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: 20,
-    borderWidth: 1,
-    margin:10
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    marginTop:10
   },
 
   catWrapDark: {

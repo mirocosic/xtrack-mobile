@@ -9,7 +9,7 @@ export default class Header extends Component {
 
   render(){
     return(
-      <View style={styles.container}>
+      <View style={[styles.container, this.props.style]}>
         { this.props.backBtn &&
           <TouchableOpacity style={styles.backBtn} onPress={this.props.backBtnPress}>
             <Title style={{color: "white"}}>{"<"}</Title>
@@ -23,7 +23,8 @@ export default class Header extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "teal"
+    backgroundColor: "teal",
+    paddingTop: 20,
   },
 
   backBtn: {

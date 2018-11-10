@@ -16,7 +16,7 @@ const AppStack = createStackNavigator({
 
 },{
   headerMode: "none",
-  initialRouteName: 'Splash',
+  initialRouteName: 'Main',
 });
 
 export default AppStack;

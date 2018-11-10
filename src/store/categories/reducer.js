@@ -16,7 +16,6 @@ const categories = (state = initialState, action) => {
       }
 
     case "ADD_CATEGORY":
-    console.log(action.payload);
       return {
         ...state,
         items: [
@@ -37,6 +36,12 @@ const categories = (state = initialState, action) => {
       return {
         ...state,
         selectedCategory: action.payload
+      }
+
+    case "CLEAR_SELECTED_CATEGORY":
+      return {
+        ...state,
+        selectedCategory: {}
       }
 
     case "ERASE":

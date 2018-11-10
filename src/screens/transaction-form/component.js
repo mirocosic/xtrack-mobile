@@ -1,76 +1,145 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, TextInput, Button, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, Text, View, ScrollView, TextInput, Button, TouchableOpacity} from 'react-native';
 
 import { withNavigation } from "react-navigation";
 import Screen from "../../components/screen"
 import { Copy, Title } from "../../components/typography"
+import SelectBox from "../../components/select-box"
+import AnimatedAmount from "../../components/animated-amount"
+import Icon from "../../components/icon"
+import Label from "../../components/label"
 import __ from "../../utils/translations"
+import {formatCurrency} from "../../utils/currency"
+import moment from "moment";
+import { get } from "lodash"
+import styles from "./styles"
+
+import AnimateNumber from 'react-native-animate-number'
 
 class TransactionForm extends Component<Props> {
 
   state = {
-    amount: "500",
-    date: "16.12.1983.",
+    timestamp: moment.now(),
+    amount: 0,
     note: "Vino i cigare...",
-    type: "expense"
+    type: "expense",
+    category: {},
+    account: {},
+    labels: []
   }
 
   componentDidMount = () => {
-    if (this.props.navigation.state.params) {
-      const { type, amount, date, note } = this.props.navigation.state.params.transaction
-      this.setState({
-        type,
-        amount,
-        date,
-        note
-      })
-    }
 
+    this.props.clearSelectedCategory()
+
+    if (this.props.selectedTransaction) {
+
+      this.setState(this.props.selectedTransaction);
+
+     }
+
+  }
+  //
+  componentWillReceiveProps = (nextProps) => {
+    this.setState(nextProps.selectedTransaction);
+  }
+
+  removeLabel = (removedLabel) => {
+     this.setState({
+       labels: this.state.labels.filter((label)=>label.id !== removedLabel.id)
+     })
   }
 
   render() {
+
     return (
       <Screen style={{paddingLeft: 0, paddingRight: 0}}>
         <Title style={styles.welcome}>Enter your expense now!</Title>
-        <View style={styles.wrap}>
+        <ScrollView contentContainerStyle={styles.wrap}>
 
+          <Title>This is your </Title>
 
-          <View style={styles.typeButtonsWrap}>
-            <TouchableOpacity onPress={()=>{this.setState({type: "expense"}); this.props.setTransferMode(false) }}
-              style={[styles.typeButton, this.state.type === "expense" && styles.btnExpenseSelected, this.props.darkMode && styles.btnDark]}>
-              <Copy style={this.state.type === "expense" && styles.copySelected}>{__("Expense")}</Copy>
-            </TouchableOpacity>
+          <SelectBox
+            selected={this.props.navigation.state.params && this.props.navigation.state.params.transaction.type}
+            onPress={(type)=>{
+              this.props.setTransferMode(type === "transfer")
+              this.props.setType(type)
+            }}/>
 
-            <TouchableOpacity onPress={()=>{this.setState({type: "income"}); ; this.props.setTransferMode(false)}}
-              style={[styles.typeButton, this.state.type === "income" && styles.btnIncomeSelected, this.props.darkMode && styles.btnDark]}>
-                <Copy style={this.state.type === "income" && styles.copySelected}>{__("Income")}</Copy>
-            </TouchableOpacity>
+        <View>
 
-            <TouchableOpacity onPress={()=>{this.setState({type: "transfer"}); ; this.props.setTransferMode(true)}}
-              style={[styles.typeButton, this.state.type === "transfer" && styles.btnTransferSelected, this.props.darkMode && styles.btnDark]}>
-                <Copy style={this.state.type === "transfer" && styles.copySelected}>{__("Transfer")}</Copy>
-            </TouchableOpacity>
+          <Title>{ "on " + moment(this.state.timestamp).format("dddd, MMMM Do YYYY, h:mm:ss a")}</Title>
+        </View>
 
+        <View style={{flexDirection: "row", alignItems: "center"}}>
+          <Title>in category</Title>
 
+            { this.state.type !== "transfer" &&
+              <View>
+                <TouchableOpacity
+                  style={[styles.selectBox, this.props.darkMode && styles.selectBoxDark]}
+                  onPress={()=>this.props.navigation.navigate("Categories")}>
+                  <Icon style={{marginRight: 10}}/>
+                  <Text style={this.props.darkMode ? styles.textInputDark : styles.textInput}>
+                    { get(this.props.selectedCategory , "name") ||
+                      get(this.state, "category.name", "select") }
+                  </Text>
+                </TouchableOpacity>
+              </View>
+          }
+        </View>
+
+        <View style={{flexDirection: "row", alignItems: "flex-end"}}>
+          <Title>You have spent</Title>
+          <Title style={{color: "gray", backgroundColor: "white"}}>
+
+          <AnimateNumber
+            value={this.state.amount}
+            timing="easeOut"
+            interval={18}
+            steps={ 23 }
+            formatter={(val)=>formatCurrency(val)}/>
+          </Title>
+          {
+            // <TextInput
+            //     onChangeText={(value) => this.setState({amount: value})}
+            //     value={ this.state.amount}
+            //     style={ [ styles.amountInput, this.props.darkMode && styles.amountInputDark ]}
+            //     placeholder="0,00 kn"
+            //     keyboardAppearance={this.props.darkMode ? "dark" : "light"}
+            //     keyboardType="numeric"
+            //     returnKeyType="done"
+            // />
+          }
+        </View>
+
+        { this.state.type === "transfer" &&
+          <View>
+            <Title>From Account:</Title>
+              <TouchableOpacity
+                style={[styles.selectBox, this.props.darkMode && styles.selectBoxDark]}
+                onPress={()=>this.props.navigation.navigate("Accounts", {accountField: "from"})}>
+                <Icon icon="money" style={{marginRight: 10}}/>
+                  <Text style={this.props.darkMode ? styles.textInputDark : styles.textInput}>
+                    {this.props.fromAccount.name}
+                  </Text>
+
+              </TouchableOpacity>
           </View>
+        }
 
-          <TextInput
-              onChangeText={(value) => this.setState({amount: value})}
-              value={this.state.amount}
-              style={this.props.darkMode ? styles.textInputDark : styles.textInput}
-              placeholder="amount"
-              keyboardAppearance={this.props.darkMode ? "dark" : "light"}
-              keyboardType="numeric"
-              returnKeyType="done"
-          />
-          <TextInput
-              onChangeText={(value) => this.setState({date: value})}
-              value={this.state.date}
-              style={this.props.darkMode ? styles.textInputDark : styles.textInput}
-              placeholder="date"
-              returnKeyType="done"
-              keyboardAppearance={this.props.darkMode ? "dark" : "light"}
-          />
+        <Title>{this.state.type === "transfer" && "To "}Account</Title>
+        <TouchableOpacity
+          style={[styles.selectBox, this.props.darkMode && styles.selectBoxDark]}
+          onPress={()=>this.props.navigation.navigate("Accounts", {accountField: "to"})}>
+          <Icon icon="money" style={{marginRight: 10}}/>
+          <Text style={this.props.darkMode ? styles.textInputDark : styles.textInput}>
+
+            {this.props.toAccount.name}
+          </Text>
+        </TouchableOpacity>
+
+        <Title>Note about this:</Title>
           <TextInput
               onChangeText={(value) => this.setState({note: value})}
               value={this.state.note}
@@ -80,141 +149,55 @@ class TransactionForm extends Component<Props> {
               keyboardAppearance={this.props.darkMode ? "dark" : "light"}
           />
 
-          { this.state.type === "transfer" &&
-            <View>
-              <Copy>From Account:</Copy>
-                <TouchableOpacity
-                  style={[styles.selectBox, this.props.darkMode && styles.selectBoxDark]}
-                  onPress={()=>this.props.navigation.navigate("Accounts", {accountField: "from"})}>
-                  <Text style={this.props.darkMode ? styles.textInputDark : styles.textInput}>{this.props.fromAccount.name}</Text>
-                </TouchableOpacity>
-            </View>
-          }
+          <Copy>Labels</Copy>
 
-          <Copy>{this.state.type === "transfer" && "To "}Account:</Copy>
+          <View style={ styles.labels }>
+
+            {this.state.labels.map((label)=>{
+
+              return(
+                <Label label={label} removeLabel={()=>this.removeLabel(label)}/>
+              )
+            }
+
+          )}
           <TouchableOpacity
-            style={[styles.selectBox, this.props.darkMode && styles.selectBoxDark]}
-            onPress={()=>this.props.navigation.navigate("Accounts", {accountField: "to"})}>
-            <Text style={this.props.darkMode ? styles.textInputDark : styles.textInput}>{this.props.toAccount.name}</Text>
+            onPress={()=>this.props.navigation.navigate("Labels")}>
+              <Title>+</Title>
           </TouchableOpacity>
 
-          { this.state.type !== "transfer" &&
-            <View>
-              <Copy>Category:</Copy>
-              <TouchableOpacity
-                style={[styles.selectBox, this.props.darkMode && styles.selectBoxDark]}
-                onPress={()=>this.props.navigation.navigate("Categories")}>
-                <Text style={this.props.darkMode ? styles.textInputDark : styles.textInput}>{this.props.selectedCategory.name}</Text>
-              </TouchableOpacity>
-            </View>
-        }
+        </View>
           <Button title="Done!" onPress={()=>{
-              this.props.add({
+              const transaction = {
+                timestamp: this.state.timestamp,
                 account: this.props.toAccount,
                 type: this.state.type,
                 amount: this.state.type === "expense" ? -this.state.amount : this.state.amount,
                 note: this.state.note,
-                category: this.props.selectedCategory
-              })
+                category: this.state.category,
+
+                labels: this.state.labels
+              }
+              if (this.state.id){
+                this.props.edit({...transaction, ...{id: this.state.id}})
+              } else {
+                this.props.add(transaction)
+              }
+
               this.props.navigation.navigate("Dashboard")
             }}
           />
 
-        <Button title="Back" onPress={()=>this.props.navigation.goBack()}/>
+        <Button title="Back" onPress={()=>this.props.navigation.navigate("Transactions")}/>
 
         {this.props.navigation.state.params &&
          this.props.navigation.state.params.transaction &&
           <Button title="Delete" onPress={()=>{}}/>
         }
-      </View>
+      </ScrollView>
     </Screen>
     );
   }
 }
 
 export default withNavigation(TransactionForm);
-
-const styles = StyleSheet.create({
-
-  wrap: {
-    paddingLeft: 20,
-    paddingRight: 20
-  },
-
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-
-  welcome: {
-    color: "white",
-    textAlign: 'center',
-    padding: 10,
-    marginBottom: 30,
-    backgroundColor: "teal"
-  },
-
-  textInput: {
-    color: "black",
-    fontSize: 20,
-    width: 200,
-    borderBottomWidth: 1,
-    borderColor: "black",
-    padding: 10,
-    margin: 10
-  },
-
-  textInputDark: {
-    color: "white",
-    fontSize: 20,
-    width: 200,
-    borderBottomWidth: 1,
-    borderColor: "white",
-    padding: 10,
-    margin: 10
-  },
-
-  typeButtonsWrap: {
-    flexDirection: "row",
-    justifyContent: "space-evenly"
-  },
-
-  typeButton: {
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
-    borderWidth: 1,
-    borderColor: "black"
-  },
-
-  btnExpenseSelected: {
-    backgroundColor: "red",
-  },
-
-  btnIncomeSelected: {
-    backgroundColor: "green",
-  },
-
-  btnTransferSelected: {
-    backgroundColor: "blue",
-  },
-
-  btnDark: {
-    borderColor: "white"
-  },
-
-  copySelected: {
-    color: "white"
-  },
-
-  selectBox: {
-    borderWidth: 1,
-  },
-
-  selectBoxDark: {
-    borderColor: "white"
-  }
-
-});

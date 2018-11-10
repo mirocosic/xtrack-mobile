@@ -24,8 +24,8 @@ const labels = (state = initialState, action) => {
         })
       }
 
-    case "SELECT_LABEL":
-      return {
+     case "SELECT_LABEL":
+       return {
         ...state,
         selectedLabel: action.payload
       }

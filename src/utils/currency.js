@@ -1,4 +1,4 @@
-export function formatCurrency(input, digits = 2) {
+export function formatCurrency(input = 0, digits = 2) {
 
   let formatter = new Intl.NumberFormat('hr-HR', {
     style: 'currency',

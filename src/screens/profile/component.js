@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import {View, Text, Button, Switch, Alert, TouchableOpacity, StatusBar, StyleSheet } from "react-native";
+import { Animated,
+  View, Text, Button, Switch, Alert, TouchableOpacity, StatusBar, StyleSheet } from "react-native";
 
 import { withNavigation } from "react-navigation";
 
@@ -9,6 +10,52 @@ import { Copy, Title } from "../../components/typography"
 import __ from "../../utils/translations"
 
 class Profile extends Component {
+
+
+
+  handleClick = () => {
+    let x = 120;
+    let y = 30;
+    let move = 0;
+    if (this.state.closed) {
+      x = 200;
+      y = 150;
+      move = 100;
+    }
+
+    Animated.parallel([
+      Animated.timing(                   // Animate over time
+        this.state.scaleX,            // The animated value to drive
+        {
+          toValue: x,                   // Animate to opacity: 1 (opaque)
+          duration: 500,              // Make it take a while
+        }
+      ),
+      Animated.timing(                   // Animate over time
+        this.state.scaleY,            // The animated value to drive
+        {
+          toValue: y,                   // Animate to opacity: 1 (opaque)
+          duration: 500,              // Make it take a while
+        }
+      ),
+      Animated.timing(                  // Animate over time
+        this.state.move,            // The animated value to drive
+        {
+          toValue: move,                   // Animate to opacity: 1 (opaque)
+          duration: 500,              // Make it take a while
+        }
+      )
+    ]).start()
+
+
+    this.setState({
+      closed: !this.state.closed
+    })
+  }
+
+
+
+
 
   handleDarkMode = () => {
     if (this.props.darkMode) {
@@ -90,6 +137,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     marginTop: 10,
-    borderWidth: 1
+    borderBottomWidth: 1
   }
 })

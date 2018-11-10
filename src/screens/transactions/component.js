@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, ScrollView, TextInput, Button, TouchableOpacity, Alert} from 'react-native';
+import {Platform, Animated, StyleSheet, Text, View, ScrollView, TextInput, Button, TouchableOpacity, Alert} from 'react-native';
 
 import { withNavigation } from "react-navigation";
 
@@ -8,10 +8,20 @@ import Header from "../../components/header"
 import Transaction from "../../components/transaction"
 import { Copy, Title } from "../../components/typography"
 import __ from "../../utils/translations"
+import { formatCurrency } from "../../utils/currency"
+import { get } from "lodash"
 
 import styles from  "./styles"
 
+const HEADER_MAX_HEIGHT = 150;
+const HEADER_MIN_HEIGHT = 80;
+const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
+
 class Transactions extends Component {
+
+  state = {
+    height: new Animated.Value(0)
+  }
 
   changeAccountFilter = () => {
     Alert.alert(
@@ -27,16 +37,45 @@ class Transactions extends Component {
   }
 
   render(){
+    const headerHeight = this.state.height.interpolate({
+      inputRange: [0, HEADER_SCROLL_DISTANCE],
+      outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
+      extrapolate: 'clamp',
+    });
+
+    const headerScale = this.state.height.interpolate({
+        inputRange: [-150, 0],
+          outputRange: [3, 1],
+          extrapolate: 'clamp',
+    });
+
     return(
       <Screen>
-        <Header title="Transactions"></Header>
-        <ScrollView>
+        <Animated.View style={{
+            justifyContent: "center",
+            backgroundColor: "teal",
+            overflow: 'hidden',
+            transform: [{scale: headerScale}],
+            height: headerHeight, backgroundColor:"teal"}}>
+          <Header title="Transactions"></Header>
+        </Animated.View>
+
+        <ScrollView
+          scrollEventThrottle={16}
+          onScroll={Animated.event(
+           [{ nativeEvent: {
+                contentOffset: {
+                  y: this.state.height
+                }
+              }
+            }]
+         )}>
 
           <View style={styles.overview}>
             <View>
-              <Copy>{__("Expenses")}: {this.props.expenses}</Copy>
-              <Copy>{__("Income")}: {this.props.income}</Copy>
-              <Copy>{__("Total")}: {this.props.total}</Copy>
+              <Copy>{__("Expenses")}: {formatCurrency(this.props.expenses)}</Copy>
+              <Copy>{__("Income")}: {formatCurrency(this.props.income)}</Copy>
+              <Copy>{__("Total")}: {formatCurrency(this.props.total)}</Copy>
             </View>
 
             <TouchableOpacity onPress={this.changeAccountFilter}>
@@ -50,8 +89,8 @@ class Transactions extends Component {
             {this.props.entries
               .filter((item)=>{
                 if (!this.props.accountFilter) {return true}
-                if (!item.account) {return true}
-                return item.account.id === this.props.accountFilter.id
+                if (!get(item, "account")) {return true}
+                return get(item, "account.id") === this.props.accountFilter.id
               })
               .map((value)=>(<Transaction key={value.id} transaction={value}/>))
               .reverse()}

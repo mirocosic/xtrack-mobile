@@ -4,6 +4,7 @@ import Component from './component';
 export default connect(
   (state) => {
     return {
+      transactions: state.transactions.entries,
       categories: state.categories.items,
       darkMode: state.common.darkMode
     }
