@@ -31,6 +31,7 @@ class Labels extends Component {
               { colors.map((color)=>{
                 return(
                   <TouchableOpacity
+                    key={color}
                     style={[styles.colorBox, this.state.color === color && styles.selectedColor, {backgroundColor: color}]}
                     onPress={()=>this.setState({color})}>
 

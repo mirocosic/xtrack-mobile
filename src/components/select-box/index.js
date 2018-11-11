@@ -9,7 +9,8 @@ export default class SelectBox extends Component {
     vertical: new Animated.Value(0),
     scaleX: new Animated.Value(120),
     scaleY: new Animated.Value(30),
-    move: new Animated.Value(0)
+    move: new Animated.Value(0),
+    closed: true
   }
 
   handleSelect = (type) => {
@@ -74,6 +75,7 @@ export default class SelectBox extends Component {
   }
 
   componentDidMount = () => {
+    let vertical = -20
     if (this.props.selected === "income"){
       vertical = -87
     } else if (this.props.selected === "expense") {

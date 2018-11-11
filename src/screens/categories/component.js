@@ -6,19 +6,17 @@ import { NavigationEvents } from "react-navigation";
 
 import Screen from "../../components/screen"
 import Header from "../../components/header"
+import Category from "../../components/category"
 import Icon from "../../components/icon"
 import { Copy, Title } from "../../components/typography"
 import __ from "../../utils/translations"
+import { get } from "lodash"
 
 class Categories extends Component {
 
   state = {
     categoryName: "",
     type: "expense"
-  }
-
-  countTransactions = (catId) => {
-    return this.props.transactions.filter((transaction)=>transaction.category.id === catId).length
   }
 
   render(){
@@ -59,27 +57,12 @@ class Categories extends Component {
             {this.props.categories
             .filter((item)=>item.type === this.state.type)
             .map((cat)=>(
-              <TouchableOpacity key={cat.id}
-                onPress={()=>{this.props.selectCategory(cat); this.props.navigation.goBack()}}>
-
-                <View key={cat.id} style={[styles.categoryWrap, this.props.darkMode && styles.catWrapDark]}>
-                  <View style={{flexDirection: "row", alignItems: "center"}}>
-                    <Icon style={{marginRight: 10}}/>
-                    <Title>{cat.name + " ("+this.countTransactions(cat.id)+")"}</Title>
-                  </View>
-
-                  <TouchableOpacity style={styles.delete} onPress={()=>this.props.delete(cat.id)}>
-                    <Copy>-</Copy>
-                  </TouchableOpacity>
-                </View>
-
-              </TouchableOpacity>
-
+              <Category data={cat} onPress={()=>{this.props.selectCategory(cat); this.props.navigation.goBack()}}/>
             ))
             .reverse()
             }
           </View>
-          <Button title="Select" onPress={()=>this.props.navigation.navigate("EntryForm")}/>
+
         </ScrollView>
       </Screen>
     )
@@ -89,21 +72,7 @@ class Categories extends Component {
 export default withNavigation (Categories);
 
 const styles = StyleSheet.create({
-  categoryWrap: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 10,
-    paddingBottom: 10,
-    borderBottomWidth: 1,
-    marginTop:10
-  },
-
-  catWrapDark: {
-    borderColor: "white"
-  },
+  
 
   inputContainer: {
     paddingLeft: 20,

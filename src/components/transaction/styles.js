@@ -1,10 +1,11 @@
 import { StyleSheet } from "react-native";
 
+import palette from "../../utils/palette"
+
 export default StyleSheet.create({
   container: {
     padding: 10,
-    borderBottomWidth: 1,
-    borderColor: "gray",
+  
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between"
@@ -49,5 +50,14 @@ export default StyleSheet.create({
   label: {
     margin: 5,
     padding: 5
-  }
+  },
+
+  deleteButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'red',
+    flex: 1,
+    height: 70
+  },
+
 })

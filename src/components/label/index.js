@@ -20,7 +20,7 @@ export default class Label extends Component{
   render(){
     const {label} = this.props
     return(
-      <View key={label.id} style={[styles.label, {backgroundColor: label.color}]}>
+      <View key={label.uuid} style={[styles.label, {backgroundColor: label.color}]}>
         <Copy style={{fontSize: 12, color: this.labelCopyColor(label.color)}}>{label.name}</Copy>
         { this.props.removeLabel &&
           <TouchableOpacity

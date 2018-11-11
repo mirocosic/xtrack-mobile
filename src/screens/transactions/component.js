@@ -61,6 +61,7 @@ class Transactions extends Component {
         </Animated.View>
 
         <ScrollView
+          scrollEnabled={this.state.scrollEnabled}
           scrollEventThrottle={16}
           onScroll={Animated.event(
            [{ nativeEvent: {
@@ -92,12 +93,16 @@ class Transactions extends Component {
                 if (!get(item, "account")) {return true}
                 return get(item, "account.id") === this.props.accountFilter.id
               })
-              .map((value)=>(<Transaction key={value.id} transaction={value}/>))
+              .map((value)=>(<Transaction key={value.id} transaction={value}/> ))
               .reverse()}
           </View>
 
         </ScrollView>
-        <TouchableOpacity onPress={()=>this.props.navigation.navigate("TransactionForm")}
+        <TouchableOpacity onPress={()=>{
+            this.props.navigation.navigate("TransactionForm")
+            this.props.clearSelectedCategory()
+            this.props.clearTransactionForm()
+          }}
           style={styles.addButton}>
           <Copy style={{fontSize: 40, color: "#f0f0f0"}}>+</Copy>
         </TouchableOpacity>

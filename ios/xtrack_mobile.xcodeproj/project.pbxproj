@@ -24,6 +24,23 @@
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		4E61E9BB218E71D70024BB89 /* libRCTMaterialKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E61E9BA218E71C30024BB89 /* libRCTMaterialKit.a */; };
+		4EF11DE721987D6B00824335 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EF11DD12198770A00824335 /* NotificationCenter.framework */; };
+		4EF11DEB21987D6B00824335 /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF11DEA21987D6B00824335 /* TodayViewController.m */; };
+		4EF11DEE21987D6B00824335 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EF11DEC21987D6B00824335 /* MainInterface.storyboard */; };
+		4EF11DF221987D6B00824335 /* XTrackWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4EF11DE621987D6B00824335 /* XTrackWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4EF11E012198867200824335 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		4EF11E02219886F700824335 /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302C01ABCB91800DB3ED1 /* libRCTImage.a */; };
+		4EF11E03219886F700824335 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
+		4EF11E04219886F700824335 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		4EF11E05219886F700824335 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
+		4EF11E0A21988CCC00824335 /* DisplayMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF11E0721988CCC00824335 /* DisplayMode.m */; };
+		4EF11E0B21988CCC00824335 /* Linking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF11E0821988CCC00824335 /* Linking.m */; };
+		4EF11E0C21988D5500824335 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
+		4EF11E0D21988D5500824335 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		4EF11E0E21988D5500824335 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
+		4EF11E0F21988D5500824335 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
+		4EF11E1021988D5500824335 /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
+		4EF11E1121988D5500824335 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 /* End PBXBuildFile section */
@@ -267,6 +284,13 @@
 			remoteGlobalIDString = 8A1B8E771B22E4E300DB45C2;
 			remoteInfo = RCTMaterialKit;
 		};
+		4EF11DF021987D6B00824335 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4EF11DE521987D6B00824335;
+			remoteInfo = XTrackWidget;
+		};
 		5E9157321DD0AC6500FF2AA8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */;
@@ -304,6 +328,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		4EF11DE12198770A00824335 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				4EF11DF221987D6B00824335 /* XTrackWidget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
@@ -326,6 +364,16 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E61E9B5218E71C30024BB89 /* RCTMaterialKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTMaterialKit.xcodeproj; path = "../node_modules/react-native-material-kit/iOS/RCTMaterialKit.xcodeproj"; sourceTree = "<group>"; };
+		4EF11DD12198770A00824335 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		4EF11DE621987D6B00824335 /* XTrackWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = XTrackWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4EF11DE921987D6B00824335 /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
+		4EF11DEA21987D6B00824335 /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
+		4EF11DED21987D6B00824335 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		4EF11DEF21987D6B00824335 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4EF11E0621988CCC00824335 /* DisplayMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DisplayMode.h; path = XtrackWidget/DisplayMode.h; sourceTree = SOURCE_ROOT; };
+		4EF11E0721988CCC00824335 /* DisplayMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DisplayMode.m; path = XtrackWidget/DisplayMode.m; sourceTree = SOURCE_ROOT; };
+		4EF11E0821988CCC00824335 /* Linking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Linking.m; path = XtrackWidget/Linking.m; sourceTree = SOURCE_ROOT; };
+		4EF11E0921988CCC00824335 /* Linking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Linking.h; path = XtrackWidget/Linking.h; sourceTree = SOURCE_ROOT; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -358,6 +406,25 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4EF11DE321987D6B00824335 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4EF11E0C21988D5500824335 /* libRCTActionSheet.a in Frameworks */,
+				4EF11E0D21988D5500824335 /* libRCTAnimation.a in Frameworks */,
+				4EF11E0E21988D5500824335 /* libRCTGeolocation.a in Frameworks */,
+				4EF11E0F21988D5500824335 /* libRCTLinking.a in Frameworks */,
+				4EF11E1021988D5500824335 /* libRCTSettings.a in Frameworks */,
+				4EF11E1121988D5500824335 /* libRCTVibration.a in Frameworks */,
+				4EF11E02219886F700824335 /* libRCTImage.a in Frameworks */,
+				4EF11E03219886F700824335 /* libRCTNetwork.a in Frameworks */,
+				4EF11E04219886F700824335 /* libRCTText.a in Frameworks */,
+				4EF11E05219886F700824335 /* libRCTWebSocket.a in Frameworks */,
+				4EF11E012198867200824335 /* libReact.a in Frameworks */,
+				4EF11DE721987D6B00824335 /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,6 +551,7 @@
 			isa = PBXGroup;
 			children = (
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
+				4EF11DD12198770A00824335 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -494,6 +562,21 @@
 				4E61E9BA218E71C30024BB89 /* libRCTMaterialKit.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		4EF11DE821987D6B00824335 /* XTrackWidget */ = {
+			isa = PBXGroup;
+			children = (
+				4EF11E0621988CCC00824335 /* DisplayMode.h */,
+				4EF11E0721988CCC00824335 /* DisplayMode.m */,
+				4EF11E0921988CCC00824335 /* Linking.h */,
+				4EF11E0821988CCC00824335 /* Linking.m */,
+				4EF11DE921987D6B00824335 /* TodayViewController.h */,
+				4EF11DEA21987D6B00824335 /* TodayViewController.m */,
+				4EF11DEC21987D6B00824335 /* MainInterface.storyboard */,
+				4EF11DEF21987D6B00824335 /* Info.plist */,
+			);
+			path = XTrackWidget;
 			sourceTree = "<group>";
 		};
 		5E91572E1DD0AC6500FF2AA8 /* Products */ = {
@@ -549,6 +632,7 @@
 				13B07FAE1A68108700A75B9A /* xtrack_mobile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* xtrack_mobileTests */,
+				4EF11DE821987D6B00824335 /* XTrackWidget */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 			);
@@ -562,6 +646,7 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* xtrack_mobile.app */,
 				00E356EE1AD99517003FC87E /* xtrack_mobileTests.xctest */,
+				4EF11DE621987D6B00824335 /* XTrackWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -604,15 +689,35 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				4EF11DE12198770A00824335 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4EF11DF121987D6B00824335 /* PBXTargetDependency */,
 			);
 			name = xtrack_mobile;
 			productName = "Hello World";
 			productReference = 13B07F961A680F5B00A75B9A /* xtrack_mobile.app */;
 			productType = "com.apple.product-type.application";
+		};
+		4EF11DE521987D6B00824335 /* XTrackWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4EF11DF321987D6B00824335 /* Build configuration list for PBXNativeTarget "XTrackWidget" */;
+			buildPhases = (
+				4EF11DE221987D6B00824335 /* Sources */,
+				4EF11DE321987D6B00824335 /* Frameworks */,
+				4EF11DE421987D6B00824335 /* Resources */,
+				4EF11DF62198820100824335 /* Bundle React Native code */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XTrackWidget;
+			productName = XTrackWidget;
+			productReference = 4EF11DE621987D6B00824335 /* XTrackWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -620,6 +725,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				DefaultBuildSystemTypeForWorkspace = Original;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
@@ -630,6 +736,11 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = QDRTVHPM2W;
+					};
+					4EF11DE521987D6B00824335 = {
+						CreatedOnToolsVersion = 10.1;
+						DevelopmentTeam = QDRTVHPM2W;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -702,6 +813,7 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* xtrack_mobile */,
 				00E356ED1AD99517003FC87E /* xtrack_mobileTests */,
+				4EF11DE521987D6B00824335 /* XTrackWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -992,6 +1104,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4EF11DE421987D6B00824335 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4EF11DEE21987D6B00824335 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1007,7 +1127,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+		};
+		4EF11DF62198820100824335 /* Bundle React Native code */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/index.widget.js",
+			);
+			name = "Bundle React Native code";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh index.widget.js\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1029,6 +1168,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4EF11DE221987D6B00824335 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4EF11E0B21988CCC00824335 /* Linking.m in Sources */,
+				4EF11DEB21987D6B00824335 /* TodayViewController.m in Sources */,
+				4EF11E0A21988CCC00824335 /* DisplayMode.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1036,6 +1185,11 @@
 			isa = PBXTargetDependency;
 			target = 13B07F861A680F5B00A75B9A /* xtrack_mobile */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+		};
+		4EF11DF121987D6B00824335 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4EF11DE521987D6B00824335 /* XTrackWidget */;
+			targetProxy = 4EF11DF021987D6B00824335 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1047,6 +1201,14 @@
 			);
 			name = LaunchScreen.xib;
 			path = xtrack_mobile;
+			sourceTree = "<group>";
+		};
+		4EF11DEC21987D6B00824335 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4EF11DED21987D6B00824335 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1097,6 +1259,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = QDRTVHPM2W;
@@ -1117,6 +1280,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QDRTVHPM2W;
 				INFOPLIST_FILE = xtrack_mobile/Info.plist;
@@ -1129,6 +1293,66 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mirocosic.xtrack;
 				PRODUCT_NAME = xtrack_mobile;
 				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		4EF11DF421987D6B00824335 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = QDRTVHPM2W;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = XTrackWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mirocosic.xtrack.XTrackTodayWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4EF11DF521987D6B00824335 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = QDRTVHPM2W;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = XTrackWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mirocosic.xtrack.XTrackTodayWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1248,6 +1472,15 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4EF11DF321987D6B00824335 /* Build configuration list for PBXNativeTarget "XTrackWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4EF11DF421987D6B00824335 /* Debug */,
+				4EF11DF521987D6B00824335 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

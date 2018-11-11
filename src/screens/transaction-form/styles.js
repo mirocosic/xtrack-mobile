@@ -24,9 +24,9 @@ export default StyleSheet.create({
     textInput: {
       color: "black",
       fontSize: 20,
-      width: 200,
-      padding: 10,
-      margin: 10
+      margin: 10,
+      width: 100,
+      backgroundColor: "white"
     },
 
     textInputDark: {
@@ -96,6 +96,20 @@ export default StyleSheet.create({
       borderColor: "white"
     },
 
+    labels: {
+      flexDirection: "row",
+      flexWrap: "wrap"
+    },
 
+    calendarWrap: {
+
+      position: "absolute",
+      flex: 1,
+      bottom: 0,
+      width: "100%",
+      //height: "100%",
+      backgroundColor: "gray",
+      //opacity: 0.8
+    }
 
 })

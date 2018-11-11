@@ -1,5 +1,9 @@
 import initialState from './initial-state';
 
+import { makeUUID } from "../../utils/helper-gnomes"
+
+import moment from "moment"
+
 const makeId = (entries)=>{
 
   if (entries.length){
@@ -41,8 +45,7 @@ const calculateIncome = (total, amount, type, inverse) => {
 const transactions = (state = initialState, action) => {
 
   if (action.transaction) {
-    console.log(action.transaction);
-    var { timestamp, account, amount, type, note, category, labels} = action.transaction;
+    var { timestamp, account, fromAccount, amount, type, note, category, labels} = action.transaction;
   }
 
 
@@ -60,6 +63,7 @@ const transactions = (state = initialState, action) => {
             id: makeId(state.entries),
             timestamp,
             account,
+            fromAccount,
             type,
             amount,
             note,
@@ -98,12 +102,42 @@ const transactions = (state = initialState, action) => {
     case "DELETE_TRANSACTION":
       return {
         ...state,
-        total: calculateTotal(state.total, action.transaction.amount, action.transaction.type, true),
-        expenses: calculateExpense(state.expenses, action.transaction.amount, action.transaction.type, true),
-        income: calculateIncome(state.income, action.transaction.amount, action.transaction.type, true),
+        //total: calculateTotal(state.total, action.transaction.amount, action.transaction.type, true),
+        //expenses: calculateExpense(state.expenses, action.transaction.amount, action.transaction.type, true),
+        //income: calculateIncome(state.income, action.transaction.amount, action.transaction.type, true),
         entries: state.entries.filter((item)=>{
           return item.id !== action.transaction.id
         })
+      }
+
+    case "TRANSFER_TRANSACTION":
+      return {
+        ...state,
+        entries: [
+          ...state.entries,
+          {
+            id: makeId(state.entries),
+            timestamp,
+            account: fromAccount,
+            fromAccount: account,
+            type,
+            amount: -amount,
+            note,
+            category,
+            labels
+          },
+          {
+            id: makeId(state.entries) + 1,
+            timestamp,
+            account,
+            fromAccount,
+            type,
+            amount:
+            note,
+            category,
+            labels
+          }
+        ]
       }
 
     case "SELECT_CATEGORY":
@@ -114,6 +148,44 @@ const transactions = (state = initialState, action) => {
           ...{category: action.payload}
           }
         }
+    case "SELECT_LABEL":
+      return {
+        ...state,
+        selectedTransaction: {
+          ...state.selectedTransaction,
+          ...{labels: [
+            ...state.selectedTransaction.labels,
+            {uuid: makeUUID(), ...action.payload}
+            ]}
+          }
+      }
+
+    case "REMOVE_LABEL":
+      return {
+        ...state,
+        selectedTransaction: {
+          ...state.selectedTransaction,
+          ...{labels: state.selectedTransaction.labels.filter((label)=>label.uuid !== action.label.uuid)}
+        }
+      }
+
+    case "SELECT_TO_ACCOUNT":
+      return {
+        ...state,
+        selectedTransaction: {
+          ...state.selectedTransaction,
+          ...{account: action.payload}
+        }
+      }
+
+    case "SELECT_FROM_ACCOUNT":
+      return {
+        ...state,
+        selectedTransaction: {
+          ...state.selectedTransaction,
+          ...{fromAccount: action.payload}
+        }
+      }
 
     case "SET_TYPE":
       return {
@@ -130,13 +202,18 @@ const transactions = (state = initialState, action) => {
         transferMode: action.value
       }
 
-    case "ATTACH_LABEL":
+    case "CLEAR_TRANSACTION_FORM":
       return {
         ...state,
-        labels: [
-          ...state.labels,
-          action.payload
-        ]
+        selectedTransaction: {
+          timestamp: moment.now(),
+          amount: 0,
+          note: "",
+          type: "expense",
+          category: {},
+          account: {},
+          fromAccount: {},
+          labels: []}
       }
 
     case "ERASE":

@@ -7,6 +7,9 @@ import { NavigationEvents } from "react-navigation";
 import Screen from "../../components/screen"
 import Header from "../../components/header"
 import { Copy, Title } from "../../components/typography"
+import Icon from "../../components/icon"
+
+import styles from "./styles"
 
 import { get } from "lodash"
 
@@ -63,7 +66,11 @@ class Accounts extends Component {
                   this.props.navigation.goBack()}}>
 
                 <View key={account.id} style={[styles.wrap, this.props.darkMode && styles.wrapDark]}>
-                  <Copy>{account.name + "  -  " + accountBalance(account, this.props.transactions)}</Copy>
+                  <View style={{flexDirection: "row", alignItems: "center"}}>
+                    <Icon icon="money" style={{marginRight: 10}}/>
+                    <Copy>{account.name + "  -  " + accountBalance(account, this.props.transactions)}</Copy>
+                  </View>
+
                   <TouchableOpacity style={styles.delete} onPress={()=>this.props.delete(account.id)}>
                     <Text>-</Text>
                   </TouchableOpacity>
@@ -81,58 +88,3 @@ class Accounts extends Component {
 }
 
 export default withNavigation (Accounts);
-
-const styles = StyleSheet.create({
-  wrap: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: 20,
-    borderWidth: 1,
-    margin:10
-  },
-
-  wrapDark: {
-    borderColor: "white"
-  },
-
-  inputContainer: {
-    paddingLeft: 20,
-    paddingRight: 20,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between"
-  },
-
-  input: {
-    color: "black",
-    fontSize: 20,
-    padding: 20,
-    margin: 20,
-    width: 200,
-    borderBottomWidth: 1
-  },
-
-  inputDark: {
-    color: "white",
-    borderColor: "white"
-  },
-
-  add: {
-    width: 50,
-    height: 40,
-    borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "green"
-  },
-
-  delete: {
-    backgroundColor: "red",
-    width: 30,
-    height: 30,
-    borderRadius: 20,
-    alignItems: "center",
-    justifyContent: "center"
-  }
-})

@@ -4,6 +4,7 @@ import { Text, View, TouchableOpacity, StyleSheet } from "react-native"
 import { withNavigation } from "react-navigation"
 
 import Label from "../label"
+import Swipeout from 'react-native-swipeout';
 
 import { Copy, Title } from "../typography"
 import Icon from "../icon"
@@ -34,12 +35,43 @@ const getAmountColor = (type) => {
   }
 }
 
+const renderDeleteButton = (transaction) => {
+
+  if (transaction.archived) {
+    return (
+      <View style={styles.archiveButton}>
+        <Icon style={{backgroundColor: "red"}}/>
+        <Copy style={styles.archiveCopy}>Move to Messages</Copy>
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.deleteButton}>
+        <Icon style={{backgroundColor: "red"}}/>
+        <Copy style={{color: "white"}}>Delete</Copy>
+      </View>
+    );
+  }
+
+}
+
 class Transaction extends Component {
 
   render(){
     const { transaction } = this.props
     return(
-      <TouchableOpacity onPress={()=>{
+      <Swipeout
+        right={[{
+          backgroundColor: "#f8f8fc",
+          component: renderDeleteButton(transaction),
+          onPress: ()=>this.props.delete(transaction)
+        }]}
+        style={{borderBottomWidth: 1, borderColor: "gray"}}
+        sensitivity={10}
+        buttonWidth={110}
+        backgroundColor="#f8f8fc"
+      >
+        <TouchableOpacity onPress={()=>{
           this.props.select(transaction)
           this.props.navigation.navigate("TransactionForm", {transaction})
         }
@@ -51,13 +83,13 @@ class Transaction extends Component {
             <View>
 
               <Title>{transaction.category && transaction.category.name}</Title>
-              <Copy>{moment(transaction.date).format("D.MM.YYYY. HH:mm")}</Copy>
+              <Copy>{moment(transaction.timestamp).format("D.MM.YYYY. HH:mm")}</Copy>
               <Copy>{transaction.note}</Copy>
               <View style={styles.labels}>
                 {transaction.labels &&
                 transaction.labels.map((label)=>{
                   return(
-                    <Label label={label} />
+                    <Label key={label.uuid} label={label} />
                   )
                 })}
               </View>
@@ -75,6 +107,7 @@ class Transaction extends Component {
           }
         </View>
       </TouchableOpacity>
+    </Swipeout>
     )
   }
 }
