@@ -100,7 +100,7 @@ export default class SelectBox extends Component {
   render(){
     return(
       <TouchableOpacity
-        style={{position: "absolute", zIndex: 100, left: 150, top: 10}}
+        style={{position: "absolute", zIndex: 10, left: 150, top: 10}}
         onPress={()=>this.handleClick()}>
         <Animated.View
           style={{

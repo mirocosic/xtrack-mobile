@@ -4,7 +4,7 @@ import Component from './component';
 export default connect(
   (state) => {
     return {
-
+      darkMode: state.common.darkMode
     }
   },
 

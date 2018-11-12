@@ -10,7 +10,7 @@ export default connect(
 
   (dispatch) => {
     return {
-
+        selectCategory: (payload) => dispatch({type: "SELECT_CATEGORY", payload})
     }
   }
 )(Component);

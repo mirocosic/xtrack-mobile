@@ -1,6 +1,6 @@
 import React from 'react';
 import { TabNavigator, DrawerNavigator, createBottomTabNavigator } from 'react-navigation';
-import { Dashboard, EntryForm, Profile, Splash, Categories, Accounts, Transactions } from '../screens';
+import { Dashboard, Reports, EntryForm, Profile, Splash, Categories, Accounts, Transactions } from '../screens';
 import palette from '../utils/palette';
 //import { primaryFont } from '../lib/fonts';
 //import { isIos } from '../lib/os-utils';
@@ -44,6 +44,7 @@ const androidLabelStyle = {
 const BottomBarNavigator = createBottomTabNavigator({
   Dashboard: { screen: Dashboard },
   Transactions: { screen: Transactions },
+  Reports: { screen: Reports},
   Profile: { screen: Profile},
 
 },{
@@ -54,7 +55,7 @@ const BottomBarNavigator = createBottomTabNavigator({
   animationEnabled: true,
   //tabBarComponent: TabBarBottom,
   tabBarOptions: {
-    activeTintColor: palette.secondary,
+    activeTintColor: "teal",
     inactiveTintColor: palette.black,
     showIcon: true,
     upperCaseLabel: false,

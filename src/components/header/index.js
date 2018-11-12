@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Title } from "../typography";
 import __ from "../../utils/translations"
 
+import styles from "./styles"
 
 export default class Header extends Component {
 
@@ -15,21 +16,13 @@ export default class Header extends Component {
             <Title style={{color: "white"}}>{"<"}</Title>
           </TouchableOpacity>
         }
-        <Title style={{alignSelf: "center", color: "white"}}>{__(this.props.title)}</Title>
+        <View style={{flexDirection: "row", alignItems: "center", justifyContent: 'center'}}>
+          {this.props.icon}
+          <Title style={{alignSelf: "center", color: "white"}}>{__(this.props.title)}</Title>
+        </View>
+
+        {this.props.children}
       </View>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "teal",
-    paddingTop: 20,
-  },
-
-  backBtn: {
-    color: "white",
-    position: "absolute",
-    left: 20
-  }
-})

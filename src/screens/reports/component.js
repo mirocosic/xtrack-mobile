@@ -16,17 +16,15 @@ import { HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT, HEADER_SCROLL_DISTANCE } from "..
 
 import styles from  "./styles"
 
-class Dashboard extends Component {
+class Reports extends Component {
 
-
-    static navigationOptions = ({navigation}) => {
-      return {
-        tabBarIcon: ({ tintColor }) => (
-          <Icon style={{backgroundColor: "white"}} textStyle={{fontSize: 26, color: tintColor}} type="tasks" />
-        )
-      }
+  static navigationOptions = ({navigation}) => {
+    return {
+      tabBarIcon: ({ tintColor }) => (
+        <Icon style={{backgroundColor: "white"}} textStyle={{fontSize: 26, color: tintColor}} type="chartBar" />
+      )
     }
-
+  }
 
   state = {
     height: new Animated.Value(0)
@@ -148,4 +146,4 @@ class Dashboard extends Component {
   }
 }
 
-export default withNavigation (Dashboard);
+export default withNavigation (Reports);

@@ -13,6 +13,8 @@ import { formatCurrency } from "../../utils/currency"
 import moment from "moment"
 import styles from "./styles"
 
+import { get } from "lodash"
+
 const getTransactionColorCode = (type) => {
   switch(type){
     case "expense":
@@ -27,7 +29,7 @@ const getTransactionColorCode = (type) => {
 const getAmountColor = (type) => {
   switch(type){
     case "expense":
-      return {color: "red"};
+      return {color: "#D32F2F"};
     case "income":
       return {color: "green"};
     case "transfer":
@@ -77,28 +79,29 @@ class Transaction extends Component {
         }
 
         }>
-        <View key={transaction.id} style={styles.container}>
-          <View style={{flexDirection: "row", alignItems: "center"}}>
-            <Icon style={{marginRight:10}}/>
-            <View>
-
-              <Title>{transaction.category && transaction.category.name}</Title>
-              <Copy>{moment(transaction.timestamp).format("D.MM.YYYY. HH:mm")}</Copy>
-              <Copy>{transaction.note}</Copy>
-              <View style={styles.labels}>
-                {transaction.labels &&
-                transaction.labels.map((label)=>{
-                  return(
-                    <Label key={label.uuid} label={label} />
-                  )
-                })}
-              </View>
+        <View key={transaction.id} style={[styles.container, this.props.darkMode && styles.containerDark]}>
+          <View style={{flexDirection: "row", alignItems: "center", justifyContent:"space-between"}}>
+            <View style={{flexDirection: "row", alignItems: "center"}}>
+              <Icon type={get(transaction, "category.icon")} style={{padding: 5, marginRight:10, backgroundColor: get(transaction, "category.color", "blue")}}/>
+              <Copy>{transaction.category && transaction.category.name}</Copy>
             </View>
+            <Text style={[styles.amount, getAmountColor(transaction.type)]}>
+                {formatCurrency(transaction.amount)}
+            </Text>
           </View>
 
-          <Text style={[styles.amount, getAmountColor(transaction.type)]}>
-            {formatCurrency(transaction.amount)}
-          </Text>
+          <View style={{flexDirection: "row", alignItems:"center", justifyContent: "space-between"}}>
+            <Copy style={{fontSize: 12}}>{moment(transaction.timestamp).format("D.MM.YYYY. HH:mm")}</Copy>
+            <Copy>{transaction.note}</Copy>
+            <View style={styles.labels}>
+              {transaction.labels &&
+              transaction.labels.map((label)=>{
+                return(
+                  <Label key={label.uuid} label={label} style={{margin:0, marginLeft:5, marginRight:5}}/>
+                )
+              })}
+            </View>
+          </View>
 
           { false &&
             <TouchableOpacity onPress={()=>this.props.delete(transaction)} style={styles.deleteTrans}>

@@ -128,7 +128,7 @@ class TransactionForm extends Component<Props> {
                 <TouchableOpacity
                   style={[styles.selectBox, this.props.darkMode && styles.selectBoxDark]}
                   onPress={()=>this.props.navigation.navigate("Categories")}>
-                  <Icon style={{marginRight: 10}}/>
+                  <Icon type={get(transaction, "category.icon")} style={{marginRight: 10, backgroundColor: get(transaction, "category.color", "blue")}}/>
                   <Text style={this.props.darkMode ? styles.textInputDark : styles.textInput}>
                     { get(transaction, "category.name", "select") }
                   </Text>

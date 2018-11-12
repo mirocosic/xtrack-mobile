@@ -24,6 +24,16 @@ const categories = (state = initialState, action) => {
         ]
       }
 
+    case "EDIT_CATEGORY":
+      return {
+        ...state,
+        items: state.items.map((item)=>{
+          if ( item.id !== action.category.id) return item;
+
+          return action.category;
+        })
+      }
+
     case "DELETE_CATEGORY":
       return {
         ...state,

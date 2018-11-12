@@ -3,7 +3,8 @@ import { Animated,
   View, Text, Button, Switch, Alert, TouchableOpacity, StatusBar, StyleSheet } from "react-native";
 
 import { withNavigation } from "react-navigation";
-
+import FontAwesome, { Icons } from 'react-native-fontawesome';
+import Icon from "../../components/icon"
 import Screen from "../../components/screen"
 import Header from "../../components/header"
 import { Copy, Title } from "../../components/typography"
@@ -11,7 +12,13 @@ import __ from "../../utils/translations"
 
 class Profile extends Component {
 
-
+  static navigationOptions = ({navigation}) => {
+    return {
+      tabBarIcon: ({ tintColor }) => (
+        <Icon style={{backgroundColor: "white"}} textStyle={{fontSize: 26, color: tintColor}} type="cog" />
+      )
+    }
+  }
 
   handleClick = () => {
     let x = 120;
@@ -59,9 +66,9 @@ class Profile extends Component {
 
   handleDarkMode = () => {
     if (this.props.darkMode) {
-      StatusBar.setBarStyle("dark-content");
+    //  StatusBar.setBarStyle("dark-content");
     } else {
-      StatusBar.setBarStyle("light-content")
+    //  StatusBar.setBarStyle("light-content")
     }
 
     this.props.toggleDarkMode()
@@ -103,6 +110,9 @@ class Profile extends Component {
 
             <TouchableOpacity onPress={()=>this.props.navigation.navigate("Categories")}
               style={styles.settingWrap}>
+               <FontAwesome
+                 style={{fontSize: 26, color: "blue"}}
+                 type="FontAwesome5FreeRegular">{Icons.addressBook}</FontAwesome>
               <Copy>Categories</Copy>
               <Title>></Title>
             </TouchableOpacity>

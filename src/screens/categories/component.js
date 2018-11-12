@@ -12,6 +12,8 @@ import { Copy, Title } from "../../components/typography"
 import __ from "../../utils/translations"
 import { get } from "lodash"
 
+import styles from "./styles"
+
 class Categories extends Component {
 
   state = {
@@ -25,19 +27,19 @@ class Categories extends Component {
         <Header title="Categories" backBtn={true} backBtnPress={()=>this.props.navigation.goBack()}/>
         <ScrollView>
           <View>
-
-            <View style={styles.typeButtonsWrap}>
-              <TouchableOpacity onPress={()=>this.setState({type: "expense"})}
-                style={[styles.typeButton, this.state.type === "expense" && styles.btnSelected, this.props.darkMode && styles.btnDark]}>
-                <Copy style={this.state.type === "expense" && styles.copySelected}>{__("Expense")}</Copy>
-              </TouchableOpacity>
-
-              <TouchableOpacity onPress={()=>this.setState({type: "income"})}
-                style={[styles.typeButton, this.state.type === "income" && styles.btnSelected, this.props.darkMode && styles.btnDark]}>
-                  <Copy style={this.state.type === "income" && styles.copySelected}>{__("Income")}</Copy>
-              </TouchableOpacity>
-            </View>
-
+            {
+            // <View style={styles.typeButtonsWrap}>
+            //   <TouchableOpacity onPress={()=>this.setState({type: "expense"})}
+            //     style={[styles.typeButton, this.state.type === "expense" && styles.btnSelected, this.props.darkMode && styles.btnDark]}>
+            //     <Copy style={this.state.type === "expense" && styles.copySelected}>{__("Expense")}</Copy>
+            //   </TouchableOpacity>
+            //
+            //   <TouchableOpacity onPress={()=>this.setState({type: "income"})}
+            //     style={[styles.typeButton, this.state.type === "income" && styles.btnSelected, this.props.darkMode && styles.btnDark]}>
+            //       <Copy style={this.state.type === "income" && styles.copySelected}>{__("Income")}</Copy>
+            //   </TouchableOpacity>
+            // </View>
+}
             <View style={styles.inputContainer}>
               <TextInput style={[styles.input, this.props.darkMode && styles.inputDark]}
                 onChangeText={(text)=>this.setState({categoryName: text})}
@@ -64,78 +66,20 @@ class Categories extends Component {
           </View>
 
         </ScrollView>
+        <View style={{height: 40, borderTopWidth: 1}}>
+
+          <TouchableOpacity onPress={()=>{
+              this.props.navigation.navigate("TransactionForm")
+              this.props.clearSelectedCategory()
+              this.props.clearTransactionForm()
+            }}
+            style={styles.addButton}>
+            <Copy style={{fontSize: 40, color: "#f0f0f0"}}>+</Copy>
+          </TouchableOpacity>
+        </View>
       </Screen>
     )
   }
 }
 
 export default withNavigation (Categories);
-
-const styles = StyleSheet.create({
-  
-
-  inputContainer: {
-    paddingLeft: 20,
-    paddingRight: 20,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between"
-  },
-
-  input: {
-    color: "black",
-    fontSize: 20,
-    padding: 20,
-    margin: 20,
-    width: 200,
-    borderBottomWidth: 1
-  },
-
-  inputDark: {
-    color: "white",
-    borderColor: "white"
-  },
-
-  add: {
-    width: 50,
-    height: 40,
-    borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "green"
-  },
-
-  delete: {
-    backgroundColor: "red",
-    width: 30,
-    height: 30,
-    borderRadius: 20,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  typeButtonsWrap: {
-    flexDirection: "row",
-    justifyContent: "space-evenly"
-  },
-
-  typeButton: {
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
-    borderWidth: 1,
-    borderColor: "black"
-  },
-
-  btnSelected: {
-    backgroundColor: "green",
-  },
-
-  btnDark: {
-    borderColor: "white"
-  },
-
-  copySelected: {
-    color: "white"
-  },
-})

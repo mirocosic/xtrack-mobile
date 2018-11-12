@@ -4,6 +4,7 @@ import Swipeout from "react-native-swipeout"
 import Icon from "../icon"
 import { Copy, Title } from "../typography"
 
+import { withNavigation } from "react-navigation";
 import styles from "./styles"
 
 import { get } from "lodash"
@@ -56,11 +57,18 @@ class Category extends Component {
 
           <View key={cat.id} style={[styles.categoryWrap, this.props.darkMode && styles.catWrapDark]}>
             <View style={{flexDirection: "row", alignItems: "center"}}>
-              <Icon style={{marginRight: 10}}/>
+              <Icon type={cat.icon} style={{marginRight: 10, backgroundColor: get(cat, "color", "blue")}}/>
+
               <Copy>{cat.name + " ("+this.countTransactions(cat.id)+")"}</Copy>
             </View>
 
-            <Title>></Title>
+            <TouchableOpacity onPress={()=>{
+                this.props.selectCategory(cat)
+                this.props.navigation.navigate("CategoryEdit")
+              }}>
+              <Title>></Title>
+            </TouchableOpacity>
+
 
           </View>
 
@@ -71,4 +79,4 @@ class Category extends Component {
 
 }
 
-export default Category;
+export default withNavigation(Category);

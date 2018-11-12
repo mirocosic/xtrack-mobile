@@ -5,6 +5,7 @@ import { withNavigation } from "react-navigation";
 
 import Screen from "../../components/screen"
 import Header from "../../components/header"
+import Icon from "../../components/icon"
 import Transaction from "../../components/transaction"
 import { Copy, Title } from "../../components/typography"
 import __ from "../../utils/translations"
@@ -18,6 +19,14 @@ const HEADER_MIN_HEIGHT = 80;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
 class Transactions extends Component {
+
+  static navigationOptions = ({navigation}) => {
+    return {
+      tabBarIcon: ({ tintColor }) => (
+        <Icon style={{backgroundColor: "white"}} textStyle={{fontSize: 26, color: tintColor}} type="exchangeAlt" />
+      )
+    }
+  }
 
   state = {
     height: new Animated.Value(0)
@@ -57,7 +66,19 @@ class Transactions extends Component {
             overflow: 'hidden',
             transform: [{scale: headerScale}],
             height: headerHeight, backgroundColor:"teal"}}>
-          <Header title="Transactions"></Header>
+          <Header title="Transactions">
+            <View style={styles.overview}>
+              <View>
+                <Copy style={{color: "white"}}>{__("Expenses")}: {formatCurrency(this.props.expenses)}</Copy>
+                <Copy style={{color: "white"}}>{__("Income")}: {formatCurrency(this.props.income)}</Copy>
+                <Copy style={{color: "white"}}>{__("Total")}: {formatCurrency(this.props.total)}</Copy>
+              </View>
+
+              <TouchableOpacity onPress={this.changeAccountFilter}>
+                <Copy style={{color: "white"}}>Account: {this.props.accountFilter.name || "All accounts"}</Copy>
+              </TouchableOpacity>
+            </View>
+          </Header>
         </Animated.View>
 
         <ScrollView
@@ -72,17 +93,7 @@ class Transactions extends Component {
             }]
          )}>
 
-          <View style={styles.overview}>
-            <View>
-              <Copy>{__("Expenses")}: {formatCurrency(this.props.expenses)}</Copy>
-              <Copy>{__("Income")}: {formatCurrency(this.props.income)}</Copy>
-              <Copy>{__("Total")}: {formatCurrency(this.props.total)}</Copy>
-            </View>
 
-            <TouchableOpacity onPress={this.changeAccountFilter}>
-              <Copy>Account: {this.props.accountFilter.name || "All accounts"}</Copy>
-            </TouchableOpacity>
-          </View>
 
 
           <View>
@@ -104,7 +115,7 @@ class Transactions extends Component {
             this.props.clearTransactionForm()
           }}
           style={styles.addButton}>
-          <Copy style={{fontSize: 40, color: "#f0f0f0"}}>+</Copy>
+          <Icon style={{backgroundColor: "teal", width: 50, height:50, borderRadius:25}} textStyle={{fontSize: 30}} type="plus" />
         </TouchableOpacity>
       </Screen>
     )

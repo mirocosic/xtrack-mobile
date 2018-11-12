@@ -2,13 +2,15 @@ import { createStackNavigator, SwitchNavigator, DrawerNavigator } from 'react-na
 import { Platform, StatusBar } from 'react-native';
 
 import BottomBarNavigator from './bottom-bar-navigator';
-import { TransactionForm, Dashboard, Profile, Categories, Accounts, Labels, Splash } from "../screens"
+import { TransactionForm, Dashboard, Profile, Categories, Accounts, Labels,
+  CategoryEdit, Splash } from "../screens"
 
 const AppStack = createStackNavigator({
   Splash: { screen: Splash },
   Main: { screen: BottomBarNavigator },
   Dashboard: { screen: Dashboard },
   Categories: { screen: Categories},
+  CategoryEdit: { screen: CategoryEdit},
   Accounts: { screen: Accounts},
   TransactionForm: { screen: TransactionForm },
   Profile: { screen: Profile },

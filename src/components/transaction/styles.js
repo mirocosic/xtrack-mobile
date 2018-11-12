@@ -5,10 +5,13 @@ import palette from "../../utils/palette"
 export default StyleSheet.create({
   container: {
     padding: 10,
-  
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between"
+    paddingTop: 5,
+    paddingBottom: 5
+
+  },
+
+  containerDark: {
+    backgroundColor: palette.dark
   },
 
   amount: {

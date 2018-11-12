@@ -1,19 +1,7 @@
 import { StyleSheet } from "react-native"
-import palette from "../../utils/palette"
-export default StyleSheet.create({
-  wrap: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: 20,
-    borderBottomWidth: 1,
-    //margin:10
-  },
 
-  wrapDark: {
-    borderColor: "white",
-    backgroundColor: palette.dark
-  },
+
+ export default StyleSheet.create({
 
   inputContainer: {
     paddingLeft: 20,
@@ -53,5 +41,45 @@ export default StyleSheet.create({
     borderRadius: 20,
     alignItems: "center",
     justifyContent: "center"
-  }
+  },
+  typeButtonsWrap: {
+    flexDirection: "row",
+    justifyContent: "space-evenly"
+  },
+
+  typeButton: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    borderWidth: 1,
+    borderColor: "black"
+  },
+
+  btnSelected: {
+    backgroundColor: "green",
+  },
+
+  btnDark: {
+    borderColor: "white"
+  },
+
+  copySelected: {
+    color: "white"
+  },
+
+  colorPicker: {
+    flexDirection: "row",
+  },
+
+  colorBox: {
+      margin: 5,
+      width: 50,
+      height: 50
+  },
+
+  selectedColor: {
+    borderWidth: 2,
+    borderColor: "black"
+  },
 })
