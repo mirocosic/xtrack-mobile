@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, TextInput, Button, StatusBar} from 'react-native';
+import { Sentry } from 'react-native-sentry';
 
 import { Provider } from 'react-redux';
 //import store from './store';
@@ -10,6 +11,8 @@ import BottomBarNavigator from './navigators/bottom-bar-navigator';
 
 import 'intl';
 import 'intl/locale-data/jsonp/en';
+
+Sentry.config('https://c5c6fad7bce3480fa962382c9a01ee1e@sentry.io/1427686').install();
 
 StatusBar.setBarStyle('light-content', true);
 

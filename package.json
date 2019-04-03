@@ -17,6 +17,7 @@
     "react-native-fontawesome": "mirocosic/react-native-fontawesome",
     "react-native-masked-text": "^1.9.2",
     "react-native-material-kit": "^0.5.1",
+    "react-native-sentry": "^0.42.0",
     "react-native-swipeout": "mirocosic/react-native-swipeout",
     "react-navigation": "^2.18.2",
     "react-redux": "^5.1.0",
