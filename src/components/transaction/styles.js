@@ -1,21 +1,19 @@
 import { StyleSheet } from "react-native";
-
 import palette from "../../utils/palette"
 
 export default StyleSheet.create({
   container: {
     padding: 10,
     paddingTop: 5,
-    paddingBottom: 5
-
+    paddingBottom: 5,
   },
 
   containerDark: {
-    backgroundColor: palette.dark
+    backgroundColor: palette.dark,
   },
 
   amount: {
-    fontSize: 20
+    fontSize: 20,
   },
 
   deleteTrans: {
@@ -31,7 +29,7 @@ export default StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 10,
-    marginRight: 10
+    marginRight: 10,
   },
 
   expense: {
@@ -39,28 +37,28 @@ export default StyleSheet.create({
   },
 
   income: {
-    backgroundColor: "green"
+    backgroundColor: "green",
   },
 
   tranfer: {
-    backgroundColor: "blue"
+    backgroundColor: "blue",
   },
 
   labels: {
-    flexDirection: "row"
+    flexDirection: "row",
   },
 
   label: {
     margin: 5,
-    padding: 5
+    padding: 5,
   },
 
   deleteButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'red',
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "red",
     flex: 1,
-    height: 70
+    height: 70,
   },
 
 })

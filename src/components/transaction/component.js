@@ -1,39 +1,38 @@
 import React, { Component } from "react"
-import { Text, View, TouchableOpacity, StyleSheet } from "react-native"
-
+import { Text, View, TouchableOpacity } from "react-native"
 import { withNavigation } from "react-navigation"
-
+import Swipeout from "react-native-swipeout";
+import moment from "moment"
 import Label from "../label"
-import Swipeout from 'react-native-swipeout';
-
-import { Copy, Title } from "../typography"
+import { Copy } from "../typography"
 import Icon from "../icon"
 import __ from "../../utils/translations"
 import { formatCurrency } from "../../utils/currency"
-import moment from "moment"
 import styles from "./styles"
 
-import { get } from "lodash"
-
 const getTransactionColorCode = (type) => {
-  switch(type){
+  switch (type) {
     case "expense":
       return [styles.colorCode, styles.expense];
     case "income":
       return [styles.colorCode, styles.income];
     case "transfer":
       return [styles.colorCode, styles.tranfer];
+    default:
+      return [styles.colorCode, styles.expense];
   }
 }
 
 const getAmountColor = (type) => {
-  switch(type){
+  switch (type) {
     case "expense":
-      return {color: "#D32F2F"};
+      return { color: "#D32F2F" };
     case "income":
-      return {color: "green"};
+      return { color: "green" };
     case "transfer":
-      return {color: "blue"};
+      return { color: "blue" };
+    default:
+      return { color: "#D32F2F" };
   }
 }
 
@@ -42,7 +41,7 @@ const renderDeleteButton = (transaction) => {
   if (transaction.archived) {
     return (
       <View style={styles.archiveButton}>
-        <Icon style={{backgroundColor: "red"}}/>
+        <Icon style={{ backgroundColor: "red" }}/>
         <Copy style={styles.archiveCopy}>Move to Messages</Copy>
       </View>
     );
