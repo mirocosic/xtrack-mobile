@@ -1,4 +1,4 @@
-package com.xtrack_mobile;
+package com.mirocosic.xtrack;
 
 import com.facebook.react.ReactActivity;
 
