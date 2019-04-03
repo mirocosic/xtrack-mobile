@@ -1,13 +1,10 @@
-import { Alert } from 'react-native';
-import { NavigationActions } from 'react-navigation';
-import { navigatorRef } from '../../App.js';
-import { delay } from 'redux-saga';
-import { all, takeEvery, takeLatest, put, call, select} from 'redux-saga/effects';
-import actions from './actions';
-import asyncStorage from '../../lib/asyncStorage';
+import { Alert } from "react-native";
+import { NavigationActions } from "react-navigation";
+import { delay } from "redux-saga";
+import { all, takeEvery, takeLatest, put, call, select} from "redux-saga/effects";
+import asyncStorage from "../../lib/asyncStorage";
 import DeviceInfo from 'react-native-device-info';
 import { getNotificationData } from '../../services/push-notifications';
-import API from '../../api';
 
 function* registerDeviceToken() {
   yield takeLatest(actions.REGISTER_DEVICE_TOKEN, function*(action) {

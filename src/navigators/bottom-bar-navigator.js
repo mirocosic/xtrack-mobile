@@ -1,11 +1,7 @@
-import React from 'react';
-import { TabNavigator, DrawerNavigator, createBottomTabNavigator } from 'react-navigation';
-import { Dashboard, Reports, EntryForm, Profile, Splash, Categories, Accounts, Transactions } from '../screens';
-import palette from '../utils/palette';
-//import { primaryFont } from '../lib/fonts';
-//import { isIos } from '../lib/os-utils';
-
-import TabBarComponent from "./tab-bar-component";
+import React from "react";
+import { TabNavigator, DrawerNavigator, createBottomTabNavigator } from "react-navigation";
+import { Dashboard, Reports, Profile, Transactions } from "../screens";
+import palette from "../utils/palette";
 
 const iosStyle = {
   justifyContent: 'space-around',

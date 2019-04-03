@@ -1,23 +1,23 @@
-import initialState from './initial-state';
+import initialState from "./initial-state";
 
 const common = (state = initialState, action) => {
-  switch(action.type){
+  switch (action.type) {
 
     case "TOGGLE_DARK_MODE":
       return {
         ...state,
-        darkMode: !state.darkMode
+        darkMode: !state.darkMode,
       }
 
     case "SET_LANGUAGE":
       return {
         ...state,
-        language: action.language
+        language: action.language,
       }
 
     case "ERASE":
       return {
-        ...initialState
+        ...initialState,
       }
 
     default:

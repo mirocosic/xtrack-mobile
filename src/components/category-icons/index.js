@@ -1,6 +1,6 @@
 import React, { Component } from "react"
-import { View, TouchableOpacity} from "react-native"
-import FontAwesome, { Icons} from "react-native-fontawesome"
+import { View, TouchableOpacity } from "react-native"
+import FontAwesome, { Icons } from "react-native-fontawesome"
 
 import styles from "./styles"
 
@@ -34,15 +34,15 @@ const solid = [
 
 export default class CategoryIcons extends Component {
 
-  render(){
-    return(
+  render() {
+    return (
       <View style={styles.container}>
         <View style={styles.iconWrap}>
-          { regular.map((value)=>{
-            return(
-              <TouchableOpacity onPress={()=>{
-                this.props.select(getKeyByValue(Icons, value))
-              }}>
+          { regular.map(value => {
+            return (
+              <TouchableOpacity
+                onPress={() => {this.props.select(getKeyByValue(Icons, value))}}
+              >
               <FontAwesome type="FontAwesome5FreeRegular" style={[styles.icon, Icons[this.props.selected] === value && styles.selected]}>{value}</FontAwesome>
               </TouchableOpacity>
             )

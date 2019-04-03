@@ -1,7 +1,7 @@
 export default {
   deviceToken: null,
   drawerOpen: false,
-  drawerContent: 'filters',
+  drawerContent: "filters",
   drawerIsCanceled: false,
 
   darkMode: true,
