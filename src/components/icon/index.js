@@ -1,7 +1,6 @@
-import React, { Component } from "react"
+import React from "react"
 import { View, Image } from "react-native"
-
-//import icons from "../../../assets/icons"
+import PropTypes from "prop-types"
 import FontAwesome, { Icons } from "react-native-fontawesome"
 
 import money from "../../../assets/icons/money.png"
@@ -9,25 +8,29 @@ import category from "../../../assets/icons/default.png"
 
 const icons = {
   money,
-  category
+  category,
 }
 
-export default class Icon extends Component {
-
-  render(){
-    return(
-      <View style={[{width:40, height:40, alignItems: "center", justifyContent: "center", backgroundColor: "blue", borderRadius: 20}, this.props.style]}>
-        { this.props.type ?
-          <FontAwesome style={[{fontSize: 16, color:"white"}, this.props.textStyle]}
-            type="FontAwesome5FreeSolid">{Icons[this.props.type]}</FontAwesome>
-        :
+const Icon = ({ type, textStyle, style, icon }) => (
+  <View style={[{ width: 40, height: 40, alignItems: "center", justifyContent: "center", backgroundColor: "blue", borderRadius: 20 }, style]}>
+    { type ?
+      (
+        <FontAwesome
+          style={[{ fontSize: 16, color: "white" }, textStyle]}
+          type="FontAwesome5FreeSolid">
+          {Icons[type]}
+        </FontAwesome>
+      ) : (
         <Image
-          source={icons[this.props.icon] || icons.category}
-          style={{width: 20, height: 20, tintColor: "white"}}/>
-       }
+          source={icons[icon] || icons.category}
+          style={{ width: 20, height: 20, tintColor: "white" }} />
+      )
+   }
+  </View>
+)
 
-
-      </View>
-    )
-  }
+Icon.propTypes = {
+  type: PropTypes.bool.isRequired,
 }
+
+export default Icon

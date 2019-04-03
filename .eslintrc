@@ -16,6 +16,7 @@
       "quotes": ["warn", "double"],
       "padded-blocks": ["off", "always"],
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-      "react/jsx-boolean-value": ["always"]
+      "react/jsx-boolean-value": ["always"],
+      "react/jsx-closing-bracket-location": [<disabled>]
     }
 }

@@ -32,35 +32,28 @@ const solid = [
   Icons.filter,
 ]
 
-export default class CategoryIcons extends Component {
+const CategoryIcons = () => (
+  <View style={styles.container}>
+    <View style={styles.iconWrap}>
+      { regular.map(value => (
+        <TouchableOpacity
+          key={value}
+          onPress={() => {this.props.select(getKeyByValue(Icons, value))}}
+        >
+          <FontAwesome type="FontAwesome5FreeRegular" style={[styles.icon, Icons[this.props.selected] === value && styles.selected]}>{value}</FontAwesome>
+        </TouchableOpacity>
+      ))}
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.iconWrap}>
-          { regular.map(value => {
-            return (
-              <TouchableOpacity
-                key={value}
-                onPress={() => {this.props.select(getKeyByValue(Icons, value))}}
-              >
-              <FontAwesome type="FontAwesome5FreeRegular" style={[styles.icon, Icons[this.props.selected] === value && styles.selected]}>{value}</FontAwesome>
-              </TouchableOpacity>
-            )
-          })}
+      { solid.map((value)=>{
+        return(
+          <TouchableOpacity
+            key={value}
+            onPress={()=>{this.props.select(getKeyByValue(Icons, value))}}>
+          <FontAwesome type="FontAwesome5FreeSolid" style={[styles.icon, Icons[this.props.selected] === value && styles.selected]}>{value}</FontAwesome>
+          </TouchableOpacity>
+        )
+      })}
 
-          { solid.map((value)=>{
-            return(
-              <TouchableOpacity
-                key={value}
-                onPress={()=>{this.props.select(getKeyByValue(Icons, value))}}>
-              <FontAwesome type="FontAwesome5FreeSolid" style={[styles.icon, Icons[this.props.selected] === value && styles.selected]}>{value}</FontAwesome>
-              </TouchableOpacity>
-            )
-          })}
-
-        </View>
-      </View>
-    )
-  }
-}
+    </View>
+  </View>
+)
