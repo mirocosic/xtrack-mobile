@@ -1,9 +1,12 @@
-import React, {Component} from "react";
-import { Animated,
-  View, Text, Button, Switch, Alert, TouchableOpacity, StatusBar, StyleSheet } from "react-native";
+import React, { Component } from "react";
+import {
+  Animated, View, Button, Switch, Alert, TouchableOpacity, StyleSheet,
+} from "react-native";
+
+import { Sentry } from "react-native-sentry";
 
 import { withNavigation } from "react-navigation";
-import FontAwesome, { Icons } from 'react-native-fontawesome';
+import FontAwesome, { Icons } from "react-native-fontawesome";
 import Icon from "../../components/icon"
 import Screen from "../../components/screen"
 import Header from "../../components/header"
@@ -12,10 +15,10 @@ import __ from "../../utils/translations"
 
 class Profile extends Component {
 
-  static navigationOptions = ({navigation}) => {
+  static navigationOptions = ({ navigation }) => {
     return {
       tabBarIcon: ({ tintColor }) => (
-        <Icon style={{backgroundColor: "white"}} textStyle={{fontSize: 26, color: tintColor}} type="cog" />
+        <Icon style={{ backgroundColor: "white" }} textStyle={{ fontSize: 26, color: tintColor }} type="cog" />
       )
     }
   }
@@ -61,9 +64,6 @@ class Profile extends Component {
   }
 
 
-
-
-
   handleDarkMode = () => {
     if (this.props.darkMode) {
     //  StatusBar.setBarStyle("dark-content");
@@ -85,12 +85,12 @@ class Profile extends Component {
     )
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <Screen>
-        <Header title="Profile"></Header>
+        <Header title="Profile" />
 
-        <View style={{paddingTop: 20, paddingLeft: 20, paddingRight: 20}}>
+        <View style={{ paddingTop: 20, paddingLeft: 20, paddingRight: 20 }}>
           <Copy>Miro</Copy>
           <Copy>Wuk</Copy>
 
@@ -103,13 +103,16 @@ class Profile extends Component {
 
             <TouchableOpacity
               onPress={this.selectLanguage}
-              style={{flexDirection: "row"}}>
+              style={{ flexDirection: "row" }}
+            >
               <Copy>{__("Language") + ": "}</Copy>
               <Copy>{this.props.language.name}</Copy>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={()=>this.props.navigation.navigate("Categories")}
-              style={styles.settingWrap}>
+            <TouchableOpacity
+              onPress={()=>this.props.navigation.navigate("Categories")}
+              style={styles.settingWrap}
+            >
                <FontAwesome
                  style={{fontSize: 26, color: "blue"}}
                  type="FontAwesome5FreeRegular">{Icons.addressBook}</FontAwesome>
@@ -123,13 +126,16 @@ class Profile extends Component {
               <Title>></Title>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={()=>this.props.navigation.navigate("Labels")}
-              style={styles.settingWrap}>
+            <TouchableOpacity
+              onPress={()=>this.props.navigation.navigate("Labels")}
+              style={styles.settingWrap}
+            >
               <Copy>Labels</Copy>
               <Title>></Title>
             </TouchableOpacity>
 
             <Button title="ERASE DATA" onPress={this.props.erase}/>
+            <Button title="Sentry exception" onPress={()=>Sentry.captureMessage("Test message")}/>
 
           </View>
         </View>
@@ -147,6 +153,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     marginTop: 10,
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
   }
 })
