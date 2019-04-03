@@ -41,6 +41,7 @@ export default class CategoryIcons extends Component {
           { regular.map(value => {
             return (
               <TouchableOpacity
+                key={value}
                 onPress={() => {this.props.select(getKeyByValue(Icons, value))}}
               >
               <FontAwesome type="FontAwesome5FreeRegular" style={[styles.icon, Icons[this.props.selected] === value && styles.selected]}>{value}</FontAwesome>
@@ -50,9 +51,9 @@ export default class CategoryIcons extends Component {
 
           { solid.map((value)=>{
             return(
-              <TouchableOpacity onPress={()=>{
-                this.props.select(getKeyByValue(Icons, value))
-              }}>
+              <TouchableOpacity
+                key={value}
+                onPress={()=>{this.props.select(getKeyByValue(Icons, value))}}>
               <FontAwesome type="FontAwesome5FreeSolid" style={[styles.icon, Icons[this.props.selected] === value && styles.selected]}>{value}</FontAwesome>
               </TouchableOpacity>
             )

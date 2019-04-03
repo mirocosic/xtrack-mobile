@@ -214,16 +214,15 @@ class TransactionForm extends Component<Props> {
           </Text>
         </TouchableOpacity>
 
-        <Title>Note about this:</Title>
+          <Title>Note about this:</Title>
           <TextInput
-              onChangeText={(value) => this.setState({note: value})}
-              value={transaction.note}
-              placeholder="enter notes..."
-              style={[styles.textInput, this.props.darkMode && styles.textInputDark, {padding:10, width: "100%"} ]}
-              multiline={true}
-              placeholder="note"
-              returnKeyType="done"
-              keyboardAppearance={this.props.darkMode ? "dark" : "light"}
+            onChangeText={(value) => this.setState({note: value})}
+            value={transaction.note}
+            placeholder="enter notes..."
+            style={[styles.textInput, this.props.darkMode && styles.textInputDark, {padding:10, width: "100%"} ]}
+            multiline={true}
+            returnKeyType="done"
+            keyboardAppearance={this.props.darkMode ? "dark" : "light"}
           />
 
           <Copy>Labels</Copy>

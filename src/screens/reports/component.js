@@ -62,19 +62,19 @@ class Reports extends Component {
   calcTotal = (account) => {
     const transactions = this.props.transactions;
 
-      if (transactions.length === 0) return 0;
+    if (transactions.length === 0) return 0;
 
-      const accountTransactions = transactions.filter((item)=>account.id=== get(item, "account.id"));
+    const accountTransactions = transactions.filter((item)=>account.id=== get(item, "account.id"));
 
-      if (accountTransactions.length === 0) { return 0 }
+    if (accountTransactions.length === 0) { return 0 }
 
-      const total = accountTransactions.reduce((a, b)=>({amount: parseFloat(a.amount) + parseFloat(b.amount)}));
+    const total = accountTransactions.reduce((a, b)=>({amount: parseFloat(a.amount) + parseFloat(b.amount)}));
 
-      return total.amount;
+    return total.amount;
 
   }
 
-  render(){
+  render() {
 
     const headerHeight = this.state.height.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
@@ -88,14 +88,14 @@ class Reports extends Component {
           extrapolate: 'clamp',
     });
 
-    return(
+    return (
       <Screen>
         <Animated.View style={{
             justifyContent: "center",
-            backgroundColor: "teal",
             overflow: 'hidden',
             transform: [{scale: headerScale}],
-            height: headerHeight, backgroundColor:"teal"}}>
+            height: headerHeight,
+            backgroundColor: "teal"}}>
           <Header title="Dashboard"></Header>
         </Animated.View>
         <ScrollView

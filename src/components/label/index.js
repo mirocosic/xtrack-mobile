@@ -6,11 +6,6 @@ import styles from "./styles"
 
 export default class Label extends Component {
 
-  propTypes = {
-    // style: PropTypes.object,
-    label: PropTypes.string.isRequired,
-  }
-
   labelCopyColor = (labelColor) => {
     switch (labelColor) {
       case "blue":
@@ -38,4 +33,8 @@ export default class Label extends Component {
       </View>
     )
   }
+}
+
+Label.propTypes = {
+  label: PropTypes.string.isRequired,
 }
