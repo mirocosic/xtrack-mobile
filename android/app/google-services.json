@@ -1,0 +1,41 @@
+{
+  "project_info": {
+    "project_number": "1018844430656",
+    "firebase_url": "https://xtrack-1bd90.firebaseio.com",
+    "project_id": "xtrack-1bd90"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018844430656:android:13f7c87b7cb26e50",
+        "android_client_info": {
+          "package_name": "com.mirocosic.xtrack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018844430656-ccfjdcg1tqrmc2mrfbr7f86qmkk30u3a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBw6OBqbM0RS_jrnhdnXSOzKEXoMYs54c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
