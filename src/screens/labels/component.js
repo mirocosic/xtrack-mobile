@@ -1,12 +1,10 @@
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, ScrollView, TextInput, Button, TouchableOpacity} from 'react-native';
-
+import React, { Component } from "react";
+import { Text, View, ScrollView, TextInput, TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
-import { NavigationEvents } from "react-navigation";
 
 import Screen from "../../components/screen"
 import Header from "../../components/header"
-import { Copy, Title } from "../../components/typography"
+import { Copy } from "../../components/typography"
 
 import styles from "./styles"
 
@@ -16,57 +14,56 @@ class Labels extends Component {
 
   state = {
     name: "",
-    color: ""
+    color: "",
   }
 
-
-  render(){
-    return(
+  render() {
+    return (
       <Screen>
-        <Header title="Labels" backBtn={true} backBtnPress={()=>this.props.navigation.goBack()}/>
+        <Header title="Labels" backBtn={true} backBtnPress={() => this.props.navigation.goBack()} />
         <ScrollView>
           <View>
 
             <View style={styles.colorPicker}>
-              { colors.map((color)=>{
-                return(
-                  <TouchableOpacity
-                    key={color}
-                    style={[styles.colorBox, this.state.color === color && styles.selectedColor, {backgroundColor: color}]}
-                    onPress={()=>this.setState({color})}>
-
-                  </TouchableOpacity>
-                )
-              })}
+              {colors.map(color => (
+                <TouchableOpacity
+                  key={color}
+                  style={[styles.colorBox, this.state.color === color && styles.selectedColor, { backgroundColor: color }]}
+                  onPress={() => this.setState({ color })}
+                />
+              ))}
             </View>
 
             <View style={styles.inputContainer}>
-              <TextInput style={[styles.input, this.props.darkMode && styles.inputDark]}
-                onChangeText={(text)=>this.setState({name: text})}
+              <TextInput
+                style={[styles.input, this.props.darkMode && styles.inputDark]}
+                onChangeText={text => this.setState({ name: text })}
                 placeholder="new label"
                 value={this.state.name}
-                />
-              <TouchableOpacity style={styles.add}
-                onPress={()=>{
-                  this.setState({name: ""})
-                  this.props.add({name: this.state.name, color: this.state.color})}}
-                >
-                <Copy style={{color: "white"}}>Add</Copy>
+              />
+              <TouchableOpacity
+                style={styles.add}
+                onPress={() => {
+                  this.setState({ name: "" })
+                  this.props.add({ name: this.state.name, color: this.state.color })}}
+              >
+                <Copy style={{ color: "white" }}>Add</Copy>
               </TouchableOpacity>
             </View>
 
-            {this.props.labels.map((label)=>(
-              <TouchableOpacity key={label.id}
-                onPress={()=>{this.props.select(label); this.props.navigation.goBack()}}>
-
+            {this.props.labels.map(label => (
+              <TouchableOpacity
+                key={label.id}
+                onPress={() => { this.props.select(label); this.props.navigation.goBack() }}
+              >
                 <View key={label.id} style={[styles.wrap, this.props.darkMode && styles.wrapDark]}>
-                  <View style={{flexDirection: "row", alignItems: "center"}}>
-                    <View style={{width: 20, height: 20, backgroundColor: label.color, marginRight: 10}}></View>
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <View style={{ width: 20, height: 20, backgroundColor: label.color, marginRight: 10 }} />
                     <Copy>{label.name}</Copy>
                   </View>
 
                   <TouchableOpacity style={styles.delete} onPress={()=>this.props.delete(label.id)}>
-                    <Text>-</Text>
+                    <Text>`-`</Text>
                   </TouchableOpacity>
                 </View>
 
@@ -80,4 +77,4 @@ class Labels extends Component {
   }
 }
 
-export default withNavigation (Labels);
+export default withNavigation(Labels);

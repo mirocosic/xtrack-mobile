@@ -1,14 +1,13 @@
-import Dashboard from './dashboard';
+import Dashboard from "./dashboard";
 import Reports from "./reports"
-import TransactionForm from './transaction-form';
-import Profile from './profile';
-import Splash from './splash';
-import Categories from './categories';
-import CategoryEdit from './category-edit';
-import Accounts from './accounts';
-import Labels from './labels';
-import Transactions from './transactions';
-
+import TransactionForm from "./transaction-form";
+import Profile from "./profile";
+import Splash from "./splash";
+import Categories from "./categories";
+import CategoryEdit from "./category-edit";
+import Accounts from "./accounts";
+import Labels from "./labels";
+import Transactions from "./transactions";
 
 export {
   Dashboard,
@@ -20,5 +19,5 @@ export {
   CategoryEdit,
   Accounts,
   Labels,
-  Transactions
+  Transactions,
 }

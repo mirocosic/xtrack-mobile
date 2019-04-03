@@ -1,20 +1,18 @@
-import React, {Component} from 'react';
-import {Platform, Animated, StyleSheet, Text, View, ScrollView, TextInput, Button, TouchableOpacity, Alert} from 'react-native';
+import React, {Component} from "react";
+import { Animated, View, ScrollView, TouchableOpacity, Alert } from "react-native"
 
 import { withNavigation } from "react-navigation";
-
+import { get } from "lodash"
 import Screen from "../../components/screen"
 import Header from "../../components/header"
 import Icon from "../../components/icon"
-import Transaction from "../../components/transaction"
 import { Copy, Title } from "../../components/typography"
 import __ from "../../utils/translations"
 import { formatCurrency } from "../../utils/currency"
-import { get } from "lodash"
 
 import { HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT, HEADER_SCROLL_DISTANCE } from "../../utils/ui-utils"
 
-import styles from  "./styles"
+import styles from "./styles"
 
 class Reports extends Component {
 

@@ -15,6 +15,7 @@
       "semi": 0,
       "quotes": ["warn", "double"],
       "padded-blocks": ["off", "always"],
-      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+      "react/jsx-boolean-value": ["always"]
     }
 }

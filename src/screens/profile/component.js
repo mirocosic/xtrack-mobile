@@ -13,6 +13,18 @@ import Header from "../../components/header"
 import { Copy, Title } from "../../components/typography"
 import __ from "../../utils/translations"
 
+
+const styles = StyleSheet.create({
+  settingWrap: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 10,
+    marginTop: 10,
+    borderBottomWidth: 1,
+  },
+})
+
 class Profile extends Component {
 
   static navigationOptions = ({ navigation }) => {
@@ -34,25 +46,25 @@ class Profile extends Component {
     }
 
     Animated.parallel([
-      Animated.timing(                   // Animate over time
-        this.state.scaleX,            // The animated value to drive
+      Animated.timing(
+        this.state.scaleX,
         {
-          toValue: x,                   // Animate to opacity: 1 (opaque)
-          duration: 500,              // Make it take a while
+          toValue: x,
+          duration: 500,
         }
       ),
-      Animated.timing(                   // Animate over time
-        this.state.scaleY,            // The animated value to drive
+      Animated.timing(
+        this.state.scaleY,
         {
-          toValue: y,                   // Animate to opacity: 1 (opaque)
-          duration: 500,              // Make it take a while
+          toValue: y,
+          duration: 500,
         }
       ),
-      Animated.timing(                  // Animate over time
-        this.state.move,            // The animated value to drive
+      Animated.timing(
+        this.state.move,
         {
-          toValue: move,                   // Animate to opacity: 1 (opaque)
-          duration: 500,              // Make it take a while
+          toValue: move,
+          duration: 500,
         }
       )
     ]).start()
@@ -74,14 +86,14 @@ class Profile extends Component {
     this.props.toggleDarkMode()
   }
 
-  selectLanguage =  () => {
+  selectLanguage = () => {
     Alert.alert(
       __("Select language"),
       __("Please choose your preferred language"),
       [
-        {text: "English", onPress: ()=>this.props.setLanguage({code:"eng", name: "English"})},
-        {text: "Hrvatski", onPress: ()=> this.props.setLanguage({code: "hrv", name: "Hrvatski"})}
-      ]
+        { text: "English", onPress: () => this.props.setLanguage({ code:"eng", name: "English" }) },
+        { text: "Hrvatski", onPress: () => this.props.setLanguage({ code: "hrv", name: "Hrvatski" }) },
+      ],
     )
   }
 
@@ -91,14 +103,13 @@ class Profile extends Component {
         <Header title="Profile" />
 
         <View style={{ paddingTop: 20, paddingLeft: 20, paddingRight: 20 }}>
-          <Copy>Miro</Copy>
-          <Copy>Wuk</Copy>
+          <Copy>Miro Wuk</Copy>
 
-          <View style={{marginTop: 20}}>
+          <View style={{ marginTop: 20 }}>
             <Title>Settings</Title>
-            <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
               <Copy>Dark mode</Copy>
-              <Switch value={this.props.darkMode} onValueChange={this.handleDarkMode}/>
+              <Switch value={this.props.darkMode} onValueChange={this.handleDarkMode} />
             </View>
 
             <TouchableOpacity
@@ -110,32 +121,37 @@ class Profile extends Component {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={()=>this.props.navigation.navigate("Categories")}
+              onPress={() => this.props.navigation.navigate("Categories")}
               style={styles.settingWrap}
             >
-               <FontAwesome
-                 style={{fontSize: 26, color: "blue"}}
-                 type="FontAwesome5FreeRegular">{Icons.addressBook}</FontAwesome>
+              <FontAwesome
+                style={{ fontSize: 26, color: "blue" }}
+                type="FontAwesome5FreeRegular"
+              >
+                {Icons.addressBook}
+              </FontAwesome>
               <Copy>Categories</Copy>
-              <Title>></Title>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={()=>this.props.navigation.navigate("Accounts")}
-              style={styles.settingWrap}>
-              <Copy>Accounts</Copy>
-              <Title>></Title>
+              <Title>{">"}</Title>
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={()=>this.props.navigation.navigate("Labels")}
+              onPress={() => this.props.navigation.navigate("Accounts")}
+              style={styles.settingWrap}
+            >
+              <Copy>Accounts</Copy>
+              <Title>{">"}</Title>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate("Labels")}
               style={styles.settingWrap}
             >
               <Copy>Labels</Copy>
-              <Title>></Title>
+              <Title>{">"}</Title>
             </TouchableOpacity>
 
-            <Button title="ERASE DATA" onPress={this.props.erase}/>
-            <Button title="Sentry exception" onPress={()=>Sentry.captureMessage("Test message")}/>
+            <Button title="ERASE DATA" onPress={this.props.erase} />
+            <Button title="Sentry exception" onPress={() => Sentry.captureMessage("Test message")} />
 
           </View>
         </View>
@@ -145,14 +161,3 @@ class Profile extends Component {
 }
 
 export default withNavigation(Profile);
-
-const styles = StyleSheet.create({
-  settingWrap: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 10,
-    marginTop: 10,
-    borderBottomWidth: 1,
-  }
-})

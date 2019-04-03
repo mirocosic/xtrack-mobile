@@ -1,18 +1,15 @@
-import React, {Component} from 'react';
-import {Platform, Animated, StyleSheet, Text, View, ScrollView, TextInput, Button, TouchableOpacity, Alert} from 'react-native';
-
+import React, {Component} from "react";
+import { Platform, Animated, View, ScrollView, TouchableOpacity, Alert } from "react-native";
 import { withNavigation } from "react-navigation";
-
+import { get } from "lodash"
 import Screen from "../../components/screen"
 import Header from "../../components/header"
 import Icon from "../../components/icon"
 import Transaction from "../../components/transaction"
-import { Copy, Title } from "../../components/typography"
+import { Copy } from "../../components/typography"
 import __ from "../../utils/translations"
 import { formatCurrency } from "../../utils/currency"
-import { get } from "lodash"
-
-import styles from  "./styles"
+import styles from "./styles"
 
 const HEADER_MAX_HEIGHT = 150;
 const HEADER_MIN_HEIGHT = 80;
@@ -20,10 +17,10 @@ const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
 class Transactions extends Component {
 
-  static navigationOptions = ({navigation}) => {
+  static navigationOptions = ({ navigation }) => {
     return {
       tabBarIcon: ({ tintColor }) => (
-        <Icon style={{backgroundColor: "white"}} textStyle={{fontSize: 26, color: tintColor}} type="exchangeAlt" />
+        <Icon style={{ backgroundColor: "white" }} textStyle={{ fontSize: 26, color: tintColor }} type="exchangeAlt" />
       )
     }
   }
@@ -37,15 +34,15 @@ class Transactions extends Component {
       __("Select account"),
       __("Please choose account"),
       [
-        ...this.props.accounts.map((account)=>{
-          return {text: account.name, onPress: ()=>this.props.changeAccountFilter(account)}
+        ...this.props.accounts.map((account) => {
+          return { text: account.name, onPress: () => this.props.changeAccountFilter(account) }
         }),
-        {text: "All accounts", onPress: ()=>this.props.changeAccountFilter(false)}
+        { text: "All accounts", onPress: () => this.props.changeAccountFilter(false) }
       ]
     )
   }
 
-  render(){
+  render() {
     const headerHeight = this.state.height.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
       outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
@@ -53,19 +50,21 @@ class Transactions extends Component {
     });
 
     const headerScale = this.state.height.interpolate({
-        inputRange: [-150, 0],
-          outputRange: [3, 1],
-          extrapolate: 'clamp',
+      inputRange: [-150, 0],
+      outputRange: [3, 1],
+      extrapolate: "clamp",
     });
 
-    return(
+    return (
       <Screen>
         <Animated.View style={{
-            justifyContent: "center",
-            backgroundColor: "teal",
-            overflow: 'hidden',
-            transform: [{scale: headerScale}],
-            height: headerHeight, backgroundColor:"teal"}}>
+          justifyContent: "center",
+          backgroundColor: "teal",
+          overflow: 'hidden',
+          transform: [{ scale: headerScale }],
+          height: headerHeight,
+        }}
+        >
           <Header title="Transactions">
             <View style={styles.overview}>
               <View>
@@ -84,20 +83,16 @@ class Transactions extends Component {
         <ScrollView
           scrollEnabled={this.state.scrollEnabled}
           scrollEventThrottle={16}
-          onScroll={Animated.event(
-           [{ nativeEvent: {
-                contentOffset: {
-                  y: this.state.height
-                }
+          onScroll={Animated.event([{
+            nativeEvent: {
+              contentOffset: {
+                y: this.state.height
               }
-            }]
-         )}>
-
-
-
+            }
+          }])}
+        >
 
           <View>
-
             {this.props.entries
               .filter((item)=>{
                 if (!this.props.accountFilter) {return true}
@@ -114,12 +109,13 @@ class Transactions extends Component {
             this.props.clearSelectedCategory()
             this.props.clearTransactionForm()
           }}
-          style={styles.addButton}>
-          <Icon style={{backgroundColor: "teal", width: 50, height:50, borderRadius:25}} textStyle={{fontSize: 30}} type="plus" />
+          style={styles.addButton}
+        >
+          <Icon style={{ backgroundColor: "teal", width: 50, height: 50, borderRadius :25 }} textStyle={{ fontSize: 30 }} type="plus" />
         </TouchableOpacity>
       </Screen>
     )
   }
 }
 
-export default withNavigation (Transactions);
+export default withNavigation(Transactions);
