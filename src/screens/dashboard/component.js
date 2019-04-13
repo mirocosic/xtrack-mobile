@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Animated, View, ScrollView, TextInput, Button, TouchableOpacity, Alert } from "react-native"
+import { Animated, View, ScrollView, TouchableOpacity, Alert } from "react-native"
 
 import { withNavigation } from "react-navigation"
 import { get } from "lodash"
@@ -12,7 +12,6 @@ import { formatCurrency } from "../../utils/currency"
 import styles from "./styles"
 
 import { HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT, HEADER_SCROLL_DISTANCE } from "../../utils/ui-utils"
-
 
 class Dashboard extends Component {
 

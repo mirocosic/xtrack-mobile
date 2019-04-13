@@ -1,28 +1,23 @@
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Image, ScrollView, TextInput, Button, TouchableOpacity} from 'react-native';
+import React, { Component } from "react"
+import { View, ScrollView, TextInput, TouchableOpacity } from "react-native";
 
 import { withNavigation } from "react-navigation";
-import { NavigationEvents } from "react-navigation";
 
 import Screen from "../../components/screen"
 import Header from "../../components/header"
 import Category from "../../components/category"
-import Icon from "../../components/icon"
-import { Copy, Title } from "../../components/typography"
-import __ from "../../utils/translations"
-import { get } from "lodash"
-
+import { Copy } from "../../components/typography"
 import styles from "./styles"
 
 class Categories extends Component {
 
   state = {
     categoryName: "",
-    type: "expense"
+    type: "expense",
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <Screen>
         <Header title="Categories" backBtn={true} backBtnPress={()=>this.props.navigation.goBack()}/>
         <ScrollView>
@@ -82,4 +77,4 @@ class Categories extends Component {
   }
 }
 
-export default withNavigation (Categories);
+export default withNavigation(Categories);

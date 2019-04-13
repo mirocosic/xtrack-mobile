@@ -1,34 +1,32 @@
-import React, {Component} from 'react';
-import {Animated, Platform, StyleSheet, Text, View, ScrollView, TextInput, Button,
-  TouchableOpacity, TouchableWithoutFeedback, Keyboard} from 'react-native';
-
+import React, { Component } from "react";
+import {
+  Text, View, ScrollView, TextInput, Button, Animated,
+  TouchableOpacity, TouchableWithoutFeedback, Keyboard,
+} from "react-native";
+import { Calendar } from "react-native-calendars"
 import { withNavigation } from "react-navigation";
+import moment from "moment";
+import { get } from "lodash"
+
 import Screen from "../../components/screen"
 import { Copy, Title } from "../../components/typography"
 import SelectBox from "../../components/select-box"
-import AnimatedAmount from "../../components/animated-amount"
-import { Calendar } from "react-native-calendars"
 import Icon from "../../components/icon"
 import Label from "../../components/label"
-import __ from "../../utils/translations"
-import {formatCurrency} from "../../utils/currency"
-import moment from "moment";
-import { get } from "lodash"
+import { formatCurrency } from "../../utils/currency"
 import styles from "./styles"
 
-import AnimateNumber from 'react-native-animate-number'
 
-class TransactionForm extends Component<Props> {
+class TransactionForm extends Component {
 
   state = {
     blinker: new Animated.Value(0),
-    stopAnimation: false,
     calendarOpen: false,
     transaction: this.props.selectedTransaction
   }
 
   componentWillReceiveProps = (nextProps) => {
-      this.setState({transaction: nextProps.selectedTransaction});
+    this.setState({transaction: nextProps.selectedTransaction});
   }
 
   focusInput = () => {
@@ -90,7 +88,7 @@ class TransactionForm extends Component<Props> {
     }
 
   render() {
-    const { transaction, calendarOpen } = this.state
+    const { transaction } = this.state
 
     return (
       <TouchableWithoutFeedback onPress={()=>this.blurInput()}>

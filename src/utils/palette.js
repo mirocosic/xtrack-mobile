@@ -1,5 +1,3 @@
-
-const gray = '#8a8e91';
 const grey = '#8a8e91';
 const darkGrey = '#686b6d';
 const lightGrey = '#a1a5a8';
@@ -11,11 +9,11 @@ export default {
   dark: 'rgb(45,48,55)',
   orange: '#fe9700',
   gray: grey,
-  grey: grey,
+  grey,
   lightGray: lightGrey,
-  lightGrey: lightGrey,
+  lightGrey,
   darkGray: darkGrey,
-  darkGrey: darkGrey,
+  darkGrey,
   green: 'rgb(37,227,195)',
   red: '#a00300',
   lightRed: 'rgb(255,100,100)',

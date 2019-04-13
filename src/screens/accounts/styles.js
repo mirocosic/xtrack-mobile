@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native"
 import palette from "../../utils/palette"
+
 export default StyleSheet.create({
   wrap: {
     flexDirection: "row",
@@ -7,12 +8,11 @@ export default StyleSheet.create({
     justifyContent: "space-between",
     padding: 20,
     borderBottomWidth: 1,
-    //margin:10
   },
 
   wrapDark: {
     borderColor: "white",
-    backgroundColor: palette.dark
+    backgroundColor: palette.dark,
   },
 
   inputContainer: {
@@ -20,7 +20,7 @@ export default StyleSheet.create({
     paddingRight: 20,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
 
   input: {
@@ -29,12 +29,12 @@ export default StyleSheet.create({
     padding: 20,
     margin: 20,
     width: 200,
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
   },
 
   inputDark: {
     color: "white",
-    borderColor: "white"
+    borderColor: "white",
   },
 
   add: {
@@ -43,7 +43,7 @@ export default StyleSheet.create({
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "green"
+    backgroundColor: "green",
   },
 
   delete: {
@@ -52,6 +52,6 @@ export default StyleSheet.create({
     height: 30,
     borderRadius: 20,
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 })

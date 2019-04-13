@@ -1,46 +1,44 @@
+import moment from "moment"
 import initialState from './initial-state';
-
 import { makeUUID } from "../../utils/helper-gnomes"
 
-import moment from "moment"
+const makeId = (entries) => {
 
-const makeId = (entries)=>{
-
-  if (entries.length){
+  if (entries.length) {
     return entries[entries.length-1].id+1
   } else {
     return 0
   }
 }
 
-const calculateTotal = (total, amount, type, inverse) => {
-  if ( (type === "expense" && !inverse) || (type === "income" && inverse)) {
-    return parseFloat(total) - parseFloat(amount)
-  } else if ( (type === "income" && !inverse) || (type === "expense" && inverse)) {
-    return parseFloat(total) + parseFloat(amount)
-  } else {
-    return total
-  }
-}
-
-const calculateExpense = (total, amount, type, inverse) => {
-  if (type === "income") {return total}
-  if (!inverse) {
-    return parseFloat(total) - parseFloat(amount)
-  } else {
-    return parseFloat(total) + parseFloat(amount)
-  }
-}
-
-const calculateIncome = (total, amount, type, inverse) => {
-  if (type === "expense") {return total}
-  if (inverse) {
-    return parseFloat(total) - parseFloat(amount)
-  } else {
-    const result = parseFloat(total) + parseFloat(amount);
-    return result;
-  }
-}
+// const calculateTotal = (total, amount, type, inverse) => {
+//   if ( (type === "expense" && !inverse) || (type === "income" && inverse)) {
+//     return parseFloat(total) - parseFloat(amount)
+//   } else if ( (type === "income" && !inverse) || (type === "expense" && inverse)) {
+//     return parseFloat(total) + parseFloat(amount)
+//   } else {
+//     return total
+//   }
+// }
+//
+// const calculateExpense = (total, amount, type, inverse) => {
+//   if (type === "income") {return total}
+//   if (!inverse) {
+//     return parseFloat(total) - parseFloat(amount)
+//   } else {
+//     return parseFloat(total) + parseFloat(amount)
+//   }
+// }
+//
+// const calculateIncome = (total, amount, type, inverse) => {
+//   if (type === "expense") {return total}
+//   if (inverse) {
+//     return parseFloat(total) - parseFloat(amount)
+//   } else {
+//     const result = parseFloat(total) + parseFloat(amount);
+//     return result;
+//   }
+// }
 
 const transactions = (state = initialState, action) => {
 
@@ -49,14 +47,14 @@ const transactions = (state = initialState, action) => {
   }
 
 
-  switch(action.type){
+  switch (action.type) {
 
     case "ADD_TRANSACTION":
       return {
         ...state,
-        //total: calculateTotal(state.total, amount, type, false),
-        //expenses: calculateExpense(state.expenses, amount, type, false),
-        //income: calculateIncome(state.income, amount, type, false),
+        // total: calculateTotal(state.total, amount, type, false),
+        // expenses: calculateExpense(state.expenses, amount, type, false),
+        // income: calculateIncome(state.income, amount, type, false),
         entries: [
           ...state.entries,
           {
@@ -77,7 +75,7 @@ const transactions = (state = initialState, action) => {
 
       return {
         ...state,
-        entries: state.entries.map((item)=>{
+        entries: state.entries.map((item) => {
           if (item.id !== action.transaction.id) return item;
 
           return {
@@ -102,10 +100,10 @@ const transactions = (state = initialState, action) => {
     case "DELETE_TRANSACTION":
       return {
         ...state,
-        //total: calculateTotal(state.total, action.transaction.amount, action.transaction.type, true),
-        //expenses: calculateExpense(state.expenses, action.transaction.amount, action.transaction.type, true),
-        //income: calculateIncome(state.income, action.transaction.amount, action.transaction.type, true),
-        entries: state.entries.filter((item)=>{
+        // total: calculateTotal(state.total, action.transaction.amount, action.transaction.type, true),
+        // expenses: calculateExpense(state.expenses, action.transaction.amount, action.transaction.type, true),
+        // income: calculateIncome(state.income, action.transaction.amount, action.transaction.type, true),
+        entries: state.entries.filter((item) => {
           return item.id !== action.transaction.id
         })
       }
@@ -145,17 +143,17 @@ const transactions = (state = initialState, action) => {
         ...state,
         selectedTransaction: {
           ...state.selectedTransaction,
-          ...{category: action.payload}
-          }
-        }
+          ...{ category: action.payload },
+        },
+      }
     case "SELECT_LABEL":
       return {
         ...state,
         selectedTransaction: {
           ...state.selectedTransaction,
-          ...{labels: [
+          ...{ labels: [
             ...state.selectedTransaction.labels,
-            {uuid: makeUUID(), ...action.payload}
+            { uuid: makeUUID(), ...action.payload }
             ]}
           }
       }

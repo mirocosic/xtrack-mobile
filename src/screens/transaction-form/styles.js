@@ -2,114 +2,114 @@ import { StyleSheet } from "react-native"
 
 export default StyleSheet.create({
 
-    wrap: {
-      paddingLeft: 20,
-      paddingRight: 20
-    },
+  wrap: {
+    paddingLeft: 20,
+    paddingRight: 20
+  },
 
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
 
-    welcome: {
-      color: "white",
-      textAlign: 'center',
-      padding: 10,
-      marginBottom: 30,
-      backgroundColor: "teal"
-    },
+  welcome: {
+    color: "white",
+    textAlign: 'center',
+    padding: 10,
+    marginBottom: 30,
+    backgroundColor: "teal"
+  },
 
-    textInput: {
-      color: "black",
-      fontSize: 20,
-      margin: 10,
-      width: 100,
-      backgroundColor: "white"
-    },
+  textInput: {
+    color: "black",
+    fontSize: 20,
+    margin: 10,
+    width: 100,
+    backgroundColor: "white"
+  },
 
-    textInputDark: {
-      color: "white",
-      fontSize: 20,
-      width: 200,
-      borderBottomWidth: 1,
-      borderColor: "white",
-      padding: 10,
-      margin: 10
-    },
+  textInputDark: {
+    color: "white",
+    fontSize: 20,
+    width: 200,
+    borderBottomWidth: 1,
+    borderColor: "white",
+    padding: 10,
+    margin: 10
+  },
 
-    amountInput: {
-      color: "gray",
-      fontSize: 40,
-      width: 200,
+  amountInput: {
+    color: "gray",
+    fontSize: 40,
+    width: 200,
 
-      margin: 10
-    },
+    margin: 10
+  },
 
-    amountInputDark: {
-      color: "white",
-    },
+  amountInputDark: {
+    color: "white",
+  },
 
-    typeButtonsWrap: {
-      flexDirection: "row",
-      justifyContent: "space-evenly"
-    },
+  typeButtonsWrap: {
+    flexDirection: "row",
+    justifyContent: "space-evenly"
+  },
 
-    typeButton: {
-      paddingTop: 10,
-      paddingBottom: 10,
-      paddingLeft: 20,
-      paddingRight: 20,
-      borderWidth: 1,
-      borderColor: "black"
-    },
+  typeButton: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    borderWidth: 1,
+    borderColor: "black"
+  },
 
-    btnExpenseSelected: {
-      backgroundColor: "red",
-    },
+  btnExpenseSelected: {
+    backgroundColor: "red",
+  },
 
-    btnIncomeSelected: {
-      backgroundColor: "green",
-    },
+  btnIncomeSelected: {
+    backgroundColor: "green",
+  },
 
-    btnTransferSelected: {
-      backgroundColor: "blue",
-    },
+  btnTransferSelected: {
+    backgroundColor: "blue",
+  },
 
-    btnDark: {
-      borderColor: "white"
-    },
+  btnDark: {
+    borderColor: "white"
+  },
 
-    copySelected: {
-      color: "white"
-    },
+  copySelected: {
+    color: "white"
+  },
 
-    selectBox: {
-      backgroundColor: "white",
-      borderRadius: 20,
-      flexDirection: "row",
-      alignItems: "center",
-    },
+  selectBox: {
+    backgroundColor: "white",
+    borderRadius: 20,
+    flexDirection: "row",
+    alignItems: "center",
+  },
 
-    selectBoxDark: {
-      borderColor: "white"
-    },
+  selectBoxDark: {
+    borderColor: "white"
+  },
 
-    labels: {
-      flexDirection: "row",
-      flexWrap: "wrap"
-    },
+  labels: {
+    flexDirection: "row",
+    flexWrap: "wrap"
+  },
 
-    calendarWrap: {
+  calendarWrap: {
 
-      position: "absolute",
-      flex: 1,
-      bottom: 0,
-      width: "100%",
-      //height: "100%",
-      backgroundColor: "gray",
-      //opacity: 0.8
-    }
+    position: "absolute",
+    flex: 1,
+    bottom: 0,
+    width: "100%",
+    //height: "100%",
+    backgroundColor: "gray",
+    //opacity: 0.8
+  }
 
 })

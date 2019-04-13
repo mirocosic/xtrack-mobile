@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 import { View, TouchableOpacity } from "react-native"
 import FontAwesome, { Icons } from "react-native-fontawesome"
 
@@ -57,3 +57,5 @@ const CategoryIcons = () => (
     </View>
   </View>
 )
+
+export default CategoryIcons

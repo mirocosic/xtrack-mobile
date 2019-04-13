@@ -12,11 +12,15 @@
   },
   "extends": "airbnb",
   "rules": {
+      "max-len": ["error", { "code": 120 }],
       "semi": 0,
       "quotes": ["warn", "double"],
       "padded-blocks": ["off", "always"],
+      "object-curly-newline": ["error", { "multiline": true }],
+      "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }],
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
       "react/jsx-boolean-value": ["always"],
-      "react/jsx-closing-bracket-location": [<disabled>]
+      "react/jsx-closing-bracket-location": [<disabled>],
+      "react/jsx-one-expression-per-line": [<disabled>]
     }
 }

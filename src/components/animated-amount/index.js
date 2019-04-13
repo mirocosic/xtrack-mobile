@@ -4,7 +4,7 @@ import { formatCurrency } from "../../utils/currency"
 import { Title } from "../typography"
 
 export default class AnimatedAmount extends Component {
-  
+
   state = {
     amount: 0,
   }

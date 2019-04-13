@@ -1,19 +1,12 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, Text, View, Image, ScrollView, TextInput, Button, TouchableOpacity} from 'react-native';
-
+import { View, ScrollView, TextInput, TouchableOpacity} from 'react-native';
 import { withNavigation } from "react-navigation";
-import { NavigationEvents } from "react-navigation";
-import FontAwesome, { Icons } from "react-native-fontawesome"
 
 import Screen from "../../components/screen"
 import Header from "../../components/header"
-import Category from "../../components/category"
 import CategoryIcons from "../../components/category-icons"
 import Icon from "../../components/icon"
-import { Copy, Title } from "../../components/typography"
-import __ from "../../utils/translations"
-import { get, forOwn } from "lodash"
-
+import { Copy } from "../../components/typography"
 import styles from "./styles"
 
 const colors = ["#FF5722", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
@@ -21,13 +14,13 @@ const colors = ["#FF5722", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
 class CategoryEdit extends Component {
 
   state = {
-    type: "expense",
     category: this.props.selectedCategory,
   }
-  render(){
+
+  render() {
 
     const { category } = this.state
-    return(
+    return (
       <Screen>
         <Header icon={<Icon type={category.icon} style={{backgroundColor: category.color}} />}
         title={category.name} backBtn={true} backBtnPress={()=>this.props.navigation.goBack()}/>

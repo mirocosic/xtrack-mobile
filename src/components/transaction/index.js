@@ -7,7 +7,7 @@ export default connect(
   }),
 
   dispatch => ({
-    select: transaction => dispatch({ type: "SELECT_TRANSACTION", transaction }),
-    delete: transaction => dispatch({ type: "DELETE_TRANSACTION", transaction }),
+    selectTransaction: transaction => dispatch({ type: "SELECT_TRANSACTION", transaction }),
+    deleteTransaction: transaction => dispatch({ type: "DELETE_TRANSACTION", transaction }),
   }),
 )(Component);

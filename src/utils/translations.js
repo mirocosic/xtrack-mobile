@@ -1,22 +1,21 @@
 import { store } from "../store"
+
 const state = store.getState();
 
 const translations = {
-  eng: {
+  eng: {},
 
-  },
-
-  "hrv": {
-    "Language": "Jezik",
-    "Welcome to XTrack!" : "Dobrodošli u XTrack!",
-    "Go to app" : "Kreni",
-    "Dashboard" : "Pregled",
-    "Total": "Ukupno",
-    "Type": "Tip",
-    "Amount": "Iznos",
-    "Category": "Kategorija",
-    "Date": "Datum",
-    "Note": "Bilješka"
+  hrv: {
+    Language: "Jezik",
+    "Welcome to XTrack!": "Dobrodošli u XTrack!",
+    "Go to app": "Kreni",
+    Dashboard: "Pregled",
+    Total: "Ukupno",
+    Type: "Tip",
+    Amount: "Iznos",
+    Category: "Kategorija",
+    Date: "Datum",
+    Note: "Bilješka",
   },
 
 }

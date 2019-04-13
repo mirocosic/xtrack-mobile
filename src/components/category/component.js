@@ -1,18 +1,19 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
+import PropTypes from "prop-types"
 import { View, TouchableOpacity } from "react-native"
 import Swipeout from "react-native-swipeout"
-import { withNavigation } from "react-navigation";
+import { withNavigation } from "react-navigation"
 import { get } from "lodash"
 import Icon from "../icon"
 import { Copy, Title } from "../typography"
-
 import styles from "./styles"
 
 class Category extends Component {
 
-  countTransactions = catId => (
-    this.props.transactions.filter((transaction)=> get(transaction, "category.id") === catId).length
-  )
+  countTransactions = (catId) => {
+    const { transactions } = this.props
+    return transactions.filter(transaction => get(transaction, "category.id") === catId).length
+  }
 
   renderDeleteButton = () => (
     <View style={styles.deleteButton}>
@@ -30,6 +31,7 @@ class Category extends Component {
 
   render() {
     const cat = this.props.data
+    const { darkMode, onPress, selectCategory, navigation } = this.props
     return (
       <Swipeout
         right={[{
@@ -47,17 +49,17 @@ class Category extends Component {
 
         <TouchableOpacity
           key={cat.id}
-          onPress={this.props.onPress}>
+          onPress={onPress}>
 
-          <View key={cat.id} style={[styles.categoryWrap, this.props.darkMode && styles.catWrapDark]}>
+          <View key={cat.id} style={[styles.categoryWrap, darkMode && styles.catWrapDark]}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Icon type={cat.icon} style={{ marginRight: 10, backgroundColor: get(cat, "color", "blue") }} />
-              <Copy>{cat.name + " ("+this.countTransactions(cat.id)+")"}</Copy>
+              <Copy>`${cat.name} (${this.countTransactions(cat.id)})`</Copy>
             </View>
 
             <TouchableOpacity onPress={() => {
-              this.props.selectCategory(cat)
-              this.props.navigation.navigate("CategoryEdit")
+              selectCategory(cat)
+              navigation.navigate("CategoryEdit")
             }}>
               <Title>{">"}</Title>
             </TouchableOpacity>
@@ -67,6 +69,10 @@ class Category extends Component {
       </Swipeout>
     );
   }
+}
+
+Category.propTypes = {
+  darkMode: PropTypes.bool.isRequired,
 }
 
 export default withNavigation(Category);

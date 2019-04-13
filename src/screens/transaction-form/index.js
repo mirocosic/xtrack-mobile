@@ -1,5 +1,5 @@
-import { connect } from 'react-redux';
-import Component from './component';
+import { connect } from "react-redux";
+import Component from "./component";
 
 export default connect(
   (state) => {
@@ -7,7 +7,6 @@ export default connect(
       darkMode: state.common.darkMode,
       entries: state.transactions.entries,
       transferMode: state.transactions.transferMode,
-      
       selectedTransaction: state.transactions.selectedTransaction,
       toAccount: state.accounts.toAccount,
       fromAccount: state.accounts.fromAccount,
