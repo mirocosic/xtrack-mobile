@@ -20,7 +20,7 @@
     "react-native-material-kit": "^0.5.1",
     "react-native-sentry": "^0.42.0",
     "react-native-swipeout": "mirocosic/react-native-swipeout",
-    "react-navigation": "^2.18.2",
+    "react-navigation": "^3.9.0",
     "react-redux": "^5.1.0",
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0"
