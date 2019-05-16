@@ -5,7 +5,7 @@ import { makeUUID } from "../../utils/helper-gnomes"
 const makeId = (entries) => {
 
   if (entries.length) {
-    return entries[entries.length-1].id+1
+    return entries[entries.length - 1].id + 1
   } else {
     return 0
   }
@@ -42,10 +42,8 @@ const makeId = (entries) => {
 
 const transactions = (state = initialState, action) => {
 
-  if (action.transaction) {
-    var { timestamp, account, fromAccount, amount, type, note, category, labels} = action.transaction;
-  }
-
+  const transaction = action.transaction || {}
+  const { timestamp, account, fromAccount, amount, type, note, category, labels } = transaction
 
   switch (action.type) {
 
@@ -66,9 +64,9 @@ const transactions = (state = initialState, action) => {
             amount,
             note,
             category,
-            labels
-          }
-        ]
+            labels,
+          },
+        ],
       }
 
     case "EDIT_TRANSACTION":
@@ -86,15 +84,15 @@ const transactions = (state = initialState, action) => {
             amount,
             note,
             category,
-            labels
+            labels,
           }
-        })
+        }),
       }
 
     case "SELECT_TRANSACTION":
       return {
         ...state,
-        selectedTransaction: action.transaction
+        selectedTransaction: action.transaction,
       }
 
     case "DELETE_TRANSACTION":
@@ -103,9 +101,7 @@ const transactions = (state = initialState, action) => {
         // total: calculateTotal(state.total, action.transaction.amount, action.transaction.type, true),
         // expenses: calculateExpense(state.expenses, action.transaction.amount, action.transaction.type, true),
         // income: calculateIncome(state.income, action.transaction.amount, action.transaction.type, true),
-        entries: state.entries.filter((item) => {
-          return item.id !== action.transaction.id
-        })
+        entries: state.entries.filter(item => item.id !== action.transaction.id),
       }
 
     case "TRANSFER_TRANSACTION":
@@ -122,7 +118,7 @@ const transactions = (state = initialState, action) => {
             amount: -amount,
             note,
             category,
-            labels
+            labels,
           },
           {
             id: makeId(state.entries) + 1,
@@ -133,9 +129,9 @@ const transactions = (state = initialState, action) => {
             amount:
             note,
             category,
-            labels
-          }
-        ]
+            labels,
+          },
+        ],
       }
 
     case "SELECT_CATEGORY":
@@ -153,9 +149,9 @@ const transactions = (state = initialState, action) => {
           ...state.selectedTransaction,
           ...{ labels: [
             ...state.selectedTransaction.labels,
-            { uuid: makeUUID(), ...action.payload }
-            ]}
-          }
+            { uuid: makeUUID(), ...action.payload },
+          ]},
+        },
       }
 
     case "REMOVE_LABEL":
@@ -163,8 +159,8 @@ const transactions = (state = initialState, action) => {
         ...state,
         selectedTransaction: {
           ...state.selectedTransaction,
-          ...{labels: state.selectedTransaction.labels.filter((label)=>label.uuid !== action.label.uuid)}
-        }
+          ...{ labels: state.selectedTransaction.labels.filter(label => label.uuid !== action.label.uuid) },
+        },
       }
 
     case "SELECT_TO_ACCOUNT":
@@ -172,8 +168,8 @@ const transactions = (state = initialState, action) => {
         ...state,
         selectedTransaction: {
           ...state.selectedTransaction,
-          ...{account: action.payload}
-        }
+          ...{ account: action.payload },
+        },
       }
 
     case "SELECT_FROM_ACCOUNT":
@@ -181,8 +177,8 @@ const transactions = (state = initialState, action) => {
         ...state,
         selectedTransaction: {
           ...state.selectedTransaction,
-          ...{fromAccount: action.payload}
-        }
+          ...{ fromAccount: action.payload },
+        },
       }
 
     case "SET_TYPE":
@@ -190,14 +186,14 @@ const transactions = (state = initialState, action) => {
         ...state,
         selectedTransaction: {
           ...state.selectedTransaction,
-          ...{type: action.transactionType}
-          }
+          ...{ type: action.transactionType },
+        },
       }
 
     case "SET_TRANSFER_MODE":
       return {
         ...state,
-        transferMode: action.value
+        transferMode: action.value,
       }
 
     case "CLEAR_TRANSACTION_FORM":
@@ -211,7 +207,8 @@ const transactions = (state = initialState, action) => {
           category: {},
           account: {},
           fromAccount: {},
-          labels: []}
+          labels: [],
+        },
       }
 
     case "ERASE":

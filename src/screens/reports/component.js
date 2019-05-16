@@ -123,9 +123,16 @@ class Reports extends Component {
         </ScrollView>
 
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate("TransactionForm")}
+          onPress={() => {
+            navigation.navigate("TransactionForm")
+            clearSelectedCategory()
+            clearTransactionForm()
+          }}
           style={styles.addButton}>
-          <Copy style={{ fontSize: 40, color: "#f0f0f0" }}>+</Copy>
+          <Icon
+            style={{ backgroundColor: "teal", width: 50, height: 50, borderRadius: 25 }}
+            textStyle={{ fontSize: 30 }}
+            type="plus" />
         </TouchableOpacity>
 
       </Screen>
