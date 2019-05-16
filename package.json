@@ -11,8 +11,8 @@
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
     "prop-types": "^15.7.2",
-    "react": "16.6.0-alpha.8af6728",
-    "react-native": "0.57.4",
+    "react": "16.8.3",
+    "react-native": "0.59.8",
     "react-native-animate-number": "^0.1.2",
     "react-native-calendars": "^1.21.0",
     "react-native-fontawesome": "mirocosic/react-native-fontawesome",
@@ -27,15 +27,17 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
-    "babel-jest": "23.6.0",
     "eslint": "^5.9.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
-    "jest": "23.6.0",
-    "metro-react-native-babel-preset": "0.49.0",
-    "react-test-renderer": "16.6.0-alpha.8af6728"
+    "@babel/core": "^7.4.4",
+    "@babel/runtime": "^7.4.4",
+    "babel-jest": "^24.8.0",
+    "jest": "^24.8.0",
+    "metro-react-native-babel-preset": "^0.54.0",
+    "react-test-renderer": "16.8.3"
   },
   "jest": {
     "preset": "react-native"

@@ -137,7 +137,7 @@ class Dashboard extends Component {
           onPress={() => this.props.navigation.navigate("TransactionForm")}
           style={styles.addButton}
         >
-          <Copy style={{ fontSize: 40, color: "#f0f0f0" }}>`+`</Copy>
+          <Copy style={{ fontSize: 40, color: "#f0f0f0" }}>+</Copy>
         </TouchableOpacity>
 
       </Screen>
