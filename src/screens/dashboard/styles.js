@@ -29,13 +29,9 @@ export default StyleSheet.create({
       marginRight: 20,
       alignSelf: "flex-end",
       right: 0,
-      alignItems:"center",
+      alignItems: "center",
       justifyContent: "center",
-      width: 60,
-      height: 60,
       padding: 0,
-      borderRadius: 30,
-      backgroundColor: "green"
-    }
+    },
 
 })
