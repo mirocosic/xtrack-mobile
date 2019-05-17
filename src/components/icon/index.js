@@ -29,8 +29,4 @@ const Icon = ({ type, textStyle, style, icon }) => (
   </View>
 )
 
-Icon.propTypes = {
-  type: PropTypes.bool.isRequired,
-}
-
 export default Icon

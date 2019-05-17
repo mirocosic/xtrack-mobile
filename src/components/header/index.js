@@ -22,8 +22,4 @@ const Header = ({backBtn, backBtnPress, style, icon, title, children}) => (
   </View>
 )
 
-Header.propTypes = {
-  backBtn: PropTypes.bool.isRequired
-}
-
 export default Header

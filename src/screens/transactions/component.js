@@ -124,7 +124,7 @@ class Transactions extends Component {
 }
 
 Transactions.propTypes = {
-  expenses: PropTypes.bool.isRequired,
+  expenses: PropTypes.number.isRequired,
   clearTransactionForm: PropTypes.func.isRequired,
 }
 
