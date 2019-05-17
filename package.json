@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.4.0",
     "intl": "^1.2.5",
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
@@ -26,15 +27,15 @@
     "redux-persist": "^5.10.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/runtime": "^7.4.4",
     "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.8.0",
     "eslint": "^5.9.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
-    "@babel/core": "^7.4.4",
-    "@babel/runtime": "^7.4.4",
-    "babel-jest": "^24.8.0",
     "jest": "^24.8.0",
     "metro-react-native-babel-preset": "^0.54.0",
     "react-test-renderer": "16.8.3"
