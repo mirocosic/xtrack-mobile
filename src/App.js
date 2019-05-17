@@ -10,7 +10,7 @@ import AppNavigator from "./navigators/app-navigator";
 import "intl";
 import "intl/locale-data/jsonp/en";
 
-Sentry.config("https://c5c6fad7bce3480fa962382c9a01ee1e@sentry.io/1427686").install();
+if (!__DEV__) { Sentry.config("https://c5c6fad7bce3480fa962382c9a01ee1e@sentry.io/1427686").install() }
 
 StatusBar.setBarStyle("light-content", true);
 
