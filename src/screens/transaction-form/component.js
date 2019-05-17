@@ -13,9 +13,9 @@ import { Copy, Title } from "../../components/typography"
 import SelectBox from "../../components/select-box"
 import Icon from "../../components/icon"
 import Label from "../../components/label"
+import { PrimaryButton, SecondaryButton } from "../../components/buttons"
 import { formatCurrency } from "../../utils/currency"
 import styles from "./styles"
-
 
 class TransactionForm extends Component {
 
@@ -26,7 +26,7 @@ class TransactionForm extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    this.setState({transaction: nextProps.selectedTransaction});
+    this.setState({ transaction: nextProps.selectedTransaction });
   }
 
   focusInput = () => {
@@ -37,95 +37,95 @@ class TransactionForm extends Component {
         Animated.timing(this.state.blinker, {
           toValue: 1,
           duration: 0,
-
         }),
         Animated.timing(this.state.blinker, {
           toValue: 0,
-          duration: 500
+          duration: 500,
         }),
         Animated.timing(this.state.blinker, {
           toValue: 1,
-          duration: 500
-        })
+          duration: 500,
+        }),
       ]),
 
     ).start()
-}
+  }
+
   blurInput = () => {
-    this.input.blur();
-    //this.setState({stopAnimation: true});
+    this.input.blur()
+    // this.setState({stopAnimation: true});
     this.state.blinker.stopAnimation()
   }
 
 
-
-  submitForm = ()=>{
-      const { transaction } = this.state
-      const payload = {
-        timestamp: transaction.timestamp,
-        account: transaction.account,
-        fromAccount: transaction.fromAccount,
-        type: transaction.type,
-        amount: transaction.type === "expense" ? -transaction.amount : transaction.amount,
-        note: transaction.note,
-        category: transaction.category,
-        labels: transaction.labels
-      }
-
-      if (transaction.type === "transfer"){
-        this.props.transfer(payload)
-        this.props.navigation.navigate("Dashboard")
-        return;
-      }
-
-      if (transaction.id){
-        this.props.edit({...payload, ...{id: transaction.id}})
-      } else {
-        this.props.add(payload)
-      }
-
-      this.props.navigation.navigate("Dashboard")
+  submitForm = () => {
+    const { transaction } = this.state
+    const payload = {
+      timestamp: transaction.timestamp,
+      account: transaction.account,
+      fromAccount: transaction.fromAccount,
+      type: transaction.type,
+      amount: transaction.type === "expense" ? -transaction.amount : transaction.amount,
+      note: transaction.note,
+      category: transaction.category,
+      labels: transaction.labels,
     }
+
+    if (transaction.type === "transfer") {
+      this.props.transfer(payload)
+      this.props.navigation.navigate("Dashboard")
+      return;
+    }
+
+    if (transaction.id) {
+      this.props.edit({ ...payload, ...{ id: transaction.id }})
+    } else {
+      this.props.add(payload)
+    }
+
+    this.props.navigation.navigate("Dashboard")
+  }
 
   render() {
     const { transaction } = this.state
 
     return (
-      <TouchableWithoutFeedback onPress={()=>this.blurInput()}>
-        <Screen style={{paddingLeft: 0, paddingRight: 0}}>
+      <TouchableWithoutFeedback onPress={() => this.blurInput()}>
+        <Screen style={{ paddingLeft: 0, paddingRight: 0 }}>
           <Title style={styles.welcome}>Enter your expense now!</Title>
 
 
           <ScrollView contentContainerStyle={styles.wrap}>
-
-              <View style={{ flexDirection: "row", justifyContent: "space-between", zIndex: 10000 }}>
+            <View style={{ flexDirection: "row", justifyContent: "space-between", zIndex: 10000 }}>
               <Title>This is your </Title>
               <Title>on</Title>
               <SelectBox
                 selected={transaction.type}
-                onPress={(type)=>{
+                onPress={(type) => {
                   this.props.setTransferMode(type === "transfer")
                   this.props.setType(type)
-                }}/>
+                }} />
             </View>
 
 
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <TouchableOpacity onPress={()=>this.setState({calendarOpen: true})}>
-                <Icon style={{marginLeft: 0}}/>
+              <TouchableOpacity onPress={() => this.setState({ calendarOpen: true })}>
+                <Icon style={{ marginLeft: 0 }} />
               </TouchableOpacity>
-              <Copy style={{margin: 20}}>{moment(transaction.timestamp).format("dddd, MMMM Do YYYY, h:mm:ss a")}</Copy>
+              <Copy style={{ margin: 20 }}>
+                {moment(transaction.timestamp).format("dddd, MMMM Do YYYY, h:mm:ss a")}
+              </Copy>
             </View>
 
-            <View style={{flexDirection: "row", alignItems: "center"}}>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Title>in category</Title>
 
               { transaction.type !== "transfer" && (
                 <View>
                   <TouchableOpacity
                     style={[styles.selectBox, this.props.darkMode && styles.selectBoxDark]}
-                    onPress={()=>this.props.navigation.navigate("Categories")}>
-                    <Icon type={get(transaction, "category.icon")} style={{marginRight: 10, backgroundColor: get(transaction, "category.color", "blue")}}/>
+                    onPress={() => this.props.navigation.navigate("Categories")}>
+                    <Icon type={get(transaction, "category.icon")} style={{marginRight: 10, backgroundColor: get(transaction, "category.color", "blue")}} />
                     <Text style={this.props.darkMode ? styles.textInputDark : styles.textInput}>
                       { get(transaction, "category.name", "select") }
                     </Text>
@@ -139,7 +139,7 @@ class TransactionForm extends Component {
             <Title>You have spent</Title>
             <TouchableOpacity
               ref={component => this.touchable = component}
-              onPress={()=>this.focusInput()}>
+              onPress={() => this.focusInput()}>
               <Animated.View style={{
                 opacity: this.state.blinker,
                 backgroundColor: "blue",
@@ -152,24 +152,24 @@ class TransactionForm extends Component {
               </Animated.View>
               <Title
 
-                style={{color: "gray", backgroundColor: "white", borderRadius: 20,zIndex:100}}>
-                {formatCurrency(this.state.transaction.amount)}
+                style={{ color: "gray", backgroundColor: "white", borderRadius: 20, zIndex: 100 }}>
+                {formatCurrency(transaction.amount)}
 
               </Title>
             </TouchableOpacity>
 
             <TextInput
-              ref={(ref)=>this.input = ref}
-              onSubmitEditing={()=>this.submitForm()}
-              onChangeText={(value) => this.setState({
+              ref={(ref) => { this.input = ref }}
+              onSubmitEditing={() => this.submitForm()}
+              onChangeText={value => this.setState({
                 transaction: {
-                  ...this.state.transaction,
-                  ...{amount: value}
-                }
+                  ...transaction,
+                  ...{ amount: value },
+                },
               })}
-              onBlur={()=>Keyboard.dismiss()}
-              value={this.state.transaction.amount}
-              style={{backgroundColor: "white", width: 0, height: 50}}
+              onBlur={() => Keyboard.dismiss()}
+              value={transaction.amount}
+              style={{ backgroundColor: "white", width: 0, height: 50 }}
 
               keyboardAppearance={this.props.darkMode ? "dark" : "light"}
               keyboardType="numeric"
@@ -217,44 +217,42 @@ class TransactionForm extends Component {
 
             <Copy>Labels</Copy>
 
-            <View style={ styles.labels }>
+            <View style={styles.labels}>
 
-              {transaction.labels.map((label) => {
-                return (
-                  <Label key={label.uuid} label={label} removeLabel={()=>this.props.removeLabel(label)}/>
-                )
-              }
-              )}
+              {transaction.labels.map(label => (
+                <Label key={label.uuid} label={label} removeLabel={() => this.props.removeLabel(label)} />
+              ))}
               <TouchableOpacity
-                onPress={()=>this.props.navigation.navigate("Labels")}>
+                onPress={() => this.props.navigation.navigate("Labels")}>
                 <Title>+</Title>
               </TouchableOpacity>
             </View>
 
 
-            <Button title="Done!" onPress={() => this.submitForm()} />
+            <PrimaryButton label="Done!" onPress={() => this.submitForm()} />
 
+            <SecondaryButton label="Back" onPress={() => this.props.navigation.navigate("Transactions")} />
 
-            <Button title="Back" onPress={()=>this.props.navigation.navigate("Transactions")}/>
-
-            {transaction.id &&
-              <Button title="Delete" onPress={()=>{
-                this.props.navigation.navigate("Transactions")
-                this.props.delete({id: transaction.id})}}/>
-            }
-
+            {transaction.id && (
+              <PrimaryButton
+                label="Delete"
+                onPress={() => {
+                  this.props.navigation.navigate("Transactions")
+                  this.props.delete({ id: transaction.id })
+                }} />
+            )}
 
           </ScrollView>
 
-
-        <View style={[styles.calendarWrap, this.state.calendarOpen ? {display: "flex"} : {display: "none"}]}>
-          <Calendar onDayPress={(day) => {
-            this.setState({
-              transaction: {...transaction, ...{timestamp: day.timestamp}},
-              calendarOpen: false})
-          }}/>
-        </View>
-      </Screen>
+          <View style={[styles.calendarWrap, this.state.calendarOpen ? { display: "flex" } : { display: "none" }]}>
+            <Calendar onDayPress={(day) => {
+              this.setState({
+                transaction: { ...transaction, ...{ timestamp: day.timestamp } },
+                calendarOpen: false,
+              })
+            }} />
+          </View>
+        </Screen>
       </TouchableWithoutFeedback>
     );
   }
