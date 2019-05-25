@@ -13,6 +13,7 @@ import { Copy, Title } from "../../components/typography"
 import SelectBox from "../../components/select-box"
 import Icon from "../../components/icon"
 import Label from "../../components/label"
+import Header from "../../components/header"
 import { PrimaryButton, SecondaryButton } from "../../components/buttons"
 import { formatCurrency } from "../../utils/currency"
 import styles from "./styles"
@@ -92,8 +93,7 @@ class TransactionForm extends Component {
     return (
       <TouchableWithoutFeedback onPress={() => this.blurInput()}>
         <Screen style={{ paddingLeft: 0, paddingRight: 0 }}>
-          <Title style={styles.welcome}>Enter your expense now!</Title>
-
+          <Header title="Transaction form" backBtn={true} backBtnPress={() => this.props.navigation.goBack()} />
 
           <ScrollView contentContainerStyle={styles.wrap}>
             <View style={{ flexDirection: "row", justifyContent: "space-between", zIndex: 10000 }}>
