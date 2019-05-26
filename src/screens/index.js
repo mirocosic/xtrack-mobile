@@ -1,4 +1,5 @@
 import Dashboard from "./dashboard";
+import Overview from "./overview";
 import Reports from "./reports"
 import TransactionForm from "./transaction-form";
 import Profile from "./profile";
@@ -11,6 +12,7 @@ import Transactions from "./transactions";
 
 export {
   Dashboard,
+  Overview,
   Reports,
   TransactionForm,
   Profile,

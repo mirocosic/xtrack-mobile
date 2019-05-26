@@ -3,13 +3,14 @@ import { createStackNavigator } from "react-navigation";
 import BottomBarNavigator from "./bottom-bar-navigator";
 import {
   TransactionForm, Dashboard, Profile, Categories, Accounts, Labels,
-  CategoryEdit, Splash,
+  CategoryEdit, Splash, Overview,
 } from "../screens"
 
 const AppStack = createStackNavigator({
   Splash: { screen: Splash },
   Main: { screen: BottomBarNavigator },
   Dashboard: { screen: Dashboard },
+  Overview: { screen: Overview },
   Categories: { screen: Categories },
   CategoryEdit: { screen: CategoryEdit },
   Accounts: { screen: Accounts },
