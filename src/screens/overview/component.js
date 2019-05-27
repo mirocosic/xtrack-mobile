@@ -7,12 +7,26 @@ import Header from "../../components/header"
 
 import styles from "./styles"
 
+
 class Overview extends Component {
 
   state = {}
 
+  renderExpenses() {
+    return Object.entries(this.props.expensesByCategory).map(item => (
+      <View style={{ ...styles.row, paddingLeft: 20 }}>
+        <Text>{item[0]}</Text>
+        <Text>{item[1]}</Text>
+      </View>
+    ))
+  }
+
   render() {
-    console.log(this.props.transactions)
+
+    const { expensesByCategory } = this.props
+
+    console.log(expensesByCategory)
+
     return (
       <Screen>
         <Header title="Overview" />
@@ -28,10 +42,7 @@ class Overview extends Component {
           </View>
 
           <View style={styles.breakdownWrap}>
-            <View style={{...styles.row, paddingLeft: 20}}>
-              <Text>Category</Text>
-              <Text>45 kn </Text>
-            </View>
+            { this.renderExpenses() }
           </View>
 
           <View style={styles.row}>
