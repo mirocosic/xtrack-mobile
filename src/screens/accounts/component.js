@@ -63,7 +63,7 @@ class Accounts extends Component {
                 <View key={account.id} style={[styles.wrap, darkMode && styles.wrapDark]}>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <Icon icon="money" style={{ marginRight: 10 }} />
-                    <Copy>`${account.name} - ${accountBalance(account, transactions)}`</Copy>
+                    <Copy>{`${account.name} - ${accountBalance(account, transactions)}`}</Copy>
                   </View>
 
                   <TouchableOpacity style={styles.delete} onPress={() => deleteAccount(account.id)}>
