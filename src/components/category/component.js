@@ -54,7 +54,7 @@ class Category extends Component {
           <View key={cat.id} style={[styles.categoryWrap, darkMode && styles.catWrapDark]}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Icon type={cat.icon} style={{ marginRight: 10, backgroundColor: get(cat, "color", "blue") }} />
-              <Copy>`${cat.name} (${this.countTransactions(cat.id)})`</Copy>
+              <Copy>{`${cat.name} (${this.countTransactions(cat.id)})`}</Copy>
             </View>
 
             <TouchableOpacity onPress={() => {
