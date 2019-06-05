@@ -17,9 +17,11 @@ class Categories extends Component {
   }
 
   render() {
+    const { categories, navigation, add, clearTransactionForm, clearSelectedCategory, selectCategory } = this.props
+    const { categoryName, type } = this.state
     return (
       <Screen>
-        <Header title="Categories" backBtn={true} backBtnPress={()=>this.props.navigation.goBack()}/>
+        <Header title="Categories" backBtn={true} backBtnPress={() => navigation.goBack()} />
         <ScrollView>
           <View>
             {
@@ -36,40 +38,43 @@ class Categories extends Component {
             // </View>
 }
             <View style={styles.inputContainer}>
-              <TextInput style={[styles.input, this.props.darkMode && styles.inputDark]}
-                onChangeText={(text)=>this.setState({categoryName: text})}
+              <TextInput
+                style={[styles.input, this.props.darkMode && styles.inputDark]}
+                onChangeText={text => this.setState({ categoryName: text })}
                 returnKeyType="done"
                 placeholder="new category"
-                value={this.state.categoryName}
-                />
-              <TouchableOpacity style={styles.add}
-                onPress={()=>{
-                  this.setState({categoryName: ""})
-                  this.props.add({name: this.state.categoryName, type: this.state.type})}}
-                >
-                <Copy style={{color: "white"}}>Add</Copy>
+                value={categoryName}
+              />
+              <TouchableOpacity
+                style={styles.add}
+                onPress={() => {
+                  this.setState({ categoryName: "" })
+                  add({ name: categoryName, type })}
+                }>
+                <Copy style={{ color: "white" }}>Add</Copy>
               </TouchableOpacity>
             </View>
 
-            {this.props.categories
-            .filter((item)=>item.type === this.state.type)
-            .map((cat)=>(
-              <Category data={cat} onPress={()=>{this.props.selectCategory(cat); this.props.navigation.goBack()}}/>
-            ))
-            .reverse()
+            {categories
+              .filter(item => item.type === type)
+              .map(cat => (
+                <Category data={cat} onPress={() => { selectCategory(cat); navigation.goBack() }} />
+              ))
+              .reverse()
             }
           </View>
 
         </ScrollView>
-        <View style={{height: 40, borderTopWidth: 1}}>
+        <View style={{ height: 40, borderTopWidth: 1 }}>
 
-          <TouchableOpacity onPress={()=>{
-              this.props.navigation.navigate("TransactionForm")
-              this.props.clearSelectedCategory()
-              this.props.clearTransactionForm()
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("TransactionForm")
+              clearSelectedCategory()
+              clearTransactionForm()
             }}
             style={styles.addButton}>
-            <Copy style={{fontSize: 40, color: "#f0f0f0"}}>+</Copy>
+            <Copy style={{ fontSize: 40, color: "#f0f0f0" }}>+</Copy>
           </TouchableOpacity>
         </View>
       </Screen>
