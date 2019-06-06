@@ -5,16 +5,18 @@ import { connect } from "react-redux";
 import palette from "../../utils/palette"
 
 const CopyCmp = (props) => {
-  const defaultStyle = props.darkMode ? styles.copyDark : styles.copy
+  const { darkMode, style, children } = props
+  const defaultStyle = darkMode ? styles.copyDark : styles.copy
   return (
-    <Text style={{ ...defaultStyle, ...props.style }}>{props.children}</Text>
+    <Text style={{ ...defaultStyle, ...style }}>{children}</Text>
   )
 }
 
 const TitleCmp = (props) => {
-  const defaultStyle = props.darkMode ? styles.titleDark : styles.title
+  const { darkMode, style, children } = props
+  const defaultStyle = darkMode ? styles.titleDark : styles.title
   return (
-    <Text style={{ ...defaultStyle, ...props.style }}>{props.children}</Text>
+    <Text style={{ ...defaultStyle, ...style }}>{children}</Text>
   )
 }
 
