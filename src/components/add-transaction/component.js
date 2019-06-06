@@ -1,37 +1,23 @@
-import { StyleSheet } from "react-native";
-import palette from "../../utils/palette"
+import React from "react"
+import { TouchableOpacity } from "react-native"
 
-export default StyleSheet.create({
+import { withNavigation } from "react-navigation"
+import Icon from "../icon"
+import styles from "./styles"
 
-    accountCard: {
-      backgroundColor: "white",
-      margin: 20,
-      borderRadius: 10
-    },
+const AddTransaction = props => (
+  <TouchableOpacity
+    onPress={() => {
+      props.navigation.navigate("TransactionForm")
+      props.clearSelectedCategory()
+      props.clearTransactionForm()
+    }}
+    style={styles.addButton}>
+    <Icon
+      style={{ backgroundColor: "teal", width: 50, height: 50, borderRadius: 25 }}
+      textStyle={{ fontSize: 30 }}
+      type="plus" />
+  </TouchableOpacity>
+)
 
-    accountCardDark: {
-      backgroundColor: palette.dark
-    },
-
-    accountDetails: {
-      paddingLeft: 20,
-    },
-
-    overview: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-      padding: 20
-    },
-
-    addButton: {
-      position: "absolute",
-      bottom: 20,
-      marginRight: 20,
-      alignSelf: "flex-end",
-      right: 0,
-      alignItems: "center",
-      justifyContent: "center",
-      padding: 0,
-    },
-
-})
+export default withNavigation(AddTransaction)

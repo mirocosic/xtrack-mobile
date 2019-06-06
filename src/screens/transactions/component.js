@@ -7,6 +7,7 @@ import Screen from "../../components/screen"
 import Header from "../../components/header"
 import Icon from "../../components/icon"
 import Transaction from "../../components/transaction"
+import AddTransaction from "../../components/add-transaction"
 import { Copy } from "../../components/typography"
 import __ from "../../utils/translations"
 import { formatCurrency } from "../../utils/currency"
@@ -106,18 +107,8 @@ class Transactions extends Component {
           </View>
 
         </ScrollView>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("TransactionForm")
-            clearSelectedCategory()
-            clearTransactionForm()
-          }}
-          style={styles.addButton}>
-          <Icon
-            style={{ backgroundColor: "teal", width: 50, height: 50, borderRadius: 25 }}
-            textStyle={{ fontSize: 30 }}
-            type="plus" />
-        </TouchableOpacity>
+
+        <AddTransaction />
       </Screen>
     )
   }

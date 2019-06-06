@@ -5,6 +5,7 @@ import { withNavigation } from "react-navigation"
 import Screen from "../../components/screen"
 import Header from "../../components/header"
 
+import AddTransaction from "../../components/add-transaction"
 import styles from "./styles"
 
 
@@ -52,6 +53,8 @@ class Overview extends Component {
 
 
         </View>
+
+        <AddTransaction />
       </Screen>
     )
   }
