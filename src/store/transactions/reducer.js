@@ -30,15 +30,6 @@ const makeId = (entries) => {
 //   }
 // }
 //
-// const calculateIncome = (total, amount, type, inverse) => {
-//   if (type === "expense") {return total}
-//   if (inverse) {
-//     return parseFloat(total) - parseFloat(amount)
-//   } else {
-//     const result = parseFloat(total) + parseFloat(amount);
-//     return result;
-//   }
-// }
 
 const transactions = (state = initialState, action) => {
 
@@ -52,7 +43,6 @@ const transactions = (state = initialState, action) => {
         ...state,
         // total: calculateTotal(state.total, amount, type, false),
         // expenses: calculateExpense(state.expenses, amount, type, false),
-        // income: calculateIncome(state.income, amount, type, false),
         entries: [
           ...state.entries,
           {
