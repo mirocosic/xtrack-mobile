@@ -8,6 +8,7 @@ import Icon from "../../components/icon"
 import AddTransaction from "../../components/add-transaction"
 import styles from "./styles"
 
+import { calcIncome } from "../../utils/helper-gnomes"
 
 class Overview extends Component {
 
@@ -20,8 +21,8 @@ class Overview extends Component {
   state = {}
 
   renderExpenses() {
-    return Object.entries(this.props.expensesByCategory).map(item => (
-      <View style={{ ...styles.row, paddingLeft: 20 }}>
+    return Object.entries(this.props.expensesByCategory).map((item, idx) => (
+      <View key={idx} style={{ ...styles.row, paddingLeft: 20 }}>
         <Text>{`${item[0]} `}</Text>
         <Text>{`${item[1]} kn`}</Text>
       </View>
@@ -29,7 +30,7 @@ class Overview extends Component {
   }
 
   render() {
-    const { expensesByCategory, income, expenses } = this.props
+    const { expensesByCategory, transactions, expenses } = this.props
 
     return (
       <Screen>
@@ -37,7 +38,7 @@ class Overview extends Component {
         <View style={styles.wrap}>
           <View style={styles.row}>
             <Text>Income </Text>
-            <Text>{income} kn</Text>
+            <Text>{calcIncome(transactions)} kn</Text>
           </View>
 
           <View style={styles.row}>
@@ -51,7 +52,7 @@ class Overview extends Component {
 
           <View style={styles.row}>
             <Text>Balance </Text>
-            <Text>{income - expenses} kn</Text>
+            <Text>{100} kn</Text>
           </View>
 
 
