@@ -60,6 +60,7 @@ class TransactionForm extends Component {
 
 
   submitForm = () => {
+    const { transfer, edit, add, navigation } = this.props
     const { transaction } = this.state
     const payload = {
       timestamp: transaction.timestamp,
@@ -73,18 +74,18 @@ class TransactionForm extends Component {
     }
 
     if (transaction.type === "transfer") {
-      this.props.transfer(payload)
-      this.props.navigation.navigate("Dashboard")
+      transfer(payload)
+      navigation.navigate("Transactions")
       return;
     }
 
     if (transaction.id) {
-      this.props.edit({ ...payload, ...{ id: transaction.id }})
+      edit({ ...payload, ...{ id: transaction.id }})
     } else {
-      this.props.add(payload)
+      add(payload)
     }
 
-    this.props.navigation.navigate("Dashboard")
+    navigation.navigate("Transactions")
   }
 
   render() {
