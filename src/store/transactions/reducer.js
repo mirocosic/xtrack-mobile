@@ -1,15 +1,8 @@
 import moment from "moment"
-import initialState from './initial-state';
+import initialState from "./initial-state";
 import { makeUUID } from "../../utils/helper-gnomes"
 
-const makeId = (entries) => {
-
-  if (entries.length) {
-    return entries[entries.length - 1].id + 1
-  } else {
-    return 0
-  }
-}
+const makeId = entries => (entries.length ? entries[entries.length - 1].id + 1 : 0)
 
 // const calculateTotal = (total, amount, type, inverse) => {
 //   if ( (type === "expense" && !inverse) || (type === "income" && inverse)) {
@@ -137,10 +130,12 @@ const transactions = (state = initialState, action) => {
         ...state,
         selectedTransaction: {
           ...state.selectedTransaction,
-          ...{ labels: [
-            ...state.selectedTransaction.labels,
-            { uuid: makeUUID(), ...action.payload },
-          ]},
+          ...{
+            labels: [
+              ...state.selectedTransaction.labels,
+              { uuid: makeUUID(), ...action.payload },
+            ],
+          },
         },
       }
 
@@ -202,9 +197,7 @@ const transactions = (state = initialState, action) => {
       }
 
     case "ERASE":
-      return {
-        ...initialState
-      }
+      return { ...initialState }
 
     default:
       return state;
