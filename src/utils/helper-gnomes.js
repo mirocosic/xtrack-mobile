@@ -1,19 +1,19 @@
-const makeUUID = () => {
+export const makeUUID = () => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
     let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
     return v.toString(16)
   });
 }
 
-const calcIncome = (transactions, filter = { type: false, value: false }) => {
+export const calculateTransactions = (transactions, transactionType, filter = { type: false, value: false }) => {
   if (transactions.length === 0) { return 0 }
   let filteredTransactions = []
   switch (filter.type) {
     case "account":
-      filteredTransactions = transactions.filter((item)=>filter.value.accountId=== get(item ,"account.id") && item.type === "income");
+      filteredTransactions = transactions.filter((item)=>filter.value.accountId=== get(item ,"account.id") && item.type === transactionType);
       break;
     default:
-      filteredTransactions = transactions.filter(item => item.type === "income");
+      filteredTransactions = transactions.filter(item => item.type === transactionType);
   }
 
   if (filteredTransactions.length === 0) { return 0 }
@@ -22,7 +22,10 @@ const calcIncome = (transactions, filter = { type: false, value: false }) => {
   return total.amount;
 }
 
-export {
-  makeUUID,
-  calcIncome,
+export const calculateIncome = (transactions, filter = { type: false, value: false }) => {
+  return calculateTransactions(transactions, "income", filter = { type: false, value: false })
+}
+
+export const calculateExpenses = (transactions, filter = { type: false, value: false }) => {
+  return calculateTransactions(transactions, "expense", filter = { type: false, value: false })
 }

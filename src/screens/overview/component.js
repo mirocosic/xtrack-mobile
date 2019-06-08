@@ -8,7 +8,7 @@ import Icon from "../../components/icon"
 import AddTransaction from "../../components/add-transaction"
 import styles from "./styles"
 
-import { calcIncome } from "../../utils/helper-gnomes"
+import { calculateIncome, calculateExpenses } from "../../utils/helper-gnomes"
 
 class Overview extends Component {
 
@@ -38,12 +38,12 @@ class Overview extends Component {
         <View style={styles.wrap}>
           <View style={styles.row}>
             <Text>Income </Text>
-            <Text>{calcIncome(transactions)} kn</Text>
+            <Text>{calculateIncome(transactions)} kn</Text>
           </View>
 
           <View style={styles.row}>
             <Text>Expenses </Text>
-            <Text>{expenses} kn</Text>
+            <Text>{calculateExpenses(transactions)} kn</Text>
           </View>
 
           <View style={styles.breakdownWrap}>
@@ -52,7 +52,7 @@ class Overview extends Component {
 
           <View style={styles.row}>
             <Text>Balance </Text>
-            <Text>{100} kn</Text>
+            <Text>{calculateIncome(transactions) - calculateExpenses(transactions)} kn</Text>
           </View>
 
 
