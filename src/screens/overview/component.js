@@ -1,11 +1,13 @@
 import React, { Component } from "react"
-import { View, Text } from "react-native"
+import { View, Text, TouchableOpacity, Alert } from "react-native"
 
 import { withNavigation } from "react-navigation"
 import Screen from "../../components/screen"
 import Header from "../../components/header"
 import Icon from "../../components/icon"
+import { Copy } from "../../components/typography"
 import AddTransaction from "../../components/add-transaction"
+import __ from "../../utils/translations"
 import styles from "./styles"
 
 import { calculateIncome, calculateExpenses } from "../../utils/helper-gnomes"
@@ -20,6 +22,20 @@ class Overview extends Component {
 
   state = {}
 
+  changeAccountFilter = () => {
+    const { accounts, changeAccountFilter } = this.props
+    Alert.alert(
+      __("Select account"),
+      __("Please choose account"),
+      [
+        ...accounts.map(account => (
+          { text: account.name, onPress: () => changeAccountFilter(account) }
+        )),
+        { text: "All accounts", onPress: () => changeAccountFilter(false) },
+      ],
+    )
+  }
+
   renderExpenses() {
     return Object.entries(this.props.expensesByCategory).map((item, idx) => (
       <View key={idx} style={{ ...styles.row, paddingLeft: 20 }}>
@@ -30,20 +46,27 @@ class Overview extends Component {
   }
 
   render() {
-    const { expensesByCategory, transactions, expenses } = this.props
-
+    const { expensesByCategory, transactions, accountFilter } = this.props
+    const income = calculateIncome(transactions, { type: "account", value: accountFilter })
+    const expenses = calculateExpenses(transactions, { type: "account", value: accountFilter })
+    const total = income - expenses
     return (
       <Screen>
         <Header title="Overview" />
+
+        <TouchableOpacity onPress={this.changeAccountFilter}>
+          <Copy style={{ color: "black" }}>Account: {accountFilter.name || "All accounts"}</Copy>
+        </TouchableOpacity>
+
         <View style={styles.wrap}>
           <View style={styles.row}>
             <Text>Income </Text>
-            <Text>{calculateIncome(transactions)} kn</Text>
+            <Text>{income} kn</Text>
           </View>
 
           <View style={styles.row}>
             <Text>Expenses </Text>
-            <Text>{calculateExpenses(transactions)} kn</Text>
+            <Text>{expenses} kn</Text>
           </View>
 
           <View style={styles.breakdownWrap}>
@@ -52,7 +75,7 @@ class Overview extends Component {
 
           <View style={styles.row}>
             <Text>Balance </Text>
-            <Text>{calculateIncome(transactions) - calculateExpenses(transactions)} kn</Text>
+            <Text>{total} kn</Text>
           </View>
 
 
