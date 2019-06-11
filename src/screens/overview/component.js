@@ -5,7 +5,7 @@ import { withNavigation } from "react-navigation"
 import Screen from "../../components/screen"
 import Header from "../../components/header"
 import Icon from "../../components/icon"
-import { Copy } from "../../components/typography"
+import { Copy, Title } from "../../components/typography"
 import AddTransaction from "../../components/add-transaction"
 import __ from "../../utils/translations"
 import styles from "./styles"
@@ -53,6 +53,17 @@ class Overview extends Component {
     return (
       <Screen>
         <Header title="Overview" />
+
+        <View style={styles.rangeSelector}>
+          <TouchableOpacity>
+            <Icon style={{ backgroundColor: "teal" }} textStyle={{ fontSize: 20, color: "white" }} type="angle-left" />
+          </TouchableOpacity>
+
+          <Title>Month</Title>
+          <TouchableOpacity>
+            <Icon style={{ backgroundColor: "teal" }} textStyle={{ fontSize: 20, color: "white" }} type="angle-right" />
+          </TouchableOpacity>
+        </View>
 
         <TouchableOpacity onPress={this.changeAccountFilter}>
           <Copy style={{ color: "black" }}>Account: {accountFilter.name || "All accounts"}</Copy>

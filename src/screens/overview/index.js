@@ -1,5 +1,8 @@
 import { connect } from "react-redux";
+import { get } from "lodash"
+
 import Component from "./component";
+
 
 const sortByCategory = (expenses) => {
   const result = {}
@@ -11,6 +14,12 @@ const sortByCategory = (expenses) => {
   return result
 }
 
+const filterByAccount = (expenses, accountFilter) => {
+
+  return accountFilter ? expenses.filter(item => accountFilter.id === get(item, "account.id")) : expenses
+
+}
+
 export default connect(
   state => ({
     darkMode: state.common.darkMode,
@@ -20,7 +29,7 @@ export default connect(
     transactions: state.transactions.entries,
     total: state.transactions.total,
     expenses: state.transactions.expenses,
-    expensesByCategory: sortByCategory(state.transactions.entries.filter(item => item.type === "expense")),
+    expensesByCategory: sortByCategory(filterByAccount(state.transactions.entries.filter(item => item.type === "expense"), state.accounts.accountFilter)),
     income: state.transactions.income,
   }),
 

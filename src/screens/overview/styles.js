@@ -10,7 +10,13 @@ export default StyleSheet.create({
   row: {
     display: "flex",
     flexDirection: "row",
-    
-  }
+  },
+
+  rangeSelector: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: 20
+  },
 
 })
