@@ -26,6 +26,7 @@ export default connect(
     accounts: state.accounts.items,
     accountFilter: state.accounts.accountFilter,
     monthFilter: state.transactions.monthFilter,
+    currentMonth: state.transactions.currentMonth,
     transactions: state.transactions.entries,
     total: state.transactions.total,
     expenses: state.transactions.expenses,

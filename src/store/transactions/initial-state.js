@@ -1,3 +1,5 @@
+import moment from "moment"
+
 export default {
   total: 0,
   expenses: 0,
@@ -8,4 +10,5 @@ export default {
   ],
   transferMode: false,
   monthFilter: "may",
+  currentMonth: moment().format("YYYY-MM-DD"),
 };

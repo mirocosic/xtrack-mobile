@@ -1,7 +1,8 @@
 import React, { Component } from "react"
 import { View, Text, TouchableOpacity, Alert } from "react-native"
-
 import { withNavigation } from "react-navigation"
+import moment from "moment"
+import Modal from "react-native-modal"
 import Screen from "../../components/screen"
 import Header from "../../components/header"
 import Icon from "../../components/icon"
@@ -20,7 +21,7 @@ class Overview extends Component {
     ),
   })
 
-  state = {}
+  state = { modalVisible: false }
 
   changeAccountFilter = () => {
     const { accounts, changeAccountFilter } = this.props
@@ -36,6 +37,16 @@ class Overview extends Component {
     )
   }
 
+  renderAccounts = (callback) => {
+    const { accounts, changeAccountFilter } = this.props
+    return accounts.map(account => (
+      <TouchableOpacity onPress={() => { changeAccountFilter(account); callback() }}>
+        <Text>{account.name}</Text>
+      </TouchableOpacity>
+
+    ))
+  }
+
   renderExpenses() {
     return Object.entries(this.props.expensesByCategory).map((item, idx) => (
       <View key={idx} style={{ ...styles.row, paddingLeft: 20 }}>
@@ -46,26 +57,31 @@ class Overview extends Component {
   }
 
   render() {
-    const { expensesByCategory, transactions, accountFilter } = this.props
+    const { expensesByCategory, transactions, accountFilter, changeAccountFilter, changeMonthFilter, currentMonth } = this.props
     const income = calculateIncome(transactions, { type: "account", value: accountFilter })
     const expenses = calculateExpenses(transactions, { type: "account", value: accountFilter })
     const total = income - expenses
     return (
+
       <Screen>
         <Header title="Overview" />
 
         <View style={styles.rangeSelector}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => changeMonthFilter(moment(currentMonth).subtract(1, "month").format("YYYY-MM-DD"))}>
             <Icon style={{ backgroundColor: "teal" }} textStyle={{ fontSize: 20, color: "white" }} type="angle-left" />
           </TouchableOpacity>
 
-          <Title>Month</Title>
-          <TouchableOpacity>
+          <Title>{moment(currentMonth, "YYYY-MM-DD").format("MMMM")}</Title>
+          <TouchableOpacity onPress={() => changeMonthFilter(moment(currentMonth).add(1, "month").format("YYYY-MM-DD"))}>
             <Icon style={{ backgroundColor: "teal" }} textStyle={{ fontSize: 20, color: "white" }} type="angle-right" />
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity onPress={this.changeAccountFilter}>
+        <TouchableOpacity
+          onPress={
+            () => this.setState({ modalVisible: true })
+            // this.changeAccountFilter
+          }>
           <Copy style={{ color: "black" }}>Account: {accountFilter.name || "All accounts"}</Copy>
         </TouchableOpacity>
 
@@ -93,7 +109,32 @@ class Overview extends Component {
         </View>
 
         <AddTransaction />
+
+        <Modal
+          style={{ margin: 0, justifyContent: "flex-end" }}
+          swipeDirection={["up", "down"]}
+          onSwipeComplete={() => this.setState({ modalVisible: false })}
+          onBackdropPress={() => this.setState({ modalVisible: false })}
+          isVisible={this.state.modalVisible}>
+          <View style={{ height: 200, width: "100%", padding: 20, backgroundColor: "white" }}>
+            <Text style={{ textAlign: "center" }}>Select account</Text>
+
+            <View style={{ padding: 10 }}>{this.renderAccounts(()=>this.setState({ modalVisible: false }))}</View>
+
+            <TouchableOpacity onPress={() => { this.setState({ modalVisible: false }); changeAccountFilter(false) }}>
+              <Text>All accounts</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => this.setState({ modalVisible: false })}>
+              <Text>Close</Text>
+            </TouchableOpacity>
+
+          </View>
+        </Modal>
       </Screen>
+
+
+
     )
   }
 }

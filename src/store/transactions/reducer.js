@@ -196,6 +196,12 @@ const transactions = (state = initialState, action) => {
         },
       }
 
+    case "CHANGE_MONTH_FILTER":
+      return {
+        ...state,
+        currentMonth: action.month,
+      }
+
     case "ERASE":
       return { ...initialState }
 
