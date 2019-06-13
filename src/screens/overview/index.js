@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { get } from "lodash"
+import moment from "moment"
 
 import Component from "./component";
 
@@ -20,6 +21,11 @@ const filterByAccount = (expenses, accountFilter) => {
 
 }
 
+const filterByMonth = (transactions, currentMonth) => (
+  transactions.filter(t => moment(t.timestamp) > moment(currentMonth).startOf("month")
+                           && moment(t.timestamp) < moment(currentMonth).endOf("month")
+                           && t.type === "expense"))
+
 export default connect(
   state => ({
     darkMode: state.common.darkMode,
@@ -30,7 +36,8 @@ export default connect(
     transactions: state.transactions.entries,
     total: state.transactions.total,
     expenses: state.transactions.expenses,
-    expensesByCategory: sortByCategory(filterByAccount(state.transactions.entries.filter(item => item.type === "expense"), state.accounts.accountFilter)),
+    //expensesByCategory: sortByCategory(filterByAccount(state.transactions.entries.filter(item => item.type === "expense"), state.accounts.accountFilter)),
+    expensesByCategory: sortByCategory(filterByMonth(state.transactions.entries.filter(item => item.type === "expense"), state.transactions.currentMonth)),
     income: state.transactions.income,
   }),
 

@@ -39,8 +39,8 @@ class Overview extends Component {
 
   renderAccounts = (callback) => {
     const { accounts, changeAccountFilter } = this.props
-    return accounts.map(account => (
-      <TouchableOpacity onPress={() => { changeAccountFilter(account); callback() }}>
+    return accounts.map((account, idx) => (
+      <TouchableOpacity key={idx} onPress={() => { changeAccountFilter(account); callback() }}>
         <Text>{account.name}</Text>
       </TouchableOpacity>
 

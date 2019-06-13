@@ -1,4 +1,5 @@
 import { get } from "lodash"
+import moment from "moment"
 
 export const makeUUID = () => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
@@ -14,6 +15,12 @@ export const calculateTransactions = (transactions, transactionType, filter = { 
     case "account":
       filteredTransactions = transactions.filter((item)=>filter.value.id=== get(item ,"account.id") && item.type === transactionType);
       break;
+
+    case "month":
+      filteredTransactions = transactions.filter(t => moment(t.timestamp) > moment(filter.value).startOf("month")
+                                                      && moment(t.timestamp) < moment(filter.value).endOf("month")
+                                                      && t.type === transactionType)
+      break
     default:
       filteredTransactions = transactions.filter(item => item.type === transactionType);
   }
