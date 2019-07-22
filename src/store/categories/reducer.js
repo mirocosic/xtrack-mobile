@@ -20,7 +20,7 @@ const categories = (state = initialState, action) => {
         ...state,
         items: [
           ...state.items,
-          { id: makeId(state.items), name: action.payload.name, type: action.payload.type },
+          { id: makeId(state.items), name: action.payload.name, type: action.payload.type, icon: "" },
         ],
       }
 
@@ -37,9 +37,7 @@ const categories = (state = initialState, action) => {
     case "DELETE_CATEGORY":
       return {
         ...state,
-        items: state.items.filter((item)=>{
-          return item.id !== action.payload
-        })
+        items: state.items.filter(item => item.id !== action.id),
       }
 
     case "SELECT_CATEGORY":

@@ -18,23 +18,24 @@ export default class Label extends Component {
   }
 
   render() {
-    const { label, style } = this.props
+    const { label, style, removeLabel } = this.props
     return (
       <View key={label.uuid} style={[styles.label, { backgroundColor: label.color }, style]}>
-        <Copy style={{fontSize: 12, color: this.labelCopyColor(label.color)}}>{ label.name }</Copy>
-        { this.props.removeLabel &&
+        <Copy style={{ fontSize: 12, color: this.labelCopyColor(label.color) }}>{ label.name }</Copy>
+        { removeLabel && (
           <TouchableOpacity
-            onPress={()=>this.props.removeLabel(label)}
+            onPress={() => removeLabel(label)}
             style={styles.removeLabel}>
             <Copy>X</Copy>
           </TouchableOpacity>
-        }
-
+        )}
       </View>
     )
   }
 }
 
 Label.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.object,
+  style: PropTypes.object,
+  removeLabel: PropTypes.func,
 }

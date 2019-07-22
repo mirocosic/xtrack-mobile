@@ -119,21 +119,21 @@ class Overview extends Component {
           <View style={{ height: 200, width: "100%", padding: 20, backgroundColor: "white" }}>
             <Text style={{ textAlign: "center" }}>Select account</Text>
 
-            <View style={{ padding: 10 }}>{this.renderAccounts(()=>this.setState({ modalVisible: false }))}</View>
+            <View>{this.renderAccounts(() => this.setState({ modalVisible: false }))}</View>
 
             <TouchableOpacity onPress={() => { this.setState({ modalVisible: false }); changeAccountFilter(false) }}>
               <Text>All accounts</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => this.setState({ modalVisible: false })}>
-              <Text>Close</Text>
+            <TouchableOpacity
+              style={{ position: "absolute", right: 10, padding: 5}}
+              onPress={() => this.setState({ modalVisible: false })}>
+              <Title>x</Title>
             </TouchableOpacity>
 
           </View>
         </Modal>
       </Screen>
-
-
 
     )
   }

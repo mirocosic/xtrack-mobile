@@ -20,7 +20,7 @@ class Labels extends Component {
   render() {
     return (
       <Screen>
-        <Header title="Labels" backBtn={true} backBtnPress={() => this.props.navigation.goBack()} />
+        <Header title="Labels" />
         <ScrollView>
           <View>
 
@@ -72,6 +72,11 @@ class Labels extends Component {
             ))}
           </View>
         </ScrollView>
+        <TouchableOpacity
+          style={{marginBottom: 40, alignItems: "center"}}
+          onPress={() => this.props.navigation.goBack()}>
+          <Copy>{`< Go Back `}</Copy>
+        </TouchableOpacity>
       </Screen>
     )
   }

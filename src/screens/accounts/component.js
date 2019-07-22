@@ -32,7 +32,7 @@ class Accounts extends Component {
     const { navigation, darkMode, add, setFrom, setTo, accounts, transactions, deleteAccount } = this.props
     return (
       <Screen>
-        <Header title="Accounts" backBtn={true} backBtnPress={() => navigation.goBack()} />
+        <Header title="Accounts" />
         <ScrollView>
           <View>
 
@@ -75,8 +75,14 @@ class Accounts extends Component {
 
             ))}
           </View>
-          <Button title="Select" onPress={() => navigation.navigate("EntryForm")} />
+
         </ScrollView>
+
+        <TouchableOpacity
+          style={{marginBottom: 40, alignItems: "center"}}
+          onPress={() => this.props.navigation.goBack()}>
+          <Copy>{`< Go Back `}</Copy>
+        </TouchableOpacity>
       </Screen>
     )
   }
@@ -93,7 +99,7 @@ Accounts.propTypes = {
   setFrom: PropTypes.func.isRequired,
   deleteAccount: PropTypes.func.isRequired,
   setTo: PropTypes.func.isRequired,
-  navigation: PropTypes.instanceOf("Navigation").isRequired,
+  //navigation: PropTypes.instanceOf("Navigation").isRequired,
 }
 
 Accounts.defaultProps = {

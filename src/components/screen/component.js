@@ -1,19 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { View, StyleSheet } from "react-native";
-import palette from "../../utils/palette"
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: palette.light,
-    flex: 1,
-  },
-
-  containerDark: {
-    backgroundColor: palette.dark,
-  },
-
-})
+import React from "react"
+import PropTypes from "prop-types"
+import { View } from "react-native"
+import styles from "./styles"
 
 const Screen = ({ style, darkMode, children }) => (
   <View style={[styles.container, style, darkMode && styles.containerDark]}>
@@ -23,6 +11,8 @@ const Screen = ({ style, darkMode, children }) => (
 
 Screen.propTypes = {
   darkMode: PropTypes.bool.isRequired,
+  style: PropTypes.object,
+  children: PropTypes.any,
 }
 
 export default Screen;

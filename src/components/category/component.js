@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { View, TouchableOpacity } from "react-native"
+import { Alert, View, TouchableOpacity } from "react-native"
 import Swipeout from "react-native-swipeout"
 import { withNavigation } from "react-navigation"
 import { get } from "lodash"
@@ -29,6 +29,14 @@ class Category extends Component {
     </View>
   )
 
+  deleteCategory = (id) => {
+    if (this.countTransactions(id) > 0) {
+      Alert.alert("Warning!", "Cannot delete category that has transactions")
+    } else {
+      this.props.deleteCategory(id)
+    }
+  }
+
   render() {
     const cat = this.props.data
     const { darkMode, onPress, selectCategory, navigation } = this.props
@@ -37,10 +45,12 @@ class Category extends Component {
         right={[{
           backgroundColor: "#f8f8fc",
           component: this.renderDeleteButton(),
+          onPress: () => this.deleteCategory(cat.id)
         },
         {
           backgroundColor: "blue",
           component: this.renderEditButton(),
+          onPress: () => navigation.navigate("CategoryEdit", { id: cat.id })
         }]}
         style={{ borderBottomWidth: 1, borderColor: "gray" }}
         sensitivity={10}
