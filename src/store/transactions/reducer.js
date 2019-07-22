@@ -166,6 +166,15 @@ const transactions = (state = initialState, action) => {
         },
       }
 
+    case "CHANGE_TRANSACTION_AMOUNT":
+      return {
+        ...state,
+        selectedTransaction: {
+          ...state.selectedTransaction,
+          amount: action.amount,
+        },
+      }
+
     case "SET_TYPE":
       return {
         ...state,
