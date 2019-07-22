@@ -5782,6 +5782,16 @@ react-native-fontawesome@mirocosic/react-native-fontawesome:
   version "5.7.0"
   resolved "https://codeload.github.com/mirocosic/react-native-fontawesome/tar.gz/90416e7d98cad54d5babcadcf42712dd287208d3"
 
+react-native-iphone-x-helper@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
+  integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
+
+react-native-keyboard-aware-scrollview@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-keyboard-aware-scrollview/-/react-native-keyboard-aware-scrollview-2.0.0.tgz#a7e2cc31b7230893db5dc05eb6fed3f358500a55"
+  integrity sha512-VAkwrmNl00bjTLXcvB3EMxuJ06kEBVRfpUq61X0Wl6Gdy1iSQpv04dVbZZ3KIflA9VhAlE0HFPltLLXIGjf2Ug==
+
 react-native-masked-text@^1.9.2:
   version "1.9.2"
   resolved "https://registry.yarnpkg.com/react-native-masked-text/-/react-native-masked-text-1.9.2.tgz#184f661025a77608f30ebcda27f416be67968b27"

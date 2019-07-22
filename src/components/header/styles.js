@@ -1,20 +1,18 @@
 import { StyleSheet } from "react-native"
+import { safePaddingTop } from "../../utils/ui-utils"
 
 export default StyleSheet.create({
   container: {
-
     backgroundColor: "teal",
-
-    paddingTop: 20,
-    paddingBottom: 20
+    paddingTop: safePaddingTop(20),
+    paddingBottom: 20,
   },
 
-
-    backBtn: {
-      zIndex: 100,
-      color: "white",
-      position: "absolute",
-      top: 20,
-      left: 20
-    }
+  backBtn: {
+    zIndex: 100,
+    color: "white",
+    position: "absolute",
+    top: safePaddingTop(20),
+    left: 20,
+  },
 })
