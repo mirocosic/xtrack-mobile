@@ -32,30 +32,32 @@ const solid = [
   Icons.filter,
 ]
 
-const CategoryIcons = () => (
+const CategoryIcons = (props) => (
   <View style={styles.container}>
     <View style={styles.iconWrap}>
       { regular.map(value => (
         <TouchableOpacity
           key={value}
-          onPress={() => {this.props.select(getKeyByValue(Icons, value))}}
+          onPress={() => {props.select(getKeyByValue(Icons, value))}}
         >
-          <FontAwesome type="FontAwesome5FreeRegular" style={[styles.icon, Icons[this.props.selected] === value && styles.selected]}>{value}</FontAwesome>
+          <FontAwesome type="FontAwesome5FreeRegular" style={[styles.icon, Icons[props.selected] === value && styles.selected]}>{value}</FontAwesome>
         </TouchableOpacity>
       ))}
 
-      { solid.map((value)=>{
-        return(
-          <TouchableOpacity
-            key={value}
-            onPress={()=>{this.props.select(getKeyByValue(Icons, value))}}>
-          <FontAwesome type="FontAwesome5FreeSolid" style={[styles.icon, Icons[this.props.selected] === value && styles.selected]}>{value}</FontAwesome>
-          </TouchableOpacity>
-        )
-      })}
+      { solid.map(value => (
+        <TouchableOpacity
+          key={value}
+          onPress={() => { props.select(getKeyByValue(Icons, value)) }}>
+        <FontAwesome type="FontAwesome5FreeSolid" style={[styles.icon, Icons[props.selected] === value && styles.selected]}>{value}</FontAwesome>
+        </TouchableOpacity>
+      ))}
 
     </View>
   </View>
 )
+
+CategoryIcons.defaultProps = {
+  selected: "car"
+}
 
 export default CategoryIcons

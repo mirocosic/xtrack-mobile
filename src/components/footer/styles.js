@@ -3,16 +3,17 @@ import { safePaddingTop } from "../../utils/ui-utils"
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: "teal",
-    paddingTop: safePaddingTop(5),
-    paddingBottom: 5,
+    borderTopWidth: 1,
+    borderColor: "gray",
+    padding: 10,
+    //minHeight: 50,
   },
 
   backBtn: {
     zIndex: 100,
-    color: "white",
+    color: "teal",
     position: "absolute",
-    top: safePaddingTop(5),
     left: 20,
+    top: 20,
   },
 })

@@ -1,85 +1,53 @@
-import React, { Component } from "react";
-import { Text, View, ScrollView, TextInput, TouchableOpacity } from "react-native";
-import { withNavigation } from "react-navigation";
-
-import Screen from "../../components/screen"
-import Header from "../../components/header"
+import React, { Component } from "react"
+import { Text, View, ScrollView, TouchableOpacity } from "react-native"
+import { withNavigation } from "react-navigation"
+import { Screen, Header, Footer } from "../../components"
 import { Copy } from "../../components/typography"
 
 import styles from "./styles"
 
 const colors = ["#FF5722", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
 
-class Labels extends Component {
+const Labels = (props) => {
 
-  state = {
-    name: "",
-    color: "",
-  }
+  const { navigation, labels, remove, darkMode, select } = props
 
-  render() {
-    return (
-      <Screen>
-        <Header title="Labels" />
-        <ScrollView>
-          <View>
-
-            <View style={styles.colorPicker}>
-              {colors.map(color => (
-                <TouchableOpacity
-                  key={color}
-                  style={[styles.colorBox, this.state.color === color && styles.selectedColor, { backgroundColor: color }]}
-                  onPress={() => this.setState({ color })}
-                />
-              ))}
-            </View>
-
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={[styles.input, this.props.darkMode && styles.inputDark]}
-                onChangeText={text => this.setState({ name: text })}
-                placeholder="new label"
-                value={this.state.name}
-              />
-              <TouchableOpacity
-                style={styles.add}
-                onPress={() => {
-                  this.setState({ name: "" })
-                  this.props.add({ name: this.state.name, color: this.state.color })}}
-              >
-                <Copy style={{ color: "white" }}>Add</Copy>
-              </TouchableOpacity>
-            </View>
-
-            {this.props.labels.map(label => (
-              <TouchableOpacity
-                key={label.id}
-                onPress={() => { this.props.select(label); this.props.navigation.goBack() }}
-              >
-                <View key={label.id} style={[styles.wrap, this.props.darkMode && styles.wrapDark]}>
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <View style={{ width: 20, height: 20, backgroundColor: label.color, marginRight: 10 }} />
-                    <Copy>{label.name}</Copy>
-                  </View>
-
-                  <TouchableOpacity style={styles.delete} onPress={()=>this.props.delete(label.id)}>
-                    <Text>`-`</Text>
-                  </TouchableOpacity>
+  return (
+    <Screen>
+      <Header title="Labels" />
+      <ScrollView>
+        <View>
+          {labels.map(label => (
+            <TouchableOpacity
+              key={label.id}
+              onPress={() => { select(label) }}
+            >
+              <View key={label.id} style={[styles.wrap, darkMode && styles.wrapDark]}>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <View style={{ width: 20, height: 20, backgroundColor: label.color, marginRight: 10 }} />
+                  <Copy>{label.name}</Copy>
                 </View>
 
-              </TouchableOpacity>
+                <TouchableOpacity style={styles.delete} onPress={() => remove(label.id)}>
+                  <Text>`-`</Text>
+                </TouchableOpacity>
+              </View>
 
-            ))}
-          </View>
-        </ScrollView>
-        <TouchableOpacity
-          style={{marginBottom: 40, alignItems: "center"}}
-          onPress={() => this.props.navigation.goBack()}>
-          <Copy>{`< Go Back `}</Copy>
-        </TouchableOpacity>
-      </Screen>
-    )
-  }
+            </TouchableOpacity>
+
+          ))}
+        </View>
+      </ScrollView>
+      <Footer>
+        <View style={{ alignItems: "center" }}>
+          <TouchableOpacity onPress={() => navigation.navigate("AccountEdit")}>
+            <Copy style={{ color: "teal" }}>Add new label</Copy>
+          </TouchableOpacity>
+        </View>
+      </Footer>
+
+    </Screen>
+  )
 }
 
 export default withNavigation(Labels);

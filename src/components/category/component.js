@@ -59,12 +59,17 @@ class Category extends Component {
 
         <TouchableOpacity
           key={cat.id}
-          onPress={onPress}>
+          onPress={() => navigation.navigate("CategoryEdit", { id: cat.id })}>
 
           <View key={cat.id} style={[styles.categoryWrap, darkMode && styles.catWrapDark]}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Icon type={cat.icon} style={{ marginRight: 10, backgroundColor: get(cat, "color", "blue") }} />
-              <Copy>{`${cat.name} (${this.countTransactions(cat.id)})`}</Copy>
+              <Copy>
+                  {`${cat.name} ` }
+                  <Copy style={{fontSize: 10}}>
+                      {`(${this.countTransactions(cat.id)})`}
+                  </Copy>
+              </Copy>
             </View>
 
             <TouchableOpacity onPress={() => {

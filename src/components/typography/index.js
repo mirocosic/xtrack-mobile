@@ -42,14 +42,14 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 24,
-    padding: 10,
+    fontSize: 20,
+    padding: 5,
     color: palette.black,
   },
 
   titleDark: {
-    fontSize: 24,
-    padding: 10,
+    fontSize: 20,
+    padding: 5,
     color: palette.white,
   },
 

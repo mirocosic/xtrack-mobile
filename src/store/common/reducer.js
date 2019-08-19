@@ -20,6 +20,22 @@ const common = (state = initialState, action) => {
         ...initialState,
       }
 
+    case "OPEN_DRAWER":
+      return {
+        ...state,
+        drawerOpen: true,
+        drawerContent: action.drawerContent,
+        drawerIsCanceled: false,
+      }
+
+    case "CLOSE_DRAWER":
+      return {
+        ...state,
+        drawerOpen: false,
+        drawerIsCanceled: action.isCanceled,
+      }
+
+
     default:
       return state;
   }

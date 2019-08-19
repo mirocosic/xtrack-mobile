@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Animated, View, ScrollView, TouchableOpacity, Alert } from "react-native"
+import { Alert, Animated, View, ScrollView, TouchableOpacity } from "react-native"
 
 import { withNavigation } from "react-navigation";
 import { get } from "lodash"
@@ -16,9 +16,16 @@ import styles from "./styles"
 
 class Reports extends Component {
 
-  static navigationOptions = () => ({
+  static navigationOptions = ({navigation}) => ({
+    tabBarOnPress: () => {
+      navigation.navigate("TransactionForm")
+    },
     tabBarIcon: ({ tintColor }) => (
-      <Icon style={{ backgroundColor: "white" }} textStyle={{ fontSize: 26, color: tintColor }} type="chartBar" />
+      <Icon
+        style={{ backgroundColor: "teal", height: 60, width: 60, bottom: 20, borderRadius: 50 }}
+        textStyle={{ fontSize: 40, color: "white" }}
+        type="plus"
+      />
     ),
   })
 

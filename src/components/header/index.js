@@ -1,15 +1,16 @@
 import React from "react"
 import { View, TouchableOpacity } from "react-native"
+import { withNavigation } from "react-navigation"
 import PropTypes from "prop-types"
 
 import { Title } from "../typography"
 import __ from "../../utils/translations"
 import styles from "./styles"
 
-const Header = ({backBtn, backBtnPress, style, icon, title, children}) => (
+const Header = ({ backBtn, backBtnPress, style, icon, title, children, navigation }) => (
   <View style={[styles.container, style]}>
     { backBtn && (
-      <TouchableOpacity style={styles.backBtn} onPress={backBtnPress}>
+      <TouchableOpacity style={styles.backBtn} onPress={() => { backBtnPress ? backBtnPress() : navigation.goBack() }}>
         <Title style={{ color: "white" }}>{"<"}</Title>
       </TouchableOpacity>
     )}
@@ -22,4 +23,4 @@ const Header = ({backBtn, backBtnPress, style, icon, title, children}) => (
   </View>
 )
 
-export default Header
+export default withNavigation(Header)

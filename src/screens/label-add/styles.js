@@ -1,18 +1,33 @@
 import { StyleSheet } from "react-native"
-import palette from "../../utils/palette"
 
 export default StyleSheet.create({
+
+  colorPicker: {
+    flexDirection: "row",
+  },
+
+  colorBox: {
+      margin: 5,
+      width: 50,
+      height: 50
+  },
+
+  selectedColor: {
+    borderWidth: 2,
+    borderColor: "black"
+  },
+
   wrap: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     padding: 20,
-    borderBottomWidth: 1,
+    borderWidth: 1,
+    margin:10
   },
 
   wrapDark: {
-    borderColor: "white",
-    backgroundColor: palette.dark,
+    borderColor: "white"
   },
 
   inputContainer: {
@@ -20,7 +35,7 @@ export default StyleSheet.create({
     paddingRight: 20,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "space-between"
   },
 
   input: {
@@ -29,21 +44,21 @@ export default StyleSheet.create({
     padding: 20,
     margin: 20,
     width: 200,
-    borderBottomWidth: 1,
+    borderBottomWidth: 1
   },
 
   inputDark: {
     color: "white",
-    borderColor: "white",
+    borderColor: "white"
   },
 
   add: {
     width: 50,
     height: 40,
-    borderRadius: 5,
+    borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "green",
+    backgroundColor: "green"
   },
 
   delete: {
@@ -52,21 +67,6 @@ export default StyleSheet.create({
     height: 30,
     borderRadius: 20,
     alignItems: "center",
-    justifyContent: "center",
-  },
-
-  deleteButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "red",
-    flex: 1,
-  },
-
-  editButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "blue",
-    flex: 1,
-  },
-
+    justifyContent: "center"
+  }
 })

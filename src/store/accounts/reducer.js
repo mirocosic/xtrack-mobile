@@ -15,12 +15,19 @@ const categories = (state = initialState, action) => {
         ],
       }
 
+    case "EDIT_ACCOUNT":
+      return {
+        ...state,
+        items: state.items.map((item) => {
+          if (item.id !== action.account.id) return item;
+          return action.account;
+        }),
+      }
+
     case "DELETE_ACCOUNT":
       return {
         ...state,
-        items: state.items.filter((item) => {
-          return item.id !== action.payload
-        }),
+        items: state.items.filter(item => item.id !== action.payload),
       }
 
     case "SELECT_TO_ACCOUNT":

@@ -15,11 +15,13 @@ export default StyleSheet.create({
     fontSize: 40,
     margin: 5,
     borderWidth: 1,
-    borderColor: "white"
+    borderColor: "white",
+    color: "gray",
   },
 
   selected: {
-    borderWidth: 1,
-    borderColor: "black"
-  }
+    //borderWidth: 1,
+    //borderColor: "black",
+    color: "black",
+  },
 })

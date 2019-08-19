@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, TextInput, Animated, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { Text, View, ScrollView, TextInput, Animated, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { Calendar } from "react-native-calendars"
 import { withNavigation } from "react-navigation";
 import Modal from "react-native-modal"
@@ -21,8 +21,17 @@ class TransactionForm extends Component {
     blinker: new Animated.Value(0),
     calendarOpen: false,
     modalVisible: false,
+    catModalVisible: false,
     transaction: this.props.selectedTransaction,
     accountType: "to",
+  }
+
+  componentDidMount() {
+    console.log(this.state.selectedTransaction)
+    if (!this.state.transaction.amount) {
+      this.props.clearSelectedCategory()
+      this.props.clearTransactionForm()
+    }
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -97,50 +106,95 @@ class TransactionForm extends Component {
           callback()
         }}
       >
-        <Text>{account.name}</Text>
+        <View style={{ flexDirection: "row" }}>
+          <Icon type={account.icon} style={{ marginRight: 10, backgroundColor: account.color }} />
+          <Text>{account.name}</Text>
+        </View>
+
+      </TouchableOpacity>
+    ))
+  }
+
+  renderCategories = (callback) => {
+    const { categories, changeAccountFilter, setFrom, setTo } = this.props
+    return categories.map((cat, idx) => (
+      <TouchableOpacity
+        key={idx}
+        onPress={() => {
+          this.props.selectCategory(cat)
+          callback()
+        }}
+      >
+        <View style={{ flexDirection: "row", alignItems: "center", margin: 5, }}>
+          <Icon type={cat.icon} textStyle={{color: cat.color || "blue"}} style={{ marginRight: 10, backgroundColor: "white" }} />
+          <Text>{cat.name}</Text>
+        </View>
+
       </TouchableOpacity>
     ))
   }
 
   render() {
-    const { transaction, modalVisible, blinker } = this.state
+    const { transaction, modalVisible, catModalVisible, blinker } = this.state
     const { navigation, changeAccountFilter, darkMode, changeTransactionAmount, setType, setTransferMode } = this.props
 
+    console.log(transaction)
     return (
       <TouchableWithoutFeedback onPress={() => this.blurInput()}>
         <Screen style={{ paddingLeft: 0, paddingRight: 0 }}>
-          <Header title="Transaction form" backBtn={true} backBtnPress={() => navigation.goBack()} />
+          <Header title="Transaction form" />
 
           <KeyboardAwareScrollView contentContainerStyle={styles.wrap}>
-            <View style={{ flexDirection: "row", justifyContent: "space-between", zIndex: 10000 }}>
-              <Title>This is your </Title>
-              <Title>on</Title>
-              <SelectBox
-                selected={transaction.type}
-                onPress={(type) => {
-                  setTransferMode(type === "transfer")
-                  setType(type)
-                }} />
-            </View>
 
+            <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+              <TouchableOpacity
+                onPress={() => {
+                  // setTransferMode(type === "transfer")
+                  setType("expense")
+                }}
+                style={[styles.transactionTypeButton, transaction.type === "expense" && { backgroundColor: "red" }]}>
+                <View style={styles.typeWrap}>
+                  <Copy style={{color: transaction.type === "expense" ? "white" : "black"}}>EXPENSE</Copy>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  // setTransferMode(type === "transfer")
+                  setType("income")
+                }}
+                style={[styles.transactionTypeButton,transaction.type === "income" && { backgroundColor: "green" }]}>
+                <View style={styles.typeWrap}>
+                  <Copy style={{ color: transaction.type === "income" ? "white" : "black" }}>INCOME</Copy>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  // setTransferMode(type === "transfer")
+                  setType("transfer")
+                }}
+                style={[styles.transactionTypeButton,transaction.type === "transfer" && { backgroundColor: "blue" }]}>
+                <View style={styles.typeWrap}>
+                  <Copy style={{color: transaction.type === "transfer" ? "white" : "black"}}>TRANFER</Copy>
+                </View>
+              </TouchableOpacity>
+            </View>
 
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <TouchableOpacity onPress={() => this.setState({ calendarOpen: true })}>
-                <Icon style={{ marginLeft: 0 }} />
+                <Icon type="calendar-alt" textStyle={{color: "blue"}} style={{ marginLeft: 0, backgroundColor: "white" }} />
               </TouchableOpacity>
               <Copy style={{ margin: 20 }}>
-                {moment(transaction.timestamp).format("dddd, MMMM Do YYYY, h:mm:ss a")}
+                {moment(transaction.timestamp).format("dddd, MMMM Do YYYY")}
               </Copy>
             </View>
 
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Title>in category</Title>
 
               { transaction.type !== "transfer" && (
                 <View>
                   <TouchableOpacity
                     style={[styles.selectBox, darkMode && styles.selectBoxDark]}
-                    onPress={() => navigation.navigate("Categories")}>
+                    onPress={() => this.setState({ catModalVisible: true })}>
                     <Icon type={get(transaction, "category.icon")} style={{ marginRight: 10, backgroundColor: get(transaction, "category.color", "blue") }} />
                     <Text style={darkMode ? styles.textInputDark : styles.textInput}>
                       { get(transaction, "category.name", "select") }
@@ -151,7 +205,7 @@ class TransactionForm extends Component {
             </View>
 
             <View style={{ marginTop: 20, marginBottom: 20, flexDirection: "row", alignItems: "flex-end" }}>
-              <Title>You have spent</Title>
+              <Copy>You have spent</Copy>
               <TouchableOpacity
                 ref={component => this.touchable = component}
                 onPress={() => this.focusInput()}>
@@ -165,12 +219,12 @@ class TransactionForm extends Component {
                   zIndex: 10000,
                 }}>
                 </Animated.View>
-                <Title
+                <Copy
 
                   style={{ color: "gray", backgroundColor: "white", borderRadius: 20, zIndex: 100 }}>
                   {formatCurrency(transaction.amount)}
 
-                </Title>
+                </Copy>
               </TouchableOpacity>
 
               <TextInput
@@ -182,13 +236,14 @@ class TransactionForm extends Component {
                 style={{ backgroundColor: "white", width: 0, height: 50 }}
                 keyboardAppearance={darkMode ? "dark" : "light"}
                 keyboardType="numeric"
+                returnKeyType="done"
               />
 
             </View>
 
             { transaction.type === "transfer" && (
               <View>
-                <Title>From Account:</Title>
+                <Copy>From Account:</Copy>
                 <TouchableOpacity
                   style={[styles.selectBox, darkMode && styles.selectBoxDark]}
                   onPress={() => this.setState({ modalVisible: true, accountType: "from" })}>
@@ -201,18 +256,18 @@ class TransactionForm extends Component {
               </View>
             )}
 
-            <Title>{transaction.type === "transfer" && "To "}Account</Title>
+            <Copy>{transaction.type === "transfer" && "To "}Account</Copy>
             <TouchableOpacity
               style={[styles.selectBox, darkMode && styles.selectBoxDark]}
               onPress={() => this.setState({ modalVisible: true, accountType: "to" })}
             >
-              <Icon icon="money" style={{ marginRight: 10 }} />
+              <Icon type={transaction.account.icon} style={{ marginRight: 10, backgroundColor: transaction.account.color }} />
               <Text style={darkMode ? styles.textInputDark : styles.textInput}>
                 { get(transaction, "account.name")}
               </Text>
             </TouchableOpacity>
 
-            <Title>Note about this:</Title>
+            <Copy>Note about this:</Copy>
             <TextInput
               onChangeText={value => this.setState({ transaction: { ...transaction, note: value } })}
               value={transaction.note}
@@ -234,11 +289,12 @@ class TransactionForm extends Component {
               </TouchableOpacity>
             </View>
 
-            <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-              <SecondaryButton label="Cancel" onPress={() => navigation.navigate("Transactions")} />
-              <PrimaryButton label="Done!" onPress={() => this.submitForm()} />
-            </View>
 
+
+          </KeyboardAwareScrollView>
+
+          <View style={{ flexDirection: "row", justifyContent: "space-evenly", borderTopWidth: 1, paddingTop: 10, paddingBottom: 10 }}>
+            <SecondaryButton label="Back" onPress={() => navigation.navigate("Transactions")} />
             {transaction.id && (
               <PrimaryButton
                 label="Delete"
@@ -247,8 +303,8 @@ class TransactionForm extends Component {
                   this.props.delete({ id: transaction.id })
                 }} />
             )}
-
-          </KeyboardAwareScrollView>
+            <PrimaryButton label="Save" onPress={() => this.submitForm()} />
+          </View>
 
           <View style={[styles.calendarWrap, this.state.calendarOpen ? { display: "flex" } : { display: "none" }]}>
             <Calendar onDayPress={(day) => {
@@ -273,8 +329,33 @@ class TransactionForm extends Component {
                 {this.renderAccounts(transaction.type, () => this.setState({ modalVisible: false }))}
               </View>
 
-              <TouchableOpacity onPress={() => this.setState({ modalVisible: false })}>
-                <Text>Close</Text>
+              <TouchableOpacity
+                style={{ position: "absolute", right: 10 }}
+                onPress={() => this.setState({ modalVisible: false })}>
+                <Title>x</Title>
+              </TouchableOpacity>
+
+            </View>
+          </Modal>
+
+          <Modal
+            style={{ margin: 0, justifyContent: "flex-end" }}
+            swipeDirection={["down"]}
+            onSwipeComplete={() => this.setState({ catModalVisible: false })}
+            onBackdropPress={() => this.setState({ catModalVisible: false })}
+            isVisible={catModalVisible}>
+            <View
+              style={{ height: 500, width: "100%", padding: 20, backgroundColor: "white" }}>
+              <Text style={{ textAlign: "center" }}>Select category</Text>
+
+              <View style={{ padding: 10 }}>
+                {this.renderCategories(() => this.setState({ catModalVisible: false }))}
+              </View>
+
+              <TouchableOpacity
+                style={{ position: "absolute", right: 10 }}
+                onPress={() => this.setState({ catModalVisible: false })}>
+                <Title>x</Title>
               </TouchableOpacity>
 
             </View>

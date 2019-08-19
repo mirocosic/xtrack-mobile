@@ -51,6 +51,16 @@ export default StyleSheet.create({
     color: "white",
   },
 
+  transactionTypeButton: {
+    margin: 10,
+    borderRadius: 8,
+  },
+
+  typeWrap: {
+    padding: 10,
+    borderRadius: 5,
+  },
+
   typeButtonsWrap: {
     flexDirection: "row",
     justifyContent: "space-evenly"

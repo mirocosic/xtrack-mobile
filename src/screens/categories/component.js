@@ -2,9 +2,7 @@ import React, { Component } from "react"
 import { View, ScrollView, TextInput, TouchableOpacity } from "react-native";
 
 import { withNavigation } from "react-navigation";
-
-import Screen from "../../components/screen"
-import Header from "../../components/header"
+import { Screen, Header, Footer } from "../../components"
 import Category from "../../components/category"
 import { Copy } from "../../components/typography"
 import styles from "./styles"
@@ -21,31 +19,13 @@ class Categories extends Component {
     const { categoryName, type } = this.state
     return (
       <Screen>
-        <Header title="Categories" />
+        <Header title="Categories" backBtn />
         <ScrollView>
           <View>
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={[styles.input, darkMode && styles.inputDark]}
-                onChangeText={text => this.setState({ categoryName: text })}
-                returnKeyType="done"
-                placeholder="new category"
-                value={categoryName}
-              />
-              <TouchableOpacity
-                style={styles.add}
-                onPress={() => {
-                  this.setState({ categoryName: "" })
-                  add({ name: categoryName, type })
-                }}>
-                <Copy style={{ color: "white" }}>Add</Copy>
-              </TouchableOpacity>
-            </View>
-
             {categories
               .filter(item => item.type === type)
-              .map(cat => (
-                <Category data={cat} onPress={() => { selectCategory(cat); navigation.goBack() }} />
+              .map((cat, idx) => (
+                <Category key={idx} data={cat} onPress={() => { selectCategory(cat); navigation.goBack() }} />
               ))
               .reverse()
             }
@@ -53,11 +33,14 @@ class Categories extends Component {
 
         </ScrollView>
 
-        <TouchableOpacity
-          style={{marginBottom: 40, alignItems: "center"}}
-          onPress={() => this.props.navigation.goBack()}>
-          <Copy>{`< Go Back `}</Copy>
-        </TouchableOpacity>
+        <Footer>
+          <View style={{ alignItems: "center" }}>
+            <TouchableOpacity onPress={() => navigation.navigate("AccountEdit")}>
+              <Copy style={{ color: "teal" }}>Add new category</Copy>
+            </TouchableOpacity>
+          </View>
+        </Footer>
+
       </Screen>
     )
   }

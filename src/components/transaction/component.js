@@ -77,7 +77,7 @@ const Transaction = ({
       <View key={transaction.id} style={[styles.container, darkMode && styles.containerDark]}>
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Icon type={get(transaction, "category.icon")} style={{ padding: 5, marginRight: 10, backgroundColor: get(transaction, "category.color", "blue") }} />
+            <Icon type={get(transaction, "category.icon")} textStyle={{color: get(transaction, "category.color", "blue")}} style={{ padding: 5, marginRight: 10, backgroundColor: "white" }} />
             <Copy>{transaction.category && transaction.category.name}</Copy>
           </View>
           <Text style={[styles.amount, getAmountColor(transaction.type)]}>

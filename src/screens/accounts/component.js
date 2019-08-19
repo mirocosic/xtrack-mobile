@@ -1,14 +1,14 @@
 import React, { Component } from "react"
-import { Text, View, ScrollView, TextInput, Button, TouchableOpacity } from "react-native"
+import { Alert, View, ScrollView, TouchableOpacity } from "react-native"
 import PropTypes from "prop-types"
 import { get } from "lodash"
 import { withNavigation } from "react-navigation";
-
-import Screen from "../../components/screen"
-import Header from "../../components/header"
+import Swipeout from "react-native-swipeout"
+import { Screen, Header, Footer } from "../../components"
 import { Copy } from "../../components/typography"
 import Icon from "../../components/icon"
 import styles from "./styles"
+import { formatCurrency } from "../../utils/currency"
 
 
 const accountBalance = (account, transactions) => {
@@ -25,64 +25,87 @@ const accountBalance = (account, transactions) => {
 
 class Accounts extends Component {
 
-  state = { name: "" }
+  state = {
+    name: "",
+    scroll: true,
+  }
+
+
+  renderDeleteButton = () => (
+    <View style={styles.deleteButton}>
+      <Icon style={{ backgroundColor: "red" }} />
+      <Copy style={{ color: "white" }}>Delete</Copy>
+    </View>
+  );
+
+  renderEditButton = () => (
+    <View style={styles.editButton}>
+      <Icon style={{ backgroundColor: "blue" }} />
+      <Copy style={{ color: "white" }}>Edit</Copy>
+    </View>
+  )
+
+  handleDelete = (id) => {
+    const count = this.props.transactions.filter((item) => id === get(item ,"account.id")).length
+    if ( count > 0 ) {
+      Alert.alert("Warning", "Cannot delete account that contains transactions.")
+    } else {
+      this.props.deleteAccount(id)
+    }
+  }
 
   render() {
-    const { name } = this.state
+    const { name, scroll } = this.state
     const { navigation, darkMode, add, setFrom, setTo, accounts, transactions, deleteAccount } = this.props
     return (
       <Screen>
-        <Header title="Accounts" />
-        <ScrollView>
+        <Header title="Accounts" backBtn />
+        <ScrollView scrollEnabled={scroll}>
           <View>
-
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={[styles.input, darkMode && styles.inputDark]}
-                onChangeText={text => this.setState({ name: text })}
-                placeholder="new account"
-                value={name} />
-              <TouchableOpacity
-                style={styles.add}
-                onPress={() => {
-                  this.setState({ name: "" })
-                  add(name)
-                }}>
-                <Copy style={{ color: "white" }}>Add</Copy>
-              </TouchableOpacity>
-            </View>
-
             {accounts.map(account => (
-              <TouchableOpacity
+              <Swipeout
                 key={account.id}
-                onPress={() => {
-                  navigation.state.params.accountField === "from" ? setFrom(account) : setTo(account)
-                  navigation.goBack()
-                }}>
+                right={[{
+                  backgroundColor: "#f8f8fc",
+                  component: this.renderDeleteButton(),
+                  onPress: () => this.handleDelete(account.id),
+                }]}
+                style={{ borderBottomWidth: 1, borderColor: "gray" }}
+                sensitivity={10}
+                buttonWidth={70}
+                backgroundColor="#f8f8fc"
+                scroll={value => this.setState({ scroll: value })}
+              >
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("AccountEdit", { id: account.id })
+                    //navigation.state.params.accountField === "from" ? setFrom(account) : setTo(account)
+                    //navigation.goBack()
+                  }}>
 
-                <View key={account.id} style={[styles.wrap, darkMode && styles.wrapDark]}>
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Icon icon="money" style={{ marginRight: 10 }} />
-                    <Copy>{`${account.name} - ${accountBalance(account, transactions)}`}</Copy>
+                  <View key={account.id} style={[styles.wrap, darkMode && styles.wrapDark]}>
+                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                      <Icon type={account.icon} style={{ marginRight: 10, backgroundColor: account.color }} />
+                      <Copy>{`${account.name} (${formatCurrency(accountBalance(account, transactions))})`}</Copy>
+                    </View>
                   </View>
 
-                  <TouchableOpacity style={styles.delete} onPress={() => deleteAccount(account.id)}>
-                    <Text>-</Text>
-                  </TouchableOpacity>
-                </View>
-
-              </TouchableOpacity>
-
+                </TouchableOpacity>
+              </Swipeout>
             ))}
           </View>
 
         </ScrollView>
 
-        <TouchableOpacity
-          style={{marginBottom: 40, alignItems: "center"}}
-          onPress={() => this.props.navigation.goBack()}>
-          <Copy>{`< Go Back `}</Copy>
-        </TouchableOpacity>
+        <Footer>
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("AccountEdit")}>
+              <Copy style={{ color: "teal" }}>Add new account</Copy>
+            </TouchableOpacity>
+          </View>
+        </Footer>
+
       </Screen>
     )
   }
@@ -90,11 +113,11 @@ class Accounts extends Component {
 
 Accounts.propTypes = {
   darkMode: PropTypes.bool,
-  transactions: PropTypes.arrayOf(),
-  accounts: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-  })),
+  transactions: PropTypes.any,
+  // accounts: PropTypes.arrayOf(PropTypes.shape({
+  //   id: PropTypes.number,
+  //   name: PropTypes.string,
+  // })),
   add: PropTypes.func.isRequired,
   setFrom: PropTypes.func.isRequired,
   deleteAccount: PropTypes.func.isRequired,

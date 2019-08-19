@@ -1,8 +1,9 @@
 import React, { Component } from "react"
-import { Animated, View, ScrollView, TouchableOpacity, Alert } from "react-native"
+import { Animated, View, ScrollView, TouchableOpacity, Alert, Dimensions } from "react-native"
 
 import { withNavigation } from "react-navigation"
 import { get } from "lodash"
+import moment from "moment"
 import Screen from "../../components/screen"
 import Header from "../../components/header"
 import Icon from "../../components/icon"
@@ -13,6 +14,25 @@ import { formatCurrency } from "../../utils/currency"
 import styles from "./styles"
 
 import { HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT, HEADER_SCROLL_DISTANCE } from "../../utils/ui-utils"
+
+const months = [1,2,3,4,5,6,7,8,9,0,1,2,3]
+
+const sum = transactions => transactions.reduce((acc, transaction) => acc + transaction.amount, 0)
+
+const filterByMonth = (transactions, currentMonth) => (
+  transactions.filter(t => moment(t.timestamp) > currentMonth.startOf("month")
+                           && moment(t.timestamp) < currentMonth.endOf("month")
+                           && t.type === "expense"))
+
+const sortByCategory = (expenses) => {
+  const result = {}
+  expenses.map((expense) => {
+    const currExpenseSum = result[expense.category.name] || 0
+    result[expense.category.name] = currExpenseSum + expense.amount
+})
+
+ return result
+}
 
 class Dashboard extends Component {
 
@@ -25,6 +45,12 @@ class Dashboard extends Component {
   state = {
     height: new Animated.Value(0),
   }
+
+
+  componentDidMount() {
+    setTimeout(() => this.scrollView.scrollToEnd({ animated: false }), 100)
+  }
+
 
   changeAccountFilter = () => {
     const { accounts, changeAccountFilter } = this.props
@@ -67,11 +93,24 @@ class Dashboard extends Component {
     return total.amount;
   }
 
+  renderExpenses(expenses) {
+    return Object.entries(expenses).map((item, idx) => (
+      <View key={idx} style={{ ...styles.row, paddingLeft: 20 }}>
+        <Copy>{`${item[0]} `}</Copy>
+        <Copy>{`${item[1]} kn`}</Copy>
+      </View>
+    ))
+  }
+
   render() {
+
+    const currentMonth = moment(this.props.currentMonth)
+
+    currentMonth.subtract(12, "month")
 
     const {
       clearSelectedCategory, clearTransactionForm, navigation, accounts, darkMode,
-      expenses, income, total,
+      expenses, income, total, transactions
     } = this.props
     const { height } = this.state
 
@@ -89,43 +128,41 @@ class Dashboard extends Component {
 
     return (
       <Screen>
-        <Animated.View style={{
-          justifyContent: "center",
-          overflow: "hidden",
-          transform: [{ scale: headerScale }],
-          height: headerHeight,
-          backgroundColor: "teal",
-        }}
-        >
-          <Header title="Dashboard" />
-        </Animated.View>
+        <Header title="Dashboard" />
+
         <ScrollView
-          scrollEventThrottle={16}
-          onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: height } } }])}>
+          horizontal={true}
+          pagingEnabled={true}
+          ref={ref => this.scrollView = ref}
+          showsHorizontalScrollIndicator={false}>
 
-          { accounts.map(account => (
-            <View key={account.id} style={[styles.accountCard, darkMode && styles.accountCardDark]}>
-              <Title>{account.name}</Title>
-              <View style={styles.accountDetails}>
-                <Copy>{__("Expenses")}: { formatCurrency(this.calcExpenses(account))}</Copy>
-                <Copy>{__("Income")}: { formatCurrency(this.calcIncome(account))}</Copy>
-                <Copy>{__("Total")}: { formatCurrency(this.calcTotal(account))}</Copy>
-              </View>
-            </View>
-          ))}
+          { months.map((item, idx) => {
+            currentMonth.add(1, "month")
+            const expenses = sortByCategory(filterByMonth(transactions.filter(item => item.type === "expense"), currentMonth))
+            const income = sum(filterByMonth(transactions.filter(item => item.type === "income"), currentMonth))
+            return (
+              <ScrollView key={idx} style={styles.monthContainer}>
+                <Title style={{textAlign: "center"}}>{moment(currentMonth, "YYYY-MM-DD").format("MMMM")}</Title>
+                <View style={{flexDirection: "row", marginBottom: 10}}>
+                  <Copy>Income: </Copy>
+                  <Copy>{income}</Copy>
+                </View>
 
-          <View style={[styles.accountCard, darkMode && styles.accountCardDark]}>
-            <Title>All accounts</Title>
-            <View style={styles.accountDetails}>
-              <Copy>{__("Expenses")}: { formatCurrency(expenses)}</Copy>
-              <Copy>{__("Income")}: { formatCurrency(income)}</Copy>
-              <Copy>{__("Total")}: { formatCurrency(total)}</Copy>
-            </View>
-          </View>
+                <Copy>Expenses: </Copy>
+
+                {this.renderExpenses(expenses)}
+
+                <View style={{ flexDirection: "row", marginTop: 10 }}>
+                  <Copy>Balance: </Copy>
+                  <Copy>{income}</Copy>
+                </View>
+
+              </ScrollView>
+            )
+
+          })}
 
         </ScrollView>
-
-        <AddTransaction />
 
       </Screen>
     )

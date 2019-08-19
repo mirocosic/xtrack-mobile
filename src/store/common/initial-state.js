@@ -3,6 +3,6 @@ export default {
   drawerOpen: false,
   drawerContent: "filters",
   drawerIsCanceled: false,
-  darkMode: true,
+  darkMode: false,
   language: { code: "hrv", name: "Hrvatski" },
 };

@@ -100,36 +100,17 @@ class Profile extends Component {
   render() {
     return (
       <Screen>
-        <Header title="Profile" />
+        <Header title="Settings" />
 
-        <View style={{ paddingTop: 20, paddingLeft: 20, paddingRight: 20 }}>
-          <Copy>Miro Wuk</Copy>
+        <View style={{ paddingLeft: 20, paddingRight: 20 }}>
 
-          <View style={{ marginTop: 20 }}>
-            <Title>Settings</Title>
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-              <Copy>Dark mode</Copy>
-              <Switch value={this.props.darkMode} onValueChange={this.handleDarkMode} />
-            </View>
+          <View>
 
-            <TouchableOpacity
-              onPress={this.selectLanguage}
-              style={{ flexDirection: "row" }}
-            >
-              <Copy>{__("Language") + ": "}</Copy>
-              <Copy>{this.props.language.name}</Copy>
-            </TouchableOpacity>
 
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate("Categories")}
               style={styles.settingWrap}
             >
-              <FontAwesome
-                style={{ fontSize: 26, color: "blue" }}
-                type="FontAwesome5FreeRegular"
-              >
-                {Icons.addressBook}
-              </FontAwesome>
               <Copy>Categories</Copy>
               <Title>{">"}</Title>
             </TouchableOpacity>
@@ -149,6 +130,22 @@ class Profile extends Component {
               <Copy>Labels</Copy>
               <Title>{">"}</Title>
             </TouchableOpacity>
+
+
+
+            <View style={{ marginTop:20, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+              <Copy>Dark mode</Copy>
+              <Switch value={this.props.darkMode} onValueChange={this.handleDarkMode} />
+            </View>
+
+            <TouchableOpacity
+              onPress={this.selectLanguage}
+              style={{ flexDirection: "row" }}
+            >
+              <Copy>{__("Language") + ": "}</Copy>
+              <Copy>{this.props.language.name}</Copy>
+            </TouchableOpacity>
+
 
             <Button title="ERASE DATA" onPress={this.props.erase} />
             <Button title="Sentry exception" onPress={() => Sentry.captureMessage("Test message")} />

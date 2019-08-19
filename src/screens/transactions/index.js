@@ -15,5 +15,6 @@ export default connect(
     changeAccountFilter: account => dispatch({ type: "CHANGE_ACCOUNT_FILTER", account }),
     clearTransactionForm: () => dispatch({ type: "CLEAR_TRANSACTION_FORM" }),
     clearSelectedCategory: () => dispatch({ type: "CLEAR_SELECTED_CATEGORY" }),
+    openDrawer: () => dispatch({ type: "OPEN_DRAWER" }),
   }),
 )(Component);

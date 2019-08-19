@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
 import { persistor, store } from "./store";
 import AppNavigator from "./navigators/app-navigator";
-
+import Drawer from "./components/drawer";
 import "intl";
 import "intl/locale-data/jsonp/en";
 
@@ -17,7 +17,12 @@ StatusBar.setBarStyle("light-content", true);
 export default () => (
   <Provider store={store}>
     <PersistGate persistor={persistor}>
-      <AppNavigator />
+      <Drawer
+        side="right"
+        open={true}
+      >
+        <AppNavigator />
+      </Drawer>
     </PersistGate>
   </Provider>
 );

@@ -7,13 +7,12 @@ import Screen from "../../components/screen"
 import Header from "../../components/header"
 import Icon from "../../components/icon"
 import Transaction from "../../components/transaction"
-import AddTransaction from "../../components/add-transaction"
 import { Copy } from "../../components/typography"
 import __ from "../../utils/translations"
 import { formatCurrency } from "../../utils/currency"
 import styles from "./styles"
 
-const HEADER_MAX_HEIGHT = 150
+const HEADER_MAX_HEIGHT = 100
 const HEADER_MIN_HEIGHT = 80
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT
 
@@ -50,6 +49,7 @@ class Transactions extends Component {
       expenses, income, total, accountFilter,
       entries, navigation, clearSelectedCategory, clearTransactionForm,
     } = this.props
+
     const headerHeight = height.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
       outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
@@ -57,8 +57,8 @@ class Transactions extends Component {
     });
 
     const headerScale = height.interpolate({
-      inputRange: [-150, 0],
-      outputRange: [3, 1],
+      inputRange: [-100, 0],
+      outputRange: [2, 1],
       extrapolate: "clamp",
     });
 
@@ -72,17 +72,22 @@ class Transactions extends Component {
           height: headerHeight,
         }}>
           <Header title="Transactions">
-            <View style={styles.overview}>
-              <View>
-                <Copy style={{ color: "white" }}>{__("Expenses")}: {formatCurrency(expenses)}</Copy>
-                <Copy style={{ color: "white" }}>{__("Income")}: {formatCurrency(income)}</Copy>
-                <Copy style={{ color: "white" }}>{__("Total")}: {formatCurrency(total)}</Copy>
-              </View>
-
-              <TouchableOpacity onPress={this.changeAccountFilter}>
-                <Copy style={{ color: "white" }}>Account: {accountFilter.name || "All accounts"}</Copy>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity onPress={()=>this.props.openDrawer()} style={{position: "absolute", right: 10, top: 40 }}>
+              <Icon type="filter"/>
+            </TouchableOpacity>
+            {
+            // <View style={styles.overview}>
+            //   <View>
+            //     <Copy style={{ color: "white" }}>{__("Expenses")}: {formatCurrency(expenses)}</Copy>
+            //     <Copy style={{ color: "white" }}>{__("Income")}: {formatCurrency(income)}</Copy>
+            //     <Copy style={{ color: "white" }}>{__("Total")}: {formatCurrency(total)}</Copy>
+            //   </View>
+            //
+            //   <TouchableOpacity onPress={this.changeAccountFilter}>
+            //     <Copy style={{ color: "white" }}>Account: {accountFilter.name || "All accounts"}</Copy>
+            //   </TouchableOpacity>
+            // </View>
+          }
           </Header>
         </Animated.View>
 
@@ -108,7 +113,6 @@ class Transactions extends Component {
 
         </ScrollView>
 
-        <AddTransaction />
       </Screen>
     )
   }

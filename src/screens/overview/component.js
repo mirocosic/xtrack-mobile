@@ -107,9 +107,6 @@ class Overview extends Component {
 
 
         </View>
-
-        <AddTransaction />
-
         <Modal
           style={{ margin: 0, justifyContent: "flex-end" }}
           swipeDirection={["up", "down"]}

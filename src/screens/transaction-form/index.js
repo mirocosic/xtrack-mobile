@@ -11,6 +11,7 @@ export default connect(
     fromAccount: state.accounts.fromAccount,
     selectedLabel: state.labels.selectedLabel,
     accounts: state.accounts.items,
+    categories: state.categories.items,
   }),
 
   dispatch => ({
@@ -19,6 +20,7 @@ export default connect(
     delete: transaction => dispatch({ type: "DELETE_TRANSACTION", transaction }),
     transfer: transaction => dispatch({ type: "TRANSFER_TRANSACTION", transaction }),
     setType: transactionType => dispatch({ type: "SET_TYPE", transactionType }),
+    selectCategory: payload => dispatch({ type: "SELECT_CATEGORY", payload }),
     setTransferMode: value => dispatch({ type: "SET_TRANSFER_MODE", value }),
     clearSelectedCategory: () => dispatch({ type: "CLEAR_SELECTED_CATEGORY" }),
     attachLabel: payload => dispatch({ type: "ATTACH_LABEL", payload }),
@@ -27,5 +29,6 @@ export default connect(
     setTo: payload => dispatch({ type: "SELECT_TO_ACCOUNT", payload }),
     setFrom: payload => dispatch({ type: "SELECT_FROM_ACCOUNT", payload }),
     changeTransactionAmount: amount => dispatch({ type: "CHANGE_TRANSACTION_AMOUNT", amount }),
+    clearTransactionForm: () => dispatch({ type: "CLEAR_TRANSACTION_FORM" }),
   }),
 )(Component);

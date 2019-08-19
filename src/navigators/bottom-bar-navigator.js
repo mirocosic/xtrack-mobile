@@ -1,13 +1,13 @@
 import { createBottomTabNavigator } from "react-navigation";
-import { Dashboard, Overview, Reports, Profile, Transactions } from "../screens";
+import { Dashboard, Overview, Reports, Profile, Transactions, TransactionForm } from "../screens";
 import palette from "../utils/palette";
 
 const BottomBarNavigator = createBottomTabNavigator({
   Dashboard: { screen: Dashboard },
   Overview: { screen: Overview },
+  Add: { screen: Reports },
   Transactions: { screen: Transactions },
-  Reports: { screen: Reports },
-  Profile: { screen: Profile },
+  Settings: { screen: Profile },
 }, {
   tabBarPosition: "bottom",
   lazy: false,

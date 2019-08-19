@@ -7,6 +7,7 @@ import Splash from "./splash";
 import Categories from "./categories";
 import CategoryEdit from "./category-edit";
 import Accounts from "./accounts";
+import AccountEdit from "./account-edit";
 import Labels from "./labels";
 import Transactions from "./transactions";
 
@@ -20,6 +21,7 @@ export {
   Categories,
   CategoryEdit,
   Accounts,
+  AccountEdit,
   Labels,
   Transactions,
 }

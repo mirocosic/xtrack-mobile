@@ -10,6 +10,7 @@ export default connect(
     total: state.transactions.total,
     expenses: state.transactions.expenses,
     income: state.transactions.income,
+    currentMonth: state.transactions.currentMonth,
   }),
 
   dispatch => ({
