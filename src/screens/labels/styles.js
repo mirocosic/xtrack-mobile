@@ -1,33 +1,33 @@
 import { StyleSheet } from "react-native"
+import palette from "../../utils/palette"
 
 export default StyleSheet.create({
 
-  colorPicker: {
-    flexDirection: "row",
-  },
-
-  colorBox: {
-      margin: 5,
-      width: 50,
-      height: 50
-  },
-
-  selectedColor: {
-    borderWidth: 2,
-    borderColor: "black"
-  },
+  colorPicker: { flexDirection: "row" },
 
   wrap: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     padding: 20,
-    borderWidth: 1,
-    margin:10
   },
 
-  wrapDark: {
-    borderColor: "white"
+  wrapDark: { borderColor: "white" },
+
+  swiperWrap: {
+    borderBottomWidth: 1,
+    borderColor: palette.gray,
+  },
+
+  colorBox: {
+    margin: 5,
+    width: 50,
+    height: 50,
+  },
+
+  selectedColor: {
+    borderWidth: 2,
+    borderColor: "black",
   },
 
   inputContainer: {
@@ -67,6 +67,21 @@ export default StyleSheet.create({
     height: 30,
     borderRadius: 20,
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
+
+  deleteButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "red",
+    flex: 1,
+  },
+
+  editButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "blue",
+    flex: 1,
+  },
+
 })

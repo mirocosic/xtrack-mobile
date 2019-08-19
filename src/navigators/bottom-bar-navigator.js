@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "react-navigation";
-import { Dashboard, Overview, Reports, Profile, Transactions, TransactionForm } from "../screens";
+import { Dashboard, Overview, Reports, Profile, Transactions } from "../screens";
 import palette from "../utils/palette";
 
 const BottomBarNavigator = createBottomTabNavigator({

@@ -1,29 +1,14 @@
 import React, { Component } from "react";
-import {
-  Animated, View, Button, Switch, Alert, TouchableOpacity, StyleSheet,
-} from "react-native";
-
+import { Animated, View, Button, Switch, Alert, TouchableOpacity, StyleSheet } from "react-native";
 import { Sentry } from "react-native-sentry";
-
 import { withNavigation } from "react-navigation";
-import FontAwesome, { Icons } from "react-native-fontawesome";
+
 import Icon from "../../components/icon"
 import Screen from "../../components/screen"
 import Header from "../../components/header"
 import { Copy, Title } from "../../components/typography"
 import __ from "../../utils/translations"
-
-
-const styles = StyleSheet.create({
-  settingWrap: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 10,
-    marginTop: 10,
-    borderBottomWidth: 1,
-  },
-})
+import styles from "./styles"
 
 class Profile extends Component {
 
@@ -91,66 +76,62 @@ class Profile extends Component {
       __("Select language"),
       __("Please choose your preferred language"),
       [
-        { text: "English", onPress: () => this.props.setLanguage({ code:"eng", name: "English" }) },
+        { text: "English", onPress: () => this.props.setLanguage({ code: "eng", name: "English" }) },
         { text: "Hrvatski", onPress: () => this.props.setLanguage({ code: "hrv", name: "Hrvatski" }) },
       ],
     )
   }
 
   render() {
+    const { navigation, darkMode, language, erase } = this.props
     return (
       <Screen>
         <Header title="Settings" />
 
-        <View style={{ paddingLeft: 20, paddingRight: 20 }}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Categories")}
+          style={styles.settingWrap}
+        >
+          <Copy>Categories</Copy>
+          <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
+        </TouchableOpacity>
 
-          <View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Accounts")}
+          style={styles.settingWrap}
+        >
+          <Copy>Accounts</Copy>
+          <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
+        </TouchableOpacity>
 
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Labels")}
+          style={styles.settingWrap}
+        >
+          <Copy>Labels</Copy>
+          <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
+        </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate("Categories")}
-              style={styles.settingWrap}
-            >
-              <Copy>Categories</Copy>
-              <Title>{">"}</Title>
-            </TouchableOpacity>
+        <View style={{ padding: 20 }}>
 
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate("Accounts")}
-              style={styles.settingWrap}
-            >
-              <Copy>Accounts</Copy>
-              <Title>{">"}</Title>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate("Labels")}
-              style={styles.settingWrap}
-            >
-              <Copy>Labels</Copy>
-              <Title>{">"}</Title>
-            </TouchableOpacity>
-
-
-
-            <View style={{ marginTop:20, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-              <Copy>Dark mode</Copy>
-              <Switch value={this.props.darkMode} onValueChange={this.handleDarkMode} />
-            </View>
-
-            <TouchableOpacity
-              onPress={this.selectLanguage}
-              style={{ flexDirection: "row" }}
-            >
-              <Copy>{__("Language") + ": "}</Copy>
-              <Copy>{this.props.language.name}</Copy>
-            </TouchableOpacity>
-
-
-            <Button title="ERASE DATA" onPress={this.props.erase} />
-            <Button title="Sentry exception" onPress={() => Sentry.captureMessage("Test message")} />
-
+          <View style={{ marginTop: 20, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+            <Copy>Dark mode</Copy>
+            <Switch value={darkMode} onValueChange={this.handleDarkMode} />
           </View>
+
+          <TouchableOpacity
+            onPress={this.selectLanguage}
+            style={{ flexDirection: "row" }}
+          >
+            <Copy>{__("Language") + ": "}</Copy>
+            <Copy>{language.name}</Copy>
+          </TouchableOpacity>
+
+          <View style={{ paddingTop: 20 }}>
+            <Button title="ERASE DATA" onPress={erase} />
+            <Button title="Sentry exception" onPress={() => Sentry.captureMessage("Test message")} />
+          </View>
+
         </View>
       </Screen>
     )

@@ -20,24 +20,23 @@ const categories = (state = initialState, action) => {
         ...state,
         items: [
           ...state.items,
-          { id: makeId(state.items), name: action.payload.name, type: action.payload.type, icon: "" },
+          { id: makeId(state.items), name: action.category.name, type: action.category.type, icon: action.category.icon, color: action.category.color },
         ],
       }
 
     case "EDIT_CATEGORY":
       return {
         ...state,
-        items: state.items.map((item)=>{
-          if ( item.id !== action.category.id) return item;
-
+        items: state.items.map((item) => {
+          if (item.id !== action.category.id) return item;
           return action.category;
-        })
+        }),
       }
 
-    case "DELETE_CATEGORY":
+    case "REMOVE_CATEGORY":
       return {
         ...state,
-        items: state.items.filter(item => item.id !== action.id),
+        items: state.items.filter(item => item.id !== action.category.id),
       }
 
     case "SELECT_CATEGORY":

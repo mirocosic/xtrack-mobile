@@ -1,19 +1,26 @@
 import initialState from "./initial-state";
 
-const makeId = (items) => {
-  return (items.length) ? items[items.length - 1].id + 1 : 0
-}
+const makeId = items => (items.length ? items[items.length - 1].id + 1 : 0)
+
 const categories = (state = initialState, action) => {
   switch (action.type) {
 
-    case "ADD_ACCOUNT":
+    case "ADD_ACCOUNT": {
+      const { name, icon, color, defaultAccount } = action.account
       return {
         ...state,
         items: [
           ...state.items,
-          { id: makeId(state.items), name: action.payload },
+          {
+            id: makeId(state.items),
+            name,
+            icon,
+            color,
+            defaultAccount,
+          },
         ],
       }
+    }
 
     case "EDIT_ACCOUNT":
       return {
@@ -24,10 +31,24 @@ const categories = (state = initialState, action) => {
         }),
       }
 
-    case "DELETE_ACCOUNT":
+    case "REMOVE_ACCOUNT":
       return {
         ...state,
-        items: state.items.filter(item => item.id !== action.payload),
+        items: state.items.filter(item => item.id !== action.account.id),
+      }
+
+    case "SET_DEFAULT_ACCOUNT":
+      return {
+        ...state,
+        items: state.items.map((item) => {
+          if (item.id !== action.account.id) {
+            return {
+              ...item,
+              defaultAccount: false,
+            }
+          }
+          return action.account;
+        }),
       }
 
     case "SELECT_TO_ACCOUNT":
@@ -49,9 +70,7 @@ const categories = (state = initialState, action) => {
       }
 
     case "ERASE":
-      return {
-        ...initialState
-      }
+      return { ...initialState }
 
     default:
       return state;

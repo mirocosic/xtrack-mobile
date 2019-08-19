@@ -9,7 +9,7 @@ export const PrimaryButton = (props) => {
 
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style={{ backgroundColor: "green", ...styles.wrap }}>
+      <View style={{ backgroundColor: "teal", ...styles.wrap }}>
         <Copy style={styles.label}>{label}</Copy>
       </View>
     </TouchableOpacity>

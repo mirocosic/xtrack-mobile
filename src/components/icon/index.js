@@ -12,7 +12,7 @@ const icons = {
 }
 
 const Icon = ({ type, textStyle, style, icon }) => (
-  <View style={[{ width: 40, height: 40, alignItems: "center", justifyContent: "center", backgroundColor: "blue", borderRadius: 20 }, style]}>
+  <View style={[{ width: 40, height: 40, alignItems: "center", justifyContent: "center", backgroundColor: "transparent", borderRadius: 20 }, style]}>
     { type ?
       (
         <FontAwesome

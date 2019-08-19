@@ -45,12 +45,12 @@ class Accounts extends Component {
     </View>
   )
 
-  handleDelete = (id) => {
-    const count = this.props.transactions.filter((item) => id === get(item ,"account.id")).length
-    if ( count > 0 ) {
+  handleDelete = (account) => {
+    const count = this.props.transactions.filter((item) => account.id === get(item ,"account.id")).length
+    if (count > 0) {
       Alert.alert("Warning", "Cannot delete account that contains transactions.")
     } else {
-      this.props.deleteAccount(id)
+      this.props.remove(account)
     }
   }
 
@@ -61,33 +61,43 @@ class Accounts extends Component {
       <Screen>
         <Header title="Accounts" backBtn />
         <ScrollView scrollEnabled={scroll}>
-          <View>
+          <View style={{ borderColor: "gray", borderTopWidth: 1 }}>
             {accounts.map(account => (
               <Swipeout
                 key={account.id}
                 right={[{
                   backgroundColor: "#f8f8fc",
                   component: this.renderDeleteButton(),
-                  onPress: () => this.handleDelete(account.id),
+                  onPress: () => this.handleDelete(account),
                 }]}
-                style={{ borderBottomWidth: 1, borderColor: "gray" }}
+                style={styles.swiperWrap}
                 sensitivity={10}
                 buttonWidth={70}
                 backgroundColor="#f8f8fc"
                 scroll={value => this.setState({ scroll: value })}
               >
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate("AccountEdit", { id: account.id })
-                    //navigation.state.params.accountField === "from" ? setFrom(account) : setTo(account)
-                    //navigation.goBack()
-                  }}>
+                <TouchableOpacity onPress={() => navigation.navigate("AccountEdit", { id: account.id })}>
 
                   <View key={account.id} style={[styles.wrap, darkMode && styles.wrapDark]}>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
-                      <Icon type={account.icon} style={{ marginRight: 10, backgroundColor: account.color }} />
-                      <Copy>{`${account.name} (${formatCurrency(accountBalance(account, transactions))})`}</Copy>
+                      <Icon type={account.icon} style={{ marginRight: 10 }} textStyle={{ color: account.color, fontSize: 20 }} />
+                      <Copy>
+                        {`${account.name} `}
+                        <Copy style={{fontSize: 12}}>{`(${formatCurrency(accountBalance(account, transactions))})`}</Copy>
+                      </Copy>
+                      {
+                        account.defaultAccount &&
+                        <Icon type="star" textStyle={{ color: "orange", fontSize: 10 }} />
+                      }
                     </View>
+
+                    <TouchableOpacity onPress={() => {
+                      //selectCategory(cat)
+                      navigation.navigate("AccountEdit")
+                    }}>
+                      <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
+                    </TouchableOpacity>
+
                   </View>
 
                 </TouchableOpacity>

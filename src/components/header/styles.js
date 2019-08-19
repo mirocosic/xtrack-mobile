@@ -12,7 +12,13 @@ export default StyleSheet.create({
     zIndex: 100,
     color: "white",
     position: "absolute",
-    top: safePaddingTop(5),
+    top: safePaddingTop(3),
     left: 20,
+  },
+
+  actionBtnWrap: {
+    position: "absolute",
+    right: 20,
+    top: safePaddingTop(3),
   },
 })

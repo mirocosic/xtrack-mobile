@@ -17,7 +17,7 @@ export default connect(
   dispatch => ({
     add: transaction => dispatch({ type: "ADD_TRANSACTION", transaction }),
     edit: transaction => dispatch({ type: "EDIT_TRANSACTION", transaction }),
-    delete: transaction => dispatch({ type: "DELETE_TRANSACTION", transaction }),
+    remove: transaction => dispatch({ type: "DELETE_TRANSACTION", transaction }),
     transfer: transaction => dispatch({ type: "TRANSFER_TRANSACTION", transaction }),
     setType: transactionType => dispatch({ type: "SET_TYPE", transactionType }),
     selectCategory: payload => dispatch({ type: "SELECT_CATEGORY", payload }),
@@ -29,6 +29,6 @@ export default connect(
     setTo: payload => dispatch({ type: "SELECT_TO_ACCOUNT", payload }),
     setFrom: payload => dispatch({ type: "SELECT_FROM_ACCOUNT", payload }),
     changeTransactionAmount: amount => dispatch({ type: "CHANGE_TRANSACTION_AMOUNT", amount }),
-    clearTransactionForm: () => dispatch({ type: "CLEAR_TRANSACTION_FORM" }),
+    clearTransactionForm: defaultAccount => dispatch({ type: "CLEAR_TRANSACTION_FORM", defaultAccount }),
   }),
 )(Component);

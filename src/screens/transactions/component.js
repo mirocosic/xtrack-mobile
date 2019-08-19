@@ -9,7 +9,6 @@ import Icon from "../../components/icon"
 import Transaction from "../../components/transaction"
 import { Copy } from "../../components/typography"
 import __ from "../../utils/translations"
-import { formatCurrency } from "../../utils/currency"
 import styles from "./styles"
 
 const HEADER_MAX_HEIGHT = 100
@@ -46,7 +45,7 @@ class Transactions extends Component {
   render() {
     const { height, scrollEnabled } = this.state
     const {
-      expenses, income, total, accountFilter,
+      expenses, income, total, accountFilter, openDrawer,
       entries, navigation, clearSelectedCategory, clearTransactionForm,
     } = this.props
 
@@ -72,8 +71,8 @@ class Transactions extends Component {
           height: headerHeight,
         }}>
           <Header title="Transactions">
-            <TouchableOpacity onPress={()=>this.props.openDrawer()} style={{position: "absolute", right: 10, top: 40 }}>
-              <Icon type="filter"/>
+            <TouchableOpacity onPress={() => openDrawer()} style={{ position: "absolute", right: 10, top: 35 }}>
+              <Icon type="filter" style={{ backgroundColor: "transparent" }} />
             </TouchableOpacity>
             {
             // <View style={styles.overview}>
@@ -91,11 +90,18 @@ class Transactions extends Component {
           </Header>
         </Animated.View>
 
+        {
+          !entries.length &&
+          <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+            <Copy>Hey! Seems like you don't have any transactions.</Copy>
+            <Copy>Add some!</Copy>
+          </View>
+        }
+
         <ScrollView
           scrollEnabled={scrollEnabled}
           scrollEventThrottle={16}
           onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: height } } }])}>
-
           <View>
             {entries
               .filter((item) => {

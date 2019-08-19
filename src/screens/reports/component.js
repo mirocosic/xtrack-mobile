@@ -18,12 +18,12 @@ class Reports extends Component {
 
   static navigationOptions = ({navigation}) => ({
     tabBarOnPress: () => {
-      navigation.navigate("TransactionForm")
+      navigation.navigate("TransactionForm", { clearForm: true })
     },
     tabBarIcon: ({ tintColor }) => (
       <Icon
-        style={{ backgroundColor: "teal", height: 60, width: 60, bottom: 20, borderRadius: 50 }}
-        textStyle={{ fontSize: 40, color: "white" }}
+        style={{ backgroundColor: "teal", height: 50, width: 50, bottom: 10, borderRadius: 50 }}
+        textStyle={{ fontSize: 30, color: "white" }}
         type="plus"
       />
     ),

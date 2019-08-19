@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { View, ScrollView, TextInput, TouchableOpacity} from "react-native";
+import { View, ScrollView, TextInput, TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
-import { Screen, Header, Footer } from "../../components"
+import { Screen, Header } from "../../components"
 import CategoryIcons from "../../components/category-icons"
 import Icon from "../../components/icon"
 import { Copy } from "../../components/typography"
@@ -12,18 +12,20 @@ const colors = ["#FF5722", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
 class CategoryEdit extends Component {
 
   state = {
-    category: this.props.categories.filter(item => this.props.navigation.state.params.id === item.id)[0]
+    category: this.props.categories.filter(item => this.props.navigation.state.params.id === item.id)[0] || {}
   }
 
   render() {
-    const { navigation } = this.props
+    const { navigation, add, edit, remove } = this.props
     const { category } = this.state
     return (
       <Screen>
         <Header
-          icon={<Icon type={this.state.category.icon} style={{ backgroundColor: this.state.category.color }} />}
-          title={this.state.category.name}
+          icon={<Icon type={category.icon} style={{ backgroundColor: category.color }} />}
+          title={category.name}
           backBtn
+          actionBtn={<Icon type="trash-alt" />}
+          actionBtnPress={() => { remove(category); navigation.goBack() }}
         />
         <ScrollView>
           <View>
@@ -32,7 +34,7 @@ class CategoryEdit extends Component {
               { colors.map(color => (
                 <TouchableOpacity
                   key={color}
-                  style={[styles.colorBox, this.state.category.color === color && styles.selectedColor, { backgroundColor: color }]}
+                  style={[styles.colorBox, category.color === color && styles.selectedColor, { backgroundColor: color }]}
                   onPress={() => this.setState({
                     category: {
                       ...category,
@@ -45,19 +47,19 @@ class CategoryEdit extends Component {
 
             <View style={styles.inputContainer}>
               <TextInput style={[styles.input, this.props.darkMode && styles.inputDark]}
-                onChangeText={(text)=>this.setState({
+                onChangeText={text => this.setState({
                   category: {
-                    ...this.state.category,
-                    ...{name: text}
+                    ...category,
+                    ...{ name: text },
                   }})}
                 returnKeyType="done"
                 placeholder="category name"
-                value={this.state.category.name}
+                value={category.name}
                 />
               <TouchableOpacity
                 style={styles.add}
                 onPress={() => {
-                  this.props.edit(this.state.category)
+                  category.id ? edit(category) : add(category)
                   navigation.goBack()
                 }}
               >
@@ -67,7 +69,7 @@ class CategoryEdit extends Component {
 
           </View>
 
-          <CategoryIcons selected={this.state.category.icon || "car"} select={(value) => this.setState({category: {...this.state.category, icon: value}})}/>
+          <CategoryIcons selected={category.icon || "car"} select={value => this.setState({category: {...category, icon: value}})}/>
 
         </ScrollView>
 

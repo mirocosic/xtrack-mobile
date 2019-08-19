@@ -10,7 +10,9 @@ export default connect(
   }),
 
   dispatch => ({
+    add: account => dispatch({ type: "ADD_ACCOUNT", account }),
     edit: account => dispatch({ type: "EDIT_ACCOUNT", account }),
-    delete: payload => dispatch({ type: "DELETE_ACCOUNT", payload }),
+    remove: account => dispatch({ type: "REMOVE_ACCOUNT", account }),
+    setDefault: account => dispatch({ type: "SET_DEFAULT_ACCOUNT", account }),
   }),
 )(Component);

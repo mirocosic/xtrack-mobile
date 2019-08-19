@@ -2,7 +2,7 @@ import moment from "moment"
 import initialState from "./initial-state";
 import { makeUUID } from "../../utils/helper-gnomes"
 
-const makeId = entries => (entries.length ? entries[entries.length - 1].id + 1 : 0)
+const makeId = entries => (entries.length ? entries[entries.length - 1].id + 1 : 1)
 
 // const calculateTotal = (total, amount, type, inverse) => {
 //   if ( (type === "expense" && !inverse) || (type === "income" && inverse)) {
@@ -199,7 +199,7 @@ const transactions = (state = initialState, action) => {
           note: "",
           type: "expense",
           category: {},
-          account: {},
+          account: action.defaultAccount,
           fromAccount: {},
           labels: [],
         },

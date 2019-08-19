@@ -1,24 +1,41 @@
 import React, { Component } from "react"
-import { View, Text, TouchableOpacity } from "react-native"
+import { Alert, View, Text, TouchableOpacity } from "react-native"
 import RNDrawer from "react-native-drawer"
-
+import Icon from "../icon"
+import { Title, Copy } from "../typography"
+import __ from "../../utils/translations"
 import styles from "./styles"
 
 export default class Drawer extends Component {
 
+  changeAccountFilter = () => {
+    const { accounts, changeAccountFilter } = this.props
+    Alert.alert(
+      __("Select account"),
+      __("Please choose account"),
+      [
+        ...accounts.map(account => (
+          { text: account.name, onPress: () => changeAccountFilter(account) }
+        )),
+        { text: "All accounts", onPress: () => changeAccountFilter(false) },
+      ],
+    )
+  }
+
   renderDrawerContent = (content) => {
     return (
-      <View style={{flex: 1, backgroundColor: "white"}}>
+      <View style={styles.content}>
         <Text>Filters</Text>
         <TouchableOpacity onPress={()=>this.props.closeDrawer()}>
-          <Text>Close</Text>
+          <Text>Close 2</Text>
+          <Text>Close 2</Text>
         </TouchableOpacity>
       </View>
     )
   }
 
   render() {
-    const { drawerOpen, drawerIsCanceled, drawerContent, applyFilters, applyMessageFilter, closeDrawer } = this.props;
+    const { drawerOpen, drawerIsCanceled, drawerContent, applyFilters, applyMessageFilter, accountFilter, closeDrawer } = this.props;
     return (
       <RNDrawer
         ref={ref => this._drawer = ref}
@@ -30,12 +47,28 @@ export default class Drawer extends Component {
           closeDrawer();
         }}
         openDrawerOffset={50}
-        content={this.renderDrawerContent(drawerContent)}
+        content={
+          (
+            <View style={styles.content}>
+              <View style={styles.contentHeader}>
+                <Title>Filters</Title>
+                <TouchableOpacity onPress={() => closeDrawer()}>
+                  <Icon type="times" style={{backgroundColor: "white"}} textStyle={{color: "black"}} />
+                </TouchableOpacity>
+              </View>
+
+              <TouchableOpacity onPress={this.changeAccountFilter}>
+                  <Copy>Account: {accountFilter.name || "All accounts"}</Copy>
+                </TouchableOpacity>
+
+            </View>
+        )
+        }
         type="overlay"
         tweenDuration={500}
         tweenEasing="easeInOutQuart"
         tweenHandler={ratio => ({ mainOverlay: { opacity: ratio * 0.8 } })}
-        styles={{ mainOverlay: { backgroundColor: "rgba(3,61,89,1)", opacity: 0 } }}
+        styles={{ mainOverlay: { backgroundColor: "teal", opacity: 0 } }}
       >
         {this.props.children}
       </RNDrawer>

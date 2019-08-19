@@ -3,22 +3,23 @@ import { StyleSheet } from "react-native"
 export default StyleSheet.create({
 
   wrap: {
-    paddingLeft: 20,
-    paddingRight: 20
+    paddingLeft: 40,
+    paddingRight: 40,
   },
 
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+  formFieldWrap: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginTop: 10,
   },
 
   welcome: {
     color: "white",
-    textAlign: 'center',
+    textAlign: "center",
     padding: 10,
     marginBottom: 30,
-    backgroundColor: "teal"
+    backgroundColor: "teal",
   },
 
   textInput: {
@@ -26,7 +27,7 @@ export default StyleSheet.create({
     fontSize: 20,
     margin: 10,
     width: 100,
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
 
   textInputDark: {
@@ -36,90 +37,73 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: "white",
     padding: 10,
-    margin: 10
+    margin: 10,
   },
 
   amountInput: {
     color: "gray",
     fontSize: 40,
     width: 200,
-
-    margin: 10
+    margin: 10,
   },
 
-  amountInputDark: {
-    color: "white",
-  },
+  amountInputDark: { color: "white" },
 
   transactionTypeButton: {
     margin: 10,
-    borderRadius: 8,
+    borderRadius: 5,
   },
 
   typeWrap: {
+    paddingTop: 5,
+    paddingBottom: 5,
     padding: 10,
     borderRadius: 5,
   },
 
   typeButtonsWrap: {
     flexDirection: "row",
-    justifyContent: "space-evenly"
+    justifyContent: "space-between",
   },
 
-  typeButton: {
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
-    borderWidth: 1,
-    borderColor: "black"
-  },
+  btnExpenseSelected: { backgroundColor: "red" },
 
-  btnExpenseSelected: {
-    backgroundColor: "red",
-  },
+  btnIncomeSelected: { backgroundColor: "green" },
 
-  btnIncomeSelected: {
-    backgroundColor: "green",
-  },
+  btnTransferSelected: { backgroundColor: "blue" },
 
-  btnTransferSelected: {
-    backgroundColor: "blue",
-  },
+  btnDark: { borderColor: "white" },
 
-  btnDark: {
-    borderColor: "white"
-  },
-
-  copySelected: {
-    color: "white"
-  },
+  copySelected: { color: "white" },
 
   selectBox: {
     backgroundColor: "white",
-    borderRadius: 20,
+    borderRadius: 5,
     flexDirection: "row",
     alignItems: "center",
   },
 
-  selectBoxDark: {
-    borderColor: "white"
-  },
+  selectBoxDark: { borderColor: "white" },
 
   labels: {
     flexDirection: "row",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
   },
 
   calendarWrap: {
-
     position: "absolute",
     flex: 1,
-    bottom: 0,
+    bottom: 10,
     width: "100%",
-    //height: "100%",
     backgroundColor: "gray",
-    //opacity: 0.8
-  }
+  },
+
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    borderTopWidth: 1,
+    paddingTop: 10,
+    paddingBottom: 20,
+  },
 
 })

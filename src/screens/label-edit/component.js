@@ -10,7 +10,7 @@ import styles from "./styles"
 
 const colors = ["#FF5722", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
 
-class LabelAdd extends Component {
+class LabelEdit extends Component {
 
   state = {
     name: "",
@@ -20,9 +20,9 @@ class LabelAdd extends Component {
   render() {
     return (
       <Screen>
-        <Header title="Labels" />
+        <Header title="Labels" backBtn />
         <ScrollView>
-          <View>
+          <View style={{ padding: 20 }}>
 
             <View style={styles.colorPicker}>
               {colors.map(color => (
@@ -51,35 +51,11 @@ class LabelAdd extends Component {
               </TouchableOpacity>
             </View>
 
-            {this.props.labels.map(label => (
-              <TouchableOpacity
-                key={label.id}
-                onPress={() => { this.props.select(label); this.props.navigation.goBack() }}
-              >
-                <View key={label.id} style={[styles.wrap, this.props.darkMode && styles.wrapDark]}>
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <View style={{ width: 20, height: 20, backgroundColor: label.color, marginRight: 10 }} />
-                    <Copy>{label.name}</Copy>
-                  </View>
-
-                  <TouchableOpacity style={styles.delete} onPress={()=>this.props.delete(label.id)}>
-                    <Text>`-`</Text>
-                  </TouchableOpacity>
-                </View>
-
-              </TouchableOpacity>
-
-            ))}
           </View>
         </ScrollView>
-        <TouchableOpacity
-          style={{marginBottom: 40, alignItems: "center"}}
-          onPress={() => this.props.navigation.goBack()}>
-          <Copy>{`< Go Back `}</Copy>
-        </TouchableOpacity>
       </Screen>
     )
   }
 }
 
-export default withNavigation(Labels);
+export default withNavigation(LabelEdit);

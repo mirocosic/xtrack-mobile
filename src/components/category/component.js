@@ -5,7 +5,7 @@ import Swipeout from "react-native-swipeout"
 import { withNavigation } from "react-navigation"
 import { get } from "lodash"
 import Icon from "../icon"
-import { Copy, Title } from "../typography"
+import { Copy } from "../typography"
 import styles from "./styles"
 
 class Category extends Component {
@@ -29,11 +29,11 @@ class Category extends Component {
     </View>
   )
 
-  deleteCategory = (id) => {
-    if (this.countTransactions(id) > 0) {
+  deleteCategory = (category) => {
+    if (this.countTransactions(category.id) > 0) {
       Alert.alert("Warning!", "Cannot delete category that has transactions")
     } else {
-      this.props.deleteCategory(id)
+      this.props.remove(category)
     }
   }
 
@@ -45,7 +45,7 @@ class Category extends Component {
         right={[{
           backgroundColor: "#f8f8fc",
           component: this.renderDeleteButton(),
-          onPress: () => this.deleteCategory(cat.id)
+          onPress: () => this.deleteCategory(cat)
         },
         {
           backgroundColor: "blue",
@@ -76,7 +76,7 @@ class Category extends Component {
               selectCategory(cat)
               navigation.navigate("CategoryEdit")
             }}>
-              <Title>{">"}</Title>
+              <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
             </TouchableOpacity>
 
           </View>

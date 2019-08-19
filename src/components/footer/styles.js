@@ -6,7 +6,7 @@ export default StyleSheet.create({
     borderTopWidth: 1,
     borderColor: "gray",
     padding: 10,
-    //minHeight: 50,
+    paddingBottom: safePaddingTop(0),
   },
 
   backBtn: {

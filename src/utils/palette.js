@@ -17,7 +17,7 @@ export default {
   green: 'rgb(37,227,195)',
   red: '#a00300',
   lightRed: 'rgb(255,100,100)',
-
+  teal: "teal",
   white: '#ffffff',
   black: '#000000',
   mandy: '#ff0000',
