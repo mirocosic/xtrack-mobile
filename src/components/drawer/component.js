@@ -22,11 +22,25 @@ export default class Drawer extends Component {
     )
   }
 
+  changeCategoryFilter = () => {
+    const { categories, changeCategoryFilter } = this.props
+    Alert.alert(
+      __("Select category"),
+      __("Please choose category"),
+      [
+        ...categories.map(cat => (
+          { text: cat.name, onPress: () => changeCategoryFilter(cat) }
+        )),
+        { text: "All categories", onPress: () => changeCategoryFilter(false) },
+      ],
+    )
+  }
+
   renderDrawerContent = (content) => {
     return (
       <View style={styles.content}>
         <Text>Filters</Text>
-        <TouchableOpacity onPress={()=>this.props.closeDrawer()}>
+        <TouchableOpacity onPress={() => this.props.closeDrawer()}>
           <Text>Close 2</Text>
           <Text>Close 2</Text>
         </TouchableOpacity>
@@ -35,12 +49,16 @@ export default class Drawer extends Component {
   }
 
   render() {
-    const { drawerOpen, drawerIsCanceled, drawerContent, applyFilters, applyMessageFilter, accountFilter, closeDrawer } = this.props;
+    const {
+      drawerOpen, drawerIsCanceled, drawerContent, applyFilters, applyMessageFilter,
+      accountFilter, categoryFilter, closeDrawer, side, children,
+    } = this.props;
+
     return (
       <RNDrawer
         ref={ref => this._drawer = ref}
         open={drawerOpen}
-        side={ this.props.side || 'left'}
+        side={side || "left"}
         tapToClose={true}
         onClose={() => {
           //drawerIsCanceled ? this.cancelAction(drawerContent) : this.applyAction(drawerContent)
@@ -53,13 +71,17 @@ export default class Drawer extends Component {
               <View style={styles.contentHeader}>
                 <Title>Filters</Title>
                 <TouchableOpacity onPress={() => closeDrawer()}>
-                  <Icon type="times" style={{backgroundColor: "white"}} textStyle={{color: "black"}} />
+                  <Icon type="times" style={{ backgroundColor: "white" }} textStyle={{ color: "black" }} />
                 </TouchableOpacity>
               </View>
 
               <TouchableOpacity onPress={this.changeAccountFilter}>
-                  <Copy>Account: {accountFilter.name || "All accounts"}</Copy>
-                </TouchableOpacity>
+                <Copy>Account: {accountFilter.name || "All accounts"}</Copy>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={this.changeCategoryFilter}>
+                <Copy>Category: {categoryFilter.name || "All categories"}</Copy>
+              </TouchableOpacity>
 
             </View>
         )
@@ -70,7 +92,7 @@ export default class Drawer extends Component {
         tweenHandler={ratio => ({ mainOverlay: { opacity: ratio * 0.8 } })}
         styles={{ mainOverlay: { backgroundColor: "teal", opacity: 0 } }}
       >
-        {this.props.children}
+        {children}
       </RNDrawer>
     )
   }

@@ -1,10 +1,13 @@
 import { StyleSheet } from "react-native"
+import globalStyles from "../../utils/styles"
 
 export default StyleSheet.create({
 
+  ...globalStyles,
+
   wrap: {
-    paddingLeft: 40,
-    paddingRight: 40,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
 
   formFieldWrap: {
@@ -24,7 +27,6 @@ export default StyleSheet.create({
 
   textInput: {
     color: "black",
-    fontSize: 20,
     margin: 10,
     width: 100,
     backgroundColor: "white",

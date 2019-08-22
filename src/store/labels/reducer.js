@@ -12,8 +12,17 @@ const labels = (state = initialState, action) => {
         ...state,
         items: [
           ...state.items,
-          { id: makeId(state.items), name: action.payload.name, color: action.payload.color },
+          { id: makeId(state.items), name: action.label.name, color: action.label.color },
         ],
+      }
+
+    case "EDIT_LABEL":
+      return {
+        ...state,
+        items: state.items.map((item) => {
+          if (item.id !== action.label.id) return item;
+          return action.label;
+        }),
       }
 
     case "DELETE_LABEL":

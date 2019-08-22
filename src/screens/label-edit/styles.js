@@ -7,9 +7,9 @@ export default StyleSheet.create({
   },
 
   colorBox: {
-      margin: 5,
-      width: 50,
-      height: 50
+    margin: 5,
+    width: 50,
+    height: 50
   },
 
   selectedColor: {
@@ -58,7 +58,7 @@ export default StyleSheet.create({
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "green"
+    backgroundColor: "teal"
   },
 
   delete: {

@@ -45,7 +45,7 @@ class Transactions extends Component {
   render() {
     const { height, scrollEnabled } = this.state
     const {
-      expenses, income, total, accountFilter, openDrawer,
+      expenses, income, total, accountFilter, categoryFilter, openDrawer,
       entries, navigation, clearSelectedCategory, clearTransactionForm,
     } = this.props
 
@@ -91,11 +91,12 @@ class Transactions extends Component {
         </Animated.View>
 
         {
-          !entries.length &&
+          !entries.length && (
           <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
             <Copy>Hey! Seems like you don't have any transactions.</Copy>
             <Copy>Add some!</Copy>
           </View>
+          )
         }
 
         <ScrollView
@@ -108,6 +109,10 @@ class Transactions extends Component {
                 if (!accountFilter) { return true }
                 if (!get(item, "account")) { return true }
                 return get(item, "account.id") === accountFilter.id
+              })
+              .filter((item) => {
+                if (!categoryFilter) { return true }
+                return get(item, "category.id") === categoryFilter.id
               })
               .map(value => (
                 <Transaction

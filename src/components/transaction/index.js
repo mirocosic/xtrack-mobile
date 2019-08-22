@@ -4,6 +4,7 @@ import Component from "./component";
 export default connect(
   state => ({
     darkMode: state.common.darkMode,
+    categories: state.categories.items,
   }),
 
   dispatch => ({

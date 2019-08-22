@@ -63,13 +63,17 @@ class Category extends Component {
 
           <View key={cat.id} style={[styles.categoryWrap, darkMode && styles.catWrapDark]}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Icon type={cat.icon} style={{ marginRight: 10, backgroundColor: get(cat, "color", "blue") }} />
+              <Icon type={cat.icon} style={{ marginRight: 10 }} textStyle={{color: get(cat, "color", "blue")}}/>
               <Copy>
                   {`${cat.name} ` }
                   <Copy style={{fontSize: 10}}>
                       {`(${this.countTransactions(cat.id)})`}
                   </Copy>
               </Copy>
+              {
+                cat.defaultCategory &&
+                <Icon type="star" textStyle={{ color: "orange", fontSize: 10 }} />
+              }
             </View>
 
             <TouchableOpacity onPress={() => {

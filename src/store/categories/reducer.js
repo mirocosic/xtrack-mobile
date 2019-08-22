@@ -39,16 +39,36 @@ const categories = (state = initialState, action) => {
         items: state.items.filter(item => item.id !== action.category.id),
       }
 
+    case "SET_DEFAULT_CATEGORY":
+      return {
+        ...state,
+        items: state.items.map((item) => {
+          if (item.id !== action.category.id) {
+            return {
+              ...item,
+              defaultCategory: false,
+            }
+          }
+          return action.category;
+        }),
+      }
+
     case "SELECT_CATEGORY":
       return {
         ...state,
-        selectedCategory: action.payload
+        selectedCategory: action.payload,
       }
 
     case "CLEAR_SELECTED_CATEGORY":
       return {
         ...state,
-        selectedCategory: {}
+        selectedCategory: {},
+      }
+
+    case "CHANGE_CATEGORY_FILTER":
+      return {
+        ...state,
+        categoryFilter: action.category,
       }
 
     case "ERASE":

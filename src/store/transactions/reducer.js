@@ -109,7 +109,7 @@ const transactions = (state = initialState, action) => {
             account,
             fromAccount,
             type,
-            amount:
+            amount,
             note,
             category,
             labels,
@@ -198,7 +198,7 @@ const transactions = (state = initialState, action) => {
           amount: 0,
           note: "",
           type: "expense",
-          category: {},
+          category: action.defaultCategory,
           account: action.defaultAccount,
           fromAccount: {},
           labels: [],

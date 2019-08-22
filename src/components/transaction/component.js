@@ -45,20 +45,33 @@ const renderDeleteButton = (transaction) => {
         <Copy style={styles.archiveCopy}>Move to Messages</Copy>
       </View>
     );
-  } else {
-    return (
-      <View style={styles.deleteButton}>
-        <Icon style={{backgroundColor: "red"}}/>
-        <Copy style={{color: "white"}}>Delete</Copy>
-      </View>
-    );
   }
+
+  return (
+    <View style={styles.deleteButton}>
+      <Icon style={{ backgroundColor: "red" }} />
+      <Copy style={{ color: "white" }}>Delete</Copy>
+    </View>
+  );
 
 }
 
-const Transaction = ({
-  transaction, selectTransaction, deleteTransaction, navigation, darkMode, toggleScroll,
-}) => (
+const renderCategory = (categories, id) => {
+  const category = categories.find(cat => id === cat.id)
+
+  return (
+    <View style={{ flexDirection: "row", alignItems: "center" }}>
+      <Icon
+        type={get(category, "icon", "")}
+        textStyle={{ color: get(category, "color", "blue") }}
+        style={{ padding: 5, marginRight: 10, backgroundColor: "white" }}
+      />
+      <Copy>{category && category.name}</Copy>
+    </View>
+  )
+}
+
+const Transaction = ({ transaction, selectTransaction, deleteTransaction, navigation, darkMode, toggleScroll, categories }) => (
   <Swipeout
     right={[{
       backgroundColor: "#f8f8fc",
@@ -76,10 +89,7 @@ const Transaction = ({
     }}>
       <View key={transaction.id} style={[styles.container, darkMode && styles.containerDark]}>
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Icon type={get(transaction, "category.icon")} textStyle={{color: get(transaction, "category.color", "blue")}} style={{ padding: 5, marginRight: 10, backgroundColor: "white" }} />
-            <Copy>{transaction.category && transaction.category.name}</Copy>
-          </View>
+          { renderCategory(categories, transaction.category.id)}
           <Text style={[styles.amount, getAmountColor(transaction.type)]}>
             {formatCurrency(transaction.amount)}
           </Text>

@@ -5,6 +5,7 @@ export default connect(
   state => ({
     accounts: state.accounts.items,
     accountFilter: state.accounts.accountFilter,
+    categoryFilter: state.categories.categoryFilter,
     entries: state.transactions.entries,
     total: state.transactions.total,
     expenses: state.transactions.expenses,

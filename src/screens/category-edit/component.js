@@ -16,7 +16,7 @@ class CategoryEdit extends Component {
   }
 
   render() {
-    const { navigation, add, edit, remove } = this.props
+    const { navigation, add, edit, remove, setDefault } = this.props
     const { category } = this.state
     return (
       <Screen>
@@ -60,10 +60,18 @@ class CategoryEdit extends Component {
                 style={styles.add}
                 onPress={() => {
                   category.id ? edit(category) : add(category)
+                  category.defaultCategory && setDefault(category)
                   navigation.goBack()
                 }}
               >
                 <Copy style={{ color: "white" }}>Save</Copy>
+              </TouchableOpacity>
+            </View>
+
+            <View style={{ flexDirection: "row", paddingLeft: 40, paddingBottom: 20 }}>
+              <Copy>Default category:</Copy>
+              <TouchableOpacity onPress={() => this.setState({ category: { ...category, defaultCategory: !category.defaultCategory } })}>
+                <Copy style={{ color: "blue" }}>{category.defaultCategory ? "Yes" : "No"}</Copy>
               </TouchableOpacity>
             </View>
 

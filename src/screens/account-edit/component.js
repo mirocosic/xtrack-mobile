@@ -43,7 +43,7 @@ class AccountEdit extends Component {
     return (
       <Screen>
         <Header
-          icon={<Icon type={account.icon} style={{ backgroundColor: account.color }} />}
+          icon={<Icon type={account.icon} textStyle={{ color: account.color }}/>}
           title={account.name}
           backBtn
           actionBtn={<Icon type="trash-alt" />}

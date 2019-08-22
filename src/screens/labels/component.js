@@ -62,7 +62,7 @@ class Labels extends Component {
                 >
                   <TouchableOpacity
                     key={label.id}
-                    onPress={() => navigation.navigate("LabelEdit")}
+                    onPress={() => navigation.navigate("LabelEdit", { label })}
                   >
                     <View key={label.id} style={[styles.wrap, darkMode && styles.wrapDark]}>
                       <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -86,7 +86,7 @@ class Labels extends Component {
           </ScrollView>
           <Footer>
             <View style={{ alignItems: "center" }}>
-              <TouchableOpacity onPress={() => navigation.navigate("LabelEdit")}>
+              <TouchableOpacity onPress={() => navigation.navigate("LabelEdit", { label: {} })}>
                 <Copy style={{ color: "teal" }}>Add new label</Copy>
               </TouchableOpacity>
             </View>

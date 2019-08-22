@@ -1,7 +1,7 @@
 export default {
   items: [
-    { id: 0, name: "Cool", color: "blue" },
-    { id: 1, name: "Bad", color: "red" },
+    { id: 1, name: "Cool", color: "blue" },
+    { id: 2, name: "Bad", color: "red" },
   ],
   selectedLabel: {},
 };

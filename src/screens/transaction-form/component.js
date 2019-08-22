@@ -25,12 +25,15 @@ class TransactionForm extends Component {
   }
 
   componentDidMount() {
-    const { navigation, accounts, clearSelectedCategory, clearTransactionForm } = this.props
+    const { navigation, accounts, categories,  clearSelectedCategory, clearTransactionForm } = this.props
     if (navigation.state.params && navigation.state.params.clearForm) {
       const defaultAccount = accounts.find(acc => acc.defaultAccount)
+      const defaultCategory = categories.find(cat => cat.defaultCategory)
       clearSelectedCategory()
-      clearTransactionForm(defaultAccount)
+      clearTransactionForm(defaultAccount, defaultCategory)
     }
+
+    this.input.focus()
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -60,6 +63,8 @@ class TransactionForm extends Component {
   }
 
   blurInput = () => {
+    console.log("clocked")
+    Keyboard.dismiss()
     this.input.blur()
     // this.setState({stopAnimation: true});
     this.state.blinker.stopAnimation()
@@ -106,7 +111,7 @@ class TransactionForm extends Component {
         }}
       >
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Icon type={account.icon} style={{ marginRight: 10 }} textStyle={{ color: account.color }}/>
+          <Icon type={get(account, "icon", "")} style={{ marginRight: 10 }} textStyle={{ color: get(account, "color", "blue") }} />
           <Text>{account.name}</Text>
         </View>
 
@@ -125,12 +130,42 @@ class TransactionForm extends Component {
         }}
       >
         <View style={{ flexDirection: "row", alignItems: "center", margin: 5 }}>
-          <Icon type={cat.icon} textStyle={{ color: cat.color || "blue" }} style={{ marginRight: 10, backgroundColor: "white" }} />
+          <Icon type={get(cat, "icon", "")} textStyle={{ color: cat.color || "blue" }} style={{ marginRight: 10, backgroundColor: "white" }} />
           <Text>{cat.name}</Text>
         </View>
 
       </TouchableOpacity>
     ))
+  }
+
+  renderCategory = (id) => {
+    const category = this.props.categories.find(cat => id === cat.id)
+
+    return (
+      <View style={{ flexDirection: "row", alignItems: "center", width: 170 }}>
+        <Icon
+          type={get(category, "icon", "")}
+          textStyle={{ color: get(category, "color", "blue") }}
+          style={{ backgroundColor: "white" }}
+        />
+        <Text>{category && category.name}</Text>
+      </View>
+    )
+  }
+
+  renderAccount = (id) => {
+    const account = this.props.accounts.find(acc => id === acc.id)
+
+    return (
+      <View style={{ flexDirection: "row", alignItems: "center", width: 170 }}>
+        <Icon
+          type={get(account, "icon", "")}
+          textStyle={{ color: get(account, "color", "blue") }}
+          style={{ backgroundColor: "white" }}
+        />
+        <Text>{account && account.name}</Text>
+      </View>
+    )
   }
 
   render() {
@@ -209,6 +244,7 @@ class TransactionForm extends Component {
 
                 <TextInput
                   ref={(ref) => { this.input = ref }}
+                  onSubmitEditing={() => this.submitForm()}
                   onChangeText={value => changeTransactionAmount(value)}
                   onBlur={() => Keyboard.dismiss()}
                   value={transaction.amount.toString()}
@@ -237,13 +273,8 @@ class TransactionForm extends Component {
               <TouchableOpacity
                 style={[styles.selectBox, darkMode && styles.selectBoxDark]}
                 onPress={() => this.setState({ catModalVisible: true })}>
-                <Icon type={get(transaction, "category.icon")}
-                  style={{ marginRight: 10 }}
-                  textStyle={{ color: get(transaction, "category.color", "teal") }}
-                />
-                <Text style={darkMode ? styles.textInputDark : styles.textInput}>
-                  { get(transaction, "category.name", "select") }
-                </Text>
+
+                {this.renderCategory(get(transaction, "category.id"))}
               </TouchableOpacity>
             </View>
 
@@ -254,10 +285,7 @@ class TransactionForm extends Component {
                   style={[styles.selectBox, darkMode && styles.selectBoxDark]}
                   onPress={() => this.setState({ modalVisible: true, accountType: "from" })}>
 
-                  <Icon icon="money" style={{ marginRight: 10 }} />
-                  <Text style={darkMode ? styles.textInputDark : styles.textInput}>
-                    {get(transaction, "fromAccount.name")}
-                  </Text>
+                  { this.renderAccount(transaction.fromAccount.id)}
                 </TouchableOpacity>
               </View>
             )}
@@ -268,10 +296,7 @@ class TransactionForm extends Component {
                 style={[styles.selectBox, darkMode && styles.selectBoxDark]}
                 onPress={() => this.setState({ modalVisible: true, accountType: "to" })}
               >
-                <Icon type={transaction.account.icon} style={{ marginRight: 10}} textStyle={{ color: transaction.account.color }}/>
-                <Text style={darkMode ? styles.textInputDark : styles.textInput}>
-                  { get(transaction, "account.name")}
-                </Text>
+                { this.renderAccount(transaction.account.id) }
               </TouchableOpacity>
 
             </View>
@@ -354,6 +379,13 @@ class TransactionForm extends Component {
 
               <View style={{ padding: 10 }}>
                 {this.renderCategories(() => this.setState({ catModalVisible: false }))}
+                <TouchableOpacity
+                  style={[styles.inline, { justifyContent: "flex-start", paddingLeft: 5 }]}
+                  onPress={() => navigation.navigate("CategoryEdit", {})}>
+                  <Icon type="plus" textStyle={{ color: "teal" }} />
+                  <Copy style={{ fontSize: 14 }}>Add new category</Copy>
+                </TouchableOpacity>
+
               </View>
 
               <TouchableOpacity

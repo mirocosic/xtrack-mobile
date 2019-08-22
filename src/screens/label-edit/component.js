@@ -13,14 +13,16 @@ const colors = ["#FF5722", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
 class LabelEdit extends Component {
 
   state = {
-    name: "",
-    color: "",
+    label: this.props.navigation.state.params.label || {}
   }
 
   render() {
+    const { add, edit, navigation, darkMode } = this.props
+    const { label } = this.state
+
     return (
       <Screen>
-        <Header title="Labels" backBtn />
+        <Header title={label.name} backBtn />
         <ScrollView>
           <View style={{ padding: 20 }}>
 
@@ -28,26 +30,27 @@ class LabelEdit extends Component {
               {colors.map(color => (
                 <TouchableOpacity
                   key={color}
-                  style={[styles.colorBox, this.state.color === color && styles.selectedColor, { backgroundColor: color }]}
-                  onPress={() => this.setState({ color })}
+                  style={[styles.colorBox, label.color === color && styles.selectedColor, { backgroundColor: color }]}
+                  onPress={() => this.setState({ label: {...label, color }})}
                 />
               ))}
             </View>
 
             <View style={styles.inputContainer}>
               <TextInput
-                style={[styles.input, this.props.darkMode && styles.inputDark]}
-                onChangeText={text => this.setState({ name: text })}
+                style={[styles.input, darkMode && styles.inputDark]}
+                onChangeText={text => this.setState({ label: { ...label, name: text } })}
                 placeholder="new label"
-                value={this.state.name}
+                value={label.name}
               />
               <TouchableOpacity
                 style={styles.add}
                 onPress={() => {
-                  this.setState({ name: "" })
-                  this.props.add({ name: this.state.name, color: this.state.color })}}
+                  label.id ? edit(label) : add(label)
+                  navigation.goBack()
+                }}
               >
-                <Copy style={{ color: "white" }}>Add</Copy>
+                <Copy style={{ color: "white" }}>Save</Copy>
               </TouchableOpacity>
             </View>
 

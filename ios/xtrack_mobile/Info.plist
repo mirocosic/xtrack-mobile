@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>5</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
@@ -39,6 +39,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Xtrack would like to access your location to track your expenses.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Xtrack would like to access your location to track your expenses.</string>
 	<key>UIAppFonts</key>
