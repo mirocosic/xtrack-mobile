@@ -4,6 +4,7 @@ export function formatCurrency(input = 0, digits = 2) {
     style: "currency",
     currency: "HRK",
     minimumFractionDigits: digits,
+    currencyDisplay: "symbol",
   });
 
   return formatter.format(input); /* $2,500.00 */

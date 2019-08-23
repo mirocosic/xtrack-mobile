@@ -1,6 +1,10 @@
 import { StyleSheet } from "react-native"
+import palette from "../../utils/palette"
+import globalStyles from "../../utils/styles"
 
 export default StyleSheet.create({
+
+  ...globalStyles,
 
   wrap: {
     paddingLeft: 20,
@@ -16,7 +20,15 @@ export default StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: 20
+    padding: 20,
+  },
+
+  accountWrap: {
+    marginTop: 20,
+    padding: 10,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: palette.gray,
   },
 
 })

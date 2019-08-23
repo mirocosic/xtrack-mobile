@@ -1,13 +1,10 @@
 import React, { Component } from "react"
-import { View, Text, TouchableOpacity, Alert } from "react-native"
+import { ScrollView, View, Text, TouchableOpacity, Alert } from "react-native"
 import { withNavigation } from "react-navigation"
-import moment from "moment"
-import Modal from "react-native-modal"
 import Screen from "../../components/screen"
 import Header from "../../components/header"
 import Icon from "../../components/icon"
 import { Copy, Title } from "../../components/typography"
-import AddTransaction from "../../components/add-transaction"
 import __ from "../../utils/translations"
 import styles from "./styles"
 
@@ -57,79 +54,40 @@ class Overview extends Component {
   }
 
   render() {
-    const { expensesByCategory, transactions, accountFilter, changeAccountFilter, changeMonthFilter, currentMonth } = this.props
+    const { expensesByCategory, accounts, transactions, accountFilter, changeAccountFilter, changeMonthFilter, currentMonth } = this.props
     const income = calculateIncome(transactions, { type: "account", value: accountFilter })
     const expenses = calculateExpenses(transactions, { type: "account", value: accountFilter })
-    const total = income - expenses
     return (
 
       <Screen>
         <Header title="Overview" />
+        <ScrollView style={{ padding: 20 }}>
+          <Title>Net worth: $100,00</Title>
 
-        <View style={styles.rangeSelector}>
-          <TouchableOpacity onPress={() => changeMonthFilter(moment(currentMonth).subtract(1, "month").format("YYYY-MM-DD"))}>
-            <Icon style={{ backgroundColor: "teal" }} textStyle={{ fontSize: 20, color: "white" }} type="angle-left" />
-          </TouchableOpacity>
+          { accounts.map(acc => (
+            <View key={acc.id} style={styles.accountWrap}>
+              <Copy style={{ fontWeight: "bold" }}>{acc.name}</Copy>
+              <View>
+                <View style={[styles.inline,{justifyContent: "space-between", paddingLeft: 20, paddingRight: 20}]}>
+                  <Copy>Income: </Copy>
+                  <Copy>$100</Copy>
+                </View>
 
-          <Title>{moment(currentMonth, "YYYY-MM-DD").format("MMMM")}</Title>
-          <TouchableOpacity onPress={() => changeMonthFilter(moment(currentMonth).add(1, "month").format("YYYY-MM-DD"))}>
-            <Icon style={{ backgroundColor: "teal" }} textStyle={{ fontSize: 20, color: "white" }} type="angle-right" />
-          </TouchableOpacity>
-        </View>
+                <View style={[styles.inline,{justifyContent: "space-between", paddingLeft: 20, paddingRight: 20}]}>
+                  <Copy>Expenses: </Copy>
+                  <Copy>$340</Copy>
+                </View>
 
-        <TouchableOpacity
-          onPress={
-            () => this.setState({ modalVisible: true })
-            // this.changeAccountFilter
-          }>
-          <Copy style={{ color: "black" }}>Account: {accountFilter.name || "All accounts"}</Copy>
-        </TouchableOpacity>
+                <View style={[styles.inline,{justifyContent: "space-between", paddingLeft: 20, paddingRight: 20}]}>
+                  <Copy>Balance: </Copy>
+                  <Copy>$10</Copy>
+                </View>
+              </View>
 
-        <View style={styles.wrap}>
-          <View style={styles.row}>
-            <Text>Income </Text>
-            <Text>{income} kn</Text>
-          </View>
+            </View>
+          ))}
 
-          <View style={styles.row}>
-            <Text>Expenses </Text>
-            <Text>{expenses} kn</Text>
-          </View>
-
-          <View style={styles.breakdownWrap}>
-            { this.renderExpenses() }
-          </View>
-
-          <View style={styles.row}>
-            <Text>Balance </Text>
-            <Text>{total} kn</Text>
-          </View>
-
-
-        </View>
-        <Modal
-          style={{ margin: 0, justifyContent: "flex-end" }}
-          swipeDirection={["up", "down"]}
-          onSwipeComplete={() => this.setState({ modalVisible: false })}
-          onBackdropPress={() => this.setState({ modalVisible: false })}
-          isVisible={this.state.modalVisible}>
-          <View style={{ height: 200, width: "100%", padding: 20, backgroundColor: "white" }}>
-            <Text style={{ textAlign: "center" }}>Select account</Text>
-
-            <View>{this.renderAccounts(() => this.setState({ modalVisible: false }))}</View>
-
-            <TouchableOpacity onPress={() => { this.setState({ modalVisible: false }); changeAccountFilter(false) }}>
-              <Text>All accounts</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={{ position: "absolute", right: 10, padding: 5}}
-              onPress={() => this.setState({ modalVisible: false })}>
-              <Title>x</Title>
-            </TouchableOpacity>
-
-          </View>
-        </Modal>
+        </ScrollView>
       </Screen>
 
     )

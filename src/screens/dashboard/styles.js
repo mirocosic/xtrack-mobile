@@ -1,7 +1,10 @@
 import { StyleSheet, Dimensions } from "react-native";
 import palette from "../../utils/palette"
+import globalStyles from "../../utils/styles"
 
 export default StyleSheet.create({
+
+  ...globalStyles,
 
   accountCard: {
     backgroundColor: "white",
@@ -9,13 +12,9 @@ export default StyleSheet.create({
     borderRadius: 10,
   },
 
-  accountCardDark: {
-    backgroundColor: palette.dark
-  },
+  accountCardDark: { backgroundColor: palette.dark },
 
-  accountDetails: {
-    paddingLeft: 20,
-  },
+  accountDetails: { paddingLeft: 20 },
 
   overview: {
     flexDirection: "row",
@@ -37,12 +36,15 @@ export default StyleSheet.create({
   monthContainer: {
     height: "100%",
     width: Dimensions.get('window').width,
-    padding: 20,
+    padding: 40,
+    paddingTop: 20,
   },
 
   row: {
     display: "flex",
     flexDirection: "row",
+    justifyContent: "space-between",
+    paddingBottom: 5,
   },
 
 })
