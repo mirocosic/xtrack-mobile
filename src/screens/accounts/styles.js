@@ -34,14 +34,14 @@ export default StyleSheet.create({
   deleteButton: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "red",
+    backgroundColor: palette.red,
     flex: 1,
   },
 
   editButton: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "blue",
+    backgroundColor: palette.blue,
     flex: 1,
   },
 

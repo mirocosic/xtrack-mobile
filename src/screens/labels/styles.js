@@ -73,7 +73,7 @@ export default StyleSheet.create({
   deleteButton: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "red",
+    backgroundColor: palette.red,
     flex: 1,
   },
 

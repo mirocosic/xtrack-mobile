@@ -4,4 +4,5 @@ export default {
     { id: 2, name: "Bad", color: "red" },
   ],
   selectedLabel: {},
+  appliedLabelsFilter: [],
 };

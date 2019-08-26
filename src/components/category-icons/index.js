@@ -1,7 +1,7 @@
 import React from "react"
 import { View, TouchableOpacity } from "react-native"
 import FontAwesome, { Icons } from "react-native-fontawesome"
-
+import propTypes from "prop-types"
 import styles from "./styles"
 
 function getKeyByValue(object, value) {
@@ -32,15 +32,17 @@ const solid = [
   Icons.filter,
 ]
 
-const CategoryIcons = (props) => (
+const CategoryIcons = props => (
   <View style={styles.container}>
     <View style={styles.iconWrap}>
       { regular.map(value => (
         <TouchableOpacity
           key={value}
-          onPress={() => {props.select(getKeyByValue(Icons, value))}}
-        >
-          <FontAwesome type="FontAwesome5FreeRegular" style={[styles.icon, Icons[props.selected] === value && styles.selected]}>{value}</FontAwesome>
+          onPress={() => props.select(getKeyByValue(Icons, value))}>
+          <FontAwesome
+            type="FontAwesome5FreeRegular"
+            style={[styles.icon, Icons[props.selected] === value && styles.selected]}>{value}
+          </FontAwesome>
         </TouchableOpacity>
       ))}
 
@@ -48,7 +50,10 @@ const CategoryIcons = (props) => (
         <TouchableOpacity
           key={value}
           onPress={() => { props.select(getKeyByValue(Icons, value)) }}>
-        <FontAwesome type="FontAwesome5FreeSolid" style={[styles.icon, Icons[props.selected] === value && styles.selected]}>{value}</FontAwesome>
+          <FontAwesome
+            type="FontAwesome5FreeSolid"
+            style={[styles.icon, Icons[props.selected] === value && styles.selected]}>{value}
+          </FontAwesome>
         </TouchableOpacity>
       ))}
 
@@ -57,7 +62,11 @@ const CategoryIcons = (props) => (
 )
 
 CategoryIcons.defaultProps = {
-  selected: "car"
+  selected: "car",
+}
+
+CategoryIcons.propTypes = {
+  select: propTypes.any
 }
 
 export default CategoryIcons

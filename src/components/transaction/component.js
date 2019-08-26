@@ -38,19 +38,9 @@ const getAmountColor = (type) => {
 
 const renderDeleteButton = (transaction) => {
 
-  if (transaction.archived) {
-    return (
-      <View style={styles.archiveButton}>
-        <Icon style={{ backgroundColor: "red" }} />
-        <Copy style={styles.archiveCopy}>Move to Messages</Copy>
-      </View>
-    );
-  }
-
   return (
     <View style={styles.deleteButton}>
-      <Icon style={{ backgroundColor: "red" }} />
-      <Copy style={{ color: "white" }}>Delete</Copy>
+      <Icon type="trash-alt" />
     </View>
   );
 

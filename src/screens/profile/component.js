@@ -83,7 +83,7 @@ class Profile extends Component {
   }
 
   render() {
-    const { navigation, darkMode, language, erase } = this.props
+    const { navigation, darkMode, language, erase, locationTracking, handleLocationTracking } = this.props
     return (
       <Screen>
         <Header title="Settings" />
@@ -92,7 +92,11 @@ class Profile extends Component {
           onPress={() => navigation.navigate("Categories")}
           style={styles.settingWrap}
         >
-          <Copy>Categories</Copy>
+          <View>
+            <Copy>Categories</Copy>
+            <Copy style={{fontSize: 12, color: "gray", marginTop: 5}}>Customize categories to group your transactions</Copy>
+          </View>
+
           <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
         </TouchableOpacity>
 
@@ -100,7 +104,10 @@ class Profile extends Component {
           onPress={() => navigation.navigate("Accounts")}
           style={styles.settingWrap}
         >
-          <Copy>Accounts</Copy>
+          <View>
+            <Copy>Accounts</Copy>
+            <Copy style={{fontSize: 12, color: "gray", marginTop: 5}}>Create separate accounts for your transactions</Copy>
+          </View>
           <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
         </TouchableOpacity>
 
@@ -108,29 +115,32 @@ class Profile extends Component {
           onPress={() => navigation.navigate("Labels")}
           style={styles.settingWrap}
         >
-          <Copy>Labels</Copy>
+          <View>
+            <Copy>Labels</Copy>
+            <Copy style={{fontSize: 12, color: "gray", marginTop: 5}}>Tag your transactions with labels for easy tracking</Copy>
+          </View>
           <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
         </TouchableOpacity>
 
         <View style={{ padding: 20 }}>
 
-          <View style={{ marginTop: 20, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+          <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
             <Copy>Dark mode</Copy>
             <Switch value={darkMode} onValueChange={this.handleDarkMode} />
           </View>
 
+          <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+            <Copy>Enable Location Tracking</Copy>
+            <Switch value={locationTracking} onValueChange={this.handleLocationTracking} />
+          </View>
+
           <TouchableOpacity
             onPress={this.selectLanguage}
-            style={{ flexDirection: "row" }}
+            style={{ flexDirection: "row", marginTop: 20, justifyContent: "space-between" }}
           >
             <Copy>{__("Language") + ": "}</Copy>
-            <Copy>{language.name}</Copy>
+            <Copy style={{color: "blue"}}>{language.name}</Copy>
           </TouchableOpacity>
-
-          <View style={{ paddingTop: 20 }}>
-            <Button title="ERASE DATA" onPress={erase} />
-            <Button title="Sentry exception" onPress={() => Sentry.captureMessage("Test message")} />
-          </View>
 
         </View>
       </Screen>

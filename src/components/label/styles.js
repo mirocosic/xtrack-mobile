@@ -6,7 +6,7 @@ export default StyleSheet.create({
     flexWrap: "wrap",
     borderWidth: 1,
     borderColor: "black",
-    padding: 20
+    padding: 20,
   },
 
   label: {
@@ -17,14 +17,16 @@ export default StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     margin: 5,
-    borderRadius: 15
+    borderRadius: 5,
   },
 
-  removeLabel:{
-    backgroundColor: "white",
-    borderRadius: 10,
+  removeLabel: {
+
+    //backgroundColor: "white",
+    borderRadius: 5,
     paddingLeft: 5,
     paddingRight: 5,
-    marginLeft: 10
-  }
+    marginLeft: 10,
+  },
+
 })

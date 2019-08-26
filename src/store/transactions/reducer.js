@@ -3,27 +3,6 @@ import initialState from "./initial-state";
 import { makeUUID } from "../../utils/helper-gnomes"
 
 const makeId = entries => (entries.length ? entries[entries.length - 1].id + 1 : 1)
-
-// const calculateTotal = (total, amount, type, inverse) => {
-//   if ( (type === "expense" && !inverse) || (type === "income" && inverse)) {
-//     return parseFloat(total) - parseFloat(amount)
-//   } else if ( (type === "income" && !inverse) || (type === "expense" && inverse)) {
-//     return parseFloat(total) + parseFloat(amount)
-//   } else {
-//     return total
-//   }
-// }
-//
-// const calculateExpense = (total, amount, type, inverse) => {
-//   if (type === "income") {return total}
-//   if (!inverse) {
-//     return parseFloat(total) - parseFloat(amount)
-//   } else {
-//     return parseFloat(total) + parseFloat(amount)
-//   }
-// }
-//
-
 const transactions = (state = initialState, action) => {
 
   const transaction = action.transaction || {}
@@ -34,8 +13,6 @@ const transactions = (state = initialState, action) => {
     case "ADD_TRANSACTION":
       return {
         ...state,
-        // total: calculateTotal(state.total, amount, type, false),
-        // expenses: calculateExpense(state.expenses, amount, type, false),
         entries: [
           ...state.entries,
           {
@@ -81,9 +58,6 @@ const transactions = (state = initialState, action) => {
     case "DELETE_TRANSACTION":
       return {
         ...state,
-        // total: calculateTotal(state.total, action.transaction.amount, action.transaction.type, true),
-        // expenses: calculateExpense(state.expenses, action.transaction.amount, action.transaction.type, true),
-        // income: calculateIncome(state.income, action.transaction.amount, action.transaction.type, true),
         entries: state.entries.filter(item => item.id !== action.transaction.id),
       }
 
@@ -125,7 +99,8 @@ const transactions = (state = initialState, action) => {
           ...{ category: action.payload },
         },
       }
-    case "SELECT_LABEL":
+
+    case "ATTACH_LABEL":
       return {
         ...state,
         selectedTransaction: {
@@ -213,6 +188,12 @@ const transactions = (state = initialState, action) => {
 
     case "ERASE":
       return { ...initialState }
+
+    case "REMOVE_CATEGORY_TRANSACTIONS":
+      return {
+        ...state,
+        entries: state.entries.filter(item => item.category.id !== action.category.id),
+      }
 
     default:
       return state;

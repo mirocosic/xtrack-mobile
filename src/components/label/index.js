@@ -26,7 +26,7 @@ export default class Label extends Component {
           <TouchableOpacity
             onPress={() => removeLabel(label)}
             style={styles.removeLabel}>
-            <Copy>X</Copy>
+            <Copy style={{color: "white"}}>X</Copy>
           </TouchableOpacity>
         )}
       </View>

@@ -21,7 +21,7 @@ class CategoryEdit extends Component {
     return (
       <Screen>
         <Header
-          icon={<Icon type={category.icon} style={{ backgroundColor: category.color }} />}
+          icon={<Icon type={category.icon} textStyle={{ color: category.color }} />}
           title={category.name}
           backBtn
           actionBtn={<Icon type="trash-alt" />}
@@ -76,8 +76,9 @@ class CategoryEdit extends Component {
             </View>
 
           </View>
-
-          <CategoryIcons selected={category.icon || "car"} select={value => this.setState({category: {...category, icon: value}})}/>
+          <View style={{paddingLeft: 20, paddingRight: 10}}>
+            <CategoryIcons selected={category.icon || "car"} select={value => this.setState({category: {...category, icon: value}})}/>
+          </View>
 
         </ScrollView>
 

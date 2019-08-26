@@ -10,5 +10,6 @@ export default connect(
   dispatch => ({
     selectCategory: payload => dispatch({ type: "SELECT_CATEGORY", payload }),
     remove: category => dispatch({ type: "REMOVE_CATEGORY", category }),
+    removeTransactions: category => dispatch({ type: "REMOVE_CATEGORY_TRANSACTIONS", category }),
   }),
 )(Component);

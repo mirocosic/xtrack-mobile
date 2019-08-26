@@ -28,9 +28,7 @@ const labels = (state = initialState, action) => {
     case "DELETE_LABEL":
       return {
         ...state,
-        items: state.items.filter((item) => {
-          return item.id !== action.payload
-        })
+        items: state.items.filter(item => item.id !== action.payload),
       }
 
     case "SELECT_LABEL":
@@ -39,9 +37,24 @@ const labels = (state = initialState, action) => {
         selectedLabel: action.payload,
       }
 
+    case "APPLY_LABEL_FILTER":
+      return {
+        ...state,
+        appliedLabelsFilter: [
+          ...state.appliedLabelsFilter,
+          action.label,
+        ],
+      }
+
+    case "REMOVE_LABEL_FILTER":
+      return {
+        ...state,
+        appliedLabelsFilter: state.appliedLabelsFilter.filter(label => label.id !== action.label.id),
+      }
+
     case "ERASE":
       return {
-        ...initialState
+        ...initialState,
       }
 
     default:

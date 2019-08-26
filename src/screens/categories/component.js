@@ -1,11 +1,10 @@
 import React, { Component } from "react"
-import { View, ScrollView, TextInput, TouchableOpacity } from "react-native";
+import { View, ScrollView, TouchableOpacity } from "react-native";
 
 import { withNavigation } from "react-navigation";
 import { Screen, Header, Footer } from "../../components"
 import Category from "../../components/category"
 import { Copy } from "../../components/typography"
-import styles from "./styles"
 
 class Categories extends Component {
 
@@ -25,6 +24,7 @@ class Categories extends Component {
           <View>
             {categories
               //.filter(item => item.type === type)
+              .sort((a, b) => a.name < b.name)
               .map(cat => (
                 <Category key={cat.id} data={cat} onPress={() => { selectCategory(cat); navigation.goBack() }} />
               ))

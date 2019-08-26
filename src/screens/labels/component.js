@@ -16,8 +16,7 @@ class Labels extends Component {
 
     renderDeleteButton = () => (
       <View style={styles.deleteButton}>
-        <Icon style={{ backgroundColor: "red" }} />
-        <Copy style={{ color: "white" }}>Delete</Copy>
+        <Icon type="trash-alt" />
       </View>
     );
 

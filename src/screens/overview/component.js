@@ -6,6 +6,7 @@ import Header from "../../components/header"
 import Icon from "../../components/icon"
 import { Copy, Title } from "../../components/typography"
 import __ from "../../utils/translations"
+import { formatCurrency } from "../../utils/currency"
 import styles from "./styles"
 
 import { calculateIncome, calculateExpenses } from "../../utils/helper-gnomes"
@@ -53,39 +54,56 @@ class Overview extends Component {
     ))
   }
 
+  calculateNetWorth = () => {
+    const { transactions, accounts } = this.props
+    let netWorth = 0
+
+    accounts.forEach((acc) => {
+      const income = parseFloat(calculateIncome(transactions, { type: "account", value: acc }))
+      const expenses = parseFloat(calculateExpenses(transactions, { type: "account", value: acc }))
+
+      netWorth = netWorth + income + expenses
+    })
+
+    return netWorth
+  }
+
   render() {
     const { expensesByCategory, accounts, transactions, accountFilter, changeAccountFilter, changeMonthFilter, currentMonth } = this.props
-    const income = calculateIncome(transactions, { type: "account", value: accountFilter })
-    const expenses = calculateExpenses(transactions, { type: "account", value: accountFilter })
     return (
 
       <Screen>
         <Header title="Overview" />
         <ScrollView style={{ padding: 20 }}>
-          <Title>Net worth: $100,00</Title>
+          <Title>Net worth: {formatCurrency(this.calculateNetWorth())}</Title>
 
-          { accounts.map(acc => (
-            <View key={acc.id} style={styles.accountWrap}>
-              <Copy style={{ fontWeight: "bold" }}>{acc.name}</Copy>
-              <View>
-                <View style={[styles.inline,{justifyContent: "space-between", paddingLeft: 20, paddingRight: 20}]}>
-                  <Copy>Income: </Copy>
-                  <Copy>$100</Copy>
+          { accounts.map((acc) => {
+            const income = parseFloat(calculateIncome(transactions, { type: "account", value: acc }))
+            const expenses = parseFloat(calculateExpenses(transactions, { type: "account", value: acc }))
+
+            return (
+              <View key={acc.id} style={styles.accountWrap}>
+                <Copy style={{ fontWeight: "bold" }}>{acc.name}</Copy>
+                <View>
+                  <View style={[styles.inline,{justifyContent: "space-between", paddingLeft: 20, paddingRight: 20}]}>
+                    <Copy>Income: </Copy>
+                    <Copy>{formatCurrency(income)}</Copy>
+                  </View>
+
+                  <View style={[styles.inline,{justifyContent: "space-between", paddingLeft: 20, paddingRight: 20}]}>
+                    <Copy>Expenses: </Copy>
+                    <Copy>{formatCurrency(expenses)}</Copy>
+                  </View>
+
+                  <View style={[styles.inline,{justifyContent: "space-between", paddingLeft: 20, paddingRight: 20}]}>
+                    <Copy>Balance: </Copy>
+                    <Copy>{ formatCurrency(income + expenses)}</Copy>
+                  </View>
                 </View>
 
-                <View style={[styles.inline,{justifyContent: "space-between", paddingLeft: 20, paddingRight: 20}]}>
-                  <Copy>Expenses: </Copy>
-                  <Copy>$340</Copy>
-                </View>
-
-                <View style={[styles.inline,{justifyContent: "space-between", paddingLeft: 20, paddingRight: 20}]}>
-                  <Copy>Balance: </Copy>
-                  <Copy>$10</Copy>
-                </View>
               </View>
-
-            </View>
-          ))}
+            )
+          })}
 
         </ScrollView>
       </Screen>

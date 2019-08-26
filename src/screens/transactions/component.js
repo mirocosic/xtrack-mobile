@@ -45,7 +45,7 @@ class Transactions extends Component {
   render() {
     const { height, scrollEnabled } = this.state
     const {
-      expenses, income, total, accountFilter, categoryFilter, openDrawer,
+      expenses, income, total, accountFilter, categoryFilter, openDrawer, appliedLabelsFilter,
       entries, navigation, clearSelectedCategory, clearTransactionForm,
     } = this.props
 
@@ -113,6 +113,18 @@ class Transactions extends Component {
               .filter((item) => {
                 if (!categoryFilter) { return true }
                 return get(item, "category.id") === categoryFilter.id
+              })
+              .filter((item) => {
+                if (appliedLabelsFilter.length === 0) { return true }
+                if (!item.labels.length) { return false }
+
+                let hasFilterLabel = false
+                item.labels.forEach((label) => {
+                  if (appliedLabelsFilter.find(filter => filter.id === label.id)) {
+                    hasFilterLabel = true
+                  }
+                })
+                return hasFilterLabel
               })
               .map(value => (
                 <Transaction

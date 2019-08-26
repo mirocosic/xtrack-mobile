@@ -24,6 +24,7 @@ export default StyleSheet.create({
   },
 
   accountWrap: {
+    backgroundColor: "white",
     marginTop: 20,
     padding: 10,
     borderWidth: 1,

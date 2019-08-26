@@ -6,6 +6,7 @@ export default connect(
     accounts: state.accounts.items,
     accountFilter: state.accounts.accountFilter,
     categoryFilter: state.categories.categoryFilter,
+    appliedLabelsFilter: state.labels.appliedLabelsFilter,
     entries: state.transactions.entries,
     total: state.transactions.total,
     expenses: state.transactions.expenses,

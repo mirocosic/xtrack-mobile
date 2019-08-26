@@ -10,9 +10,13 @@ export default connect(
     accountFilter: state.accounts.accountFilter,
     categoryFilter: state.categories.categoryFilter,
     categories: state.categories.items,
+    labels: state.labels.items,
+    appliedLabelsFilter: state.labels.appliedLabelsFilter,
   }),
   dispatch => ({
     closeDrawer: () => dispatch({ type: "CLOSE_DRAWER" }),
+    applyLabelFilter: label => dispatch({ type: "APPLY_LABEL_FILTER", label }),
+    removeLabelFilter: label => dispatch({ type: "REMOVE_LABEL_FILTER", label }),
     applyFilters: forceUpdate => dispatch({ type: "APPLY_FILTERS", forceUpdate }),
     resetFilters: () => dispatch({ type: "RESET_FILTERS" }),
     changeAccountFilter: account => dispatch({ type: "CHANGE_ACCOUNT_FILTER", account }),

@@ -17,23 +17,33 @@ class Category extends Component {
 
   renderDeleteButton = () => (
     <View style={styles.deleteButton}>
-      <Icon style={{ backgroundColor: "red" }} />
-      <Copy style={{ color: "white" }}>Delete</Copy>
+      <Icon type="trash-alt" />
     </View>
   );
 
   renderEditButton = () => (
     <View style={styles.editButton}>
-      <Icon style={{ backgroundColor: "blue" }} />
-      <Copy style={{ color: "white" }}>Edit</Copy>
+      <Icon type="pen" />
     </View>
   )
 
   deleteCategory = (category) => {
+    const { remove, removeTransactions } = this.props
     if (this.countTransactions(category.id) > 0) {
-      Alert.alert("Warning!", "Cannot delete category that has transactions")
+      Alert.alert(
+        "Warning!",
+        "Cannot delete category that has transactions",
+        [{
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Delete all transactions",
+          onPress: () => { removeTransactions(category); remove(category) },
+        }],
+      )
     } else {
-      this.props.remove(category)
+      remove(category)
     }
   }
 

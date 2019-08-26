@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native"
+import palette from "../../utils/palette"
 
 export default StyleSheet.create({
   categoryWrap: {
@@ -9,24 +10,21 @@ export default StyleSheet.create({
     paddingRight: 20,
     paddingTop: 10,
     paddingBottom: 10,
-    marginTop: 10,
   },
 
-  catWrapDark: {
-    borderColor: "white",
-  },
+  catWrapDark: { borderColor: "white" },
 
   deleteButton: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "red",
+    backgroundColor: palette.red,
     flex: 1,
   },
 
   editButton: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "blue",
+    backgroundColor: palette.blue,
     flex: 1,
   },
 })

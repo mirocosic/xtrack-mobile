@@ -9,13 +9,9 @@ export default StyleSheet.create({
     backgroundColor: "white",
   },
 
-  containerDark: {
-    backgroundColor: palette.dark,
-  },
+  containerDark: { backgroundColor: palette.dark },
 
-  amount: {
-    fontSize: 20,
-  },
+  amount: { fontSize: 20 },
 
   deleteTrans: {
     width: 40,
@@ -33,21 +29,13 @@ export default StyleSheet.create({
     marginRight: 10,
   },
 
-  expense: {
-    backgroundColor: "red",
-  },
+  expense: { backgroundColor: "red" },
 
-  income: {
-    backgroundColor: "green",
-  },
+  income: { backgroundColor: "green" },
 
-  tranfer: {
-    backgroundColor: "blue",
-  },
+  tranfer: { backgroundColor: "blue" },
 
-  labels: {
-    flexDirection: "row",
-  },
+  labels: { flexDirection: "row" },
 
   label: {
     margin: 5,
@@ -57,7 +45,7 @@ export default StyleSheet.create({
   deleteButton: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "red",
+    backgroundColor: palette.red,
     flex: 1,
     height: 70,
   },

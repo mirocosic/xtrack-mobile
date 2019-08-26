@@ -12,6 +12,7 @@ export default connect(
     selectedLabel: state.labels.selectedLabel,
     accounts: state.accounts.items,
     categories: state.categories.items,
+    labels: state.labels.items,
   }),
 
   dispatch => ({
