@@ -62,7 +62,7 @@ class Overview extends Component {
       const income = parseFloat(calculateIncome(transactions, { type: "account", value: acc }))
       const expenses = parseFloat(calculateExpenses(transactions, { type: "account", value: acc }))
 
-      netWorth = netWorth + income + expenses
+      netWorth = netWorth + income - expenses
     })
 
     return netWorth
@@ -97,7 +97,7 @@ class Overview extends Component {
 
                   <View style={[styles.inline,{justifyContent: "space-between", paddingLeft: 20, paddingRight: 20}]}>
                     <Copy>Balance: </Copy>
-                    <Copy>{ formatCurrency(income + expenses)}</Copy>
+                    <Copy>{ formatCurrency(income - expenses)}</Copy>
                   </View>
                 </View>
 

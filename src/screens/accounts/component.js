@@ -45,17 +45,18 @@ class Accounts extends Component {
   )
 
   handleDelete = (account) => {
-    const count = this.props.transactions.filter((item) => account.id === get(item ,"account.id")).length
+    const { remove, transactions } = this.props
+    const count = transactions.filter((item) => account.id === get(item ,"account.id")).length
     if (count > 0) {
       Alert.alert("Warning", "Cannot delete account that contains transactions.")
     } else {
-      this.props.remove(account)
+      remove(account)
     }
   }
 
   render() {
-    const { name, scroll } = this.state
-    const { navigation, darkMode, add, setFrom, setTo, accounts, transactions, deleteAccount } = this.props
+    const { scroll } = this.state
+    const { navigation, darkMode, accounts, transactions } = this.props
     return (
       <Screen>
         <Header title="Accounts" backBtn />
@@ -127,10 +128,7 @@ Accounts.propTypes = {
   //   id: PropTypes.number,
   //   name: PropTypes.string,
   // })),
-  add: PropTypes.func.isRequired,
-  setFrom: PropTypes.func.isRequired,
-  deleteAccount: PropTypes.func.isRequired,
-  setTo: PropTypes.func.isRequired,
+  remove: PropTypes.func.isRequired,
   //navigation: PropTypes.instanceOf("Navigation").isRequired,
 }
 

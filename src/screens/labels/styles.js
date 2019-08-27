@@ -9,7 +9,8 @@ export default StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: 20,
+    padding: 10,
+    paddingLeft: 30,
   },
 
   wrapDark: { borderColor: "white" },

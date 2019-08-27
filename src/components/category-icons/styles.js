@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native"
 
 export default StyleSheet.create({
+
   container: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -12,13 +13,12 @@ export default StyleSheet.create({
   },
 
   icon: {
-    width: 35,
-    fontSize: 30,
+    width: 30,
+    height: 25,
+    fontSize: 25,
     margin: 5,
     color: "gray",
   },
 
-  selected: {
-    color: "teal",
-  },
+  selected: { color: "teal" },
 })

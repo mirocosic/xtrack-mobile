@@ -3,6 +3,7 @@ import Header from "./header"
 import Footer from "./footer"
 import Label from "./label"
 import { PrimaryButton, SecondaryButton } from "./buttons"
+import CustomKeyboard from "./custom-keyboard"
 
 export {
   Screen,
@@ -11,4 +12,5 @@ export {
   Label,
   PrimaryButton,
   SecondaryButton,
+  CustomKeyboard,
 }

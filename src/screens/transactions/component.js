@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Animated, View, ScrollView, TouchableOpacity, Alert } from "react-native"
+import { Animated, View, ScrollView, TouchableOpacity } from "react-native"
 import PropTypes from "prop-types"
 import { withNavigation } from "react-navigation"
 import { get } from "lodash"
@@ -8,12 +8,6 @@ import Header from "../../components/header"
 import Icon from "../../components/icon"
 import Transaction from "../../components/transaction"
 import { Copy } from "../../components/typography"
-import __ from "../../utils/translations"
-import styles from "./styles"
-
-const HEADER_MAX_HEIGHT = 100
-const HEADER_MIN_HEIGHT = 80
-const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT
 
 class Transactions extends Component {
 
@@ -28,20 +22,6 @@ class Transactions extends Component {
     scrollEnabled: true,
   }
 
-  changeAccountFilter = () => {
-    const { accounts, changeAccountFilter } = this.props
-    Alert.alert(
-      __("Select account"),
-      __("Please choose account"),
-      [
-        ...accounts.map(account => (
-          { text: account.name, onPress: () => changeAccountFilter(account) }
-        )),
-        { text: "All accounts", onPress: () => changeAccountFilter(false) },
-      ],
-    )
-  }
-
   render() {
     const { height, scrollEnabled } = this.state
     const {
@@ -49,45 +29,36 @@ class Transactions extends Component {
       entries, navigation, clearSelectedCategory, clearTransactionForm,
     } = this.props
 
+    const filtersApplied = accountFilter || categoryFilter || appliedLabelsFilter.length || false;
+
     const headerHeight = height.interpolate({
-      inputRange: [0, HEADER_SCROLL_DISTANCE],
-      outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
-      extrapolate: "clamp",
+      inputRange: [-100, 0],
+      outputRange: [200, 100],
     });
 
     const headerScale = height.interpolate({
-      inputRange: [-100, 0],
-      outputRange: [2, 1],
-      extrapolate: "clamp",
+      inputRange: [-100, 0, 100],
+      outputRange: [4, 1, 1],
     });
 
     return (
       <Screen>
+        <View style={{position: "absolute", alignItems:"center", justifyContent: "center" , zIndex: 1000, width: "100%", flex:1}}>
+          <Header title="Transactions" style={{flex: 1, width: "100%", alignItems: "center", justifyContent: "center"}}>
+            <TouchableOpacity onPress={() => openDrawer()} style={{ position: "absolute", right: 10, top: 40 }}>
+              <Icon type="filter" style={{ backgroundColor: "transparent" }} textStyle={{ color: filtersApplied ? "blue" : "white" }}/>
+            </TouchableOpacity>
+          </Header>
+        </View>
+
         <Animated.View style={{
           justifyContent: "center",
           backgroundColor: "teal",
           overflow: "hidden",
           transform: [{ scale: headerScale }],
-          height: headerHeight,
+          height: 90,
         }}>
-          <Header title="Transactions">
-            <TouchableOpacity onPress={() => openDrawer()} style={{ position: "absolute", right: 10, top: 35 }}>
-              <Icon type="filter" style={{ backgroundColor: "transparent" }} />
-            </TouchableOpacity>
-            {
-            // <View style={styles.overview}>
-            //   <View>
-            //     <Copy style={{ color: "white" }}>{__("Expenses")}: {formatCurrency(expenses)}</Copy>
-            //     <Copy style={{ color: "white" }}>{__("Income")}: {formatCurrency(income)}</Copy>
-            //     <Copy style={{ color: "white" }}>{__("Total")}: {formatCurrency(total)}</Copy>
-            //   </View>
-            //
-            //   <TouchableOpacity onPress={this.changeAccountFilter}>
-            //     <Copy style={{ color: "white" }}>Account: {accountFilter.name || "All accounts"}</Copy>
-            //   </TouchableOpacity>
-            // </View>
-          }
-          </Header>
+
         </Animated.View>
 
         {

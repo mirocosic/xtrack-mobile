@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native"
 
 export default StyleSheet.create({
+
   labels: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -15,18 +16,16 @@ export default StyleSheet.create({
     paddingTop: 2,
     paddingBottom: 2,
     paddingLeft: 10,
-    paddingRight: 10,
+    paddingRight: 0,
     margin: 5,
-    borderRadius: 5,
+    borderRadius: 20,
   },
 
   removeLabel: {
-
-    //backgroundColor: "white",
     borderRadius: 5,
     paddingLeft: 5,
     paddingRight: 5,
-    marginLeft: 10,
+    marginLeft: 5,
   },
 
 })

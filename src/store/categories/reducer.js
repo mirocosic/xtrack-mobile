@@ -71,6 +71,12 @@ const categories = (state = initialState, action) => {
         categoryFilter: action.category,
       }
 
+    case "RESET_FILTERS":
+      return {
+        ...state,
+        categoryFilter: false,
+      }
+
     case "ERASE":
       return {
         ...initialState

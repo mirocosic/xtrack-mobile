@@ -9,6 +9,12 @@ const common = (state = initialState, action) => {
         darkMode: !state.darkMode,
       }
 
+    case "TOGGLE_OPEN_ON_FORM":
+      return {
+        ...state,
+        openOnForm: !state.openOnForm,
+      }
+
     case "SET_LANGUAGE":
       return {
         ...state,
@@ -16,9 +22,7 @@ const common = (state = initialState, action) => {
       }
 
     case "ERASE":
-      return {
-        ...initialState,
-      }
+      return initialState
 
     case "OPEN_DRAWER":
       return {
@@ -34,7 +38,6 @@ const common = (state = initialState, action) => {
         drawerOpen: false,
         drawerIsCanceled: action.isCanceled,
       }
-
 
     default:
       return state;

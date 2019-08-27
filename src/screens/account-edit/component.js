@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Alert, View, ScrollView, TextInput, TouchableOpacity } from "react-native";
+import { Alert, View, TextInput, TouchableOpacity, Keyboard } from "react-native";
 import { withNavigation } from "react-navigation";
+import Modalize from "react-native-modalize"
 import { get } from "lodash"
 import { Screen, Header } from "../../components"
 import CategoryIcons from "../../components/category-icons"
@@ -21,10 +22,24 @@ class AccountEdit extends Component {
     },
   }
 
+  input = React.createRef()
+
+  iconsModal = React.createRef()
+
+  colorModal = React.createRef()
+
   componentDidMount() {
     if (this.props.navigation.state.params) {
       this.setState({ account: this.props.accounts.filter(item => this.props.navigation.state.params.id === item.id)[0] })
     }
+    //this.input.current.focus()
+  }
+
+  handleSave = (account) => {
+    const { edit, add, setDefault, navigation } = this.props
+    account.id ? edit(account) : add(account)
+    account.defaultAccount && setDefault(account)
+    navigation.goBack()
   }
 
   handleDelete = (account) => {
@@ -43,68 +58,94 @@ class AccountEdit extends Component {
     return (
       <Screen>
         <Header
-          icon={<Icon type={account.icon} textStyle={{ color: account.color }}/>}
+          icon={<Icon type={account.icon} textStyle={{ color: account.color }} />}
           title={account.name}
           backBtn
           actionBtn={<Icon type="trash-alt" />}
           actionBtnPress={() => this.handleDelete(account)}
         />
-        <ScrollView>
-          <View>
 
-            <View style={styles.colorPicker}>
-              { colors.map(color => (
-                <TouchableOpacity
-                  key={color}
-                  style={[styles.colorBox, account.color === color && styles.selectedColor, { backgroundColor: color }]}
-                  onPress={() => this.setState({
-                    account: {
-                      ...account,
-                      ...{ color },
-                    },
-                  })}
-                />
-              ))}
-            </View>
+        <View style={{ padding: 20 }}>
+          <View style={styles.inputContainer}>
 
-            <View style={styles.inputContainer}>
-              <TextInput style={[styles.input, darkMode && styles.inputDark]}
-                onChangeText={text => this.setState({
-                  account: {
-                    ...account,
-                    ...{ name: text }
-                  }})}
-                returnKeyType="done"
-                placeholder="account name"
-                value={account.name}
-                />
-              <TouchableOpacity
-                style={styles.add}
-                onPress={() => {
-                  account.id ? edit(account) : add(account)
-                  account.defaultAccount && setDefault(account)
-                  navigation.goBack()
-                }}
-              >
-                <Copy style={{ color: "white" }}>Save</Copy>
-              </TouchableOpacity>
-            </View>
+            <Copy>Name</Copy>
+            <TextInput
+              ref={this.input}
+              style={[styles.input, darkMode && styles.inputDark]}
+              onChangeText={text => this.setState({
+                account: {
+                  ...account,
+                  ...{ name: text }
+                }})}
+              returnKeyType="done"
+              onSubmitEditing={() => this.handleSave(account)}
+              placeholder="account name"
+              value={account.name}
+              />
 
           </View>
 
-          <View style={{ flexDirection: "row", paddingLeft: 40, paddingBottom: 20 }}>
-            <Copy>Default account:</Copy>
+          <View style={[styles.inlineBetween, { margin: 10 }]}>
+            <Copy>Icon</Copy>
+            <TouchableOpacity onPress={() => this.iconsModal.current.open()}>
+              <Icon type={account.icon} textStyle={{ color: account.color, fontSize: 30 }} />
+            </TouchableOpacity>
+          </View>
+
+          <View style={[styles.inlineBetween, { margin: 10 }]}>
+            <Copy>Color</Copy>
+            <TouchableOpacity onPress={() => this.colorModal.current.open()}>
+              <View style={{ width: 40, height: 40, backgroundColor: account.color, borderRadius:5 }} />
+            </TouchableOpacity>
+          </View>
+
+          <View style={[styles.inlineBetween, { margin: 10 }]}>
+            <Copy>Default account</Copy>
             <TouchableOpacity onPress={() => this.setState({ account: { ...account, defaultAccount: !account.defaultAccount } })}>
               <Copy style={{ color: "blue" }}>{account.defaultAccount ? "Yes" : "No"}</Copy>
             </TouchableOpacity>
           </View>
 
-          <CategoryIcons
-            selected={account.icon || "car"}
-            select={value => this.setState({ account: { ...account, icon: value } })}
-          />
+          <TouchableOpacity
+            style={styles.add}
+            onPress={() => this.handleSave(account)}
+          >
+            <Copy style={{ color: "white" }}>Save</Copy>
+          </TouchableOpacity>
 
-        </ScrollView>
+
+        </View>
+
+        <Modalize
+          modalHeight={300}
+          ref={this.iconsModal}>
+          <View style={{ padding: 20 }}>
+            <CategoryIcons
+              selected={account.icon || "car"}
+              select={value => this.setState({ account: { ...account, icon: value } })}
+            />
+          </View>
+        </Modalize>
+
+        <Modalize
+          modalHeight={200}
+          ref={this.colorModal}
+        >
+          <View style={styles.colorPicker}>
+            { colors.map(color => (
+              <TouchableOpacity
+                key={color}
+                style={[styles.colorBox, account.color === color && styles.selectedColor, { backgroundColor: color }]}
+                onPress={() => this.setState({
+                  account: {
+                    ...account,
+                    ...{ color },
+                  },
+                })}
+              />
+            ))}
+          </View>
+        </Modalize>
 
       </Screen>
     )

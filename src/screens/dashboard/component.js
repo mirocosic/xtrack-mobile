@@ -25,7 +25,7 @@ const sortByCategory = (expenses) => {
   const result = {}
   expenses.map((expense) => {
     const currExpenseSum = result[expense.category.name] || 0
-    result[expense.category.name] = currExpenseSum + expense.amount
+    result[expense.category.name] = currExpenseSum + parseFloat(expense.amount)
   })
 
   return result
@@ -42,11 +42,12 @@ class Dashboard extends Component {
   state = {
     height: new Animated.Value(0),
     showScrollToEnd: false,
-    year: moment().format("YYYY")
+    year: moment().format("YYYY"),
   }
 
 
   componentDidMount() {
+    this.props.openOnForm && this.props.navigation.navigate("TransactionForm")
     setTimeout(() => this.scrollView.scrollToEnd({ animated: false }), 100)
   }
 
@@ -163,8 +164,6 @@ class Dashboard extends Component {
             const income = sum(filterByMonth(transactions.filter(item => item.type === "income"), currentMonth))
             const expenses = sum(filterByMonth(transactions.filter(item => item.type === "expense"), currentMonth))
 
-
-
             return (
               <ScrollView key={idx} style={styles.monthContainer}>
                 <Title style={{ textAlign: "center", paddingBottom: 20 }}>
@@ -188,7 +187,7 @@ class Dashboard extends Component {
 
                 <View style={{ flexDirection: "row", marginTop: 30, paddingTop: 10, justifyContent: "space-between", borderTopWidth: 1 }}>
                   <Copy>Balance: </Copy>
-                  <Copy>{formatCurrency(income + expenses)}</Copy>
+                  <Copy>{formatCurrency(income - expenses)}</Copy>
                 </View>
 
               </ScrollView>

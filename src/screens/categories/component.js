@@ -11,22 +11,28 @@ class Categories extends Component {
   state = {
     categoryName: "",
     type: "expense",
+    scroll: true,
   }
 
   render() {
     const { categories, navigation, add, clearTransactionForm, clearSelectedCategory, selectCategory, darkMode } = this.props
-    const { categoryName, type } = this.state
+    const { categoryName, type, scroll } = this.state
 
     return (
       <Screen>
         <Header title="Categories" backBtn />
-        <ScrollView>
+        <ScrollView scrollEnabled={scroll}>
           <View>
             {categories
-              //.filter(item => item.type === type)
+              // .filter(item => item.type === type)
               .sort((a, b) => a.name < b.name)
               .map(cat => (
-                <Category key={cat.id} data={cat} onPress={() => { selectCategory(cat); navigation.goBack() }} />
+                <Category
+                  key={cat.id}
+                  data={cat}
+                  onPress={() => { selectCategory(cat); navigation.goBack() }}
+                  toggleScroll={value => this.setState({ scroll: value })}
+                />
               ))
               .reverse()
             }

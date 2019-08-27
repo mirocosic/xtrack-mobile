@@ -42,7 +42,7 @@ class Labels extends Component {
 
       return (
         <Screen>
-          <Header title="Labels" backBtn />
+          <Header title="Tags" backBtn />
           <ScrollView>
             <View>
               {labels.map(label => (
@@ -69,11 +69,12 @@ class Labels extends Component {
                         <Copy>{label.name}</Copy>
                       </View>
 
-                      <TouchableOpacity onPress={() => {
-                        //selectCategory(cat)
-                        navigation.navigate("LabelEdit")
-                      }}>
-                        <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
+                      <TouchableOpacity onPress={() => navigation.navigate("LabelEdit")}>
+                        <Icon
+                          type="chevronRight"
+                          style={{ backgroundColor: "transparent" }}
+                          textStyle={{ color: "gray" }}
+                        />
                       </TouchableOpacity>
 
                     </View>
@@ -86,7 +87,7 @@ class Labels extends Component {
           <Footer>
             <View style={{ alignItems: "center" }}>
               <TouchableOpacity onPress={() => navigation.navigate("LabelEdit", { label: {} })}>
-                <Copy style={{ color: "teal" }}>Add new label</Copy>
+                <Copy style={{ color: "teal" }}>Add new tag</Copy>
               </TouchableOpacity>
             </View>
           </Footer>

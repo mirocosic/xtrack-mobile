@@ -6,4 +6,10 @@ export default {
     justifyContent: "center",
   },
 
+  inlineBetween: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+
 }

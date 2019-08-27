@@ -1,20 +1,27 @@
 import { StyleSheet } from "react-native"
+import globalStyles from "../../utils/styles"
+import palette from "../../utils/palette"
 
 export default StyleSheet.create({
 
+  ...globalStyles,
+
   colorPicker: {
     flexDirection: "row",
+    paddingTop: 20,
+    paddingLeft: 30,
+    paddingRight: 20,
   },
 
   colorBox: {
     margin: 5,
     width: 50,
-    height: 50
+    height: 50,
   },
 
   selectedColor: {
     borderWidth: 2,
-    borderColor: "black"
+    borderColor: "black",
   },
 
   wrap: {
@@ -23,42 +30,43 @@ export default StyleSheet.create({
     justifyContent: "space-between",
     padding: 20,
     borderWidth: 1,
-    margin:10
+    margin: 10,
   },
 
-  wrapDark: {
-    borderColor: "white"
-  },
+  wrapDark: { borderColor: "white" },
 
   inputContainer: {
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
 
   input: {
     color: "black",
     fontSize: 20,
-    padding: 20,
-    margin: 20,
+    //padding: 20,
+    //margin: 20,
     width: 200,
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
+    borderColor: palette.gray
   },
 
   inputDark: {
     color: "white",
-    borderColor: "white"
+    borderColor: "white",
   },
 
   add: {
-    width: 50,
+    width: 200,
     height: 40,
-    borderRadius: 20,
+    marginTop: 40,
+    borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "teal"
+    alignSelf: "center",
+    backgroundColor: "teal",
   },
 
   delete: {
@@ -67,6 +75,6 @@ export default StyleSheet.create({
     height: 30,
     borderRadius: 20,
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 })

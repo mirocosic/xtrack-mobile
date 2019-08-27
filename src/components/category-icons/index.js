@@ -13,23 +13,57 @@ const regular = [
   Icons.creditCard,
   Icons.bell,
   Icons.square,
+  Icons.moneyBillAlt,
+
 ]
 
 const solid = [
   Icons.archive,
+
   Icons.creditCard,
   Icons.dollarSign,
+  Icons.euroSign,
+  Icons.moneyBill,
+  Icons.moneyBillAlt,
   Icons.bus,
   Icons.car,
-  Icons.cocktail,
+  Icons.taxi,
+  Icons.motorcycle,
+  Icons.bicycle,
+  Icons.gasPump,
+
   Icons.home,
   Icons.om,
   Icons.plane,
   Icons.poo,
   Icons.shoppingBasket,
+
   Icons.smoking,
   Icons.utensils,
+  //Icons.hamburger,
+  //Icons.pizzaSlice,
+  Icons.fish,
+  Icons.coffee,
+  Icons.beer,
+  Icons.cocktail,
+
+  Icons.cannabis,
+  Icons.cog,
+  Icons.laptop,
+  Icons.envelope,
+  Icons.couch,
+
   Icons.filter,
+  Icons.snowflake,
+  //Icons.skiing,
+  //Icons.snowboarding,
+
+  Icons.paw,
+  //Icons.dog,
+  //Icons.cat,
+
+  Icons.male,
+  Icons.female,
 ]
 
 const CategoryIcons = props => (
@@ -52,7 +86,8 @@ const CategoryIcons = props => (
           onPress={() => { props.select(getKeyByValue(Icons, value)) }}>
           <FontAwesome
             type="FontAwesome5FreeSolid"
-            style={[styles.icon, Icons[props.selected] === value && styles.selected]}>{value}
+            style={[styles.icon, Icons[props.selected] === value && styles.selected]}>
+            {value}
           </FontAwesome>
         </TouchableOpacity>
       ))}

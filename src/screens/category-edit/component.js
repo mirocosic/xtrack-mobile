@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { View, ScrollView, TextInput, TouchableOpacity } from "react-native";
+import { View, ScrollView, TextInput, TouchableOpacity, Keyboard } from "react-native";
 import { withNavigation } from "react-navigation";
+import Modalize from "react-native-modalize"
 import { Screen, Header } from "../../components"
 import CategoryIcons from "../../components/category-icons"
 import Icon from "../../components/icon"
@@ -15,8 +16,25 @@ class CategoryEdit extends Component {
     category: this.props.categories.filter(item => this.props.navigation.state.params.id === item.id)[0] || {}
   }
 
+  input = React.createRef()
+
+  iconsModal = React.createRef()
+
+  colorModal = React.createRef()
+
+  componentDidMount() {
+    //this.input.current.focus()
+  }
+
+  handleSave = (category) => {
+    const { edit, add, setDefault, navigation } = this.props
+    category.id ? edit(category) : add(category)
+    category.defaultCategory && setDefault(category)
+    navigation.goBack()
+  }
+
   render() {
-    const { navigation, add, edit, remove, setDefault } = this.props
+    const { navigation, add, edit, remove, setDefault, darkMode } = this.props
     const { category } = this.state
     return (
       <Screen>
@@ -27,60 +45,85 @@ class CategoryEdit extends Component {
           actionBtn={<Icon type="trash-alt" />}
           actionBtnPress={() => { remove(category); navigation.goBack() }}
         />
-        <ScrollView>
-          <View>
 
-            <View style={styles.colorPicker}>
-              { colors.map(color => (
-                <TouchableOpacity
-                  key={color}
-                  style={[styles.colorBox, category.color === color && styles.selectedColor, { backgroundColor: color }]}
-                  onPress={() => this.setState({
-                    category: {
-                      ...category,
-                      ...{ color },
-                    },
-                  })}
-                />
-              ))}
-            </View>
+        <View style={{ margin: 20 }}>
 
-            <View style={styles.inputContainer}>
-              <TextInput style={[styles.input, this.props.darkMode && styles.inputDark]}
-                onChangeText={text => this.setState({
+          <View style={styles.inputContainer}>
+            <Copy>Name</Copy>
+            <TextInput
+              ref={this.input}
+              style={[styles.input, darkMode && styles.inputDark]}
+              onChangeText={text => this.setState({
+                category: {
+                  ...category,
+                  ...{ name: text },
+                }})}
+              returnKeyType="done"
+              onSubmitEditing={() => this.handleSave(category)}
+              placeholder="category name"
+              value={category.name}
+              />
+          </View>
+
+          <View style={[styles.inlineBetween, { margin: 10 }]}>
+            <Copy>Icon</Copy>
+            <TouchableOpacity onPress={() => this.iconsModal.current.open()}>
+              <Icon type={category.icon} textStyle={{ color: category.color, fontSize: 30 }} />
+            </TouchableOpacity>
+          </View>
+
+          <View style={[styles.inlineBetween, { margin: 10 }]}>
+            <Copy>Color</Copy>
+            <TouchableOpacity onPress={() => this.colorModal.current.open()}>
+              <View style={{ width: 40, height: 40, backgroundColor: category.color, borderRadius:5 }} />
+            </TouchableOpacity>
+          </View>
+
+          <View style={[styles.inlineBetween, { margin: 10 }]}>
+            <Copy>Default category</Copy>
+            <TouchableOpacity onPress={() => this.setState({ category: { ...category, defaultCategory: !category.defaultCategory } })}>
+              <Copy style={{ color: "blue", fontSize: 20 }}>{category.defaultCategory ? "Yes" : "No"}</Copy>
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity
+            style={styles.add}
+            onPress={() => this.handleSave(category)}>
+            <Copy style={{ color: "white" }}>Save</Copy>
+          </TouchableOpacity>
+
+        </View>
+
+        <Modalize
+          modalHeight={200}
+          ref={this.colorModal}
+        >
+          <View style={styles.colorPicker}>
+            { colors.map(color => (
+              <TouchableOpacity
+                key={color}
+                style={[styles.colorBox, category.color === color && styles.selectedColor, { backgroundColor: color }]}
+                onPress={() => this.setState({
                   category: {
                     ...category,
-                    ...{ name: text },
-                  }})}
-                returnKeyType="done"
-                placeholder="category name"
-                value={category.name}
-                />
-              <TouchableOpacity
-                style={styles.add}
-                onPress={() => {
-                  category.id ? edit(category) : add(category)
-                  category.defaultCategory && setDefault(category)
-                  navigation.goBack()
-                }}
-              >
-                <Copy style={{ color: "white" }}>Save</Copy>
-              </TouchableOpacity>
-            </View>
-
-            <View style={{ flexDirection: "row", paddingLeft: 40, paddingBottom: 20 }}>
-              <Copy>Default category:</Copy>
-              <TouchableOpacity onPress={() => this.setState({ category: { ...category, defaultCategory: !category.defaultCategory } })}>
-                <Copy style={{ color: "blue" }}>{category.defaultCategory ? "Yes" : "No"}</Copy>
-              </TouchableOpacity>
-            </View>
-
+                    ...{ color },
+                  },
+                })}
+              />
+            ))}
           </View>
-          <View style={{paddingLeft: 20, paddingRight: 10}}>
-            <CategoryIcons selected={category.icon || "car"} select={value => this.setState({category: {...category, icon: value}})}/>
-          </View>
+        </Modalize>
 
-        </ScrollView>
+        <Modalize
+          modalHeight={300}
+          ref={this.iconsModal}>
+          <View style={{ padding: 20 }}>
+            <CategoryIcons
+              selected={category.icon || "car"}
+              select={value => this.setState({ category: { ...category, icon: value } })}
+            />
+          </View>
+        </Modalize>
 
       </Screen>
     )

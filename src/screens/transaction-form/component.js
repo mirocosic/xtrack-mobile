@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { Text, View, TextInput, Animated, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Dimensions } from "react-native";
-import { Calendar, CalendarList } from "react-native-calendars"
+import { Calendar } from "react-native-calendars"
 import { withNavigation } from "react-navigation";
 import Modalize from "react-native-modalize"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview"
 import moment from "moment";
 import { get } from "lodash"
 
-import { Screen, Header, Label } from "../../components"
+import { Screen, Header, Label, CustomKeyboard } from "../../components"
 import { Copy, Title } from "../../components/typography"
 import Icon from "../../components/icon"
 import { formatCurrency } from "../../utils/currency"
@@ -31,8 +31,6 @@ class TransactionForm extends Component {
   labelsModal = React.createRef()
 
   calendarModal = React.createRef()
-
-
 
   componentDidMount() {
     const { navigation, accounts, categories,  clearSelectedCategory, clearTransactionForm } = this.props
@@ -80,32 +78,17 @@ class TransactionForm extends Component {
     this.state.blinker.stopAnimation()
   }
 
-
   submitForm = () => {
     const { transfer, edit, add, navigation } = this.props
     const { transaction } = this.state
-    const payload = {
-      timestamp: transaction.timestamp,
-      account: transaction.account,
-      fromAccount: transaction.fromAccount,
-      type: transaction.type,
-      amount: transaction.type === "expense" ? -transaction.amount : transaction.amount,
-      note: transaction.note,
-      category: transaction.category,
-      labels: transaction.labels,
-    }
 
     if (transaction.type === "transfer") {
-      transfer(payload)
-      navigation.navigate("Transactions")
+      transfer(transaction)
+      navigation.goBack()
       return;
     }
 
-    if (transaction.id) {
-      edit({ ...payload, ...{ id: transaction.id } })
-    } else {
-      add(payload)
-    }
+    transaction.id ? edit(transaction) : add(transaction)
 
     navigation.goBack()
   }
@@ -153,14 +136,9 @@ class TransactionForm extends Component {
     return labels.map(label => (
       <TouchableOpacity
         key={label.id}
-        onPress={() => {
-          attachLabel(label)
-        }}
-      >
-        <View style={{ flexDirection: "row", alignItems: "center", margin: 5 }}>
-          <View style={{ width: 25, height: 25, borderRadius: 10, backgroundColor: label.color, marginRight: 10 }} />
-          <Text>{label.name}</Text>
-        </View>
+        onPress={() => attachLabel(label)}>
+
+        <Label key={label.uuid} label={label} style={{ width: 70 }} />
 
       </TouchableOpacity>
     ))
@@ -258,7 +236,6 @@ class TransactionForm extends Component {
                     opacity: blinker,
                     backgroundColor: "blue",
                     width: 2,
-                    //height: 50,
                     position: "absolute",
                     top: 0,
                     zIndex: 10000,
@@ -267,6 +244,8 @@ class TransactionForm extends Component {
 
                   <Copy
                     style={{ color: "gray", borderRadius: 20, zIndex: 100, fontSize: 20 }}>
+                    {transaction.type === "expense" && "-" }
+                    {transaction.type === "income" && "+" }
                     {formatCurrency(transaction.amount)}
 
                   </Copy>
@@ -335,49 +314,40 @@ class TransactionForm extends Component {
 
             </View>
 
-            <View style={[styles.formFieldWrap, { alignItems: "flex-start" }]}>
+            <View style={[styles.formFieldWrap, { alignItems: "center" }]}>
               <Copy>Note</Copy>
               <TextInput
                 onChangeText={value => this.setState({ transaction: { ...transaction, note: value } })}
                 value={transaction.note}
-                placeholder="enter notes..."
-                style={[styles.textInput, darkMode && styles.textInputDark, { padding: 10, height: 100, width: "100%" }]}
-                multiline={true}
+                placeholder="enter note..."
+                style={[styles.textInput, darkMode && styles.textInputDark, { marginLeft: 30, padding: 10, height: 40, width: "100%" }]}
                 keyboardAppearance={darkMode ? "dark" : "light"}
               />
             </View>
 
             <View style={styles.formFieldWrap}>
-              <Copy>Labels</Copy>
+              <TouchableOpacity
+                style={{backgroundColor: "teal", padding: 5, paddingLeft: 10, paddingRight: 10, borderRadius: 20}}
+                onPress={() => this.labelsModal.current.open()}>
+                <Copy style={{color: "white", fontSize: 12}}>Add Tags</Copy>
+              </TouchableOpacity>
               <View style={styles.labels}>
 
                 {transaction.labels.map(label => (
                   <Label key={label.uuid} label={label} removeLabel={() => this.props.removeLabel(label)} />
                 ))}
-                <TouchableOpacity
-                  onPress={() => this.labelsModal.current.open()}>
-                  <Title>+</Title>
-                </TouchableOpacity>
+
               </View>
             </View>
 
           </KeyboardAwareScrollView>
 
-          <View style={styles.footer}>
-            <TouchableOpacity onPress={() => this.submitForm()}>
-              <Copy style={{ color: "teal" }}>Save Transaction</Copy>
-            </TouchableOpacity>
-          </View>
-
-          <View style={[styles.calendarWrap, this.state.calendarOpen ? { display: "flex" } : { display: "none" }]}>
-            <Calendar onDayPress={(day) => {
-              this.setState({
-                transaction: { ...transaction, ...{ timestamp: day.timestamp } },
-                calendarOpen: false,
-              })
-            }} />
-          </View>
-
+          <CustomKeyboard
+            handlePress={value => changeTransactionAmount(transaction.amount + value)}
+            handleSubmit={() => this.submitForm()}
+            delete={() => changeTransactionAmount(transaction.amount.substring(0, transaction.amount.length - 1))}
+            setAmount={changeTransactionAmount}
+          />
 
           <Modalize
             adjustToContentHeight={true}

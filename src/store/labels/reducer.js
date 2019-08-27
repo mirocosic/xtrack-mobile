@@ -52,6 +52,12 @@ const labels = (state = initialState, action) => {
         appliedLabelsFilter: state.appliedLabelsFilter.filter(label => label.id !== action.label.id),
       }
 
+    case "RESET_FILTERS":
+      return {
+        ...state,
+        appliedLabelsFilter: [],
+      }
+
     case "ERASE":
       return {
         ...initialState,

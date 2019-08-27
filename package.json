@@ -16,6 +16,7 @@
     "react-native": "0.59.8",
     "react-native-animate-number": "^0.1.2",
     "react-native-calendars": "^1.21.0",
+    "react-native-color-wheel": "^0.1.7",
     "react-native-drawer": "^2.5.1",
     "react-native-fontawesome": "mirocosic/react-native-fontawesome",
     "react-native-gesture-handler": "^1.4.1",

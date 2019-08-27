@@ -49,7 +49,7 @@ class Category extends Component {
 
   render() {
     const cat = this.props.data
-    const { darkMode, onPress, selectCategory, navigation } = this.props
+    const { darkMode, onPress, selectCategory, navigation, toggleScroll } = this.props
     return (
       <Swipeout
         right={[{
@@ -63,7 +63,8 @@ class Category extends Component {
           onPress: () => navigation.navigate("CategoryEdit", { id: cat.id })
         }]}
         style={{ borderBottomWidth: 1, borderColor: "gray" }}
-        sensitivity={10}
+        sensitivity={20}
+        scroll={value => toggleScroll(value)}
         buttonWidth={70}
         backgroundColor="#f8f8fc">
 

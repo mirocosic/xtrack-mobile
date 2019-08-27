@@ -10,19 +10,6 @@ import Icon from "../icon"
 import { formatCurrency } from "../../utils/currency"
 import styles from "./styles"
 
-// const getTransactionColorCode = (type) => {
-//   switch (type) {
-//     case "expense":
-//       return [styles.colorCode, styles.expense];
-//     case "income":
-//       return [styles.colorCode, styles.income];
-//     case "transfer":
-//       return [styles.colorCode, styles.tranfer];
-//     default:
-//       return [styles.colorCode, styles.expense];
-//   }
-// }
-
 const getAmountColor = (type) => {
   switch (type) {
     case "expense":
@@ -94,7 +81,8 @@ const Transaction = ({ transaction, selectTransaction, deleteTransaction, naviga
                 <Label
                   key={label.uuid}
                   label={label}
-                  style={{ margin: 0, marginLeft: 5, marginRight: 5 }} />
+                  style={{ marginLeft: 5, paddingRight: 10}} 
+                />
               ))}
           </View>
         </View>

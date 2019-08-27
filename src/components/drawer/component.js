@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Alert, View, TouchableOpacity } from "react-native"
+import { View, TouchableOpacity } from "react-native"
 import RNDrawer from "react-native-drawer"
 import { PrimaryButton } from "../buttons"
 import Icon from "../icon"
@@ -9,37 +9,9 @@ import styles from "./styles"
 
 export default class Drawer extends Component {
 
-  changeAccountFilter = () => {
-    const { accounts, changeAccountFilter } = this.props
-    Alert.alert(
-      __("Select account"),
-      __("Please choose account"),
-      [
-        ...accounts.map(account => (
-          { text: account.name, onPress: () => changeAccountFilter(account) }
-        )),
-        { text: "All accounts", onPress: () => changeAccountFilter(false) },
-      ],
-    )
-  }
-
-  changeCategoryFilter = () => {
-    const { categories, changeCategoryFilter } = this.props
-    Alert.alert(
-      __("Select category"),
-      __("Please choose category"),
-      [
-        ...categories.map(cat => (
-          { text: cat.name, onPress: () => changeCategoryFilter(cat) }
-        )),
-        { text: "All categories", onPress: () => changeCategoryFilter(false) },
-      ],
-    )
-  }
-
   render() {
     const {
-      categories, accounts, changeAccountFilter, changeCategoryFilter,
+      categories, accounts, changeAccountFilter, changeCategoryFilter, resetFilters,
       drawerOpen, drawerIsCanceled, drawerContent, applyFilters, applyLabelFilter, removeLabelFilter,
       accountFilter, categoryFilter, closeDrawer, side, children, labels, appliedLabelsFilter,
     } = this.props;
@@ -70,6 +42,7 @@ export default class Drawer extends Component {
                 <View style={{ paddingTop: 10, paddingLeft: 10 }}>
                   { accounts.map(acc => (
                     <TouchableOpacity
+                      key={acc.id}
                       style={{ flexDirection: "row", alignItems: "center", margin: 5 }}
                       onPress={() => (accountFilter.id === acc.id ? changeAccountFilter(false) : changeAccountFilter(acc))}>
                       <View style={{ borderRadius: 20, borderWidth: 2, borderColor: "teal", marginRight: 5 }}>
@@ -89,6 +62,7 @@ export default class Drawer extends Component {
                   <View style={{ paddingTop: 10, paddingLeft: 10 }}>
                     { categories.map(cat => (
                       <TouchableOpacity
+                        key={cat.id}
                         onPress={() => (categoryFilter.id === cat.id ? changeCategoryFilter(false) : changeCategoryFilter(cat))}
                         style={{ flexDirection: "row", alignItems: "center", margin: 5 }}>
                         <View style={{ borderRadius: 20, borderWidth: 2, borderColor: "teal", marginRight: 5 }}>
@@ -101,12 +75,12 @@ export default class Drawer extends Component {
                         <Copy style={{ fontSize: 14 }}>{cat.name}</Copy>
                       </TouchableOpacity>
                     ))}
-                </View>
+                  </View>
                 </View>
 
                 <View style={{ marginTop: 20 }}>
-                <Copy>Labels</Copy>
-                <View style={{ padding: 10 }}>
+                  <Copy>Labels</Copy>
+                  <View style={{ padding: 10 }}>
                   { labels.map((item) => {
                     const labelFilterApplied = appliedLabelsFilter.find(labelFilter => labelFilter.id === item.id)
                     return (
@@ -130,7 +104,13 @@ export default class Drawer extends Component {
                     ) },
                   )}
                 </View>
-              </View>
+                </View>
+
+                <PrimaryButton
+                  onPress={() => { resetFilters(); closeDrawer(); }}
+                  label="Clear"
+                  style={{ borderRadius: 20, alignItems: "center" }}
+                />
 
               </View>
             </View>

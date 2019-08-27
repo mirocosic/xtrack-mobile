@@ -1,11 +1,14 @@
 import { StyleSheet } from "react-native"
-
+import globalStyles from "../../utils/styles"
+import palette from "../../utils/palette"
 
 export default StyleSheet.create({
 
+  ...globalStyles,
+
   inputContainer: {
     paddingLeft: 10,
-    paddingRight: 20,
+    paddingRight: 0,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -14,10 +17,10 @@ export default StyleSheet.create({
   input: {
     color: "black",
     fontSize: 20,
-    padding: 20,
     margin: 20,
     width: 200,
     borderBottomWidth: 1,
+    borderColor: palette.gray,
   },
 
   inputDark: {
@@ -26,11 +29,13 @@ export default StyleSheet.create({
   },
 
   add: {
-    width: 70,
+    marginTop: 50,
+    width: 200,
     height: 40,
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
+    alignSelf: "center",
     backgroundColor: "teal",
   },
 

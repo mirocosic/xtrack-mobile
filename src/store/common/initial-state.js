@@ -4,5 +4,6 @@ export default {
   drawerContent: "filters",
   drawerIsCanceled: false,
   darkMode: false,
+  openOnForm: false,
   language: { code: "hrv", name: "Hrvatski" },
 };

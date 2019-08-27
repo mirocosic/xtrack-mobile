@@ -5,11 +5,11 @@ import { Copy } from "../typography"
 import styles from "./styles"
 
 export const PrimaryButton = (props) => {
-  const { label, onPress } = props
+  const { label, onPress, style } = props
 
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style={{ backgroundColor: "teal", ...styles.wrap }}>
+      <View style={[{ backgroundColor: "teal", ...styles.wrap }, style]}>
         <Copy style={styles.label}>{label}</Copy>
       </View>
     </TouchableOpacity>
