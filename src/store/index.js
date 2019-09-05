@@ -1,15 +1,17 @@
-import { createStore, combineReducers } from "redux";
-import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import { AsyncStorage } from "@react-native-community/async-storage"
-import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
+import { createStore, combineReducers, applyMiddleware } from "redux"
+import { persistStore, persistReducer } from "redux-persist"
+import storage from "redux-persist/lib/storage"
+import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2"
+import createSagaMiddleware from "redux-saga"
 
+import common from "./common/reducer"
+import transactions from "./transactions/reducer"
+import categories from "./categories/reducer"
+import accounts from "./accounts/reducer"
+import labels from "./labels/reducer"
+import rootSaga from "./sagas"
 
-import common from "./common/reducer";
-import transactions from "./transactions/reducer";
-import categories from "./categories/reducer";
-import accounts from "./accounts/reducer";
-import labels from "./labels/reducer";
+const sagaMiddleware = createSagaMiddleware();
 
 const persistConfig = {
   key: "root",
@@ -25,8 +27,9 @@ const reducers = combineReducers({
   labels,
 })
 
-const pReducer = persistReducer(persistConfig, reducers);
+const pReducer = persistReducer(persistConfig, reducers)
 
-// export default createStore(reducers);
-export const store = createStore(pReducer);
-export const persistor = persistStore(store);
+export const store = createStore(pReducer, applyMiddleware(sagaMiddleware))
+export const persistor = persistStore(store)
+
+sagaMiddleware.run(rootSaga);

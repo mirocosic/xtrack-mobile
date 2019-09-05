@@ -6,7 +6,7 @@ const makeId = entries => (entries.length ? entries[entries.length - 1].id + 1 :
 const transactions = (state = initialState, action) => {
 
   const transaction = action.transaction || {}
-  const { timestamp, account, fromAccount, amount, type, note, category, labels } = transaction
+  const { timestamp, account, fromAccount, amount, type, note, category, labels, recurring, parentTransactionId } = transaction
 
   switch (action.type) {
 
@@ -25,6 +25,8 @@ const transactions = (state = initialState, action) => {
             note,
             category,
             labels,
+            recurring,
+            parentTransactionId,
           },
         ],
       }
@@ -59,6 +61,42 @@ const transactions = (state = initialState, action) => {
       return {
         ...state,
         entries: state.entries.filter(item => item.id !== action.transaction.id),
+      }
+
+    case "REMOVE_ALL_RECURRING_TRANSACTIONS":
+
+      // delete called on child transaction
+      if (action.transaction.parentTransactionId) {
+        return {
+          ...state,
+          entries: state.entries.filter(
+            item => item.parentTransactionId !== action.transaction.parentTransactionId,
+          ).filter(item => item.id !== action.transaction.parentTransactionId),
+        }
+      }
+
+      // delete called on parent transaction
+      return {
+        ...state,
+        entries: state.entries.filter(item => item.id !== action.transaction.id).filter(item => item.parentTransactionId !== action.transaction.id),
+      }
+
+    case "REMOVE_FUTURE_RECURRING_TRANSACTIONS":
+
+      // delete called on child transaction
+      if (action.transaction.parentTransactionId) {
+        return {
+          ...state,
+          entries: state.entries.filter(
+            item => item.parentTransactionId !== action.transaction.parentTransactionId || item.timestamp < action.transaction.timestamp,
+          ).filter(item => item.id !== action.transaction.parentTransactionId || item.timestamp < action.transaction.timestamp),
+        }
+      }
+
+      // delete called on parent transaction
+      return {
+        ...state,
+        entries: state.entries.filter(item => item.id !== action.transaction.id || item.timestamp < action.transaction.timestamp).filter(item => item.parentTransactionId !== action.transaction.id || item.timestamp < action.transaction.timestamp),
       }
 
     case "TRANSFER_TRANSACTION":
@@ -177,6 +215,7 @@ const transactions = (state = initialState, action) => {
           account: action.defaultAccount,
           fromAccount: {},
           labels: [],
+          recurring: false,
         },
       }
 

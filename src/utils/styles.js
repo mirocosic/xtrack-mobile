@@ -12,4 +12,10 @@ export default {
     justifyContent: "space-between",
   },
 
+  inlineAround: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+  },
+
 }

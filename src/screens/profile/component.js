@@ -33,15 +33,14 @@ class Profile extends Component {
       navigation, darkMode, toggleDarkMode, language, erase, locationTracking,
       handleLocationTracking, openOnForm, toggleOpenOnForm,
     } = this.props
-    console.log(openOnForm)
+
     return (
       <Screen>
         <Header title="Settings" />
 
         <TouchableOpacity
           onPress={() => navigation.navigate("Categories")}
-          style={styles.settingWrap}
-        >
+          style={styles.settingWrap}>
           <View>
             <Copy>Categories</Copy>
             <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
@@ -54,8 +53,7 @@ class Profile extends Component {
 
         <TouchableOpacity
           onPress={() => navigation.navigate("Accounts")}
-          style={styles.settingWrap}
-        >
+          style={styles.settingWrap}>
           <View>
             <Copy>Accounts</Copy>
             <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
@@ -80,10 +78,12 @@ class Profile extends Component {
 
         <View style={{ padding: 20 }}>
 
-          <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-            <Copy>Dark mode</Copy>
-            <Switch value={darkMode} onValueChange={toggleDarkMode} />
-          </View>
+          {
+          // <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+          //   <Copy>Dark mode</Copy>
+          //   <Switch value={darkMode} onValueChange={toggleDarkMode} />
+          // </View>
+          }
 
           <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
             <Copy>Enable Location Tracking</Copy>
@@ -95,13 +95,14 @@ class Profile extends Component {
             <Switch value={openOnForm} onValueChange={toggleOpenOnForm} />
           </View>
 
-          <TouchableOpacity
-            onPress={this.selectLanguage}
-            style={{ flexDirection: "row", marginTop: 20, justifyContent: "space-between" }}
-          >
-            <Copy>{`${__("Language")}:`}</Copy>
-            <Copy style={{ color: "blue" }}>{language.name}</Copy>
-          </TouchableOpacity>
+          {
+          // <TouchableOpacity
+          //   onPress={this.selectLanguage}
+          //   style={{ flexDirection: "row", marginTop: 20, justifyContent: "space-between" }}>
+          //   <Copy>{`${__("Language")}:`}</Copy>
+          //   <Copy style={{ color: "blue" }}>{language.name}</Copy>
+          // </TouchableOpacity>
+          }
 
         </View>
       </Screen>

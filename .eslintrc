@@ -12,7 +12,7 @@
   },
   "extends": "airbnb",
   "rules": {
-      "max-len": ["error", { "code": 120 }],
+      "max-len": ["error", { "code": 150 }],
       "semi": 0,
       "quotes": ["warn", "double"],
       "padded-blocks": ["off", "always"],
@@ -21,6 +21,6 @@
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
       "react/jsx-boolean-value": ["always"],
       "react/jsx-closing-bracket-location": [<disabled>],
-      "react/jsx-one-expression-per-line": [<disabled>]
+      "react/jsx-one-expression-per-line": [<disabled>],
     }
 }

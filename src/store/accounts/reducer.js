@@ -6,7 +6,7 @@ const categories = (state = initialState, action) => {
   switch (action.type) {
 
     case "ADD_ACCOUNT": {
-      const { name, icon, color, defaultAccount } = action.account
+      const { name, icon, color, defaultAccount, startingBalance } = action.account
       return {
         ...state,
         items: [
@@ -17,6 +17,7 @@ const categories = (state = initialState, action) => {
             icon,
             color,
             defaultAccount,
+            startingBalance,
           },
         ],
       }

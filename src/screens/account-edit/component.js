@@ -19,6 +19,7 @@ class AccountEdit extends Component {
       name: "",
       icon: "",
       defaultAccount: false,
+      startingBalance: "0",
     },
   }
 
@@ -82,7 +83,6 @@ class AccountEdit extends Component {
               placeholder="account name"
               value={account.name}
               />
-
           </View>
 
           <View style={[styles.inlineBetween, { margin: 10 }]}>
@@ -106,10 +106,24 @@ class AccountEdit extends Component {
             </TouchableOpacity>
           </View>
 
+          <View style={styles.inputContainer}>
+            <Copy>Starting Balance</Copy>
+            <TextInput
+              style={{fontSize: 20, borderBottomWidth: 1, width: 50}}
+              keyboardType="numeric"
+              onChangeText={text => this.setState({
+                account: {
+                  ...account,
+                  ...{ startingBalance: text }
+                }})}
+              value={account.startingBalance}
+              />
+
+          </View>
+
           <TouchableOpacity
             style={styles.add}
-            onPress={() => this.handleSave(account)}
-          >
+            onPress={() => this.handleSave(account)}>
             <Copy style={{ color: "white" }}>Save</Copy>
           </TouchableOpacity>
 

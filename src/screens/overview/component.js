@@ -37,20 +37,10 @@ class Overview extends Component {
 
   renderAccounts = (callback) => {
     const { accounts, changeAccountFilter } = this.props
-    return accounts.map((account, idx) => (
-      <TouchableOpacity key={idx} onPress={() => { changeAccountFilter(account); callback() }}>
+    return accounts.map(account => (
+      <TouchableOpacity key={account.id} onPress={() => { changeAccountFilter(account); callback() }}>
         <Text>{account.name}</Text>
       </TouchableOpacity>
-
-    ))
-  }
-
-  renderExpenses() {
-    return Object.entries(this.props.expensesByCategory).map((item, idx) => (
-      <View key={idx} style={{ ...styles.row, paddingLeft: 20 }}>
-        <Text>{`${item[0]} `}</Text>
-        <Text>{`${item[1]} kn`}</Text>
-      </View>
     ))
   }
 
@@ -68,6 +58,15 @@ class Overview extends Component {
     return netWorth
   }
 
+  renderExpenses() {
+    return Object.entries(this.props.expensesByCategory).map((item, idx) => (
+      <View key={idx} style={{ ...styles.row, paddingLeft: 20 }}>
+        <Text>{`${item[0]} `}</Text>
+        <Text>{`${item[1]} kn`}</Text>
+      </View>
+    ))
+  }
+
   render() {
     const { expensesByCategory, accounts, transactions, accountFilter, changeAccountFilter, changeMonthFilter, currentMonth } = this.props
     return (
@@ -80,11 +79,19 @@ class Overview extends Component {
           { accounts.map((acc) => {
             const income = parseFloat(calculateIncome(transactions, { type: "account", value: acc }))
             const expenses = parseFloat(calculateExpenses(transactions, { type: "account", value: acc }))
+            const startingBalance = acc.startingBalance ? parseFloat(acc.startingBalance) : 0
 
             return (
               <View key={acc.id} style={styles.accountWrap}>
                 <Copy style={{ fontWeight: "bold" }}>{acc.name}</Copy>
                 <View>
+                  { true && (
+                    <View style={[styles.inline, { justifyContent: "space-between", paddingLeft: 20, paddingRight: 20 }]}>
+                      <Copy>Starting Balance: </Copy>
+                      <Copy>{formatCurrency(startingBalance)}</Copy>
+                    </View>)
+                  }
+
                   <View style={[styles.inline,{justifyContent: "space-between", paddingLeft: 20, paddingRight: 20}]}>
                     <Copy>Income: </Copy>
                     <Copy>{formatCurrency(income)}</Copy>
@@ -97,7 +104,7 @@ class Overview extends Component {
 
                   <View style={[styles.inline,{justifyContent: "space-between", paddingLeft: 20, paddingRight: 20}]}>
                     <Copy>Balance: </Copy>
-                    <Copy>{ formatCurrency(income - expenses)}</Copy>
+                    <Copy>{ formatCurrency(startingBalance + income - expenses)}</Copy>
                   </View>
                 </View>
 

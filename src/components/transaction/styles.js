@@ -1,7 +1,11 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from "react-native"
+import globalStyles from "../../utils/styles"
 import palette from "../../utils/palette"
 
 export default StyleSheet.create({
+
+  ...globalStyles,
+
   container: {
     padding: 10,
     paddingTop: 5,

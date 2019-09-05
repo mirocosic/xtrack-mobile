@@ -1,5 +1,5 @@
-import React from "react"
-import { Text, View, TouchableOpacity } from "react-native"
+import React, { Component } from "react"
+import { Alert, Text, View, TouchableOpacity, Platform, ActionSheetIOS } from "react-native"
 import { withNavigation } from "react-navigation"
 import Swipeout from "react-native-swipeout";
 import moment from "moment"
@@ -23,15 +23,11 @@ const getAmountColor = (type) => {
   }
 }
 
-const renderDeleteButton = (transaction) => {
-
-  return (
-    <View style={styles.deleteButton}>
-      <Icon type="trash-alt" />
-    </View>
-  );
-
-}
+const renderDeleteButton = () => (
+  <View style={styles.deleteButton}>
+    <Icon type="trash-alt" />
+  </View>
+)
 
 const renderCategory = (categories, id) => {
   const category = categories.find(cat => id === cat.id)
@@ -48,53 +44,104 @@ const renderCategory = (categories, id) => {
   )
 }
 
-const Transaction = ({ transaction, selectTransaction, deleteTransaction, navigation, darkMode, toggleScroll, categories }) => (
-  <Swipeout
-    right={[{
-      backgroundColor: "#f8f8fc",
-      component: renderDeleteButton(transaction),
-      onPress: () => deleteTransaction(transaction),
-    }]}
-    style={{ borderBottomWidth: 1, borderColor: "gray" }}
-    sensitivity={20}
-    scroll={value => toggleScroll(value)}
-    buttonWidth={110}
-    backgroundColor="#f8f8fc">
-    <TouchableOpacity onPress={() => {
-      selectTransaction(transaction)
-      navigation.navigate("TransactionForm", { transaction })
-    }}>
-      <View key={transaction.id} style={[styles.container, darkMode && styles.containerDark]}>
-        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-          { renderCategory(categories, transaction.category.id)}
-          <Text style={[styles.amount, getAmountColor(transaction.type)]}>
-            {formatCurrency(transaction.amount)}
-          </Text>
-        </View>
+class Transaction extends Component {
 
-        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-          <Copy style={{ fontSize: 12 }}>{moment(transaction.timestamp).format("D.MM.YYYY. HH:mm")}</Copy>
-          <Copy>{transaction.note}</Copy>
-          <View style={styles.labels}>
-            {transaction.labels
-              && transaction.labels.map(label => (
-                <Label
-                  key={label.uuid}
-                  label={label}
-                  style={{ marginLeft: 5, paddingRight: 10}} 
-                />
-              ))}
+  deleteTransaction = (transaction) => {
+    const { navigation, removeAllRecurring, removeFutureRecurring, deleteTransaction } = this.props
+
+    if (transaction.recurring) {
+      if (Platform.OS === "ios") {
+        ActionSheetIOS.showActionSheetWithOptions(
+          {
+            options: ["Delete All", "Delete Future Transactions", "Delete Only This", "Cancel"],
+            cancelButtonIndex: 3,
+            title: "Warning!",
+            message: "This is a recurring transaction. Please choose to delete all transactions, all future transactions,  or only this one.",
+          }, (btnIdx) => {
+            switch (btnIdx) {
+              case 0:
+                removeAllRecurring(transaction)
+                break;
+              case 1:
+                removeFutureRecurring(transaction)
+                break;
+              case 2:
+                deleteTransaction(transaction)
+                break;
+              default:
+                break;
+            }
+          },
+        )
+      } else {
+        Alert.alert("Warning!", "This is recurring transaction. Need to add Android specific code for deletion.")
+      }
+    } else {
+      deleteTransaction({ id: transaction.id })
+    }
+  }
+
+  render() {
+    const { transaction, selectTransaction, navigation, darkMode, toggleScroll, categories } = this.props
+
+    return (
+      <Swipeout
+        right={[{
+          backgroundColor: "#f8f8fc",
+          component: renderDeleteButton(transaction),
+          onPress: () => this.deleteTransaction(transaction),
+        }]}
+        style={{ borderBottomWidth: 1, borderColor: "gray" }}
+        sensitivity={20}
+        scroll={value => toggleScroll(value)}
+        buttonWidth={110}
+        backgroundColor="#f8f8fc">
+        <TouchableOpacity onPress={() => {
+          selectTransaction(transaction)
+          navigation.navigate("TransactionForm", { transaction })
+        }}>
+          <View key={transaction.id} style={[styles.container, darkMode && styles.containerDark]}>
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+              { renderCategory(categories, transaction.category.id)}
+              <Text style={[styles.amount, getAmountColor(transaction.type)]}>
+                {formatCurrency(transaction.amount)}
+              </Text>
+            </View>
+
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+              <View style={styles.inline}>
+                <Copy style={{ fontSize: 12 }}>{moment(transaction.timestamp).format("D.MM.YYYY. HH:mm")}</Copy>
+                {transaction.recurring && (
+                  <Icon
+                    type="sync"
+                    textStyle={{ color: "gray", fontSize: 14 }}
+                    style={{ width: 15, height: 15, marginLeft: 10 }}
+                    />
+                )}
+              </View>
+              <Copy>{transaction.note}</Copy>
+              <View style={styles.labels}>
+                {transaction.labels
+                  && transaction.labels.map(label => (
+                    <Label
+                      key={label.uuid}
+                      label={label}
+                      style={{ marginLeft: 5, paddingRight: 10 }}
+                      />
+                  ))}
+              </View>
+            </View>
+
+            { false && (
+              <TouchableOpacity onPress={() => deleteTransaction(transaction)} style={styles.deleteTrans}>
+                <Copy style={{ fontSize: 26, color: "white" }}>-</Copy>
+              </TouchableOpacity>)
+            }
           </View>
-        </View>
+        </TouchableOpacity>
+      </Swipeout>
+    )
+  }
+}
 
-        { false && (
-          <TouchableOpacity onPress={() => deleteTransaction(transaction)} style={styles.deleteTrans}>
-            <Copy style={{ fontSize: 26, color: "white" }}>-</Copy>
-          </TouchableOpacity>)
-        }
-      </View>
-    </TouchableOpacity>
-  </Swipeout>
-)
-const hocTransaction = withNavigation(Transaction)
-export default hocTransaction
+export default withNavigation(Transaction)

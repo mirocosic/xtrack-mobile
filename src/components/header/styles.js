@@ -17,6 +17,7 @@ export default StyleSheet.create({
   },
 
   actionBtnWrap: {
+    alignItems: "center",
     position: "absolute",
     right: 20,
     top: safePaddingTop(8),

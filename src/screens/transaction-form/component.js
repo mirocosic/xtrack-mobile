@@ -1,10 +1,14 @@
 import React, { Component } from "react";
-import { Text, View, TextInput, Animated, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Dimensions } from "react-native";
+import {
+  Text, View, TextInput, Animated, TouchableOpacity, TouchableWithoutFeedback,
+  Keyboard, Dimensions, Switch, Platform, ActionSheetIOS,
+} from "react-native";
 import { Calendar } from "react-native-calendars"
-import { withNavigation } from "react-navigation";
+import { withNavigation } from "react-navigation"
 import Modalize from "react-native-modalize"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview"
-import moment from "moment";
+import Collapsible from "react-native-collapsible"
+import moment from "moment"
 import { get } from "lodash"
 
 import { Screen, Header, Label, CustomKeyboard } from "../../components"
@@ -17,7 +21,6 @@ class TransactionForm extends Component {
 
   state = {
     blinker: new Animated.Value(0),
-    calendarOpen: false,
     modalVisible: false,
     catModalVisible: false,
     transaction: this.props.selectedTransaction,
@@ -40,8 +43,6 @@ class TransactionForm extends Component {
       clearSelectedCategory()
       clearTransactionForm(defaultAccount, defaultCategory)
     }
-
-    //this.input.focus()
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -71,7 +72,6 @@ class TransactionForm extends Component {
   }
 
   blurInput = () => {
-    console.log("clocked")
     Keyboard.dismiss()
     this.input.blur()
     // this.setState({stopAnimation: true});
@@ -90,14 +90,57 @@ class TransactionForm extends Component {
 
     transaction.id ? edit(transaction) : add(transaction)
 
+    if (!transaction.id && transaction.recurring) {
+      this.props.addRecurring()
+    }
+
     navigation.goBack()
   }
 
-  renderAccounts = (type) => {
+  deleteTransaction = (transaction) => {
+    const { navigation } = this.props
+
+    if (transaction.recurring) {
+      if (Platform.OS === "ios") {
+        ActionSheetIOS.showActionSheetWithOptions(
+          {
+            options: ["Delete All", "Delete Future Transactions", "Delete Only This", "Cancel"],
+            cancelButtonIndex: 3,
+            title: "Warning!",
+            message: "This is a recurring transaction. Please choose to delete all transactions, all future transactions,  or only this one.",
+          }, (btnIdx) => {
+            switch (btnIdx) {
+              case 0:
+                this.props.removeAllRecurring(transaction)
+                navigation.goBack()
+                break;
+              case 1:
+                this.props.removeFutureRecurring(transaction)
+                navigation.goBack()
+                break;
+              case 2:
+                this.props.remove(transaction)
+                navigation.goBack()
+                break;
+              default:
+                break;
+            }
+          }
+        )
+      } else {
+        Alert.alert("Warning!", "This is recurring transaction. Need to add Android specific code for deletion.")
+      }
+    } else {
+      this.props.remove({ id: transaction.id })
+      navigation.goBack()
+    }
+  }
+
+  renderAccounts = () => {
     const { accounts, changeAccountFilter, setFrom, setTo } = this.props
-    return accounts.map((account, idx) => (
+    return accounts.map(account => (
       <TouchableOpacity
-        key={idx}
+        key={account.id}
         onPress={() => {
           this.state.accountType === "from" ? setFrom(account) : setTo(account);
           this.accountsModal.current.close()
@@ -120,8 +163,7 @@ class TransactionForm extends Component {
         onPress={() => {
           selectCategory(cat)
           this.catModal.current.close()
-        }}
-      >
+        }}>
         <View style={{ flexDirection: "row", alignItems: "center", margin: 5 }}>
           <Icon type={get(cat, "icon", "")} textStyle={{ color: cat.color || "blue" }} style={{ marginRight: 10, backgroundColor: "white" }} />
           <Text>{cat.name}</Text>
@@ -176,7 +218,7 @@ class TransactionForm extends Component {
 
   render() {
     const { transaction, modalVisible, catModalVisible, blinker } = this.state
-    const { navigation, changeAccountFilter, remove, darkMode, changeTransactionAmount, setType, setTransferMode } = this.props
+    const { navigation, changeAccountFilter, remove, removeLabel, darkMode, changeTransactionAmount, setType, setTransferMode } = this.props
 
     const { width } = Dimensions.get("window")
 
@@ -187,7 +229,7 @@ class TransactionForm extends Component {
             title="Transaction form"
             backBtn
             actionBtn={transaction.id && <Icon type="trash-alt" />}
-            actionBtnPress={() => { remove({ id: transaction.id }); navigation.goBack() }}
+            actionBtnPress={() => this.deleteTransaction(transaction)}
           />
 
           <KeyboardAwareScrollView contentContainerStyle={styles.wrap}>
@@ -325,16 +367,27 @@ class TransactionForm extends Component {
               />
             </View>
 
+            <View style={[styles.formFieldWrap, { alignItems: "center" }]}>
+              <Copy>Recurring</Copy>
+              <Switch value={transaction.recurring} onValueChange={() => this.setState({ transaction: { ...transaction, recurring: !transaction.recurring } })} />
+            </View>
+
+            <Collapsible collapsed={!this.state.recurring}>
+              <View>
+                <Text>Options</Text>
+              </View>
+            </Collapsible>
+
             <View style={styles.formFieldWrap}>
               <TouchableOpacity
-                style={{backgroundColor: "teal", padding: 5, paddingLeft: 10, paddingRight: 10, borderRadius: 20}}
+                style={{ backgroundColor: "teal", padding: 5, paddingLeft: 10, paddingRight: 10, borderRadius: 20 }}
                 onPress={() => this.labelsModal.current.open()}>
-                <Copy style={{color: "white", fontSize: 12}}>Add Tags</Copy>
+                <Copy style={{ color: "white", fontSize: 12 }}>Add Tags</Copy>
               </TouchableOpacity>
               <View style={styles.labels}>
 
                 {transaction.labels.map(label => (
-                  <Label key={label.uuid} label={label} removeLabel={() => this.props.removeLabel(label)} />
+                  <Label key={label.uuid} label={label} removeLabel={() => removeLabel(label)} />
                 ))}
 
               </View>
@@ -352,7 +405,7 @@ class TransactionForm extends Component {
           <Modalize
             adjustToContentHeight={true}
             ref={this.accountsModal}>
-            <View style={{ height: 200, width: "100%", padding: 20, backgroundColor: "white", borderRadius: 10  }}>
+            <View style={{ height: 200, width: "100%", padding: 20, backgroundColor: "white", borderRadius: 10 }}>
               <Text style={{ textAlign: "center" }}>Select account</Text>
 
               <View style={{ padding: 10 }}>
@@ -385,7 +438,7 @@ class TransactionForm extends Component {
               </View>
 
               <TouchableOpacity
-                style={{ position: "absolute", top: 10, right: 10, borderRadius: 10  }}
+                style={{ position: "absolute", top: 10, right: 10, borderRadius: 10 }}
                 onPress={() => this.catModal.current.close()}>
                 <Title>x</Title>
               </TouchableOpacity>
@@ -420,9 +473,7 @@ class TransactionForm extends Component {
             <View style={{ height: 500, width: "100%", padding: 10, backgroundColor: "white", borderRadius: 10 }}>
 
               <Calendar
-                theme={{
-                  todayTextColor: "teal",
-                }}
+                theme={{ todayTextColor: "teal" }}
                 onDayPress={(day) => {
                   this.setState({ transaction: { ...transaction, ...{ timestamp: day.timestamp } } })
                   this.calendarModal.current.close()
@@ -431,7 +482,6 @@ class TransactionForm extends Component {
 
             </View>
           </Modalize>
-
 
         </Screen>
       </TouchableWithoutFeedback>
