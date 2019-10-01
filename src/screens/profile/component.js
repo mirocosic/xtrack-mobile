@@ -76,6 +76,19 @@ class Profile extends Component {
           <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
         </TouchableOpacity>
 
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Backup")}
+          style={styles.settingWrap}
+        >
+          <View style={{maxWidth: 300}}>
+            <Copy>Backup/Restore</Copy>
+            <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
+              Make a local backup of your data and restore it if you delete the app.
+            </Copy>
+          </View>
+          <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
+        </TouchableOpacity>
+
         <View style={{ padding: 20 }}>
 
           {

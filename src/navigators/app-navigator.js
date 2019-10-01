@@ -3,7 +3,7 @@ import { createStackNavigator } from "react-navigation";
 import BottomBarNavigator from "./bottom-bar-navigator";
 import {
   TransactionForm, Dashboard, Profile, Categories, Accounts, Labels,
-  CategoryEdit, Splash, Overview, AccountEdit, LabelEdit,
+  CategoryEdit, Splash, Overview, AccountEdit, LabelEdit, Backup,
 } from "../screens"
 
 const AppStack = createStackNavigator({
@@ -19,6 +19,7 @@ const AppStack = createStackNavigator({
   Profile: { screen: Profile },
   Labels: { screen: Labels },
   LabelEdit: { screen: LabelEdit },
+  Backup: { screen: Backup },
 
 }, {
   headerMode: "none",

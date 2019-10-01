@@ -11,6 +11,7 @@ import AccountEdit from "./account-edit"
 import Labels from "./labels"
 import LabelEdit from "./label-edit"
 import Transactions from "./transactions"
+import Backup from "./backup"
 
 export {
   Dashboard,
@@ -26,4 +27,5 @@ export {
   Labels,
   LabelEdit,
   Transactions,
+  Backup,
 }
