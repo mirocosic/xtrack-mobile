@@ -44,12 +44,24 @@ class AccountEdit extends Component {
   }
 
   handleDelete = (account) => {
-    const count = this.props.transactions.filter((item) => account.id === get(item ,"account.id")).length
+    const { remove, removeTransactions, navigation, transactions } = this.props
+    const count = transactions.filter(item => account.id === get(item, "account.id")).length
     if (count > 0) {
-      Alert.alert("Warning", "Cannot delete account that contains transactions.")
+      Alert.alert(
+        "Warning!",
+        "Cannot delete account that contains transactions",
+        [{
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Delete all transactions",
+          onPress: () => { removeTransactions(account); remove(account); navigation.goBack() },
+        }],
+      )
     } else {
-      this.props.remove(account)
-      this.props.navigation.goBack()
+      remove(account)
+      navigation.goBack()
     }
   }
 
@@ -95,7 +107,7 @@ class AccountEdit extends Component {
           <View style={[styles.inlineBetween, { margin: 10 }]}>
             <Copy>Color</Copy>
             <TouchableOpacity onPress={() => this.colorModal.current.open()}>
-              <View style={{ width: 40, height: 40, backgroundColor: account.color, borderRadius:5 }} />
+              <View style={{ width: 40, height: 40, backgroundColor: account.color, borderRadius: 5 }} />
             </TouchableOpacity>
           </View>
 
@@ -109,7 +121,7 @@ class AccountEdit extends Component {
           <View style={styles.inputContainer}>
             <Copy>Starting Balance</Copy>
             <TextInput
-              style={{fontSize: 20, borderBottomWidth: 1, width: 50}}
+              style={{ fontSize: 20, borderBottomWidth: 1, width: 50 }}
               keyboardType="numeric"
               onChangeText={text => this.setState({
                 account: {

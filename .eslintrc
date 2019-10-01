@@ -12,6 +12,7 @@
   },
   "extends": "airbnb",
   "rules": {
+      "func-names": ["error", "never"],
       "max-len": ["error", { "code": 150 }],
       "semi": 0,
       "quotes": ["warn", "double"],

@@ -18,9 +18,11 @@ export default connect(
   dispatch => ({
     add: transaction => dispatch({ type: "ADD_TRANSACTION", transaction }),
     edit: transaction => dispatch({ type: "EDIT_TRANSACTION", transaction }),
+    editAllRecurring: transaction => dispatch({ type: "EDIT_ALL_RECURRING_TRANSACTIONS", transaction }),
+    editFutureRecurring: transaction => dispatch({ type: "EDIT_FUTURE_RECURRING_TRANSACTIONS", transaction }),
     remove: transaction => dispatch({ type: "DELETE_TRANSACTION", transaction }),
     transfer: transaction => dispatch({ type: "TRANSFER_TRANSACTION", transaction }),
-    addRecurring: payload => dispatch({ type: "ADD_RECURRING_TRANSACTION", payload }),
+    addRecurring: options => dispatch({ type: "ADD_RECURRING_TRANSACTION", options }),
     removeAllRecurring: transaction => dispatch({ type: "REMOVE_ALL_RECURRING_TRANSACTIONS", transaction }),
     removeFutureRecurring: transaction => dispatch({ type: "REMOVE_FUTURE_RECURRING_TRANSACTIONS", transaction }),
     setType: transactionType => dispatch({ type: "SET_TYPE", transactionType }),

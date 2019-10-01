@@ -25,8 +25,11 @@ export const calculateTransactions = (transactions, transactionType, filter = { 
       filteredTransactions = transactions.filter(item => item.type === transactionType);
   }
 
-  if (filteredTransactions.length === 0) { return 0 }
-  const total = filteredTransactions.reduce((a, b) => ({ amount: parseFloat(a.amount) + parseFloat(b.amount) }));
+  // filter future transactions
+  const pastTransactions = filteredTransactions.filter(item => moment(item.timestamp) <= moment())
+
+  if (pastTransactions.length === 0) { return 0 }
+  const total = pastTransactions.reduce((a, b) => ({ amount: parseFloat(a.amount) + parseFloat(b.amount) }));
 
   return total.amount;
 }

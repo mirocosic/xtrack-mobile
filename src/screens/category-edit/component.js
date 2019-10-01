@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { View, ScrollView, TextInput, TouchableOpacity, Keyboard } from "react-native";
+import { Alert, View, TextInput, TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
 import Modalize from "react-native-modalize"
+import { get } from "lodash"
 import { Screen, Header } from "../../components"
 import CategoryIcons from "../../components/category-icons"
 import Icon from "../../components/icon"
@@ -33,6 +34,32 @@ class CategoryEdit extends Component {
     navigation.goBack()
   }
 
+  countTransactions = (catId) => {
+    const { transactions } = this.props
+    return transactions.filter(transaction => get(transaction, "category.id") === catId).length
+  }
+
+  deleteCategory = (category) => {
+    const { remove, removeTransactions, navigation } = this.props
+    if (this.countTransactions(category.id) > 0) {
+      Alert.alert(
+        "Warning!",
+        "Cannot delete category that has transactions",
+        [{
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Delete all transactions",
+          onPress: () => { removeTransactions(category); remove(category); navigation.goBack() },
+        }],
+      )
+    } else {
+      remove(category)
+      navigation.goBack()
+    }
+  }
+
   render() {
     const { navigation, add, edit, remove, setDefault, darkMode } = this.props
     const { category } = this.state
@@ -43,7 +70,7 @@ class CategoryEdit extends Component {
           title={category.name}
           backBtn
           actionBtn={<Icon type="trash-alt" />}
-          actionBtnPress={() => { remove(category); navigation.goBack() }}
+          actionBtnPress={() => this.deleteCategory(category)}
         />
 
         <View style={{ margin: 20 }}>

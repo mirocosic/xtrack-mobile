@@ -25,11 +25,7 @@ const accountBalance = (account, transactions) => {
 
 class Accounts extends Component {
 
-  state = {
-    name: "",
-    scroll: true,
-  }
-
+  state = { scroll: true }
 
   renderDeleteButton = () => (
     <View style={styles.deleteButton}>
@@ -45,10 +41,21 @@ class Accounts extends Component {
   )
 
   handleDelete = (account) => {
-    const { remove, transactions } = this.props
-    const count = transactions.filter((item) => account.id === get(item ,"account.id")).length
+    const { remove, removeTransactions, navigation, transactions } = this.props
+    const count = transactions.filter(item => account.id === get(item, "account.id")).length
     if (count > 0) {
-      Alert.alert("Warning", "Cannot delete account that contains transactions.")
+      Alert.alert(
+        "Warning!",
+        "Cannot delete account that contains transactions",
+        [{
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Delete all transactions",
+          onPress: () => { removeTransactions(account); remove(account); },
+        }],
+      )
     } else {
       remove(account)
     }
@@ -83,16 +90,15 @@ class Accounts extends Component {
                       <Icon type={account.icon} style={{ marginRight: 10 }} textStyle={{ color: account.color, fontSize: 20 }} />
                       <Copy>
                         {`${account.name} `}
-                        <Copy style={{fontSize: 12}}>{`(${formatCurrency(accountBalance(account, transactions))})`}</Copy>
+                        <Copy style={{ fontSize: 12 }}>{`(${formatCurrency(accountBalance(account, transactions))})`}</Copy>
                       </Copy>
                       {
-                        account.defaultAccount &&
-                        <Icon type="star" textStyle={{ color: "orange", fontSize: 10 }} />
+                        account.defaultAccount
+                        && <Icon type="star" textStyle={{ color: "orange", fontSize: 10 }} />
                       }
                     </View>
 
                     <TouchableOpacity onPress={() => {
-                      //selectCategory(cat)
                       navigation.navigate("AccountEdit")
                     }}>
                       <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
@@ -129,7 +135,7 @@ Accounts.propTypes = {
   //   name: PropTypes.string,
   // })),
   remove: PropTypes.func.isRequired,
-  //navigation: PropTypes.instanceOf("Navigation").isRequired,
+  // navigation: PropTypes.instanceOf("Navigation").isRequired,
 }
 
 Accounts.defaultProps = {

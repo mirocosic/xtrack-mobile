@@ -93,6 +93,20 @@ class Dashboard extends Component {
     return total.amount;
   }
 
+  handleScroll = (event) => {
+    const { width } = Dimensions.get("window")
+    console.log(event.nativeEvent.contentOffset.x)
+    if (event.nativeEvent.contentOffset.x < width * 24) {
+      this.setState({ showScrollToEnd: true, showScrollToStart: false })
+    } else if (event.nativeEvent.contentOffset.x > width * 24) {
+      this.setState({ showScrollToEnd: false, showScrollToStart: true })
+    } else {
+      this.setState({ showScrollToEnd: false, showScrollToStart: false })
+    }
+    const screenNum = Math.round(24 - (event.nativeEvent.contentOffset.x / width))
+    this.setState({ year: moment().subtract(screenNum, "month").format("YYYY") })
+  }
+
   renderExpenses(expenses) {
     return Object.entries(expenses).map((item, idx) => (
       <View key={idx} style={{ ...styles.row, paddingLeft: 20 }}>
@@ -100,19 +114,6 @@ class Dashboard extends Component {
         <Copy style={{fontSize: 14}}>{`${formatCurrency(item[1])}`}</Copy>
       </View>
     ))
-  }
-
-  handleScroll = (event) => {
-    const { width } = Dimensions.get("window")
-    if (event.nativeEvent.contentOffset.x < width * 23) {
-      this.setState({ showScrollToEnd: true })
-    } else if (event.nativeEvent.contentOffset.x > width * 23) {
-      this.setState({ showScrollToStart: true })
-    } else {
-      this.setState({ showScrollToEnd: false, showScrollToStart: false })
-    }
-    const screenNum = Math.round(23 - (event.nativeEvent.contentOffset.x / width))
-    this.setState({ year: moment().subtract(screenNum, "month").format("YYYY") })
   }
 
   renderActionBtn = () => {

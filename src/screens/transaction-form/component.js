@@ -9,7 +9,7 @@ import Modalize from "react-native-modalize"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview"
 import Collapsible from "react-native-collapsible"
 import moment from "moment"
-import { get } from "lodash"
+import { get, merge } from "lodash"
 
 import { Screen, Header, Label, CustomKeyboard } from "../../components"
 import { Copy, Title } from "../../components/typography"
@@ -34,6 +34,8 @@ class TransactionForm extends Component {
   labelsModal = React.createRef()
 
   calendarModal = React.createRef()
+
+  recurringCalendarModal = React.createRef()
 
   componentDidMount() {
     const { navigation, accounts, categories,  clearSelectedCategory, clearTransactionForm } = this.props
@@ -79,7 +81,7 @@ class TransactionForm extends Component {
   }
 
   submitForm = () => {
-    const { transfer, edit, add, navigation } = this.props
+    const { transfer, edit, add, navigation, addRecurring } = this.props
     const { transaction } = this.state
 
     if (transaction.type === "transfer") {
@@ -88,13 +90,53 @@ class TransactionForm extends Component {
       return;
     }
 
-    transaction.id ? edit(transaction) : add(transaction)
-
-    if (!transaction.id && transaction.recurring) {
-      this.props.addRecurring()
+    if (transaction.id) {
+      this.editTransaction(transaction)
+    } else {
+      add(transaction)
+      navigation.goBack()
     }
 
-    navigation.goBack()
+    if (!transaction.id && transaction.recurring) {
+      addRecurring(transaction.recurring)
+      navigation.goBack()
+    }
+  }
+
+  editTransaction = (transaction) => {
+    const { navigation, edit, editAllRecurring, editFutureRecurring } = this.props
+    if (!transaction.recurring) {
+      edit(transaction)
+      navigation.goBack()
+    } else if (Platform.OS === "ios") {
+      ActionSheetIOS.showActionSheetWithOptions(
+        {
+          options: ["Edit All", "Edit Future Transactions", "Edit Only This", "Cancel"],
+          cancelButtonIndex: 3,
+          title: "Warning!",
+          message: "This is a recurring transaction. Please choose to edit all transactions, all future transactions, or only this one.",
+        }, (btnIdx) => {
+          switch (btnIdx) {
+            case 0:
+              editAllRecurring(transaction)
+              navigation.goBack()
+              break;
+            case 1:
+              editFutureRecurring(transaction)
+              navigation.goBack()
+              break;
+            case 2:
+              edit(transaction)
+              navigation.goBack()
+              break;
+            default:
+              break;
+          }
+        }
+      )
+    } else {
+      Alert.alert("Warning!", "This is recurring transaction. Need to add Android specific code for edit.")
+    }
   }
 
   deleteTransaction = (transaction) => {
@@ -107,7 +149,7 @@ class TransactionForm extends Component {
             options: ["Delete All", "Delete Future Transactions", "Delete Only This", "Cancel"],
             cancelButtonIndex: 3,
             title: "Warning!",
-            message: "This is a recurring transaction. Please choose to delete all transactions, all future transactions,  or only this one.",
+            message: "This is a recurring transaction. Please choose to delete all transactions, all future transactions, or only this one.",
           }, (btnIdx) => {
             switch (btnIdx) {
               case 0:
@@ -216,6 +258,30 @@ class TransactionForm extends Component {
     )
   }
 
+  selectRecurringSchedule = () => {
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: ["Day", "Week", "Month", "Year", "Cancel"],
+      cancelButtonIndex: 4,
+    }, (btnIdx) => {
+      switch (btnIdx) {
+        case 0:
+          this.setState({ transaction: { ...this.state.transaction, recurring: { ...this.state.transaction.recurring, frequency: "Day" } } })
+          break;
+        case 1:
+        this.setState({ transaction: { ...this.state.transaction, recurring: { ...this.state.transaction.recurring, frequency: "Week" } } })
+          break;
+        case 2:
+        this.setState({ transaction: { ...this.state.transaction, recurring: { ...this.state.transaction.recurring, frequency: "Month" } } })
+          break;
+        case 3:
+        this.setState({ transaction: { ...this.state.transaction, recurring: { ...this.state.transaction.recurring, frequency: "Year" } } })
+          break;
+        default:
+          break;
+      }
+    })
+  }
+
   render() {
     const { transaction, modalVisible, catModalVisible, blinker } = this.state
     const { navigation, changeAccountFilter, remove, removeLabel, darkMode, changeTransactionAmount, setType, setTransferMode } = this.props
@@ -312,10 +378,8 @@ class TransactionForm extends Component {
               <TouchableOpacity
                 style={{ flexDirection: "row", alignItems: "center" }}
                 onPress={() => this.calendarModal.current.open()}>
-                <Icon type="calendar-alt" textStyle={{ color: "teal" }} style={{ marginLeft: 0 }} />
-                <Copy style={{ margin: 10 }}>
-                  {moment(transaction.timestamp).format("MMMM Do YYYY")}
-                </Copy>
+                <Icon type="calendar-alt" textStyle={{ color: "teal" }} />
+                <Copy>{moment(transaction.timestamp).format("MMM Do YYYY")}</Copy>
               </TouchableOpacity>
             </View>
 
@@ -369,12 +433,26 @@ class TransactionForm extends Component {
 
             <View style={[styles.formFieldWrap, { alignItems: "center" }]}>
               <Copy>Recurring</Copy>
-              <Switch value={transaction.recurring} onValueChange={() => this.setState({ transaction: { ...transaction, recurring: !transaction.recurring } })} />
+              <Switch value={!!transaction.recurring} onValueChange={() => this.setState({ transaction: { ...transaction, recurring: !transaction.recurring } })} />
             </View>
 
-            <Collapsible collapsed={!this.state.recurring}>
-              <View>
-                <Text>Options</Text>
+            <Collapsible collapsed={transaction.recurring === false} style={{padding: 20, paddingTop: 10}}>
+              <View style={styles.inlineBetween}>
+                <Copy>Every</Copy>
+                <TouchableOpacity onPress={() => this.selectRecurringSchedule()}>
+                  <Copy>{ (transaction.recurring && transaction.recurring.frequency) || "Month"}</Copy>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.inlineBetween}>
+                <Copy>End Date</Copy>
+                <TouchableOpacity
+                  style={{ flexDirection: "row", alignItems: "center" }}
+                  onPress={() => this.recurringCalendarModal.current.open()}>
+                  <Icon type="calendar-alt" textStyle={{ color: "teal" }} style={{ marginLeft: 0 }} />
+                  <Copy style={{ margin: 0 }}>
+                    { transaction.recurring && moment(transaction.recurring.endTimestamp).format("MMM Do YYYY")}
+                  </Copy>
+                </TouchableOpacity>
               </View>
             </Collapsible>
 
@@ -477,6 +555,24 @@ class TransactionForm extends Component {
                 onDayPress={(day) => {
                   this.setState({ transaction: { ...transaction, ...{ timestamp: day.timestamp } } })
                   this.calendarModal.current.close()
+                }}
+              />
+
+            </View>
+          </Modalize>
+
+          <Modalize
+            modalHeight={400}
+            scrollViewProps={{ scrollEnabled: false }}
+            HeaderComponent={<View style={{backgroundColor: "white", height: 20, borderTopRightRadius: 10, borderTopLeftRadius: 10}}></View>}
+            ref={this.recurringCalendarModal}>
+            <View style={{ height: 500, width: "100%", padding: 10, backgroundColor: "white", borderRadius: 10 }}>
+
+              <Calendar
+                theme={{ todayTextColor: "teal" }}
+                onDayPress={(day) => {
+                  this.setState({ transaction: { ...transaction, recurring: { ...transaction.recurring, endTimestamp: day.timestamp } } })
+                  this.recurringCalendarModal.current.close()
                 }}
               />
 

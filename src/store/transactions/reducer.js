@@ -7,16 +7,17 @@ const transactions = (state = initialState, action) => {
 
   const transaction = action.transaction || {}
   const { timestamp, account, fromAccount, amount, type, note, category, labels, recurring, parentTransactionId } = transaction
-
+  const newId = makeId(state.entries)
   switch (action.type) {
 
     case "ADD_TRANSACTION":
+
       return {
         ...state,
         entries: [
           ...state.entries,
           {
-            id: makeId(state.entries),
+            id: newId,
             timestamp,
             account,
             fromAccount,
@@ -26,7 +27,7 @@ const transactions = (state = initialState, action) => {
             category,
             labels,
             recurring,
-            parentTransactionId,
+            parentTransactionId: parentTransactionId || newId,
           },
         ],
       }
@@ -39,17 +40,32 @@ const transactions = (state = initialState, action) => {
           if (item.id !== action.transaction.id) return item;
 
           return {
-            id: item.id,
-            timestamp,
-            account,
-            type,
-            amount,
-            note,
-            category,
-            labels,
+            ...action.transaction,
+            timestamp: item.timestamp,
           }
         }),
       }
+
+    case "EDIT_ALL_RECURRING_TRANSACTIONS":
+      return {
+        ...state,
+        entries: state.entries.map((item) => {
+          if (item.parentTransactionId !== action.transaction.parentTransactionId) { return item }
+
+          return action.transaction
+        }),
+      }
+
+      // TODO: vidjeti da li je ovo potrebno
+      // case "EDIT_FUTURE_RECURRING_TRANSACTIONS":
+      //   return {
+      //     ...state,
+      //     entries: state.entries.map((item) => {
+      //       if (item.parentTransactionId !== action.transaction.parentTransactionId) { return item }
+      //
+      //       return action.transaction
+      //     }),
+      //   }
 
     case "SELECT_TRANSACTION":
       return {
@@ -232,6 +248,12 @@ const transactions = (state = initialState, action) => {
       return {
         ...state,
         entries: state.entries.filter(item => item.category.id !== action.category.id),
+      }
+
+    case "REMOVE_ACCOUNT_TRANSACTIONS":
+      return {
+        ...state,
+        entries: state.entries.filter(item => item.account.id !== action.account.id),
       }
 
     default:

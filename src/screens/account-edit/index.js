@@ -13,6 +13,7 @@ export default connect(
     add: account => dispatch({ type: "ADD_ACCOUNT", account }),
     edit: account => dispatch({ type: "EDIT_ACCOUNT", account }),
     remove: account => dispatch({ type: "REMOVE_ACCOUNT", account }),
+    removeTransactions: account => dispatch({ type: "REMOVE_ACCOUNT_TRANSACTIONS", account }),
     setDefault: account => dispatch({ type: "SET_DEFAULT_ACCOUNT", account }),
   }),
 )(Component);
