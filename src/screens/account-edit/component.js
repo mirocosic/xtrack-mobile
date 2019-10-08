@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Alert, View, TextInput, TouchableOpacity, Keyboard } from "react-native";
+import { Alert, ScrollView, View, TextInput, TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
 import Modalize from "react-native-modalize"
 import { get } from "lodash"
@@ -15,9 +15,9 @@ class AccountEdit extends Component {
 
   state = {
     account: {
-      color: "",
+      color: "#0097A7",
       name: "",
-      icon: "",
+      icon: "creditCard",
       defaultAccount: false,
       startingBalance: "0",
     },
@@ -78,7 +78,7 @@ class AccountEdit extends Component {
           actionBtnPress={() => this.handleDelete(account)}
         />
 
-        <View style={{ padding: 20 }}>
+        <ScrollView style={{ padding: 20 }}>
           <View style={styles.inputContainer}>
 
             <Copy>Name</Copy>
@@ -140,7 +140,7 @@ class AccountEdit extends Component {
           </TouchableOpacity>
 
 
-        </View>
+        </ScrollView>
 
         <Modalize
           modalHeight={300}
@@ -148,7 +148,10 @@ class AccountEdit extends Component {
           <View style={{ padding: 20 }}>
             <CategoryIcons
               selected={account.icon || "car"}
-              select={value => this.setState({ account: { ...account, icon: value } })}
+              select={(value) => {
+                this.setState({ account: { ...account, icon: value } })
+                this.iconsModal.current.close()
+              }}
             />
           </View>
         </Modalize>
@@ -162,12 +165,10 @@ class AccountEdit extends Component {
               <TouchableOpacity
                 key={color}
                 style={[styles.colorBox, account.color === color && styles.selectedColor, { backgroundColor: color }]}
-                onPress={() => this.setState({
-                  account: {
-                    ...account,
-                    ...{ color },
-                  },
-                })}
+                onPress={() => {
+                  this.setState({ account: { ...account, ...{ color } } })
+                  this.colorModal.current.close()
+                }}
               />
             ))}
           </View>
