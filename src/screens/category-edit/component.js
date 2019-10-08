@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Alert, View, TextInput, TouchableOpacity } from "react-native";
+import { Alert, ScrollView, View, TextInput, TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
 import Modalize from "react-native-modalize"
 import { get } from "lodash"
@@ -11,10 +11,12 @@ import styles from "./styles"
 
 const colors = ["#FF5722", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
 
+const defaultCategory = { icon: "shoppingBasket", color: "#0097A7" }
+
 class CategoryEdit extends Component {
 
   state = {
-    category: this.props.categories.filter(item => this.props.navigation.state.params.id === item.id)[0] || {}
+    category: this.props.categories.filter(item => this.props.navigation.state.params.id === item.id)[0] || defaultCategory
   }
 
   input = React.createRef()
@@ -73,7 +75,7 @@ class CategoryEdit extends Component {
           actionBtnPress={() => this.deleteCategory(category)}
         />
 
-        <View style={{ margin: 20 }}>
+        <ScrollView style={{ margin: 20 }}>
 
           <View style={styles.inputContainer}>
             <Copy>Name</Copy>
@@ -119,7 +121,7 @@ class CategoryEdit extends Component {
             <Copy style={{ color: "white" }}>Save</Copy>
           </TouchableOpacity>
 
-        </View>
+        </ScrollView>
 
         <Modalize
           modalHeight={200}
@@ -130,12 +132,10 @@ class CategoryEdit extends Component {
               <TouchableOpacity
                 key={color}
                 style={[styles.colorBox, category.color === color && styles.selectedColor, { backgroundColor: color }]}
-                onPress={() => this.setState({
-                  category: {
-                    ...category,
-                    ...{ color },
-                  },
-                })}
+                onPress={() => {
+                  this.setState({ category: { ...category, ...{ color } } })
+                  this.colorModal.current.close()
+                }}
               />
             ))}
           </View>
@@ -147,7 +147,10 @@ class CategoryEdit extends Component {
           <View style={{ padding: 20 }}>
             <CategoryIcons
               selected={category.icon || "car"}
-              select={value => this.setState({ category: { ...category, icon: value } })}
+              select={(value) => {
+                this.setState({ category: { ...category, icon: value } })
+                this.iconsModal.current.close()
+              }}
             />
           </View>
         </Modalize>
