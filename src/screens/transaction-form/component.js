@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {
-  Text, View, TextInput, Animated, TouchableOpacity, TouchableWithoutFeedback,
+  Text, View, ScrollView, TextInput, Animated, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback,
   Keyboard, Dimensions, Switch, Platform, ActionSheetIOS,
 } from "react-native";
 import { Calendar } from "react-native-calendars"
@@ -298,7 +298,7 @@ class TransactionForm extends Component {
             actionBtnPress={() => this.deleteTransaction(transaction)}
           />
 
-          <KeyboardAwareScrollView contentContainerStyle={styles.wrap}>
+          <ScrollView contentContainerStyle={styles.wrap}>
 
             <View style={styles.formFieldWrap}>
               <TouchableOpacity
@@ -351,7 +351,7 @@ class TransactionForm extends Component {
                   </Animated.View>
 
                   <Copy
-                    style={{ color: "gray", borderRadius: 20, zIndex: 100, fontSize: 20 }}>
+                    style={{ color: "teal", borderRadius: 20, zIndex: 100, fontSize: 30 }}>
                     {transaction.type === "expense" && "-" }
                     {transaction.type === "income" && "+" }
                     {formatCurrency(transaction.amount)}
@@ -365,7 +365,7 @@ class TransactionForm extends Component {
                   onChangeText={value => changeTransactionAmount(value)}
                   onBlur={() => Keyboard.dismiss()}
                   value={transaction.amount.toString()}
-                  style={{ backgroundColor: "white", width: 0, height: 0, fontSize: 20 }}
+                  style={{ backgroundColor: "white", width: 0, height: 0, fontSize: 50 }}
                   keyboardAppearance={darkMode ? "dark" : "light"}
                   keyboardType="numeric"
                   returnKeyType="done"
@@ -374,22 +374,23 @@ class TransactionForm extends Component {
             </View>
 
             <View style={styles.formFieldWrap}>
-              <Copy>Date</Copy>
               <TouchableOpacity
                 style={{ flexDirection: "row", alignItems: "center" }}
                 onPress={() => this.calendarModal.current.open()}>
-                <Icon type="calendar-alt" textStyle={{ color: "teal" }} />
+                <Icon type="calendar-alt" style={{paddingLeft: 0, width: 20}} textStyle={{ color: "teal", marginLeft: 0, paddingLeft: 0, width: 20 }} />
                 <Copy>{moment(transaction.timestamp).format("MMM Do YYYY")}</Copy>
               </TouchableOpacity>
-            </View>
 
-            <View style={styles.formFieldWrap}>
-              <Copy>Category</Copy>
               <TouchableOpacity
                 style={[styles.selectBox, darkMode && styles.selectBoxDark]}
                 onPress={() => this.catModal.current.open()}>
                 {this.renderCategory(get(transaction, "category.id"))}
               </TouchableOpacity>
+
+            </View>
+
+            <View style={styles.formFieldWrap}>
+
             </View>
 
             { transaction.type === "transfer" && (
@@ -421,12 +422,11 @@ class TransactionForm extends Component {
             </View>
 
             <View style={[styles.formFieldWrap, { alignItems: "center" }]}>
-              <Copy>Note</Copy>
               <TextInput
                 onChangeText={value => this.setState({ transaction: { ...transaction, note: value } })}
                 value={transaction.note}
                 placeholder="enter note..."
-                style={[styles.textInput, darkMode && styles.textInputDark, { marginLeft: 30, padding: 10, height: 40, width: "100%" }]}
+                style={[styles.textInput, darkMode && styles.textInputDark, { marginLeft: 0, padding: 10, height: 40, width: "100%" }]}
                 keyboardAppearance={darkMode ? "dark" : "light"}
               />
             </View>
@@ -471,7 +471,7 @@ class TransactionForm extends Component {
               </View>
             </View>
 
-          </KeyboardAwareScrollView>
+          </ScrollView>
 
           <CustomKeyboard
             handlePress={value => changeTransactionAmount(transaction.amount + value)}

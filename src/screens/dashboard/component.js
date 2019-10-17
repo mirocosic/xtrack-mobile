@@ -178,7 +178,7 @@ class Dashboard extends Component {
 
                 <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
                   <Copy>Income: </Copy>
-                  <Copy>{formatCurrency(income)}</Copy>
+                  <Copy style={{fontSize: 18, color: "green"}}>{formatCurrency(income)}</Copy>
                 </View>
 
                 {this.renderExpenses(sortedIncome)}
@@ -186,14 +186,14 @@ class Dashboard extends Component {
 
                 <View style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}>
                   <Copy>Expenses: </Copy>
-                  <Copy>{formatCurrency(expenses)}</Copy>
+                  <Copy style={{fontSize: 18, color: "red"}}>{formatCurrency(expenses)}</Copy>
                 </View>
 
                 {this.renderExpenses(sortedExpenses)}
 
                 <View style={[styles.inlineBetween, { marginTop: 30, paddingTop: 10, borderTopWidth: 1 }]}>
                   <Copy>Balance: </Copy>
-                  <Copy>{formatCurrency(income - expenses)}</Copy>
+                  <Copy style={{fontSize: 18, color: "blue"}}>{formatCurrency(income - expenses)}</Copy>
                 </View>
 
               </ScrollView>
@@ -215,23 +215,23 @@ class Dashboard extends Component {
                 </Title>
 
                 <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
-                  <Copy>Income: </Copy>
-                  <Copy>{formatCurrency(income)}</Copy>
+                  <Copy style={{fontSize: 18}}>Income: </Copy>
+                  <Copy style={{fontSize: 18, color: "green"}}>{formatCurrency(income)}</Copy>
                 </View>
 
                 {this.renderExpenses(sortedIncome)}
 
 
                 <View style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}>
-                  <Copy>Expenses: </Copy>
-                  <Copy>{formatCurrency(expenses)}</Copy>
+                  <Copy style={{fontSize: 18}}>Expenses: </Copy>
+                  <Copy style={{fontSize: 18, color: "red"}}>{formatCurrency(expenses)}</Copy>
                 </View>
 
                 {this.renderExpenses(sortedExpenses)}
 
                 <View style={[styles.inlineBetween, { marginTop: 30, paddingTop: 10, borderTopWidth: 1 }]}>
-                  <Copy>Balance: </Copy>
-                  <Copy>{formatCurrency(income - expenses)}</Copy>
+                  <Copy style={{fontSize: 18}}>Balance: </Copy>
+                  <Copy style={{fontSize: 18, color: "blue"}}>{formatCurrency(income - expenses)}</Copy>
                 </View>
 
               </ScrollView>
