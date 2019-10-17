@@ -1,13 +1,14 @@
 import React, { Component } from "react"
 import { View, Text, TouchableOpacity, TouchableHighlight } from "react-native"
-
+import Digit from "../digit"
 import styles from "./styles"
 
 export default class CustomKeyboard extends Component {
 
   state = {
     calculationMode: false,
-    input: ""
+    input: "",
+    pressed: false,
   }
 
   handlePress = (digit) => {
@@ -53,39 +54,23 @@ export default class CustomKeyboard extends Component {
         <View style={{ flexDirection: "row" }}>
           <View style={{ flex: 1 }}>
             <View style={styles.row}>
-              <TouchableOpacity style={styles.digit} onPress={() => this.handlePress("1")}>
-                <Text style={styles.copy}>1</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.digit} onPress={() => this.handlePress("2")}>
-                <Text style={styles.copy}>2</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.digit} onPress={() => this.handlePress("3")}>
-                <Text style={styles.copy}>3</Text>
-              </TouchableOpacity>
+
+              <Digit digit="1" handlePress={() => this.handlePress("1")} />
+              <Digit digit="2" handlePress={() => this.handlePress("2")} />
+              <Digit digit="3" handlePress={() => this.handlePress("3")} />
+
             </View>
 
             <View style={styles.row}>
-              <TouchableOpacity style={styles.digit} onPress={() => this.handlePress("4")}>
-                <Text style={styles.copy}>4</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.digit} onPress={() => this.handlePress("5")}>
-                <Text style={styles.copy}>5</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.digit} onPress={() => this.handlePress("6")}>
-                <Text style={styles.copy}>6</Text>
-              </TouchableOpacity>
+              <Digit digit="4" handlePress={() => this.handlePress("4")} />
+              <Digit digit="5" handlePress={() => this.handlePress("5")} />
+              <Digit digit="6" handlePress={() => this.handlePress("6")} />
             </View>
 
             <View style={styles.row}>
-              <TouchableOpacity style={styles.digit} onPress={() => this.handlePress("7")}>
-                <Text style={styles.copy}>7</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.digit} onPress={() => this.handlePress("8")}>
-                <Text style={styles.copy}>8</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.digit} onPress={() => this.handlePress("9")}>
-                <Text style={styles.copy}>9</Text>
-              </TouchableOpacity>
+              <Digit digit="7" handlePress={() => this.handlePress("7")} />
+              <Digit digit="8" handlePress={() => this.handlePress("8")} />
+              <Digit digit="9" handlePress={() => this.handlePress("9")} />
             </View>
 
             <View style={styles.row}>
