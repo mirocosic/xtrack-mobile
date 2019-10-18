@@ -48,7 +48,7 @@ class Dashboard extends Component {
   componentDidMount() {
     const { width } = Dimensions.get("window")
     this.props.openOnForm && this.props.navigation.navigate("TransactionForm")
-    setTimeout(() => this.scrollView.scrollTo({ x: width * 23, y: 0, animated: false }), 100)
+    setTimeout(() => this.scrollView.scrollTo({ x: width * 24, y: 0, animated: false }), 100)
   }
 
 
@@ -95,7 +95,6 @@ class Dashboard extends Component {
 
   handleScroll = (event) => {
     const { width } = Dimensions.get("window")
-    console.log(event.nativeEvent.contentOffset.x)
     if (event.nativeEvent.contentOffset.x < width * 24) {
       this.setState({ showScrollToEnd: true, showScrollToStart: false })
     } else if (event.nativeEvent.contentOffset.x > width * 24) {
