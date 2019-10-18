@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Animated, View, ScrollView, TouchableOpacity } from "react-native"
+import { Animated, View, ScrollView, TouchableOpacity, TextInput } from "react-native"
 import PropTypes from "prop-types"
 import { withNavigation } from "react-navigation"
 import { get } from "lodash"
@@ -22,6 +22,10 @@ class Transactions extends Component {
     scrollEnabled: true,
   }
 
+  componentDidMount(){
+    setTimeout(() => this.scrollView.scrollTo({ x: 0, y: 60, animated: false }), 100)
+  }
+
   render() {
     const { height, scrollEnabled } = this.state
     const {
@@ -32,8 +36,8 @@ class Transactions extends Component {
     const filtersApplied = accountFilter || categoryFilter || appliedLabelsFilter.length || false;
 
     const headerHeight = height.interpolate({
-      inputRange: [-100, 0],
-      outputRange: [200, 100],
+      inputRange: [-100, 0, 50],
+      outputRange: [200, 100, 50],
     });
 
     const headerScale = height.interpolate({
@@ -45,7 +49,7 @@ class Transactions extends Component {
       <Screen>
         <View style={{ position: "absolute", alignItems: "center", justifyContent: "center", zIndex: 1000, width: "100%", flex: 1 }}>
           <Header title="Transactions" style={{ flex: 1, width: "100%", alignItems: "center", justifyContent: "center" }}>
-            <TouchableOpacity onPress={() => openDrawer()} style={{ position: "absolute", right: 10, top: 40 }}>
+            <TouchableOpacity onPress={() => openDrawer()} style={{ position: "absolute", right: 10, top: 30 }}>
               <Icon type="filter" style={{ backgroundColor: "transparent" }} textStyle={{ color: filtersApplied ? "blue" : "white" }} />
             </TouchableOpacity>
           </Header>
@@ -56,7 +60,7 @@ class Transactions extends Component {
           backgroundColor: "teal",
           overflow: "hidden",
           transform: [{ scale: headerScale }],
-          height: 90,
+          height: 80,
         }}>
 
         </Animated.View>
@@ -71,10 +75,21 @@ class Transactions extends Component {
         }
 
         <ScrollView
+          ref={ref => this.scrollView = ref}
           scrollEnabled={scrollEnabled}
           scrollEventThrottle={16}
           onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: height } } }])}>
-          <View>
+          <View >
+            <View style={{height: 60, justifyContent: "center", alignItems: "center", flexDirection: "row", backgroundColor: "white", borderBottomWidth: 1, borderColor: "gray"}}>
+              <View style={{backgroundColor: "#e6e6e6", flexDirection: "row", flex: 1, margin: 20, borderRadius: 10}}>
+                <Icon type="search" style={{ backgroundColor: "transparent" }} textStyle={{ color: "teal" }} />
+                <TextInput
+                  style={{backgroundColor: "#e6e6e6", paddingTop: 10, paddingBottom: 10, paddingRight: 20, paddingLeft: 20}}
+                  placeholder="search by note, category,..."
+                />
+              </View>
+
+            </View>
             {entries
               .filter((item) => {
                 if (!accountFilter) { return true }
