@@ -51,8 +51,8 @@ class Overview extends Component {
     accounts.forEach((acc) => {
       const income = parseFloat(calculateIncome(transactions, { type: "account", value: acc }))
       const expenses = parseFloat(calculateExpenses(transactions, { type: "account", value: acc }))
-
-      netWorth = netWorth + income - expenses
+      const startingBalance = acc.startingBalance ? parseFloat(acc.startingBalance) : 0
+      netWorth = netWorth + startingBalance + income - expenses
     })
 
     return netWorth
