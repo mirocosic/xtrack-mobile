@@ -20,20 +20,19 @@ class AccountEdit extends Component {
       icon: "creditCard",
       defaultAccount: false,
       startingBalance: "0",
+      currency: "HRK",
     },
   }
 
   input = React.createRef()
-
   iconsModal = React.createRef()
-
   colorModal = React.createRef()
+  currencyModal = React.createRef()
 
   componentDidMount() {
     if (this.props.navigation.state.params) {
       this.setState({ account: this.props.accounts.filter(item => this.props.navigation.state.params.id === item.id)[0] })
     }
-    //this.input.current.focus()
   }
 
   handleSave = (account) => {
@@ -118,7 +117,7 @@ class AccountEdit extends Component {
             </TouchableOpacity>
           </View>
 
-          <View style={styles.inputContainer}>
+          <View style={[styles.inputContainer, {marginTop: 10, marginBottom: 10}]}>
             <Copy>Starting Balance</Copy>
             <TextInput
               style={{ fontSize: 20, borderBottomWidth: 1, width: 50 }}
@@ -129,8 +128,14 @@ class AccountEdit extends Component {
                   ...{ startingBalance: text }
                 }})}
               value={account.startingBalance}
-              />
+            />
+          </View>
 
+          <View style={[styles.inlineBetween, { margin: 10 }]}>
+            <Copy>Currency</Copy>
+            <TouchableOpacity onPress={() => this.currencyModal.current.open() }>
+              <Copy style={{ color: "blue" }}>{account.currency || "HRK"}</Copy>
+            </TouchableOpacity>
           </View>
 
           <TouchableOpacity
@@ -138,7 +143,6 @@ class AccountEdit extends Component {
             onPress={() => this.handleSave(account)}>
             <Copy style={{ color: "white" }}>Save</Copy>
           </TouchableOpacity>
-
 
         </ScrollView>
 
@@ -171,6 +175,30 @@ class AccountEdit extends Component {
                 }}
               />
             ))}
+          </View>
+        </Modalize>
+
+        <Modalize
+          modalHeight={300}
+          ref={this.currencyModal}>
+          <View style={{ padding: 20 }}>
+            <TouchableOpacity
+              style={{margin: 20}}
+              onPress={() => {
+                this.setState({ account: { ...account, currency: "HRK"} })
+                this.currencyModal.current.close()}}>
+              <Copy style={{fontSize: 20}}>HRK - Croatian Kuna</Copy>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={{margin: 20}}
+              onPress={() => {
+                this.setState({ account: { ...account, currency: "EUR"} })
+                this.currencyModal.current.close()}}
+            >
+              <Copy style={{fontSize: 20}}>EUR - European Euro</Copy>
+            </TouchableOpacity>
+
           </View>
         </Modalize>
 
