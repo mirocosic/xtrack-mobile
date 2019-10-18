@@ -73,8 +73,8 @@ class Overview extends Component {
 
       <Screen>
         <Header title="Overview" />
-        <ScrollView style={{ padding: 20 }}>
-          <Title>Net worth: {formatCurrency(this.calculateNetWorth())}</Title>
+        <ScrollView style={{ padding: 20 }} contentContainerStyle={{paddingBottom: 40}}>
+          <Title>Net worth: <Copy style={{fontWeight: "bold", fontSize: 20}}>{formatCurrency(this.calculateNetWorth())}</Copy></Title>
 
           { accounts.map((acc) => {
             const income = parseFloat(calculateIncome(transactions, { type: "account", value: acc }))
@@ -104,7 +104,7 @@ class Overview extends Component {
 
                   <View style={[styles.inline,{justifyContent: "space-between", paddingLeft: 20, paddingRight: 20}]}>
                     <Copy>Balance: </Copy>
-                    <Copy>{ formatCurrency(startingBalance + income - expenses)}</Copy>
+                    <Copy style={{color: "blue"}}>{ formatCurrency(startingBalance + income - expenses)}</Copy>
                   </View>
                 </View>
 
