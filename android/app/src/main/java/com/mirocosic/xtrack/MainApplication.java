@@ -1,6 +1,8 @@
 package com.mirocosic.xtrack;
 
 import android.app.Application;
+
+import com.facebook.react.PackageList;
 import com.facebook.react.BuildConfig;
 import com.facebook.react.ReactApplication;
 import com.rnfs.RNFSPackage;
@@ -24,12 +26,18 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new RNFSPackage(),
-            new RNGestureHandlerPackage(),
-          new AsyncStoragePackage()
-      );
+      @SuppressWarnings("UnnecessaryLocalVariable")
+       List<ReactPackage> packages = new PackageList(this).getPackages();
+       // Packages that cannot be autolinked yet can be added manually here, for example:
+       // packages.add(new MyReactNativePackage());
+       return packages;
+
+      //return Arrays.<ReactPackage>asList(
+      //    new MainReactPackage(),
+      //      new RNFSPackage(),
+      //      new RNGestureHandlerPackage(),
+      //    new AsyncStoragePackage()
+      //);
     }
 
     @Override
