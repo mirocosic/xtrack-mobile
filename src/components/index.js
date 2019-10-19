@@ -4,6 +4,7 @@ import Footer from "./footer"
 import Label from "./label"
 import { PrimaryButton, SecondaryButton } from "./buttons"
 import CustomKeyboard from "./custom-keyboard"
+import TransactionType from "./transaction-type"
 
 export {
   Screen,
@@ -13,4 +14,5 @@ export {
   PrimaryButton,
   SecondaryButton,
   CustomKeyboard,
+  TransactionType,
 }

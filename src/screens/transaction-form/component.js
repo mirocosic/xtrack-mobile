@@ -11,7 +11,7 @@ import Collapsible from "react-native-collapsible"
 import moment from "moment"
 import { get, merge } from "lodash"
 
-import { Screen, Header, Label, CustomKeyboard } from "../../components"
+import { Screen, Header, Label, CustomKeyboard, TransactionType } from "../../components"
 import { Copy, Title } from "../../components/typography"
 import Icon from "../../components/icon"
 import { formatCurrency } from "../../utils/currency"
@@ -300,38 +300,7 @@ class TransactionForm extends Component {
 
           <ScrollView contentContainerStyle={styles.wrap}>
 
-            <View style={styles.formFieldWrap}>
-              <TouchableOpacity
-                onPress={() => {
-                  // setTransferMode(type === "transfer")
-                  setType("expense")
-                }}
-                style={[styles.transactionTypeButton, transaction.type === "expense" && { backgroundColor: "red" }]}>
-                <View style={styles.typeWrap}>
-                  <Copy style={{ color: transaction.type === "expense" ? "white" : "black"}}>EXPENSE</Copy>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  // setTransferMode(type === "transfer")
-                  setType("income")
-                }}
-                style={[styles.transactionTypeButton,transaction.type === "income" && { backgroundColor: "green" }]}>
-                <View style={styles.typeWrap}>
-                  <Copy style={{ color: transaction.type === "income" ? "white" : "black" }}>INCOME</Copy>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  // setTransferMode(type === "transfer")
-                  setType("transfer")
-                }}
-                style={[styles.transactionTypeButton,transaction.type === "transfer" && { backgroundColor: "blue" }]}>
-                <View style={styles.typeWrap}>
-                  <Copy style={{color: transaction.type === "transfer" ? "white" : "black" }}>TRANSFER</Copy>
-                </View>
-              </TouchableOpacity>
-            </View>
+            <TransactionType setType={setType} transaction={transaction} />
 
             <View style={styles.formFieldWrap}>
               <Copy>Amount</Copy>
