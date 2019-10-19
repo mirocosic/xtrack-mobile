@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.4.0",
@@ -12,8 +13,8 @@
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
-    "react": "16.8.3",
-    "react-native": "0.59.10",
+    "react": "16.8.6",
+    "react-native": "0.60.0",
     "react-native-animate-number": "^0.1.2",
     "react-native-calendars": "^1.21.0",
     "react-native-collapsible": "^1.5.1",
@@ -25,7 +26,6 @@
     "react-native-iphone-x-helper": "^1.2.1",
     "react-native-keyboard-aware-scrollview": "^2.0.0",
     "react-native-masked-text": "^1.9.2",
-    "react-native-material-kit": "^0.5.1",
     "react-native-modal": "^11.0.1",
     "react-native-modalize": "^1.2.1",
     "react-native-sentry": "^0.42.0",
@@ -37,18 +37,19 @@
     "redux-saga": "^1.0.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/runtime": "^7.4.5",
+    "@babel/core": "^7.5.5",
+    "@babel/runtime": "^7.5.5",
+    "@react-native-community/eslint-config": "^0.0.5",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.8.0",
-    "eslint": "^5.9.0",
+    "eslint": "^6.1.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
     "jest": "^24.8.0",
-    "metro-react-native-babel-preset": "^0.54.1",
-    "react-test-renderer": "16.8.3"
+    "metro-react-native-babel-preset": "^0.55.0",
+    "react-test-renderer": "16.8.6"
   },
   "jest": {
     "preset": "react-native"

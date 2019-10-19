@@ -44,30 +44,33 @@ class TransactionType extends Component {
     })
 
     return (
-      <View style={styles.formFieldWrap}>
-        <Animated.View style={[styles.slider, { left: this.state.xOffset, backgroundColor: color, width: width }]} />
-        <TouchableOpacity
-          onPress={() => { setType("expense"); this.onClick("expense") }}
-          style={[styles.transactionTypeButton]}>
-          <View style={styles.typeWrap}>
-            <Copy style={{ color: transaction.type === "expense" ? "white" : "white" }}>EXPENSE</Copy>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => { setType("income"); this.onClick("income") }}
-          style={[styles.transactionTypeButton]}>
-          <View style={styles.typeWrap}>
-            <Copy style={{ color: transaction.type === "income" ? "white" : "white" }}>INCOME</Copy>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => { setType("transfer"); this.onClick("transfer") }}
-          style={[styles.transactionTypeButton]}>
-          <View style={styles.typeWrap}>
-            <Copy style={{ color: transaction.type === "transfer" ? "white" : "white" }}>TRANSFER</Copy>
-          </View>
-        </TouchableOpacity>
+      <View style={{alignItems: "center"}}>
+        <View style={styles.formFieldWrap}>
+          <Animated.View style={[styles.slider, { left: this.state.xOffset, backgroundColor: color, width: width }]} />
+          <TouchableOpacity
+            onPress={() => { setType("expense"); this.onClick("expense") }}
+            style={[styles.transactionTypeButton]}>
+            <View style={styles.typeWrap}>
+              <Copy style={{ color: transaction.type === "expense" ? "white" : "white" }}>EXPENSE</Copy>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => { setType("income"); this.onClick("income") }}
+            style={[styles.transactionTypeButton]}>
+            <View style={styles.typeWrap}>
+              <Copy style={{ color: transaction.type === "income" ? "white" : "white" }}>INCOME</Copy>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => { setType("transfer"); this.onClick("transfer") }}
+            style={[styles.transactionTypeButton]}>
+            <View style={styles.typeWrap}>
+              <Copy style={{ color: transaction.type === "transfer" ? "white" : "white" }}>TRANSFER</Copy>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
+
     )}
 }
 
