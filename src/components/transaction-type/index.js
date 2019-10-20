@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Animated, Easing, View, TouchableOpacity } from "react-native"
 import { FlingGestureHandler, Directions, State } from "react-native-gesture-handler"
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
 import { Copy } from "../typography"
 import styles from "./styles"
 
@@ -56,7 +57,7 @@ class TransactionType extends Component {
     })
 
     return (
-      <View style={{ alignItems: "center", height: 100, padding: 10 }}>
+      <View style={{ alignItems: "center", padding: 10 }}>
         <FlingGestureHandler
           direction={Directions.RIGHT}
           onHandlerStateChange={({ nativeEvent }) => {
@@ -68,6 +69,10 @@ class TransactionType extends Component {
               if (currentType === "income") {
                 this.onClick("transfer")
               }
+            }
+
+            if (nativeEvent.state === State.END) {
+              ReactNativeHapticFeedback.trigger("impactLight")
             }
           }}>
 
@@ -83,6 +88,8 @@ class TransactionType extends Component {
                   this.onClick("expense")
                 }
               }
+
+              ReactNativeHapticFeedback.trigger("impactLight");
 
             }}>
             <Animated.View style={styles.formFieldWrap}>
