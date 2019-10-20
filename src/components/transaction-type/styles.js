@@ -20,6 +20,8 @@ export default StyleSheet.create({
     textAlign: "center",
     alignItems: "center",
     width: 80,
+    paddingTop: 5,
+    paddingBottom: 10,
   },
 
   slider: {
