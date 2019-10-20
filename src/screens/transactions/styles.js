@@ -19,4 +19,31 @@ export default StyleSheet.create({
     padding: 0,
   },
 
+  searchWrap: {
+    height: 60,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    backgroundColor: "white",
+    borderBottomWidth: 1,
+    borderColor: "gray",
+  },
+
+  searchInnerWrap: {
+    backgroundColor: "#e6e6e6",
+    flexDirection: "row",
+    flex: 1,
+    margin: 20,
+    marginTop: 30,
+    borderRadius: 10,
+  },
+
+  searchText: {
+    backgroundColor: "#e6e6e6",
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingRight: 20,
+    paddingLeft: 20,
+  },
+
 })
