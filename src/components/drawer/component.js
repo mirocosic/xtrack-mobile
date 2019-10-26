@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, TouchableOpacity } from "react-native"
+import { View, ScrollView, TouchableOpacity } from "react-native"
 import RNDrawer from "react-native-drawer"
 import { PrimaryButton } from "../buttons"
 import Icon from "../icon"
@@ -28,7 +28,7 @@ export default class Drawer extends Component {
         openDrawerOffset={100}
         content={
           (
-            <View style={styles.content}>
+            <ScrollView style={styles.content} contentContainerStyle={{paddingBottom: 40}}>
               <View style={styles.contentHeader}>
                 <Title>Filters</Title>
                 <TouchableOpacity onPress={() => closeDrawer()}>
@@ -113,7 +113,7 @@ export default class Drawer extends Component {
                 />
 
               </View>
-            </View>
+            </ScrollView>
         )
         }
         type="overlay"
