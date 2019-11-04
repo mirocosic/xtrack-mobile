@@ -42,13 +42,14 @@ class Dashboard extends Component {
     showScrollToEnd: false,
     showScrollToStart: false,
     year: moment().format("YYYY"),
+    month: ""
   }
 
 
   componentDidMount() {
     const { width } = Dimensions.get("window")
     this.props.openOnForm && this.props.navigation.navigate("TransactionForm", { clearForm: true })
-    setTimeout(() => this.scrollView.scrollTo({ x: width * 24, y: 0, animated: false }), 100)
+    setTimeout(() => this.scrollView.scrollTo({ x: width * 23, y: 0, animated: false }), 100)
   }
 
 
@@ -95,15 +96,17 @@ class Dashboard extends Component {
 
   handleScroll = (event) => {
     const { width } = Dimensions.get("window")
-    if (event.nativeEvent.contentOffset.x < width * 24) {
+    if (event.nativeEvent.contentOffset.x < width * 23) {
       this.setState({ showScrollToEnd: true, showScrollToStart: false })
-    } else if (event.nativeEvent.contentOffset.x > width * 24) {
+    } else if (event.nativeEvent.contentOffset.x > width * 23) {
       this.setState({ showScrollToEnd: false, showScrollToStart: true })
     } else {
       this.setState({ showScrollToEnd: false, showScrollToStart: false })
     }
-    const screenNum = Math.round(24 - (event.nativeEvent.contentOffset.x / width))
-    this.setState({ year: moment().subtract(screenNum, "month").format("YYYY") })
+    const screenNum = Math.round(23 - (event.nativeEvent.contentOffset.x / width))
+    this.setState({ year: moment().subtract(screenNum, "month").format("YYYY"),
+                    title: moment().subtract(screenNum, "month").format("MMMM") })
+
   }
 
   renderExpenses(expenses) {
@@ -144,13 +147,13 @@ class Dashboard extends Component {
     } = this.props
 
     const { width } = Dimensions.get("window")
-    const currentMonth = moment(this.props.currentMonth)
+    const currentMonth = moment()
     currentMonth.subtract(24, "month")
 
     return (
       <Screen>
         <Header
-          title={this.state.year}
+          title={this.state.title}
           actionBtn={this.renderActionBtn()}
           actionBtnPress={() => this.scrollView.scrollTo({ x: width * 23, animated: true })}
         />
@@ -171,9 +174,6 @@ class Dashboard extends Component {
 
             return (
               <ScrollView key={item.id} style={styles.monthContainer}>
-                <Title style={{ textAlign: "center", paddingBottom: 20 }}>
-                  {moment(currentMonth, "YYYY-MM-DD").format("MMMM")}
-                </Title>
 
                 <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
                   <Copy>Income: </Copy>
@@ -209,10 +209,7 @@ class Dashboard extends Component {
 
             return (
               <ScrollView key={item.id} style={styles.monthContainer}>
-                <Title style={{ textAlign: "center", paddingBottom: 20 }}>
-                  {moment(currentMonth, "YYYY-MM-DD").format("MMMM")}
-                </Title>
-
+                
                 <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
                   <Copy style={{fontSize: 18}}>Income: </Copy>
                   <Copy style={{fontSize: 18, color: "green"}}>{formatCurrency(income)}</Copy>
