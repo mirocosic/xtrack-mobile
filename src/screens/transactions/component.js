@@ -8,6 +8,7 @@ import Header from "../../components/header"
 import Icon from "../../components/icon"
 import Transaction from "../../components/transaction"
 import { Copy } from "../../components/typography"
+import palette from "../../utils/palette"
 
 import styles from "./styles"
 
@@ -63,7 +64,7 @@ class Transactions extends Component {
           position: "absolute",
           left: 0,
           width: "100%",
-          backgroundColor: "teal",
+          backgroundColor: palette.blue,
           overflow: "hidden",
           transform: [{ scale: headerScale }],
           height: headerHeight,

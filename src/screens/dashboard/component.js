@@ -3,6 +3,7 @@ import { View, ScrollView, Alert, Dimensions } from "react-native"
 import { withNavigation } from "react-navigation"
 import { get } from "lodash"
 import moment from "moment"
+import SplashScreen from "react-native-splash-screen"
 import Screen from "../../components/screen"
 import Header from "../../components/header"
 import Icon from "../../components/icon"
@@ -39,6 +40,7 @@ class Dashboard extends Component {
   })
 
   state = {
+    title: "",
     showScrollToEnd: false,
     showScrollToStart: false,
     year: moment().format("YYYY"),
@@ -48,6 +50,7 @@ class Dashboard extends Component {
 
   componentDidMount() {
     const { width } = Dimensions.get("window")
+    SplashScreen.hide()
     this.props.openOnForm && this.props.navigation.navigate("TransactionForm", { clearForm: true })
     setTimeout(() => this.scrollView.scrollTo({ x: width * 23, y: 0, animated: false }), 100)
   }
@@ -209,7 +212,7 @@ class Dashboard extends Component {
 
             return (
               <ScrollView key={item.id} style={styles.monthContainer}>
-                
+
                 <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
                   <Copy style={{fontSize: 18}}>Income: </Copy>
                   <Copy style={{fontSize: 18, color: "green"}}>{formatCurrency(income)}</Copy>

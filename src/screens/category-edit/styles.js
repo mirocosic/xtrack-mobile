@@ -30,13 +30,13 @@ export default StyleSheet.create({
 
   add: {
     marginTop: 50,
-    width: 200,
+    width: "100%",
     height: 40,
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    backgroundColor: "teal",
+    backgroundColor: palette.blue,
   },
 
   delete: {

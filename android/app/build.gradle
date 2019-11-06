@@ -98,7 +98,7 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
-* The preferred build flavor of JavaScriptCore.
+/* The preferred build flavor of JavaScriptCore.
  *
  * For example, to use the international variant, you can use:
  * `def jscFlavor = 'org.webkit:android-jsc-intl:+'`

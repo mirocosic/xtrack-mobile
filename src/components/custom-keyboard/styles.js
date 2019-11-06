@@ -1,21 +1,22 @@
 import { StyleSheet } from "react-native"
-import { safePaddingTop } from "../../utils/ui-utils"
+import { safePaddingBottom } from "../../utils/ui-utils"
+import palette from "../../utils/palette"
 
 export default StyleSheet.create({
 
   wrap: {
-    borderTopWidth: 1,
-    borderColor: "teal",
-    paddingBottom: safePaddingTop(0),
+    backgroundColor: palette.light,
+    borderColor: palette.blue,
+    paddingBottom: safePaddingBottom(0),
   },
 
   row: { flexDirection: "row" },
 
-  copy: { fontSize: 18 },
+  copy: { fontSize: 22 },
 
   pressedCopy: {
-    fontSize: 18,
-    color: "white"
+    fontSize: 22,
+    color: "white",
   },
 
   digit: {
@@ -26,9 +27,7 @@ export default StyleSheet.create({
     height: 60,
     minWidth: 50,
     margin: 2,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: "teal",
+    borderRadius: 2,
     backgroundColor: "white",
   },
 

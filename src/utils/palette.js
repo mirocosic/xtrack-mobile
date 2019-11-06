@@ -1,9 +1,11 @@
-const grey = "#8a8e91";
+const grey = "#8a8e91"
 const darkGrey = "#686b6d";
 const lightGrey = "#a1a5a8";
 
 
 export default {
+  babyBlue: "#89cff0",
+  lightBlue: "#cdebf9",
   blue: "#2196F3",
   light: "#f8f8fc",
   dark: "rgb(45,48,55)",

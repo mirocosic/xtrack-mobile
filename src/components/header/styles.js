@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native"
 import { safePaddingTop } from "../../utils/ui-utils"
+import palette from "../../utils/palette"
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: "teal",
+    backgroundColor: palette.blue,
     paddingTop: safePaddingTop(10),
     paddingBottom: 10,
   },

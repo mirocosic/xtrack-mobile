@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { View, Text, TouchableOpacity, TouchableHighlight } from "react-native"
+import palette from "../../utils/palette"
 import Digit from "../digit"
 import styles from "./styles"
 
@@ -8,7 +9,6 @@ export default class CustomKeyboard extends Component {
   state = {
     calculationMode: false,
     input: "",
-    pressed: false,
   }
 
   handlePress = (digit) => {
@@ -17,7 +17,7 @@ export default class CustomKeyboard extends Component {
       this.props.handlePress(digit)
     }
 
-    this.setState({ input: this.state.input + digit }, ()=>console.log(this.state.input))
+    this.setState({ input: this.state.input + digit }, () => console.log(this.state.input))
 
   }
 
@@ -74,46 +74,27 @@ export default class CustomKeyboard extends Component {
             </View>
 
             <View style={styles.row}>
-              <TouchableOpacity style={styles.digit} onPress={() => this.handlePress(".")}>
-                <Text style={styles.copy}>,</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.digit} onPress={() => this.handlePress("0")}>
-                <Text style={styles.copy}>0</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.digit} onPress={() => {}}>
-                <Text></Text>
-              </TouchableOpacity>
+              <Digit digit="," handlePress={() => this.handlePress(".")} />
+              <Digit digit="0" handlePress={() => this.handlePress("0")} />
+              <Digit digit="" handlePress={() => {}} />
             </View>
 
           </View>
 
           <View>
-            <TouchableOpacity style={styles.digit} onPress={() => this.handleOperation("+")}>
-              <Text>+</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.digit} onPress={() => this.handleOperation("-")}>
-              <Text>-</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.digit} onPress={() => this.handleOperation("*")}>
-              <Text>*</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.digit} onPress={() => this.handleOperation("/")}>
-              <Text>/</Text>
-            </TouchableOpacity>
-
+            <Digit digit="+" handlePress={() => this.handlePress("+")} small />
+            <Digit digit="-" handlePress={() => this.handlePress("-")} small />
+            <Digit digit="x" handlePress={() => this.handlePress("*")} small />
+            <Digit digit="/" handlePress={() => this.handlePress("/")} small />
           </View>
 
           <View>
-            <TouchableOpacity style={styles.digit} onPress={(() => this.handleClear())}>
-              <Text>C</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.digit} onPress={(() => this.props.delete())}>
-              <Text>DEL</Text>
-            </TouchableOpacity>
+            <Digit digit="C" handlePress={() => this.handleClear()} small />
+            <Digit digit="DEL" handlePress={() => this.props.delete()} small />
+
+            
             <TouchableOpacity
-              style={[styles.digit, !calculationMode && { backgroundColor: "teal" }]}
+              style={[styles.digit, !calculationMode && { backgroundColor: palette.blue }]}
               onPress={() => (calculationMode ? this.calculate() : this.props.handleSubmit())}>
               <Text style={{ color: !calculationMode ? "white" : "black" }}>
                 { calculationMode ? "=" : "OK"}

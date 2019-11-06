@@ -9,6 +9,7 @@ import Icon from "../../components/icon"
 import { Copy, Title } from "../../components/typography"
 import __ from "../../utils/translations"
 import { formatCurrency } from "../../utils/currency"
+import palette from "../../utils/palette"
 
 import { HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT, HEADER_SCROLL_DISTANCE } from "../../utils/ui-utils"
 
@@ -16,13 +17,13 @@ import styles from "./styles"
 
 class Reports extends Component {
 
-  static navigationOptions = ({navigation}) => ({
+  static navigationOptions = ({ navigation }) => ({
     tabBarOnPress: () => {
       navigation.navigate("TransactionForm", { clearForm: true })
     },
-    tabBarIcon: ({ tintColor }) => (
+    tabBarIcon: () => (
       <Icon
-        style={{ backgroundColor: "teal", height: 50, width: 50, bottom: 10, borderRadius: 50 }}
+        style={{ backgroundColor: palette.blue, height: 50, width: 50, bottom: 10, borderRadius: 50 }}
         textStyle={{ fontSize: 30, color: "white" }}
         type="plus"
       />
@@ -58,7 +59,7 @@ class Reports extends Component {
     if (transactions.length === 0) return 0;
     const accountTransactions = transactions.filter((item)=>account.id=== get(item ,"account.id") && item.type === "income");
     if (accountTransactions.length === 0) { return 0 }
-    const total = accountTransactions.reduce((a, b)=>({amount: parseFloat(a.amount) + parseFloat(b.amount)}));
+    const total = accountTransactions.reduce((a, b) => ({ amount: parseFloat(a.amount) + parseFloat(b.amount) }));
 
     return total.amount;
   }

@@ -1,14 +1,12 @@
 import React, { Component } from "react"
-import { View, ScrollView, TouchableOpacity } from "react-native"
+import { Alert, View, ScrollView, TouchableOpacity } from "react-native"
 import { withNavigation } from "react-navigation"
 import Swipeout from "react-native-swipeout"
+import { get } from "lodash"
 import { Screen, Header, Footer } from "../../components"
-import { Copy } from "../../components/typography"
+import { Copy, CopyBlue } from "../../components/typography"
 import Icon from "../../components/icon"
-
 import styles from "./styles"
-
-const colors = ["#FF5722", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
 
 class Labels extends Component {
 
@@ -28,22 +26,23 @@ class Labels extends Component {
     )
 
     handleDelete = (id) => {
-      const count = this.props.transactions.filter((item) => id === get(item ,"account.id")).length
-      if ( count > 0 ) {
+      const { transactions, deleteAccount } = this.props
+      const count = transactions.filter(item => id === get(item, "account.id")).length
+      if (count > 0) {
         Alert.alert("Warning", "Cannot delete account that contains transactions.")
       } else {
-        this.props.deleteAccount(id)
+        deleteAccount(id)
       }
     }
 
 
     render() {
       const { navigation, labels, remove, darkMode, select } = this.props
-
+      const { scroll } = this.state
       return (
         <Screen>
           <Header title="Tags" backBtn />
-          <ScrollView>
+          <ScrollView scrollEnabled={scroll}>
             <View>
               {labels.map(label => (
                 <Swipeout
@@ -87,7 +86,7 @@ class Labels extends Component {
           <Footer>
             <View style={{ alignItems: "center" }}>
               <TouchableOpacity onPress={() => navigation.navigate("LabelEdit", { label: {} })}>
-                <Copy style={{ color: "teal" }}>Add new tag</Copy>
+                <CopyBlue>Add new tag</CopyBlue>
               </TouchableOpacity>
             </View>
           </Footer>

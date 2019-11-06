@@ -390,7 +390,7 @@ class TransactionForm extends Component {
 
             </View>
 
-            <View style={[styles.formFieldWrap, { alignItems: "center" }]}>
+            <View style={[styles.formFieldWrap, { alignItems: "center", paddingBottom: 20 }]}>
               <TextInput
                 onChangeText={value => this.setState({ transaction: { ...transaction, note: value } })}
                 value={transaction.note}

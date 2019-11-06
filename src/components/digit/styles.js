@@ -1,13 +1,19 @@
 import { StyleSheet } from "react-native"
-import { safePaddingTop } from "../../utils/ui-utils"
+import palette from "../../utils/palette"
 
 export default StyleSheet.create({
 
-  copy: { fontSize: 18 },
+  copy: { fontSize: 22 },
+  copySmall: { fontSize: 14 },
 
   pressedCopy: {
-    fontSize: 18,
-    color: "white"
+    fontSize: 22,
+    color: "white",
+  },
+
+  pressedCopySmall: {
+    fontSize: 16,
+    color: "white",
   },
 
   digit: {
@@ -18,9 +24,7 @@ export default StyleSheet.create({
     height: 60,
     minWidth: 50,
     margin: 2,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: "teal",
+    borderRadius: 2,
     backgroundColor: "white",
   },
 
@@ -32,10 +36,8 @@ export default StyleSheet.create({
     height: 60,
     minWidth: 50,
     margin: 2,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: "teal",
-    backgroundColor: "teal",
+    borderRadius: 2,
+    backgroundColor: palette.blue,
   }
 
 })

@@ -12,6 +12,14 @@ const CopyCmp = (props) => {
   )
 }
 
+const CopyBlueCmp = (props) => {
+  const { darkMode, style, children } = props
+  const defaultStyle = darkMode ? styles.copyDark : styles.copyBlue
+  return (
+    <Text style={{ ...defaultStyle, ...style }}>{children}</Text>
+  )
+}
+
 const TitleCmp = (props) => {
   const { darkMode, style, children } = props
   const defaultStyle = darkMode ? styles.titleDark : styles.title
@@ -25,6 +33,11 @@ export const Copy = connect(
   null,
 )(CopyCmp)
 
+export const CopyBlue = connect(
+  state => ({ darkMode: state.common.darkMode }),
+  null,
+)(CopyBlueCmp)
+
 export const Title = connect(
   state => ({ darkMode: state.common.darkMode }),
   null,
@@ -33,6 +46,11 @@ export const Title = connect(
 const styles = StyleSheet.create({
   copy: {
     color: palette.black,
+    fontSize: 16,
+  },
+
+  copyBlue: {
+    color: palette.blue,
     fontSize: 16,
   },
 

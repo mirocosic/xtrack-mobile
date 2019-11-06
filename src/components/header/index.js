@@ -1,8 +1,6 @@
 import React, { Component } from "react"
 import { View, TouchableOpacity } from "react-native"
 import { withNavigation } from "react-navigation"
-import PropTypes from "prop-types"
-
 import { Title } from "../typography"
 import Icon from "../icon"
 import __ from "../../utils/translations"
@@ -21,7 +19,7 @@ class Header extends Component {
             <Icon type="chevronLeft" style={{ backgroundColor: "transparent" }} textStyle={{ color: "white" }} />
           </TouchableOpacity>
         )}
-        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", height: 40 }}>
           {icon}
           <Title style={{ alignSelf: "center", color: "white" }}>{__(title)}</Title>
         </View>

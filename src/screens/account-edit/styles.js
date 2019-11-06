@@ -35,7 +35,7 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    backgroundColor: "teal",
+    backgroundColor: palette.blue,
   },
 
   delete: {

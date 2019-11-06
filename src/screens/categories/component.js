@@ -4,7 +4,7 @@ import { View, ScrollView, TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
 import { Screen, Header, Footer } from "../../components"
 import Category from "../../components/category"
-import { Copy } from "../../components/typography"
+import { CopyBlue } from "../../components/typography"
 
 class Categories extends Component {
 
@@ -24,7 +24,6 @@ class Categories extends Component {
         <ScrollView scrollEnabled={scroll}>
           <View>
             {categories
-              // .filter(item => item.type === type)
               .sort((a, b) => a.name < b.name)
               .map(cat => (
                 <Category
@@ -42,7 +41,7 @@ class Categories extends Component {
         <Footer>
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity onPress={() => navigation.navigate("CategoryEdit", { id: false })}>
-              <Copy style={{ color: "teal" }}>Add new category</Copy>
+              <CopyBlue>Add new category</CopyBlue>
             </TouchableOpacity>
           </View>
         </Footer>

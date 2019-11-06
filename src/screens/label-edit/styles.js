@@ -46,11 +46,9 @@ export default StyleSheet.create({
   input: {
     color: "black",
     fontSize: 20,
-    //padding: 20,
-    //margin: 20,
     width: 200,
     borderBottomWidth: 1,
-    borderColor: palette.gray
+    borderColor: palette.gray,
   },
 
   inputDark: {
@@ -59,14 +57,14 @@ export default StyleSheet.create({
   },
 
   add: {
-    width: 200,
+    width: "100%",
     height: 40,
     marginTop: 40,
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    backgroundColor: "teal",
+    backgroundColor: palette.blue,
   },
 
   delete: {

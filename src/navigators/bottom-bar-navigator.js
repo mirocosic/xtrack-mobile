@@ -14,7 +14,7 @@ const BottomBarNavigator = createBottomTabNavigator({
   swipeEnabled: true,
   animationEnabled: true,
   tabBarOptions: {
-    activeTintColor: "teal",
+    activeTintColor: palette.blue,
     inactiveTintColor: palette.black,
     showIcon: true,
     upperCaseLabel: false,

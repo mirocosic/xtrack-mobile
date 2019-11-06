@@ -5,11 +5,11 @@ import { get } from "lodash"
 import { withNavigation } from "react-navigation";
 import Swipeout from "react-native-swipeout"
 import { Screen, Header, Footer } from "../../components"
-import { Copy } from "../../components/typography"
+import { Copy, CopyBlue } from "../../components/typography"
 import Icon from "../../components/icon"
 import styles from "./styles"
 import { formatCurrency } from "../../utils/currency"
-
+import palette from "../../utils/palette"
 
 const accountBalance = (account, transactions) => {
   if (transactions.length === 0) return 0;
@@ -117,7 +117,7 @@ class Accounts extends Component {
           <View style={{ justifyContent: "center", alignItems: "center" }}>
             <TouchableOpacity
               onPress={() => navigation.navigate("AccountEdit")}>
-              <Copy style={{ color: "teal" }}>Add new account</Copy>
+              <CopyBlue>Add new account</CopyBlue>
             </TouchableOpacity>
           </View>
         </Footer>
@@ -130,12 +130,7 @@ class Accounts extends Component {
 Accounts.propTypes = {
   darkMode: PropTypes.bool,
   transactions: PropTypes.any,
-  // accounts: PropTypes.arrayOf(PropTypes.shape({
-  //   id: PropTypes.number,
-  //   name: PropTypes.string,
-  // })),
   remove: PropTypes.func.isRequired,
-  // navigation: PropTypes.instanceOf("Navigation").isRequired,
 }
 
 Accounts.defaultProps = {
