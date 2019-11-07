@@ -13,6 +13,8 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		211AD73CA9364BFAA3D2362A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5921A97B3045437A9E3B1FF7 /* libz.tbd */; };
 		3132F406861241C282C920CC /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226418C2A71049B9BFB441D1 /* libRNGestureHandler.a */; };
+		4E1B9A3623748ED200B867C3 /* DINNeuzeitGroteskPro-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E1B9A3423748ED100B867C3 /* DINNeuzeitGroteskPro-Light.ttf */; };
+		4E1B9A3723748ED200B867C3 /* DINNeuzeitGroteskPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E1B9A3523748ED100B867C3 /* DINNeuzeitGroteskPro-Bold.ttf */; };
 		4EF11E132198DBC700824335 /* Font-Awesome-5-Free-Regular-400.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EF11E122198DBC700824335 /* Font-Awesome-5-Free-Regular-400.ttf */; };
 		4EF11E152198EA3B00824335 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EF11E142198EA3B00824335 /* FontAwesome.ttf */; };
 		4EF11E172198EC6200824335 /* Font-Awesome-5-Free-Solid-900.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EF11E162198EC6200824335 /* Font-Awesome-5-Free-Solid-900.ttf */; };
@@ -82,6 +84,8 @@
 		27495AB8CDBBC7179FA9A4C4 /* Pods-xtrack_mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xtrack_mobile.release.xcconfig"; path = "Target Support Files/Pods-xtrack_mobile/Pods-xtrack_mobile.release.xcconfig"; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		34A3366899A71184995FFF13 /* Pods-xtrack_mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xtrack_mobile.debug.xcconfig"; path = "Target Support Files/Pods-xtrack_mobile/Pods-xtrack_mobile.debug.xcconfig"; sourceTree = "<group>"; };
+		4E1B9A3423748ED100B867C3 /* DINNeuzeitGroteskPro-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DINNeuzeitGroteskPro-Light.ttf"; path = "../../assets/fonts/DINNeuzeitGroteskPro-Light.ttf"; sourceTree = "<group>"; };
+		4E1B9A3523748ED100B867C3 /* DINNeuzeitGroteskPro-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "DINNeuzeitGroteskPro-Bold.ttf"; path = "../../assets/fonts/DINNeuzeitGroteskPro-Bold.ttf"; sourceTree = "<group>"; };
 		4E27AEAE231700CF00818DB1 /* xtrack_mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = xtrack_mobile.entitlements; path = xtrack_mobile/xtrack_mobile.entitlements; sourceTree = "<group>"; };
 		4EF11DD12198770A00824335 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		4EF11DE921987D6B00824335 /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
@@ -171,6 +175,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4E1B9A2F23748EB800B867C3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4E1B9A3523748ED100B867C3 /* DINNeuzeitGroteskPro-Bold.ttf */,
+				4E1B9A3423748ED100B867C3 /* DINNeuzeitGroteskPro-Light.ttf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		4E51C49C23433C6C007865B3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +241,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				4E1B9A2F23748EB800B867C3 /* Resources */,
 				13B07FAE1A68108700A75B9A /* xtrack_mobile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* xtrack_mobileTests */,
@@ -371,9 +385,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E1B9A3623748ED200B867C3 /* DINNeuzeitGroteskPro-Light.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				4EF11E172198EC6200824335 /* Font-Awesome-5-Free-Solid-900.ttf in Resources */,
+				4E1B9A3723748ED200B867C3 /* DINNeuzeitGroteskPro-Bold.ttf in Resources */,
 				4EF11E132198DBC700824335 /* Font-Awesome-5-Free-Regular-400.ttf in Resources */,
 				4EF11E152198EA3B00824335 /* FontAwesome.ttf in Resources */,
 			);
@@ -492,7 +508,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = xtrack_mobile/xtrack_mobile.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = QDRTVHPM2W;
 				HEADER_SEARCH_PATHS = (
@@ -522,7 +538,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = xtrack_mobile/xtrack_mobile.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = QDRTVHPM2W;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

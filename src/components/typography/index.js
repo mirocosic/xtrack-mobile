@@ -1,8 +1,11 @@
 import React from "react"
 import { Text, StyleSheet } from "react-native"
-
-import { connect } from "react-redux";
+import { connect } from "react-redux"
+import { isIos } from "../../utils/os-utils"
 import palette from "../../utils/palette"
+
+
+export const font = "DIN 30640 Pro"
 
 const CopyCmp = (props) => {
   const { darkMode, style, children } = props
@@ -46,27 +49,33 @@ export const Title = connect(
 const styles = StyleSheet.create({
   copy: {
     color: palette.black,
-    fontSize: 16,
+    fontFamily: font,
+    fontSize: 14,
+    top: isIos ? 3 : 0,
   },
 
   copyBlue: {
+    fontFamily: font,
+    top: isIos ? 3 : 0,
     color: palette.blue,
-    fontSize: 16,
+    fontSize: 14,
   },
 
   copyDark: {
     color: palette.white,
-    fontSize: 16,
+    fontSize: 14,
   },
 
   title: {
-    fontSize: 20,
+    top: isIos ? 3 : 0,
+    fontFamily: font,
+    fontSize: 18,
     padding: 5,
     color: palette.black,
   },
 
   titleDark: {
-    fontSize: 20,
+    fontSize: 18,
     padding: 5,
     color: palette.white,
   },

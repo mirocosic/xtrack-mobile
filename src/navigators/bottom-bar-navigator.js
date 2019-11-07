@@ -1,6 +1,7 @@
-import { createBottomTabNavigator } from "react-navigation";
-import { Dashboard, Overview, Reports, Profile, Transactions } from "../screens";
-import palette from "../utils/palette";
+import { createBottomTabNavigator } from "react-navigation"
+import { Dashboard, Overview, Reports, Profile, Transactions } from "../screens"
+import palette from "../utils/palette"
+import { font } from "../components/typography"
 
 const BottomBarNavigator = createBottomTabNavigator({
   Dashboard: { screen: Dashboard },
@@ -18,7 +19,7 @@ const BottomBarNavigator = createBottomTabNavigator({
     inactiveTintColor: palette.black,
     showIcon: true,
     upperCaseLabel: false,
-    indicatorStyle: { backgroundColor: palette.secondary },
+    indicatorStyle: { backgroundColor: palette.secondary, fontFamily: font },
     style: {
       justifyContent: "space-around",
       backgroundColor: "#ffffff",
