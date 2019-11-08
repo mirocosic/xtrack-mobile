@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Text, View, ScrollView, TextInput, TouchableOpacity } from "react-native";
+import { View,TextInput, TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
-import { ColorWheel } from "react-native-color-wheel";
 import Modalize from "react-native-modalize"
 import Screen from "../../components/screen"
 import Header from "../../components/header"
@@ -13,17 +12,11 @@ const colors = ["#FF5722", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
 
 class LabelEdit extends Component {
 
-  state = {
-    label: this.props.navigation.state.params.label || {}
-  }
+  state = { label: this.props.navigation.state.params.label || {} }
 
   input = React.createRef()
 
   colorModal = React.createRef()
-
-  componentDidMount() {
-    //this.input.current.focus()
-  }
 
   handleSave = (label) => {
     const { edit, add, navigation } = this.props
@@ -39,37 +32,37 @@ class LabelEdit extends Component {
       <Screen>
         <Header title={label.name} backBtn />
 
-          <View style={{ padding: 20 }}>
+        <View style={{ padding: 20 }}>
 
-            <View style={styles.inputContainer}>
-              <Copy>Name</Copy>
-              <TextInput
-                ref={this.input}
-                style={[styles.input, darkMode && styles.inputDark]}
-                onChangeText={text => this.setState({ label: { ...label, name: text } })}
-                returnKeyType="done"
-                onSubmitEditing={() => this.handleSave(label)}
-                placeholder="new label"
-                value={label.name}
-              />
-
-            </View>
-
-            <View style={[styles.inlineBetween, { margin: 10 }]}>
-              <Copy>Color</Copy>
-              <TouchableOpacity onPress={() => this.colorModal.current.open()}>
-                <View style={{ width: 40, height: 40, backgroundColor: label.color, borderRadius:5 }} />
-              </TouchableOpacity>
-            </View>
-
-            <TouchableOpacity
-              style={styles.add}
-              onPress={() => this.handleSave(label)}
-            >
-              <Copy style={{ color: "white" }}>Save</Copy>
-            </TouchableOpacity>
+          <View style={styles.inputContainer}>
+            <Copy>Name</Copy>
+            <TextInput
+              ref={this.input}
+              style={[styles.input, darkMode && styles.inputDark]}
+              onChangeText={text => this.setState({ label: { ...label, name: text } })}
+              returnKeyType="done"
+              onSubmitEditing={() => this.handleSave(label)}
+              placeholder="new label"
+              value={label.name}
+            />
 
           </View>
+
+          <View style={[styles.inlineBetween, { margin: 10 }]}>
+            <Copy>Color</Copy>
+            <TouchableOpacity onPress={() => this.colorModal.current.open()}>
+              <View style={{ width: 40, height: 40, backgroundColor: label.color, borderRadius: 5 }} />
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity
+            style={styles.add}
+            onPress={() => this.handleSave(label)}
+          >
+            <Copy style={{ color: "white" }}>Save</Copy>
+          </TouchableOpacity>
+
+        </View>
 
 
         <Modalize

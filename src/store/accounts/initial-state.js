@@ -6,4 +6,4 @@ export default {
   toAccount: { id: 0, name: "Savings" },
   fromAccount: {},
   accountFilter: false,
-};
+}

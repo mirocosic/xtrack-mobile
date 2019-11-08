@@ -13,4 +13,4 @@ export default connect(
     delete: payload => dispatch({ type: "DELETE_LABEL", payload }),
     select: payload => dispatch({ type: "SELECT_LABEL", payload }),
   }),
-)(Component);
+)(Component)

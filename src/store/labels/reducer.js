@@ -1,8 +1,6 @@
 import initialState from "./initial-state";
 
-const makeId = (items) => {
-  return (items.length) ? items[items.length - 1].id + 1 : 0
-}
+const makeId = items => (items.length ? items[items.length - 1].id + 1 : 0)
 
 const labels = (state = initialState, action) => {
   switch (action.type) {
@@ -59,9 +57,7 @@ const labels = (state = initialState, action) => {
       }
 
     case "ERASE":
-      return {
-        ...initialState,
-      }
+      return { ...initialState }
 
     default:
       return state;

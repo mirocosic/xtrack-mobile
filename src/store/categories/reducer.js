@@ -1,8 +1,8 @@
 import initialState from "./initial-state";
 
-const makeId = (items) => {
-  return (items.length) ? items[items.length-1].id+1 : 0
-}
+const makeId = items => (items.length ? items[items.length - 1].id + 1 : 0)
+
+
 const categories = (state = initialState, action) => {
   switch (action.type) {
 
@@ -20,7 +20,13 @@ const categories = (state = initialState, action) => {
         ...state,
         items: [
           ...state.items,
-          { id: makeId(state.items), name: action.category.name, type: action.category.type, icon: action.category.icon, color: action.category.color },
+          {
+            id: makeId(state.items),
+            name: action.category.name,
+            type: action.category.type,
+            icon: action.category.icon,
+            color: action.category.color,
+          },
         ],
       }
 
@@ -78,9 +84,7 @@ const categories = (state = initialState, action) => {
       }
 
     case "ERASE":
-      return {
-        ...initialState
-      }
+      return { ...initialState }
 
     default:
       return state;

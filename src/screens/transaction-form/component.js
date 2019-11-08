@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import {
-  Text, View, ScrollView, TextInput, Animated, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback,
-  Keyboard, Dimensions, Switch, Platform, ActionSheetIOS,
+  Text, View, ScrollView, TextInput, Animated, TouchableOpacity, TouchableWithoutFeedback,
+  Keyboard, Switch, Platform, ActionSheetIOS,
 } from "react-native";
 import { Calendar } from "react-native-calendars"
 import { withNavigation } from "react-navigation"
 import Modalize from "react-native-modalize"
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview"
 import Collapsible from "react-native-collapsible"
 import moment from "moment"
-import { get, merge } from "lodash"
+import { get } from "lodash"
+import PropTypes from "prop-types"
 
 import { Screen, Header, Label, CustomKeyboard, TransactionType } from "../../components"
 import { Copy, Title } from "../../components/typography"
@@ -21,8 +21,6 @@ class TransactionForm extends Component {
 
   state = {
     blinker: new Animated.Value(0),
-    modalVisible: false,
-    catModalVisible: false,
     transaction: this.props.selectedTransaction,
     accountType: "to",
   }
@@ -198,21 +196,29 @@ class TransactionForm extends Component {
   }
 
   renderCategories = () => {
-    const { categories, selectCategory } = this.props
-    return categories.map(cat => (
-      <TouchableOpacity
-        key={cat.id}
-        onPress={() => {
-          selectCategory(cat)
-          this.catModal.current.close()
-        }}>
-        <View style={{ flexDirection: "row", alignItems: "center", margin: 5 }}>
-          <Icon type={get(cat, "icon", "")} textStyle={{ color: cat.color || "blue" }} style={{ marginRight: 10, backgroundColor: "white" }} />
-          <Text>{cat.name}</Text>
-        </View>
+    const { transactions, categories, selectCategory } = this.props
 
-      </TouchableOpacity>
-    ))
+    const categoriesWithCount = categories.map(cat => ({
+      ...cat,
+      count: transactions.filter(transaction => get(transaction, "category.id") === cat.id).length,
+    }))
+
+    return categoriesWithCount
+      .sort((a, b) => b.count - a.count)
+      .map(cat => (
+        <TouchableOpacity
+          key={cat.id}
+          onPress={() => {
+            selectCategory(cat)
+            this.catModal.current.close()
+          }}>
+          <View style={{ flexDirection: "row", alignItems: "center", margin: 5 }}>
+            <Icon type={get(cat, "icon", "")} textStyle={{ color: cat.color || "blue" }} style={{ marginRight: 10, backgroundColor: "white" }} />
+            <Text>{cat.name}</Text>
+          </View>
+
+        </TouchableOpacity>
+      ))
   }
 
   renderLabels = () => {
@@ -283,10 +289,8 @@ class TransactionForm extends Component {
   }
 
   render() {
-    const { transaction, modalVisible, catModalVisible, blinker } = this.state
-    const { navigation, changeAccountFilter, remove, removeLabel, darkMode, changeTransactionAmount, setType, setTransferMode } = this.props
-
-    const { width } = Dimensions.get("window")
+    const { transaction, blinker } = this.state
+    const { navigation, removeLabel, darkMode, changeTransactionAmount, setType } = this.props
 
     return (
       <TouchableWithoutFeedback onPress={() => this.blurInput()}>
@@ -346,7 +350,11 @@ class TransactionForm extends Component {
               <TouchableOpacity
                 style={{ flexDirection: "row", alignItems: "center" }}
                 onPress={() => this.calendarModal.current.open()}>
-                <Icon type="calendar-alt" style={{paddingLeft: 0, width: 20}} textStyle={{ color: "teal", marginLeft: 0, paddingLeft: 0, width: 20 }} />
+                <Icon
+                  type="calendar-alt"
+                  style={{ paddingLeft: 0, width: 20 }}
+                  textStyle={{ color: "teal", marginLeft: 0, paddingLeft: 0, width: 20 }}
+                />
                 <Copy>{moment(transaction.timestamp).format("MMM Do YYYY")}</Copy>
               </TouchableOpacity>
 
@@ -358,9 +366,7 @@ class TransactionForm extends Component {
 
             </View>
 
-            <View style={styles.formFieldWrap}>
-
-            </View>
+            <View style={styles.formFieldWrap} />
 
             { transaction.type === "transfer" && (
               <View style={styles.formFieldWrap}>
@@ -402,10 +408,13 @@ class TransactionForm extends Component {
 
             <View style={[styles.formFieldWrap, { alignItems: "center" }]}>
               <Copy>Recurring</Copy>
-              <Switch value={!!transaction.recurring} onValueChange={() => this.setState({ transaction: { ...transaction, recurring: !transaction.recurring } })} />
+              <Switch
+                value={!!transaction.recurring}
+                onValueChange={() => this.setState({ transaction: { ...transaction, recurring: !transaction.recurring } })}
+              />
             </View>
 
-            <Collapsible collapsed={transaction.recurring === false} style={{padding: 20, paddingTop: 10}}>
+            <Collapsible collapsed={transaction.recurring === false} style={{ padding: 20, paddingTop: 10 }}>
               <View style={styles.inlineBetween}>
                 <Copy>Every</Copy>
                 <TouchableOpacity onPress={() => this.selectRecurringSchedule()}>
@@ -450,7 +459,7 @@ class TransactionForm extends Component {
           />
 
           <Modalize
-            adjustToContentHeight={true}
+            adjustToContentHeight
             ref={this.accountsModal}>
             <View style={{ height: 200, width: "100%", padding: 20, backgroundColor: "white", borderRadius: 10 }}>
               <Text style={{ textAlign: "center" }}>Select account</Text>
@@ -469,7 +478,7 @@ class TransactionForm extends Component {
           </Modalize>
 
           <Modalize
-            adjustToContentHeight={true}
+            adjustToContentHeight
             ref={this.catModal}>
             <View style={{ height: 500, width: "100%", padding: 20, backgroundColor: "white", borderRadius: 10 }}>
 
@@ -494,7 +503,7 @@ class TransactionForm extends Component {
           </Modalize>
 
           <Modalize
-            adjustToContentHeight={true}
+            adjustToContentHeight
             ref={this.labelsModal}>
             <View style={{ width: "100%", padding: 20, backgroundColor: "white", borderRadius: 10 }}>
 
@@ -515,7 +524,7 @@ class TransactionForm extends Component {
           <Modalize
             modalHeight={400}
             scrollViewProps={{ scrollEnabled: false }}
-            HeaderComponent={<View style={{backgroundColor: "white", height: 20, borderTopRightRadius: 10, borderTopLeftRadius: 10}}></View>}
+            HeaderComponent={<View style={{ backgroundColor: "white", height: 20, borderTopRightRadius: 10, borderTopLeftRadius: 10 }} />}
             ref={this.calendarModal}>
             <View style={{ height: 500, width: "100%", padding: 10, backgroundColor: "white", borderRadius: 10 }}>
 
@@ -533,7 +542,7 @@ class TransactionForm extends Component {
           <Modalize
             modalHeight={400}
             scrollViewProps={{ scrollEnabled: false }}
-            HeaderComponent={<View style={{backgroundColor: "white", height: 20, borderTopRightRadius: 10, borderTopLeftRadius: 10}}></View>}
+            HeaderComponent={<View style={{ backgroundColor: "white", height: 20, borderTopRightRadius: 10, borderTopLeftRadius: 10 }} />}
             ref={this.recurringCalendarModal}>
             <View style={{ height: 500, width: "100%", padding: 10, backgroundColor: "white", borderRadius: 10 }}>
 
@@ -553,5 +562,18 @@ class TransactionForm extends Component {
     );
   }
 }
+
+TransactionForm.propTypes = {
+  darkMode: PropTypes.bool,
+  transactions: PropTypes.any,
+  remove: PropTypes.func.isRequired,
+}
+
+TransactionForm.defaultProps = {
+  darkMode: false,
+  transactions: [],
+  accounts: [],
+}
+
 
 export default withNavigation(TransactionForm);

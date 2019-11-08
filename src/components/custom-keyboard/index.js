@@ -23,7 +23,7 @@ export default class CustomKeyboard extends Component {
 
   handleOperation = (operation) => {
     this.setState({
-      input: this.state.input + " " + operation + " ",
+      input: `${this.state.input} ${operation} `,
       calculationMode: true,
     })
   }
@@ -44,6 +44,7 @@ export default class CustomKeyboard extends Component {
 
   render() {
     const { calculationMode } = this.state
+    
     return (
       <View style={styles.wrap}>
 
@@ -92,7 +93,7 @@ export default class CustomKeyboard extends Component {
             <Digit digit="C" handlePress={() => this.handleClear()} small />
             <Digit digit="DEL" handlePress={() => this.props.delete()} small />
 
-            
+
             <TouchableOpacity
               style={[styles.digit, !calculationMode && { backgroundColor: palette.blue }]}
               onPress={() => (calculationMode ? this.calculate() : this.props.handleSubmit())}>

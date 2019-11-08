@@ -55,12 +55,12 @@ class Category extends Component {
         right={[{
           backgroundColor: "#f8f8fc",
           component: this.renderDeleteButton(),
-          onPress: () => this.deleteCategory(cat)
+          onPress: () => this.deleteCategory(cat),
         },
         {
           backgroundColor: "blue",
           component: this.renderEditButton(),
-          onPress: () => navigation.navigate("CategoryEdit", { id: cat.id })
+          onPress: () => navigation.navigate("CategoryEdit", { id: cat.id }),
         }]}
         style={{ borderBottomWidth: 1, borderColor: "gray" }}
         sensitivity={20}
@@ -74,16 +74,16 @@ class Category extends Component {
 
           <View key={cat.id} style={[styles.categoryWrap, darkMode && styles.catWrapDark]}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Icon type={cat.icon} style={{ marginRight: 10 }} textStyle={{color: get(cat, "color", "blue")}}/>
+              <Icon type={cat.icon} style={{ marginRight: 10 }} textStyle={{ color: get(cat, "color", "blue") }} />
               <Copy>
-                  {`${cat.name} ` }
-                  <Copy style={{fontSize: 10}}>
-                      {`(${this.countTransactions(cat.id)})`}
-                  </Copy>
+                {`${cat.name} ` }
+                <Copy style={{ fontSize: 10 }}>
+                  {`(${this.countTransactions(cat.id)})`}
+                </Copy>
               </Copy>
               {
-                cat.defaultCategory &&
-                <Icon type="star" textStyle={{ color: "orange", fontSize: 10 }} />
+                cat.defaultCategory
+                && <Icon type="star" textStyle={{ color: "orange", fontSize: 10 }} />
               }
             </View>
 
@@ -103,6 +103,7 @@ class Category extends Component {
 
 Category.propTypes = {
   darkMode: PropTypes.bool.isRequired,
+  remove: PropTypes.func.isRequired,
 }
 
 export default withNavigation(Category);

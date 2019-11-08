@@ -1,5 +1,4 @@
 import { isIphoneX } from "react-native-iphone-x-helper";
-import { Dimensions } from "react-native"
 
 export const safePaddingTop = (offset = 0) => (isIphoneX() ? 34 : 20) + offset;
 export const safePaddingBottom = (offset = 0) => (isIphoneX() ? 34 : 0) + offset;

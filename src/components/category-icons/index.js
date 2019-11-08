@@ -40,8 +40,6 @@ const solid = [
 
   Icons.smoking,
   Icons.utensils,
-  //Icons.hamburger,
-  //Icons.pizzaSlice,
   Icons.fish,
   Icons.coffee,
   Icons.beer,
@@ -55,12 +53,7 @@ const solid = [
 
   Icons.filter,
   Icons.snowflake,
-  //Icons.skiing,
-  //Icons.snowboarding,
-
   Icons.paw,
-  //Icons.dog,
-  //Icons.cat,
 
   Icons.male,
   Icons.female,
@@ -96,12 +89,11 @@ const CategoryIcons = props => (
   </View>
 )
 
-CategoryIcons.defaultProps = {
-  selected: "car",
-}
+CategoryIcons.defaultProps = { selected: "car" }
 
 CategoryIcons.propTypes = {
-  select: propTypes.any
+  select: propTypes.func.isRequired,
+  selected: propTypes.string,
 }
 
 export default CategoryIcons

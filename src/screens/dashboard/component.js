@@ -7,7 +7,7 @@ import SplashScreen from "react-native-splash-screen"
 import Screen from "../../components/screen"
 import Header from "../../components/header"
 import Icon from "../../components/icon"
-import { Copy, Title } from "../../components/typography"
+import { Copy } from "../../components/typography"
 import __ from "../../utils/translations"
 import { formatCurrency } from "../../utils/currency"
 import styles from "./styles"
@@ -23,7 +23,7 @@ const filterByMonth = (transactions, currentMonth) => (
 
 const sortByCategory = (expenses) => {
   const result = {}
-  expenses.map((expense) => {
+  expenses.forEach((expense) => {
     const currExpenseSum = result[expense.category.name] || 0
     result[expense.category.name] = currExpenseSum + parseFloat(expense.amount)
   })
@@ -49,9 +49,10 @@ class Dashboard extends Component {
 
 
   componentDidMount() {
+    const { navigation, openOnForm } = this.props
     const { width } = Dimensions.get("window")
     SplashScreen.hide()
-    this.props.openOnForm && this.props.navigation.navigate("TransactionForm", { clearForm: true })
+    openOnForm && navigation.navigate("TransactionForm", { clearForm: true })
     setTimeout(() => this.scrollView.scrollTo({ x: width * 23, y: 0, animated: false }), 100)
   }
 
@@ -72,7 +73,7 @@ class Dashboard extends Component {
     if (transactions.length === 0) return 0;
     const accountTransactions = transactions.filter(item => account.id === get(item, "account.id") && item.type === "expense")
     if (accountTransactions.length === 0) { return 0 }
-    const total = accountTransactions.reduce((a, b) => ({ amount: parseFloat(a.amount) + parseFloat(b.amount) }));
+    const total = accountTransactions.reduce((a, b) => ({ amount: parseFloat(a.amount) + parseFloat(b.amount) }))
 
     return total.amount;
   }
@@ -80,9 +81,9 @@ class Dashboard extends Component {
   calcIncome = (account) => {
     const { transactions } = this.props
     if (transactions.length === 0) return 0;
-    const accountTransactions = transactions.filter((item)=>account.id=== get(item ,"account.id") && item.type === "income");
+    const accountTransactions = transactions.filter(item => account.id === get(item, "account.id") && item.type === "income")
     if (accountTransactions.length === 0) { return 0 }
-    const total = accountTransactions.reduce((a, b)=>({amount: parseFloat(a.amount) + parseFloat(b.amount)}));
+    const total = accountTransactions.reduce((a, b) => ({ amount: parseFloat(a.amount) + parseFloat(b.amount) }))
 
     return total.amount;
   }
@@ -112,11 +113,11 @@ class Dashboard extends Component {
 
   }
 
-  renderExpenses(expenses) {
+  renderExpenses = (expenses) => {
     return Object.entries(expenses).map((item, idx) => (
       <View key={idx} style={{ ...styles.row, paddingLeft: 20 }}>
-        <Copy style={{fontSize: 14}}>{`${item[0]} `}</Copy>
-        <Copy style={{fontSize: 14}}>{`${formatCurrency(item[1])}`}</Copy>
+        <Copy style={{ fontSize: 14 }}>{`${item[0]} `}</Copy>
+        <Copy style={{ fontSize: 14 }}>{`${formatCurrency(item[1])}`}</Copy>
       </View>
     ))
   }
@@ -162,8 +163,8 @@ class Dashboard extends Component {
         />
 
         <ScrollView
-          horizontal={true}
-          pagingEnabled={true}
+          horizontal
+          pagingEnabled
           ref={ref => this.scrollView = ref}
           onScroll={this.handleScroll}
           showsHorizontalScrollIndicator={false}>
@@ -180,7 +181,7 @@ class Dashboard extends Component {
 
                 <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
                   <Copy>Income: </Copy>
-                  <Copy style={{fontSize: 18, color: "green"}}>{formatCurrency(income)}</Copy>
+                  <Copy style={{ fontSize: 18, color: "green" }}>{formatCurrency(income)}</Copy>
                 </View>
 
                 {this.renderExpenses(sortedIncome)}
@@ -188,14 +189,14 @@ class Dashboard extends Component {
 
                 <View style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}>
                   <Copy>Expenses: </Copy>
-                  <Copy style={{fontSize: 18, color: "red"}}>{formatCurrency(expenses)}</Copy>
+                  <Copy style={{ fontSize: 18, color: "red" }}>{formatCurrency(expenses)}</Copy>
                 </View>
 
                 {this.renderExpenses(sortedExpenses)}
 
                 <View style={[styles.inlineBetween, { marginTop: 30, paddingTop: 10, borderTopWidth: 1 }]}>
                   <Copy>Balance: </Copy>
-                  <Copy style={{fontSize: 18, color: "blue"}}>{formatCurrency(income - expenses)}</Copy>
+                  <Copy style={{ fontSize: 18, color: "blue" }}>{formatCurrency(income - expenses)}</Copy>
                 </View>
 
               </ScrollView>
@@ -214,23 +215,23 @@ class Dashboard extends Component {
               <ScrollView key={item.id} style={styles.monthContainer}>
 
                 <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
-                  <Copy style={{fontSize: 18}}>Income: </Copy>
-                  <Copy style={{fontSize: 18, color: "green"}}>{formatCurrency(income)}</Copy>
+                  <Copy style={{ fontSize: 18 }}>Income: </Copy>
+                  <Copy style={{ fontSize: 18, color: "green" }}>{formatCurrency(income)}</Copy>
                 </View>
 
                 {this.renderExpenses(sortedIncome)}
 
 
                 <View style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}>
-                  <Copy style={{fontSize: 18}}>Expenses: </Copy>
-                  <Copy style={{fontSize: 18, color: "red"}}>{formatCurrency(expenses)}</Copy>
+                  <Copy style={{ fontSize: 18 }}>Expenses: </Copy>
+                  <Copy style={{ fontSize: 18, color: "red" }}>{formatCurrency(expenses)}</Copy>
                 </View>
 
                 {this.renderExpenses(sortedExpenses)}
 
                 <View style={[styles.inlineBetween, { marginTop: 30, paddingTop: 10, borderTopWidth: 1 }]}>
-                  <Copy style={{fontSize: 18}}>Balance: </Copy>
-                  <Copy style={{fontSize: 18, color: "blue"}}>{formatCurrency(income - expenses)}</Copy>
+                  <Copy style={{ fontSize: 18 }}>Balance: </Copy>
+                  <Copy style={{ fontSize: 18, color: "blue" }}>{formatCurrency(income - expenses)}</Copy>
                 </View>
 
               </ScrollView>

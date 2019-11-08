@@ -25,9 +25,6 @@ class CategoryEdit extends Component {
 
   colorModal = React.createRef()
 
-  componentDidMount() {
-    //this.input.current.focus()
-  }
 
   handleSave = (category) => {
     const { edit, add, setDefault, navigation } = this.props
@@ -86,7 +83,8 @@ class CategoryEdit extends Component {
                 category: {
                   ...category,
                   ...{ name: text },
-                }})}
+                },
+              })}
               returnKeyType="done"
               onSubmitEditing={() => this.handleSave(category)}
               placeholder="category name"
@@ -104,7 +102,7 @@ class CategoryEdit extends Component {
           <View style={[styles.inlineBetween, { margin: 10 }]}>
             <Copy>Color</Copy>
             <TouchableOpacity onPress={() => this.colorModal.current.open()}>
-              <View style={{ width: 40, height: 40, backgroundColor: category.color, borderRadius:5 }} />
+              <View style={{ width: 40, height: 40, backgroundColor: category.color, borderRadius: 5 }} />
             </TouchableOpacity>
           </View>
 

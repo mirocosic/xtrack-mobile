@@ -8,8 +8,6 @@ export default StyleSheet.create({
     marginBottom: 5,
   },
 
-  label: {
-    color: "white"
-  },
+  label: { color: "white" },
 
 })

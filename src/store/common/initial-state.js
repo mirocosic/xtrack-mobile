@@ -6,4 +6,4 @@ export default {
   darkMode: false,
   openOnForm: false,
   language: { code: "hrv", name: "Hrvatski" },
-};
+}

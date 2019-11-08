@@ -19,7 +19,7 @@ export default () => (
     <PersistGate persistor={persistor}>
       <Drawer
         side="right"
-        open={true}
+        open
       >
         <AppNavigator />
       </Drawer>

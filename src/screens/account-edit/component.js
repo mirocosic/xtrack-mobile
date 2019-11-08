@@ -25,13 +25,17 @@ class AccountEdit extends Component {
   }
 
   input = React.createRef()
+
   iconsModal = React.createRef()
+
   colorModal = React.createRef()
+
   currencyModal = React.createRef()
 
   componentDidMount() {
-    if (this.props.navigation.state.params) {
-      this.setState({ account: this.props.accounts.filter(item => this.props.navigation.state.params.id === item.id)[0] })
+    const { navigation, accounts } = this.props
+    if (navigation.state.params) {
+      this.setState({ account: accounts.filter(item => navigation.state.params.id === item.id)[0] })
     }
   }
 
@@ -87,8 +91,9 @@ class AccountEdit extends Component {
               onChangeText={text => this.setState({
                 account: {
                   ...account,
-                  ...{ name: text }
-                }})}
+                  ...{ name: text },
+                },
+              })}
               returnKeyType="done"
               onSubmitEditing={() => this.handleSave(account)}
               placeholder="account name"
@@ -117,7 +122,7 @@ class AccountEdit extends Component {
             </TouchableOpacity>
           </View>
 
-          <View style={[styles.inputContainer, {marginTop: 10, marginBottom: 10}]}>
+          <View style={[styles.inputContainer, { marginTop: 10, marginBottom: 10 }]}>
             <Copy>Starting Balance</Copy>
             <TextInput
               style={{ fontSize: 20, borderBottomWidth: 1, width: 50 }}
@@ -125,15 +130,16 @@ class AccountEdit extends Component {
               onChangeText={text => this.setState({
                 account: {
                   ...account,
-                  ...{ startingBalance: text }
-                }})}
+                  ...{ startingBalance: text },
+                },
+              })}
               value={account.startingBalance}
             />
           </View>
 
           <View style={[styles.inlineBetween, { margin: 10 }]}>
             <Copy>Currency</Copy>
-            <TouchableOpacity onPress={() => this.currencyModal.current.open() }>
+            <TouchableOpacity onPress={() => this.currencyModal.current.open()}>
               <Copy style={{ color: "blue" }}>{account.currency || "HRK"}</Copy>
             </TouchableOpacity>
           </View>
@@ -183,20 +189,22 @@ class AccountEdit extends Component {
           ref={this.currencyModal}>
           <View style={{ padding: 20 }}>
             <TouchableOpacity
-              style={{margin: 20}}
+              style={{ margin: 20 }}
               onPress={() => {
-                this.setState({ account: { ...account, currency: "HRK"} })
-                this.currencyModal.current.close()}}>
-              <Copy style={{fontSize: 20}}>HRK - Croatian Kuna</Copy>
+                this.setState({ account: { ...account, currency: "HRK" } })
+                this.currencyModal.current.close()
+              }}>
+              <Copy style={{ fontSize: 20 }}>HRK - Croatian Kuna</Copy>
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={{margin: 20}}
+              style={{ margin: 20 }}
               onPress={() => {
-                this.setState({ account: { ...account, currency: "EUR"} })
-                this.currencyModal.current.close()}}
+                this.setState({ account: { ...account, currency: "EUR" } })
+                this.currencyModal.current.close()
+              }}
             >
-              <Copy style={{fontSize: 20}}>EUR - European Euro</Copy>
+              <Copy style={{ fontSize: 20 }}>EUR - European Euro</Copy>
             </TouchableOpacity>
 
           </View>

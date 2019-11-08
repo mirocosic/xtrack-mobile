@@ -9,7 +9,6 @@ import { Copy, CopyBlue } from "../../components/typography"
 import Icon from "../../components/icon"
 import styles from "./styles"
 import { formatCurrency } from "../../utils/currency"
-import palette from "../../utils/palette"
 
 const accountBalance = (account, transactions) => {
   if (transactions.length === 0) return 0;

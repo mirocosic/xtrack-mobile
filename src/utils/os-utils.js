@@ -15,15 +15,15 @@ function pickComponent(osComponents) {
   const Component = osComponents[Platform.OS]
 
   if (!Component) {
-      throw new Error("No component provided for OS: " + Platform.OS)
+    throw new Error(`No component provided for OS: ${Platform.OS}`)
   }
 
   return Component
 }
 
 function getExtension(path) {
-  if (!path) throw "getExtension: expected a String"
-  let [name,extension] = path.toLowerCase().split(".")
+  if (!path) throw new Error("getExtension: expected a String")
+  const [extension] = path.toLowerCase().split(".")
   return extension
 }
 

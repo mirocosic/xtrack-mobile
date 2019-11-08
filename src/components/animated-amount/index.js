@@ -5,13 +5,11 @@ import { Title } from "../typography"
 
 export default class AnimatedAmount extends Component {
 
-  state = {
-    amount: 0,
-  }
+  state = { amount: 0 }
 
   componentWillReceiveProps(nextProps) {
     const interval = setInterval(() => {
-      this.setState({amount: this.state.amount+1 }, () => {
+      this.setState({amount: this.state.amount + 1 }, () => {
         if (this.state.amount === nextProps.amount) clearInterval(interval);
       })
     }, 1)
