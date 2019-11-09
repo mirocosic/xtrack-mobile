@@ -5,11 +5,13 @@ import ReactNativeHapticFeedback from "react-native-haptic-feedback";
 import { Copy } from "../typography"
 import styles from "./styles"
 
+const offsets = { expense: 0, income: 120, transfer: 240 }
+
 class TransactionType extends Component {
 
   state = {
-    currentType: "expense",
-    xOffset: new Animated.Value(0),
+    currentType: this.props.transaction.type,
+    xOffset: new Animated.Value(offsets[this.props.transaction.type]),
   }
 
   touchX = new Animated.Value(0);
