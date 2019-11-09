@@ -45,7 +45,7 @@ class TransactionType extends Component {
   }
 
   render() {
-    const { transaction, setType } = this.props
+    const { setType } = this.props
     const { xOffset, currentType } = this.state
 
     const color = xOffset.interpolate({
@@ -55,7 +55,7 @@ class TransactionType extends Component {
 
     const width = xOffset.interpolate({
       inputRange: [0, 60, 120, 180, 240],
-      outputRange: [100, 160, 100, 160, 100]
+      outputRange: [100, 160, 100, 160, 100],
     })
 
     return (
@@ -111,21 +111,21 @@ class TransactionType extends Component {
                 onPress={() => { setType("expense"); this.onClick("expense") }}
                 style={[styles.transactionTypeButton]}>
                 <View style={styles.typeWrap}>
-                  <Copy style={{ color: transaction.type === "expense" ? "white" : "white" }}>EXPENSE</Copy>
+                  <Copy style={{ color: "white" }}>EXPENSE</Copy>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => { setType("income"); this.onClick("income") }}
                 style={[styles.transactionTypeButton]}>
                 <View style={styles.typeWrap}>
-                  <Copy style={{ color: transaction.type === "income" ? "white" : "white" }}>INCOME</Copy>
+                  <Copy style={{ color: "white" }}>INCOME</Copy>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => { setType("transfer"); this.onClick("transfer") }}
                 style={[styles.transactionTypeButton]}>
                 <View style={styles.typeWrap}>
-                  <Copy style={{ color: transaction.type === "transfer" ? "white" : "white" }}>TRANSFER</Copy>
+                  <Copy style={{ color: "white" }}>TRANSFER</Copy>
                 </View>
               </TouchableOpacity>
             </Animated.View>

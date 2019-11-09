@@ -4,7 +4,6 @@ import RNDrawer from "react-native-drawer"
 import { PrimaryButton } from "../buttons"
 import Icon from "../icon"
 import { Title, Copy } from "../typography"
-import __ from "../../utils/translations"
 import styles from "./styles"
 
 export default class Drawer extends Component {
@@ -12,7 +11,7 @@ export default class Drawer extends Component {
   render() {
     const {
       categories, accounts, changeAccountFilter, changeCategoryFilter, resetFilters,
-      drawerOpen, drawerIsCanceled, drawerContent, applyFilters, applyLabelFilter, removeLabelFilter,
+      drawerOpen, applyLabelFilter, removeLabelFilter,
       accountFilter, categoryFilter, closeDrawer, side, children, labels, appliedLabelsFilter,
     } = this.props;
 
@@ -21,14 +20,14 @@ export default class Drawer extends Component {
         ref={ref => this._drawer = ref}
         open={drawerOpen}
         side={side || "left"}
-        tapToClose={true}
+        tapToClose
         onClose={() => {
           closeDrawer();
         }}
         openDrawerOffset={100}
         content={
           (
-            <ScrollView style={styles.content} contentContainerStyle={{paddingBottom: 40}}>
+            <ScrollView style={styles.content} contentContainerStyle={{ paddingBottom: 40 }}>
               <View style={styles.contentHeader}>
                 <Title>Filters</Title>
                 <TouchableOpacity onPress={() => closeDrawer()}>
@@ -48,8 +47,8 @@ export default class Drawer extends Component {
                       <View style={{ borderRadius: 20, borderWidth: 2, borderColor: "teal", marginRight: 5 }}>
                         {
                           accountFilter.id === acc.id
-                          ? <Icon type="check" style={{ width: 22, height: 22 }} textStyle={{ color: "teal", fontSize: 14 }} />
-                          : <Icon style={{ width: 22, height: 22 }} textStyle={{ color: "teal", fontSize: 14 }} />
+                            ? <Icon type="check" style={{ width: 22, height: 22 }} textStyle={{ color: "teal", fontSize: 14 }} />
+                            : <Icon style={{ width: 22, height: 22 }} textStyle={{ color: "teal", fontSize: 14 }} />
                         }
                       </View>
                       <Copy style={{ fontSize: 14 }}>{acc.name}</Copy>
@@ -68,8 +67,8 @@ export default class Drawer extends Component {
                         <View style={{ borderRadius: 20, borderWidth: 2, borderColor: "teal", marginRight: 5 }}>
                           {
                             categoryFilter.id === cat.id
-                            ? <Icon type="check" style={{ width: 22, height: 22 }} textStyle={{ color: "teal", fontSize: 14 }} />
-                            : <Icon style={{ width: 22, height: 22 }} textStyle={{ color: "teal", fontSize: 14 }} />
+                              ? <Icon type="check" style={{ width: 22, height: 22 }} textStyle={{ color: "teal", fontSize: 14 }} />
+                              : <Icon style={{ width: 22, height: 22 }} textStyle={{ color: "teal", fontSize: 14 }} />
                           }
                         </View>
                         <Copy style={{ fontSize: 14 }}>{cat.name}</Copy>
@@ -81,29 +80,29 @@ export default class Drawer extends Component {
                 <View style={{ marginTop: 20 }}>
                   <Copy>Labels</Copy>
                   <View style={{ padding: 10 }}>
-                  { labels.map((item) => {
-                    const labelFilterApplied = appliedLabelsFilter.find(labelFilter => labelFilter.id === item.id)
-                    return (
-                      <TouchableOpacity
-                        key={item.id}
-                        onPress={() => { labelFilterApplied ? removeLabelFilter(item) : applyLabelFilter(item) }}>
-                        <View style={{ flexDirection: "row", alignItems: "center", paddingLeft: 5 }}>
-                          <View style={{ borderWidth: 2, borderColor: "teal", borderRadius: 5 }}>
-                            {
-                              labelFilterApplied
-                              ? <Icon type="check" style={{ width: 22, height: 22 }} textStyle={{ color: "teal", fontSize: 14 }} />
-                              : <Icon style={{ width: 22, height: 22 }} textStyle={{ color: "teal" }} />
-                            }
-                          </View>
+                    { labels.map((item) => {
+                      const labelFilterApplied = appliedLabelsFilter.find(labelFilter => labelFilter.id === item.id)
+                      return (
+                        <TouchableOpacity
+                          key={item.id}
+                          onPress={() => { labelFilterApplied ? removeLabelFilter(item) : applyLabelFilter(item) }}>
+                          <View style={{ flexDirection: "row", alignItems: "center", paddingLeft: 5 }}>
+                            <View style={{ borderWidth: 2, borderColor: "teal", borderRadius: 5 }}>
+                              {
+                                labelFilterApplied
+                                  ? <Icon type="check" style={{ width: 22, height: 22 }} textStyle={{ color: "teal", fontSize: 14 }} />
+                                  : <Icon style={{ width: 22, height: 22 }} textStyle={{ color: "teal" }} />
+                              }
+                            </View>
 
-                          <View style={{ padding: 5, backgroundColor: item.color, width: 50, margin: 5, borderRadius: 5 }}>
-                            <Copy style={{ color: "white", fontSize: 12 }}>{item.name}</Copy>
+                            <View style={{ padding: 5, backgroundColor: item.color, width: 50, margin: 5, borderRadius: 5 }}>
+                              <Copy style={{ color: "white", fontSize: 12 }}>{item.name}</Copy>
+                            </View>
                           </View>
-                        </View>
-                      </TouchableOpacity>
-                    ) },
-                  )}
-                </View>
+                        </TouchableOpacity>
+                      )
+                    })}
+                  </View>
                 </View>
 
                 <PrimaryButton

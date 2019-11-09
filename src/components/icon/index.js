@@ -1,6 +1,5 @@
 import React from "react"
 import { View, Image } from "react-native"
-import PropTypes from "prop-types"
 import FontAwesome, { Icons } from "react-native-fontawesome"
 
 import money from "../../../assets/icons/money.png"
@@ -13,8 +12,8 @@ const icons = {
 
 const Icon = ({ type, textStyle, style, icon }) => (
   <View style={[{ width: 40, height: 40, alignItems: "center", justifyContent: "center", backgroundColor: "transparent", borderRadius: 20 }, style]}>
-    { type ?
-      (
+    { type
+      ? (
         <FontAwesome
           style={[{ fontSize: 16, color: "white" }, textStyle]}
           type="FontAwesome5FreeSolid">

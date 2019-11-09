@@ -7,8 +7,6 @@ export default StyleSheet.create({
     flex: 1,
   },
 
-  containerDark: {
-    backgroundColor: palette.dark,
-  },
+  containerDark: { backgroundColor: palette.dark },
 
 })

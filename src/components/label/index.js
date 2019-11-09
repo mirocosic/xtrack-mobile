@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import PropTypes from "prop-types";
 import { View, TouchableOpacity } from "react-native"
 import Icon from "../icon"
 import { Copy } from "../typography"
@@ -22,14 +21,17 @@ export default class Label extends Component {
   render() {
     const { label, style, removeLabel } = this.props
     return (
-      <View key={label.uuid} style={[styles.label, { backgroundColor: label.color, borderWidth: 1, borderColor: label.color ? label.color : palette.lightGray }, style]}>
+      <View
+        key={label.uuid}
+        style={[styles.label, { backgroundColor: label.color, borderWidth: 1, borderColor: label.color ? label.color : palette.lightGray }, style]}
+      >
         <Copy style={{ fontSize: 12, color: this.labelCopyColor(label.color) }}>{ label.name }</Copy>
         { removeLabel && (
           <TouchableOpacity
             onPress={() => removeLabel(label)}
             style={styles.removeLabel}>
-            <View style={{backgroundColor: "white", borderRadius: 10, width: 16, height: 16, alignItems: "center", justifyContent: "center" }}>
-              <Icon type="times" textStyle={{ color: label.color, fontSize: 12 }} style={{marginTop: 1, marginLeft: 2}}/>
+            <View style={{ backgroundColor: "white", borderRadius: 10, width: 16, height: 16, alignItems: "center", justifyContent: "center" }}>
+              <Icon type="times" textStyle={{ color: label.color, fontSize: 12 }} style={{ marginTop: 1, marginLeft: 2 }} />
 
             </View>
           </TouchableOpacity>
@@ -37,10 +39,4 @@ export default class Label extends Component {
       </View>
     )
   }
-}
-
-Label.propTypes = {
-  label: PropTypes.object,
-  style: PropTypes.object,
-  removeLabel: PropTypes.func,
 }

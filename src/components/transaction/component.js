@@ -47,7 +47,7 @@ const renderCategory = (categories, id) => {
 class Transaction extends Component {
 
   deleteTransaction = (transaction) => {
-    const { navigation, removeAllRecurring, removeFutureRecurring, deleteTransaction } = this.props
+    const { removeAllRecurring, removeFutureRecurring, deleteTransaction } = this.props
 
     if (transaction.recurring) {
       if (Platform.OS === "ios") {
@@ -132,11 +132,6 @@ class Transaction extends Component {
               </View>
             </View>
 
-            { false && (
-              <TouchableOpacity onPress={() => deleteTransaction(transaction)} style={styles.deleteTrans}>
-                <Copy style={{ fontSize: 26, color: "white" }}>-</Copy>
-              </TouchableOpacity>)
-            }
           </View>
         </TouchableOpacity>
       </Swipeout>

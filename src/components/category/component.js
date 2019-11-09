@@ -49,7 +49,7 @@ class Category extends Component {
 
   render() {
     const cat = this.props.data
-    const { darkMode, onPress, selectCategory, navigation, toggleScroll } = this.props
+    const { darkMode, selectCategory, navigation, toggleScroll } = this.props
     return (
       <Swipeout
         right={[{

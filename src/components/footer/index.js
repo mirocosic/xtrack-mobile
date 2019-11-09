@@ -1,8 +1,6 @@
 import React, { Component } from "react"
 import { View, Text, TouchableOpacity } from "react-native"
 import { withNavigation } from "react-navigation"
-import PropTypes from "prop-types"
-
 import styles from "./styles"
 
 class Footer extends Component {
@@ -10,7 +8,7 @@ class Footer extends Component {
   state = {}
 
   render() {
-    const { backBtn, backBtnPress, style, icon, title, children, navigation } = this.props
+    const { backBtn, backBtnPress, style, children, navigation } = this.props
     return (
       <View style={[styles.container, style]}>
         { backBtn && (
