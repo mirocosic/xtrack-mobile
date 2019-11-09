@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, Text, TouchableOpacity, TouchableHighlight } from "react-native"
+import { View, Text, TouchableOpacity } from "react-native"
 import palette from "../../utils/palette"
 import Digit from "../digit"
 import styles from "./styles"
@@ -12,18 +12,19 @@ export default class CustomKeyboard extends Component {
   }
 
   handlePress = (digit) => {
-
-    if (!this.state.calculationMode) {
-      this.props.handlePress(digit)
+    const { calculationMode, input } = this.state
+    const { handlePress } = this.props
+    if (!calculationMode) {
+      handlePress(digit)
     }
 
-    this.setState({ input: this.state.input + digit }, () => console.log(this.state.input))
-
+    this.setState({ input: input + digit })
   }
 
   handleOperation = (operation) => {
+    const { input } = this.state
     this.setState({
-      input: `${this.state.input} ${operation} `,
+      input: `${input} ${operation} `,
       calculationMode: true,
     })
   }
@@ -34,22 +35,23 @@ export default class CustomKeyboard extends Component {
   }
 
   calculate = () => {
+    const { input } = this.state
     this.setState({
-      input: `${this.state.input} = ${eval(this.state.input)}`,
-      calculationResult: eval(this.state.input),
+      input: `${input} = ${eval(input)}`,
       calculationMode: false,
     })
-    this.props.setAmount(eval(this.state.input).toString())
+    this.props.setAmount(eval(input).toString())
   }
 
   render() {
-    const { calculationMode } = this.state
-    
+    const { calculationMode, input } = this.state
+    const { handleSubmit } = this.props
+
     return (
       <View style={styles.wrap}>
 
         <View style={{ alignItems: "flex-end", padding: 5 }}>
-          <Text>{ this.state.input}</Text>
+          <Text>{input}</Text>
         </View>
 
         <View style={{ flexDirection: "row" }}>
@@ -93,10 +95,9 @@ export default class CustomKeyboard extends Component {
             <Digit digit="C" handlePress={() => this.handleClear()} small />
             <Digit digit="DEL" handlePress={() => this.props.delete()} small />
 
-
             <TouchableOpacity
               style={[styles.digit, !calculationMode && { backgroundColor: palette.blue }]}
-              onPress={() => (calculationMode ? this.calculate() : this.props.handleSubmit())}>
+              onPress={() => (calculationMode ? this.calculate() : handleSubmit())}>
               <Text style={{ color: !calculationMode ? "white" : "black" }}>
                 { calculationMode ? "=" : "OK"}
               </Text>
