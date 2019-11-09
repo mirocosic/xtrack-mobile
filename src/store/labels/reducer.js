@@ -1,6 +1,5 @@
-import initialState from "./initial-state";
-
-const makeId = items => (items.length ? items[items.length - 1].id + 1 : 0)
+import initialState from "./initial-state"
+import { makeUUID } from "../../utils/helper-gnomes"
 
 const labels = (state = initialState, action) => {
   switch (action.type) {
@@ -10,7 +9,7 @@ const labels = (state = initialState, action) => {
         ...state,
         items: [
           ...state.items,
-          { id: makeId(state.items), name: action.label.name, color: action.label.color },
+          { id: makeUUID(), name: action.label.name, color: action.label.color },
         ],
       }
 

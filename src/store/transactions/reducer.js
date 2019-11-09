@@ -2,16 +2,15 @@ import moment from "moment"
 import initialState from "./initial-state";
 import { makeUUID } from "../../utils/helper-gnomes"
 
-const makeId = entries => (entries.length ? entries[entries.length - 1].id + 1 : 1)
 const transactions = (state = initialState, action) => {
 
   const transaction = action.transaction || {}
   const { timestamp, account, fromAccount, amount, type, note, category, labels, recurring, parentTransactionId } = transaction
-  const newId = makeId(state.entries)
+  const newId = makeUUID()
+
   switch (action.type) {
 
     case "ADD_TRANSACTION":
-
       return {
         ...state,
         entries: [
@@ -33,7 +32,6 @@ const transactions = (state = initialState, action) => {
       }
 
     case "EDIT_TRANSACTION":
-
       return {
         ...state,
         entries: state.entries.map((item) => {
@@ -121,7 +119,7 @@ const transactions = (state = initialState, action) => {
         entries: [
           ...state.entries,
           {
-            id: makeId(state.entries),
+            id: makeUUID(),
             timestamp,
             account: fromAccount,
             fromAccount: account,
@@ -132,7 +130,7 @@ const transactions = (state = initialState, action) => {
             labels,
           },
           {
-            id: makeId(state.entries) + 1,
+            id: makeUUID(),
             timestamp,
             account,
             fromAccount,

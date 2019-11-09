@@ -1,7 +1,5 @@
-import initialState from "./initial-state";
-
-const makeId = items => (items.length ? items[items.length - 1].id + 1 : 0)
-
+import initialState from "./initial-state"
+import { makeUUID } from "../../utils/helper-gnomes"
 
 const categories = (state = initialState, action) => {
   switch (action.type) {
@@ -21,7 +19,7 @@ const categories = (state = initialState, action) => {
         items: [
           ...state.items,
           {
-            id: makeId(state.items),
+            id: makeUUID(),
             name: action.category.name,
             type: action.category.type,
             icon: action.category.icon,
