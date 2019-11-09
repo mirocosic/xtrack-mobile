@@ -8,15 +8,11 @@ import { CopyBlue } from "../../components/typography"
 
 class Categories extends Component {
 
-  state = {
-    categoryName: "",
-    type: "expense",
-    scroll: true,
-  }
+  state = { scroll: true }
 
   render() {
-    const { categories, navigation, add, clearTransactionForm, clearSelectedCategory, selectCategory, darkMode } = this.props
-    const { categoryName, type, scroll } = this.state
+    const { categories, navigation, selectCategory } = this.props
+    const { scroll } = this.state
 
     return (
       <Screen>

@@ -43,8 +43,6 @@ class Dashboard extends Component {
     title: "",
     showScrollToEnd: false,
     showScrollToStart: false,
-    year: moment().format("YYYY"),
-    month: ""
   }
 
 
@@ -108,22 +106,21 @@ class Dashboard extends Component {
       this.setState({ showScrollToEnd: false, showScrollToStart: false })
     }
     const screenNum = Math.round(23 - (event.nativeEvent.contentOffset.x / width))
-    this.setState({ year: moment().subtract(screenNum, "month").format("YYYY"),
-                    title: moment().subtract(screenNum, "month").format("MMMM") })
-
+    this.setState({ title: moment().subtract(screenNum, "month").format("MMMM") })
   }
 
-  renderExpenses = (expenses) => {
-    return Object.entries(expenses).map((item, idx) => (
-      <View key={idx} style={{ ...styles.row, paddingLeft: 20 }}>
+  renderExpenses = expenses => (
+    Object.entries(expenses).map(item => (
+      <View key={item.id} style={{ ...styles.row, paddingLeft: 20 }}>
         <Copy style={{ fontSize: 14 }}>{`${item[0]} `}</Copy>
         <Copy style={{ fontSize: 14 }}>{`${formatCurrency(item[1])}`}</Copy>
       </View>
     ))
-  }
+  )
 
   renderActionBtn = () => {
-    if (this.state.showScrollToEnd) {
+    const { showScrollToEnd, showScrollToStart } = this.state
+    if (showScrollToEnd) {
       return (
         <View style={styles.inline}>
           <Copy style={{ color: "white", fontSize: 14 }}>Now</Copy>
@@ -132,7 +129,7 @@ class Dashboard extends Component {
       )
     }
 
-    if (this.state.showScrollToStart) {
+    if (showScrollToStart) {
       return (
         <View style={styles.inlineAround}>
           <Icon type="chevronLeft" style={{ marginLeft: 20 }} textStyle={{ fontSize: 12 }} />
@@ -145,11 +142,8 @@ class Dashboard extends Component {
   }
 
   render() {
-    const {
-      clearSelectedCategory, clearTransactionForm, navigation, accounts, darkMode,
-      total, transactions,
-    } = this.props
-
+    const { transactions } = this.props
+    const { title } = this.state
     const { width } = Dimensions.get("window")
     const currentMonth = moment()
     currentMonth.subtract(24, "month")
@@ -157,7 +151,7 @@ class Dashboard extends Component {
     return (
       <Screen>
         <Header
-          title={this.state.title}
+          title={title}
           actionBtn={this.renderActionBtn()}
           actionBtnPress={() => this.scrollView.scrollTo({ x: width * 23, animated: true })}
         />

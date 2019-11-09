@@ -19,8 +19,6 @@ class Overview extends Component {
     ),
   })
 
-  state = { modalVisible: false }
-
   changeAccountFilter = () => {
     const { accounts, changeAccountFilter } = this.props
     Alert.alert(
@@ -59,8 +57,9 @@ class Overview extends Component {
   }
 
   renderExpenses() {
-    return Object.entries(this.props.expensesByCategory).map((item, idx) => (
-      <View key={idx} style={{ ...styles.row, paddingLeft: 20 }}>
+    const { expensesByCategory } = this.props
+    return Object.entries(expensesByCategory).map(item => (
+      <View key={item.id} style={{ ...styles.row, paddingLeft: 20 }}>
         <Text>{`${item[0]} `}</Text>
         <Text>{`${item[1]} kn`}</Text>
       </View>
@@ -68,13 +67,13 @@ class Overview extends Component {
   }
 
   render() {
-    const { expensesByCategory, accounts, transactions, accountFilter, changeAccountFilter, changeMonthFilter, currentMonth } = this.props
+    const { accounts, transactions } = this.props
     return (
 
       <Screen>
         <Header title="Overview" />
-        <ScrollView style={{ padding: 20 }} contentContainerStyle={{paddingBottom: 40}}>
-          <Title>Net worth: <Copy style={{fontWeight: "bold", fontSize: 20}}>{formatCurrency(this.calculateNetWorth())}</Copy></Title>
+        <ScrollView style={{ padding: 20 }} contentContainerStyle={{ paddingBottom: 40 }}>
+          <Title>Net worth: <Copy style={{ fontWeight: "bold", fontSize: 20 }}>{formatCurrency(this.calculateNetWorth())}</Copy></Title>
 
           { accounts.map((acc) => {
             const income = parseFloat(calculateIncome(transactions, { type: "account", value: acc }))
@@ -92,19 +91,19 @@ class Overview extends Component {
                     </View>)
                   }
 
-                  <View style={[styles.inline,{justifyContent: "space-between", paddingLeft: 20, paddingRight: 20}]}>
+                  <View style={[styles.inline, { justifyContent: "space-between", paddingLeft: 20, paddingRight: 20 }]}>
                     <Copy>Income: </Copy>
                     <Copy>{formatCurrency(income)}</Copy>
                   </View>
 
-                  <View style={[styles.inline,{justifyContent: "space-between", paddingLeft: 20, paddingRight: 20}]}>
+                  <View style={[styles.inline, { justifyContent: "space-between", paddingLeft: 20, paddingRight: 20 }]}>
                     <Copy>Expenses: </Copy>
                     <Copy>{formatCurrency(expenses)}</Copy>
                   </View>
 
-                  <View style={[styles.inline,{justifyContent: "space-between", paddingLeft: 20, paddingRight: 20}]}>
+                  <View style={[styles.inline, { justifyContent: "space-between", paddingLeft: 20, paddingRight: 20 }]}>
                     <Copy>Balance: </Copy>
-                    <Copy style={{color: "blue"}}>{ formatCurrency(startingBalance + income - expenses)}</Copy>
+                    <Copy style={{ color: "blue" }}>{formatCurrency(startingBalance + income - expenses)}</Copy>
                   </View>
                 </View>
 

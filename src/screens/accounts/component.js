@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import { Alert, View, ScrollView, TouchableOpacity } from "react-native"
-import PropTypes from "prop-types"
 import { get } from "lodash"
 import { withNavigation } from "react-navigation";
 import Swipeout from "react-native-swipeout"
@@ -40,7 +39,7 @@ class Accounts extends Component {
   )
 
   handleDelete = (account) => {
-    const { remove, removeTransactions, navigation, transactions } = this.props
+    const { remove, removeTransactions, transactions } = this.props
     const count = transactions.filter(item => account.id === get(item, "account.id")).length
     if (count > 0) {
       Alert.alert(
@@ -126,16 +125,5 @@ class Accounts extends Component {
   }
 }
 
-Accounts.propTypes = {
-  darkMode: PropTypes.bool,
-  transactions: PropTypes.any,
-  remove: PropTypes.func.isRequired,
-}
-
-Accounts.defaultProps = {
-  darkMode: false,
-  transactions: [],
-  accounts: [],
-}
 
 export default withNavigation(Accounts);

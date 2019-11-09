@@ -37,7 +37,7 @@ class Labels extends Component {
 
 
     render() {
-      const { navigation, labels, remove, darkMode, select } = this.props
+      const { navigation, labels, darkMode } = this.props
       const { scroll } = this.state
       return (
         <Screen>

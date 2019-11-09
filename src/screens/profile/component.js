@@ -18,21 +18,19 @@ class Profile extends Component {
   })
 
   selectLanguage = () => {
+    const { setLanguage } = this.props
     Alert.alert(
       __("Select language"),
       __("Please choose your preferred language"),
       [
-        { text: "English", onPress: () => this.props.setLanguage({ code: "eng", name: "English" }) },
-        { text: "Hrvatski", onPress: () => this.props.setLanguage({ code: "hrv", name: "Hrvatski" }) },
+        { text: "English", onPress: () => setLanguage({ code: "eng", name: "English" }) },
+        { text: "Hrvatski", onPress: () => setLanguage({ code: "hrv", name: "Hrvatski" }) },
       ],
     )
   }
 
   render() {
-    const {
-      navigation, darkMode, toggleDarkMode, language, erase, locationTracking,
-      handleLocationTracking, openOnForm, toggleOpenOnForm,
-    } = this.props
+    const { navigation, locationTracking, openOnForm, toggleOpenOnForm } = this.props
 
     return (
       <Screen>
@@ -80,7 +78,7 @@ class Profile extends Component {
           onPress={() => navigation.navigate("Backup")}
           style={styles.settingWrap}
         >
-          <View style={{maxWidth: 300}}>
+          <View style={{ maxWidth: 300 }}>
             <Copy>Backup/Restore</Copy>
             <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
               Make a local backup of your data and restore it if you delete the app.
@@ -91,13 +89,6 @@ class Profile extends Component {
 
         <View style={{ padding: 20 }}>
 
-          {
-          // <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-          //   <Copy>Dark mode</Copy>
-          //   <Switch value={darkMode} onValueChange={toggleDarkMode} />
-          // </View>
-          }
-
           <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
             <Copy>Enable Location Tracking</Copy>
             <Switch value={locationTracking} onValueChange={this.handleLocationTracking} />
@@ -107,15 +98,6 @@ class Profile extends Component {
             <Copy>Open app on transaction form</Copy>
             <Switch value={openOnForm} onValueChange={toggleOpenOnForm} />
           </View>
-
-          {
-          // <TouchableOpacity
-          //   onPress={this.selectLanguage}
-          //   style={{ flexDirection: "row", marginTop: 20, justifyContent: "space-between" }}>
-          //   <Copy>{`${__("Language")}:`}</Copy>
-          //   <Copy style={{ color: "blue" }}>{language.name}</Copy>
-          // </TouchableOpacity>
-          }
 
         </View>
       </Screen>

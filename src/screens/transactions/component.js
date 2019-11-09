@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import { Animated, View, ScrollView, TouchableOpacity, TextInput } from "react-native"
-import PropTypes from "prop-types"
 import { withNavigation } from "react-navigation"
 import { get } from "lodash"
 import Screen from "../../components/screen"
@@ -48,7 +47,6 @@ class Transactions extends Component {
 
     return (
       <Screen>
-        {
         <View style={{ position: "absolute", alignItems: "center", justifyContent: "center", zIndex: 1000, width: "100%", flex: 1 }}>
           <Header title="Transactions" style={{ flex: 1, width: "100%", alignItems: "center", justifyContent: "center" }}>
             <TouchableOpacity onPress={() => openDrawer()} style={{ position: "absolute", right: 10, top: 30 }}>
@@ -56,8 +54,6 @@ class Transactions extends Component {
             </TouchableOpacity>
           </Header>
         </View>
-      }
-
         <Animated.View style={{
           justifyContent: "center",
           zIndex: 100,
@@ -74,7 +70,7 @@ class Transactions extends Component {
           !entries.length
             ? (
               <View style={{ flex: 1, alignItems: "center", justifyContent: "center", margin: 20 }}>
-                <Copy style={{ textAlign: "center" }}>Hey! Seems like you don't have any transactions.</Copy>
+                <Copy style={{ textAlign: "center" }}>Hey! Seems like you don&apos;t have any transactions.</Copy>
                 <Copy />
                 <Copy>Add some!</Copy>
               </View>
@@ -135,11 +131,6 @@ class Transactions extends Component {
       </Screen>
     )
   }
-}
-
-Transactions.propTypes = {
-  expenses: PropTypes.number.isRequired,
-  clearTransactionForm: PropTypes.func.isRequired,
 }
 
 export default withNavigation(Transactions);

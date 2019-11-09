@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Alert, View, TouchableOpacity } from "react-native";
-import RNFS from "react-native-fs"
+
 import { withNavigation } from "react-navigation";
 import { Screen, Header, Footer } from "../../components"
 import { Copy } from "../../components/typography"
@@ -14,11 +14,6 @@ class Backup extends Component {
       { text: "Cancel", style: "cancel" },
       { text: "OK", onPress: () => {} },
     ])
-  }
-
-  componentDidMount = async () => {
-    const dir = await RNFS.readDir(RNFS.DocumentDirectoryPath)
-    console.log(dir)
   }
 
   render() {

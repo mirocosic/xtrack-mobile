@@ -45,49 +45,45 @@ class Reports extends Component {
   }
 
   calcExpenses = (account) => {
-    const transactions = this.props.transactions;
-    if (transactions.length === 0) return 0;
-    const accountTransactions = transactions.filter(item => account.id === get(item, "account.id") && item.type === "expense");
+    const { transactions } = this.props
+    if (transactions.length === 0) return 0
+    const accountTransactions = transactions.filter(item => account.id === get(item, "account.id") && item.type === "expense")
     if (accountTransactions.length === 0) { return 0 }
-    const total = accountTransactions.reduce((a, b)=>({amount: parseFloat(a.amount) + parseFloat(b.amount)}));
+    const total = accountTransactions.reduce((a, b) => ({ amount: parseFloat(a.amount) + parseFloat(b.amount) }))
 
-    return total.amount;
+    return total.amount
   }
 
   calcIncome = (account) => {
-    const transactions = this.props.transactions;
-    if (transactions.length === 0) return 0;
-    const accountTransactions = transactions.filter((item)=>account.id=== get(item ,"account.id") && item.type === "income");
+    const { transactions } = this.props
+    if (transactions.length === 0) return 0
+    const accountTransactions = transactions.filter(item => account.id === get(item, "account.id") && item.type === "income")
     if (accountTransactions.length === 0) { return 0 }
-    const total = accountTransactions.reduce((a, b) => ({ amount: parseFloat(a.amount) + parseFloat(b.amount) }));
+    const total = accountTransactions.reduce((a, b) => ({ amount: parseFloat(a.amount) + parseFloat(b.amount) }))
 
-    return total.amount;
+    return total.amount
   }
 
   calcTotal = (account) => {
-    const transactions = this.props.transactions;
-
+    const { transactions } = this.props
     if (transactions.length === 0) return 0;
-
-    const accountTransactions = transactions.filter(item => account.id === get(item, "account.id"));
-
+    const accountTransactions = transactions.filter(item => account.id === get(item, "account.id"))
     if (accountTransactions.length === 0) { return 0 }
+    const total = accountTransactions.reduce((a, b) => ({ amount: parseFloat(a.amount) + parseFloat(b.amount) }))
 
-    const total = accountTransactions.reduce((a, b) => ({ amount: parseFloat(a.amount) + parseFloat(b.amount) }));
-
-    return total.amount;
-
+    return total.amount
   }
 
   render() {
-
-    const headerHeight = this.state.height.interpolate({
+    const { height } = this.state
+    const { accounts, darkMode, expenses, income, total, navigation, clearSelectedCategory, clearTransactionForm } = this.props
+    const headerHeight = height.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
       outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
       extrapolate: "clamp",
     });
 
-    const headerScale = this.state.height.interpolate({
+    const headerScale = height.interpolate({
       inputRange: [-150, 0],
       outputRange: [3, 1],
       extrapolate: "clamp",
@@ -106,10 +102,10 @@ class Reports extends Component {
         </Animated.View>
         <ScrollView
           scrollEventThrottle={16}
-          onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: this.state.height } } }])}>
+          onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: height } } }])}>
 
-          { this.props.accounts.map(account => (
-            <View key={account.id} style={[styles.accountCard, this.props.darkMode && styles.accountCardDark]}>
+          { accounts.map(account => (
+            <View key={account.id} style={[styles.accountCard, darkMode && styles.accountCardDark]}>
               <Title>{account.name}</Title>
               <View style={styles.accountDetails}>
                 <Copy>{__("Expenses")}: { formatCurrency(this.calcExpenses(account))}</Copy>
@@ -119,12 +115,12 @@ class Reports extends Component {
             </View>
           ))}
 
-          <View style={[styles.accountCard, this.props.darkMode && styles.accountCardDark]}>
+          <View style={[styles.accountCard, darkMode && styles.accountCardDark]}>
             <Title>`All accounts`</Title>
             <View style={styles.accountDetails}>
-              <Copy>{__("Expenses")}: { formatCurrency(this.props.expenses)}</Copy>
-              <Copy>{__("Income")}: { formatCurrency(this.props.income)}</Copy>
-              <Copy>{__("Total")}: { formatCurrency(this.props.total)}</Copy>
+              <Copy>{__("Expenses")}: { formatCurrency(expenses)}</Copy>
+              <Copy>{__("Income")}: { formatCurrency(income)}</Copy>
+              <Copy>{__("Total")}: { formatCurrency(total)}</Copy>
             </View>
           </View>
 

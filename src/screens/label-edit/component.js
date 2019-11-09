@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { View,TextInput, TouchableOpacity } from "react-native";
-import { withNavigation } from "react-navigation";
+import React, { Component } from "react"
+import { View, TextInput, TouchableOpacity } from "react-native"
+import { withNavigation } from "react-navigation"
 import Modalize from "react-native-modalize"
 import Screen from "../../components/screen"
 import Header from "../../components/header"
@@ -25,7 +25,7 @@ class LabelEdit extends Component {
   }
 
   render() {
-    const { add, edit, navigation, darkMode } = this.props
+    const { darkMode } = this.props
     const { label } = this.state
 
     return (
@@ -63,7 +63,6 @@ class LabelEdit extends Component {
           </TouchableOpacity>
 
         </View>
-
 
         <Modalize
           modalHeight={300}

@@ -15,9 +15,7 @@ const defaultCategory = { icon: "shoppingBasket", color: "#0097A7" }
 
 class CategoryEdit extends Component {
 
-  state = {
-    category: this.props.categories.filter(item => this.props.navigation.state.params.id === item.id)[0] || defaultCategory
-  }
+  state = { category: this.props.categories.filter(item => this.props.navigation.state.params.id === item.id)[0] || defaultCategory }
 
   input = React.createRef()
 
@@ -60,7 +58,7 @@ class CategoryEdit extends Component {
   }
 
   render() {
-    const { navigation, add, edit, remove, setDefault, darkMode } = this.props
+    const { darkMode } = this.props
     const { category } = this.state
     return (
       <Screen>

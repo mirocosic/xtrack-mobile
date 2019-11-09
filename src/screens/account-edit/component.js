@@ -69,7 +69,7 @@ class AccountEdit extends Component {
   }
 
   render() {
-    const { navigation, darkMode, add, edit, remove, setDefault } = this.props
+    const { darkMode } = this.props
     const { account } = this.state
     return (
       <Screen>

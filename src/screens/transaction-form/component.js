@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
   Text, View, ScrollView, TextInput, Animated, TouchableOpacity, TouchableWithoutFeedback,
-  Keyboard, Switch, Platform, ActionSheetIOS,
+  Keyboard, Switch, Platform, ActionSheetIOS, Alert,
 } from "react-native";
 import { Calendar } from "react-native-calendars"
 import { withNavigation } from "react-navigation"
@@ -9,7 +9,6 @@ import Modalize from "react-native-modalize"
 import Collapsible from "react-native-collapsible"
 import moment from "moment"
 import { get } from "lodash"
-import PropTypes from "prop-types"
 
 import { Screen, Header, Label, CustomKeyboard, TransactionType } from "../../components"
 import { Copy, Title } from "../../components/typography"
@@ -36,7 +35,7 @@ class TransactionForm extends Component {
   recurringCalendarModal = React.createRef()
 
   componentDidMount() {
-    const { navigation, accounts, categories,  clearSelectedCategory, clearTransactionForm } = this.props
+    const { navigation, accounts, categories, clearSelectedCategory, clearTransactionForm } = this.props
     if (navigation.state.params && navigation.state.params.clearForm) {
       const defaultAccount = accounts.find(acc => acc.defaultAccount)
       const defaultCategory = categories.find(cat => cat.defaultCategory)
@@ -50,19 +49,20 @@ class TransactionForm extends Component {
   }
 
   focusInput = () => {
+    const { blinker } = this.state
     this.input.focus()
 
     Animated.loop(
       Animated.sequence([
-        Animated.timing(this.state.blinker, {
+        Animated.timing(blinker, {
           toValue: 1,
           duration: 0,
         }),
-        Animated.timing(this.state.blinker, {
+        Animated.timing(blinker, {
           toValue: 0,
           duration: 500,
         }),
-        Animated.timing(this.state.blinker, {
+        Animated.timing(blinker, {
           toValue: 1,
           duration: 500,
         }),
@@ -72,14 +72,14 @@ class TransactionForm extends Component {
   }
 
   blurInput = () => {
+    const { blinker } = this.state
     Keyboard.dismiss()
     this.input.blur()
-    // this.setState({stopAnimation: true});
-    this.state.blinker.stopAnimation()
+    blinker.stopAnimation()
   }
 
   submitForm = () => {
-    const { transfer, edit, add, navigation, addRecurring } = this.props
+    const { transfer, add, navigation, addRecurring } = this.props
     const { transaction } = this.state
 
     if (transaction.type === "transfer") {
@@ -130,7 +130,7 @@ class TransactionForm extends Component {
             default:
               break;
           }
-        }
+        },
       )
     } else {
       Alert.alert("Warning!", "This is recurring transaction. Need to add Android specific code for edit.")
@@ -138,7 +138,7 @@ class TransactionForm extends Component {
   }
 
   deleteTransaction = (transaction) => {
-    const { navigation } = this.props
+    const { navigation, remove, removeFutureRecurring, removeAllRecurring } = this.props
 
     if (transaction.recurring) {
       if (Platform.OS === "ios") {
@@ -151,38 +151,39 @@ class TransactionForm extends Component {
           }, (btnIdx) => {
             switch (btnIdx) {
               case 0:
-                this.props.removeAllRecurring(transaction)
+                removeAllRecurring(transaction)
                 navigation.goBack()
-                break;
+                break
               case 1:
-                this.props.removeFutureRecurring(transaction)
+                removeFutureRecurring(transaction)
                 navigation.goBack()
-                break;
+                break
               case 2:
-                this.props.remove(transaction)
+                remove(transaction)
                 navigation.goBack()
-                break;
+                break
               default:
-                break;
+                break
             }
-          }
+          },
         )
       } else {
         Alert.alert("Warning!", "This is recurring transaction. Need to add Android specific code for deletion.")
       }
     } else {
-      this.props.remove({ id: transaction.id })
+      remove({ id: transaction.id })
       navigation.goBack()
     }
   }
 
   renderAccounts = () => {
-    const { accounts, changeAccountFilter, setFrom, setTo } = this.props
+    const { accounts, setFrom, setTo } = this.props
+    const { accountType } = this.state
     return accounts.map(account => (
       <TouchableOpacity
         key={account.id}
         onPress={() => {
-          this.state.accountType === "from" ? setFrom(account) : setTo(account);
+          accountType === "from" ? setFrom(account) : setTo(account);
           this.accountsModal.current.close()
         }}
       >
@@ -235,7 +236,8 @@ class TransactionForm extends Component {
   }
 
   renderCategory = (id) => {
-    const category = this.props.categories.find(cat => id === cat.id)
+    const { categories } = this.props
+    const category = categories.find(cat => id === cat.id)
 
     return (
       <View style={{ flexDirection: "row", alignItems: "center", width: 170 }}>
@@ -250,7 +252,8 @@ class TransactionForm extends Component {
   }
 
   renderAccount = (id) => {
-    const account = this.props.accounts.find(acc => id === acc.id)
+    const { accounts } = this.props
+    const account = accounts.find(acc => id === acc.id)
 
     return (
       <View style={{ flexDirection: "row", alignItems: "center", width: 170 }}>
@@ -265,22 +268,23 @@ class TransactionForm extends Component {
   }
 
   selectRecurringSchedule = () => {
+    const { transaction } = this.state
     ActionSheetIOS.showActionSheetWithOptions({
       options: ["Day", "Week", "Month", "Year", "Cancel"],
       cancelButtonIndex: 4,
     }, (btnIdx) => {
       switch (btnIdx) {
         case 0:
-          this.setState({ transaction: { ...this.state.transaction, recurring: { ...this.state.transaction.recurring, frequency: "Day" } } })
+          this.setState({ transaction: { ...transaction, recurring: { ...transaction.recurring, frequency: "Day" } } })
           break;
         case 1:
-        this.setState({ transaction: { ...this.state.transaction, recurring: { ...this.state.transaction.recurring, frequency: "Week" } } })
+          this.setState({ transaction: { ...transaction, recurring: { ...transaction.recurring, frequency: "Week" } } })
           break;
         case 2:
-        this.setState({ transaction: { ...this.state.transaction, recurring: { ...this.state.transaction.recurring, frequency: "Month" } } })
+          this.setState({ transaction: { ...transaction, recurring: { ...transaction.recurring, frequency: "Month" } } })
           break;
         case 3:
-        this.setState({ transaction: { ...this.state.transaction, recurring: { ...this.state.transaction.recurring, frequency: "Year" } } })
+          this.setState({ transaction: { ...transaction, recurring: { ...transaction.recurring, frequency: "Year" } } })
           break;
         default:
           break;
@@ -562,18 +566,5 @@ class TransactionForm extends Component {
     );
   }
 }
-
-TransactionForm.propTypes = {
-  darkMode: PropTypes.bool,
-  transactions: PropTypes.any,
-  remove: PropTypes.func.isRequired,
-}
-
-TransactionForm.defaultProps = {
-  darkMode: false,
-  transactions: [],
-  accounts: [],
-}
-
 
 export default withNavigation(TransactionForm);

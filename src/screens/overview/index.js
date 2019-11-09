@@ -4,10 +4,9 @@ import moment from "moment"
 
 import Component from "./component";
 
-
 const sortByCategory = (expenses) => {
   const result = {}
-  expenses.map((expense) => {
+  expenses.forEach((expense) => {
     const currExpenseSum = result[expense.category.name] || 0
     result[expense.category.name] = currExpenseSum + expense.amount
   })
@@ -15,13 +14,11 @@ const sortByCategory = (expenses) => {
   return result
 }
 
-const filterByAccount = (expenses, accountFilter) => {
+export const filterByAccount = (expenses, accountFilter) => (
+  accountFilter ? expenses.filter(item => accountFilter.id === get(item, "account.id")) : expenses
+)
 
-  return accountFilter ? expenses.filter(item => accountFilter.id === get(item, "account.id")) : expenses
-
-}
-
-const filterByMonth = (transactions, currentMonth) => (
+export const filterByMonth = (transactions, currentMonth) => (
   transactions.filter(t => moment(t.timestamp) > moment(currentMonth).startOf("month")
                            && moment(t.timestamp) < moment(currentMonth).endOf("month")
                            && t.type === "expense"))
@@ -36,8 +33,13 @@ export default connect(
     transactions: state.transactions.entries,
     total: state.transactions.total,
     expenses: state.transactions.expenses,
-    //expensesByCategory: sortByCategory(filterByAccount(state.transactions.entries.filter(item => item.type === "expense"), state.accounts.accountFilter)),
-    expensesByCategory: sortByCategory(filterByMonth(state.transactions.entries.filter(item => item.type === "expense"), state.transactions.currentMonth)),
+    expensesByCategory:
+      sortByCategory(
+        filterByMonth(
+          state.transactions.entries.filter(item => item.type === "expense"),
+          state.transactions.currentMonth,
+        ),
+      ),
     income: state.transactions.income,
   }),
 
