@@ -294,7 +294,7 @@ class TransactionForm extends Component {
 
   render() {
     const { transaction, blinker } = this.state
-    const { navigation, removeLabel, darkMode, changeTransactionAmount, setType } = this.props
+    const { navigation, removeLabel, darkMode, changeTransactionAmount } = this.props
 
     return (
       <TouchableWithoutFeedback onPress={() => this.blurInput()}>
@@ -308,7 +308,7 @@ class TransactionForm extends Component {
 
           <ScrollView contentContainerStyle={styles.wrap}>
 
-            <TransactionType setType={setType} transaction={transaction} />
+            <TransactionType setType={type => this.setState({ transaction: { ...transaction, type } })} transaction={transaction} />
 
             <View style={styles.formFieldWrap}>
               <Copy>Amount</Copy>

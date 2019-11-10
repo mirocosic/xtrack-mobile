@@ -25,7 +25,6 @@ export default connect(
     addRecurring: options => dispatch({ type: "ADD_RECURRING_TRANSACTION", options }),
     removeAllRecurring: transaction => dispatch({ type: "REMOVE_ALL_RECURRING_TRANSACTIONS", transaction }),
     removeFutureRecurring: transaction => dispatch({ type: "REMOVE_FUTURE_RECURRING_TRANSACTIONS", transaction }),
-    setType: transactionType => dispatch({ type: "SET_TYPE", transactionType }),
     selectCategory: payload => dispatch({ type: "SELECT_CATEGORY", payload }),
     setTransferMode: value => dispatch({ type: "SET_TRANSFER_MODE", value }),
     clearSelectedCategory: () => dispatch({ type: "CLEAR_SELECTED_CATEGORY" }),
