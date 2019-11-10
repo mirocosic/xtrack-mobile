@@ -35,12 +35,9 @@ const transactions = (state = initialState, action) => {
       return {
         ...state,
         entries: state.entries.map((item) => {
-          if (item.id !== action.transaction.id) return item;
+          if (item.id !== transaction.id) { return item }
 
-          return {
-            ...action.transaction,
-            timestamp: item.timestamp,
-          }
+          return transaction
         }),
       }
 
