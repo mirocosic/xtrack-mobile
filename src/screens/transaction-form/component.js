@@ -456,10 +456,15 @@ class TransactionForm extends Component {
           </ScrollView>
 
           <CustomKeyboard
-            handlePress={value => changeTransactionAmount(transaction.amount + value)}
+            handlePress={value => this.setState({ transaction: { ...transaction, ...{ amount: transaction.amount + value } } })}
             handleSubmit={() => this.submitForm()}
-            delete={() => changeTransactionAmount(transaction.amount.substring(0, transaction.amount.length - 1))}
-            setAmount={changeTransactionAmount}
+            setAmount={value => this.setState({ transaction: { ...transaction, ...{ amount: value } } })}
+            delete={() => this.setState({
+              transaction: {
+                ...transaction,
+                ...{ amount: transaction.amount.substring(0, transaction.amount.length - 1) },
+              },
+            })}
           />
 
           <Modalize

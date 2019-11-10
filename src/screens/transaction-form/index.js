@@ -34,7 +34,6 @@ export default connect(
     changeAccountFilter: account => dispatch({ type: "CHANGE_ACCOUNT_FILTER", account }),
     setTo: payload => dispatch({ type: "SELECT_TO_ACCOUNT", payload }),
     setFrom: payload => dispatch({ type: "SELECT_FROM_ACCOUNT", payload }),
-    changeTransactionAmount: amount => dispatch({ type: "CHANGE_TRANSACTION_AMOUNT", amount }),
     clearTransactionForm: (defaultAccount, defaultCategory) => dispatch({ type: "CLEAR_TRANSACTION_FORM", defaultAccount, defaultCategory }),
   }),
 )(Component);
