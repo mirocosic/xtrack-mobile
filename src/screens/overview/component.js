@@ -83,7 +83,7 @@ class Overview extends Component {
         <Header title="Overview" />
         <ScrollView style={{ padding: 20 }} contentContainerStyle={{ paddingBottom: 40 }}>
           <Title>Net worth: <Copy style={{ fontWeight: "bold", fontSize: 20 }}>{formatCurrency(this.calculateNetWorth())}</Copy></Title>
-          <Copy style={{marginLeft: 5}}>Savings Rate:
+          <Copy style={{ marginLeft: 5 }}>Savings Rate:
             <Copy style={{ fontWeight: "bold", fontSize: 16 }}> {this.calcSavingsRate()}</Copy>
           </Copy>
 
