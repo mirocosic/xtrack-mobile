@@ -45,6 +45,11 @@
 	<string>Xtrack would like to access your location to track your expenses.</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Font Awesome 5 Pro-Regular-400.otf</string>
+		<string>Font Awesome 5 Pro-Solid-900.otf</string>
+		<string>Font Awesome 5 Pro-Light-300.otf</string>
+		<string>Font Awesome 5 Brands-Regular-400.otf</string>
+		<string>Font Awesome 5 Duotone-Solid-900.otf</string>
 		<string>DINNeuzeitGroteskPro-Bold.ttf</string>
 		<string>DINNeuzeitGroteskPro-Light.ttf</string>
 		<string>Font-Awesome-5-Free-Solid-900.ttf</string>
