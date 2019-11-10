@@ -96,6 +96,12 @@ class Dashboard extends Component {
     return total.amount;
   }
 
+  calcSavingsRate = (income, expenses) => {
+    if (income === 0) { return "0%" }
+    const rate = (((income - expenses) / income) * 100).toFixed(2)
+    return `${rate}%`
+  }
+
   handleScroll = (event) => {
     const { width } = Dimensions.get("window")
     if (event.nativeEvent.contentOffset.x < width * 23) {
@@ -195,6 +201,11 @@ class Dashboard extends Component {
                   <Copy style={{ fontSize: 18, color: "blue" }}>{formatCurrency(income - expenses)}</Copy>
                 </View>
 
+                <View style={styles.inlineBetween}>
+                  <Copy>Savings Rate: </Copy>
+                  <Copy style={{ fontSize: 18, color: "blue" }}>{this.calcSavingsRate(income, expenses)}</Copy>
+                </View>
+
               </ScrollView>
             )
 
@@ -228,6 +239,11 @@ class Dashboard extends Component {
                 <View style={[styles.inlineBetween, { marginTop: 30, paddingTop: 10, borderTopWidth: 1 }]}>
                   <Copy style={{ fontSize: 18 }}>Balance: </Copy>
                   <Copy style={{ fontSize: 18, color: "blue" }}>{formatCurrency(income - expenses)}</Copy>
+                </View>
+
+                <View style={styles.inlineBetween}>
+                  <Copy>Savings Rate: </Copy>
+                  <Copy style={{ fontSize: 18, color: "blue" }}>{this.calcSavingsRate(income, expenses)}</Copy>
                 </View>
 
               </ScrollView>

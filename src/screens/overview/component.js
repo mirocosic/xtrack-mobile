@@ -56,6 +56,15 @@ class Overview extends Component {
     return netWorth
   }
 
+  calcSavingsRate = () => {
+    const { transactions } = this.props
+    const income = parseFloat(calculateIncome(transactions))
+    const expenses = parseFloat(calculateExpenses(transactions))
+    if (income === 0) { return "0%" }
+    const rate = (((income - expenses) / income) * 100).toFixed(2)
+    return `${rate}%`
+  }
+
   renderExpenses() {
     const { expensesByCategory } = this.props
     return Object.entries(expensesByCategory).map(item => (
@@ -74,6 +83,9 @@ class Overview extends Component {
         <Header title="Overview" />
         <ScrollView style={{ padding: 20 }} contentContainerStyle={{ paddingBottom: 40 }}>
           <Title>Net worth: <Copy style={{ fontWeight: "bold", fontSize: 20 }}>{formatCurrency(this.calculateNetWorth())}</Copy></Title>
+          <Copy style={{marginLeft: 5}}>Savings Rate:
+            <Copy style={{ fontWeight: "bold", fontSize: 16 }}> {this.calcSavingsRate()}</Copy>
+          </Copy>
 
           { accounts.map((acc) => {
             const income = parseFloat(calculateIncome(transactions, { type: "account", value: acc }))
