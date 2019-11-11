@@ -99,7 +99,17 @@ class Dashboard extends Component {
   calcSavingsRate = (income, expenses) => {
     if (income === 0 || income < expenses) { return "0%" }
     const rate = (((income - expenses) / income) * 100).toFixed(2)
-    return `${rate}%`
+    let emoji = ""
+    if (rate > 75) {
+      emoji = "😃"
+    } else if (rate > 50) {
+      emoji = "🙂"
+    } else if (rate > 20) {
+      emoji = "😐"
+    } else {
+      emoji = "😟"
+    }
+    return `${rate}% ${emoji}`
   }
 
   handleScroll = (event) => {
