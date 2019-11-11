@@ -36,7 +36,7 @@ class Transactions extends Component {
 
     const headerHeight = height.interpolate({
       inputRange: [0, 50, 120],
-      outputRange: [120, 120, 60],
+      outputRange: [80, 80, 60],
       extrapolate: "clamp",
     });
 
@@ -49,8 +49,8 @@ class Transactions extends Component {
       <Screen>
         <View style={{ position: "absolute", alignItems: "center", justifyContent: "center", zIndex: 1000, width: "100%", flex: 1 }}>
           <Header title="Transactions" style={{ flex: 1, width: "100%", alignItems: "center", justifyContent: "center" }}>
-            <TouchableOpacity onPress={() => openDrawer()} style={{ position: "absolute", right: 10, top: 30 }}>
-              <Icon type="filter" style={{ backgroundColor: "transparent" }} textStyle={{ color: filtersApplied ? "blue" : "white" }} />
+            <TouchableOpacity onPress={() => openDrawer()} style={{ position: "absolute", right: 10, bottom: 5 }}>
+              <Icon type="filter" style={{ backgroundColor: "transparent" }} textStyle={{ fontSize: 12, color: filtersApplied ? "black" : "white" }} />
             </TouchableOpacity>
           </Header>
         </View>
@@ -77,7 +77,7 @@ class Transactions extends Component {
             )
             : (
               <ScrollView
-                contentContainerStyle={{ paddingTop: 110 }}
+                contentContainerStyle={{ paddingTop: 80 }}
                 ref={(ref) => { this.scrollView = ref }}
                 scrollEnabled={scrollEnabled}
                 scrollEventThrottle={16}
