@@ -19,7 +19,7 @@ class Header extends Component {
             <Icon type="chevronLeft" style={{ backgroundColor: "transparent" }} textStyle={{ color: "white" }} />
           </TouchableOpacity>
         )}
-        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", height: 40 }}>
+        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
           {icon}
           <Title style={{ alignSelf: "center", color: "white" }}>{__(title)}</Title>
         </View>
