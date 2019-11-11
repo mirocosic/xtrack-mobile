@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, ScrollView, Alert, Dimensions } from "react-native"
+import { View, ScrollView, Alert, Dimensions, StatusBar } from "react-native"
 import { withNavigation } from "react-navigation"
 import { get } from "lodash"
 import moment from "moment"
@@ -10,6 +10,7 @@ import Icon from "../../components/icon"
 import { Copy } from "../../components/typography"
 import __ from "../../utils/translations"
 import { formatCurrency } from "../../utils/currency"
+import palette from "../../utils/palette"
 import styles from "./styles"
 
 const months = Array(24).fill(1)
@@ -50,6 +51,7 @@ class Dashboard extends Component {
     const { navigation, openOnForm } = this.props
     const { width } = Dimensions.get("window")
     SplashScreen.hide()
+    StatusBar.setBackgroundColor(palette.blue)
     openOnForm && navigation.navigate("TransactionForm", { clearForm: true })
     setTimeout(() => this.scrollView.scrollTo({ x: width * 23, y: 0, animated: false }), 100)
   }
