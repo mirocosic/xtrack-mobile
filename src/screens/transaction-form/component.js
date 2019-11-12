@@ -177,13 +177,15 @@ class TransactionForm extends Component {
   }
 
   renderAccounts = () => {
-    const { accounts, setFrom, setTo } = this.props
-    const { accountType } = this.state
+    const { accounts } = this.props
+    const { transaction, accountType } = this.state
     return accounts.map(account => (
       <TouchableOpacity
         key={account.id}
         onPress={() => {
-          accountType === "from" ? setFrom(account) : setTo(account);
+          accountType === "from"
+            ? this.setState({ transaction: { ...transaction, fromAccount: account } })
+            : this.setState({ transaction: { ...transaction, account } })
           this.accountsModal.current.close()
         }}
       >
@@ -197,11 +199,11 @@ class TransactionForm extends Component {
   }
 
   renderCategories = () => {
-    const { transactions, categories, selectCategory } = this.props
-
+    const { transactions, categories } = this.props
+    const { transaction } = this.state
     const categoriesWithCount = categories.map(cat => ({
       ...cat,
-      count: transactions.filter(transaction => get(transaction, "category.id") === cat.id).length,
+      count: transactions.filter(t => get(t, "category.id") === cat.id).length,
     }))
 
     return categoriesWithCount
@@ -210,7 +212,7 @@ class TransactionForm extends Component {
         <TouchableOpacity
           key={cat.id}
           onPress={() => {
-            selectCategory(cat)
+            this.setState({ transaction: { ...transaction, category: cat } })
             this.catModal.current.close()
           }}>
           <View style={{ flexDirection: "row", alignItems: "center", margin: 5 }}>

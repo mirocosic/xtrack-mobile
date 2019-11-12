@@ -132,15 +132,6 @@ const transactions = (state = initialState, action) => {
         ],
       }
 
-    case "SELECT_CATEGORY":
-      return {
-        ...state,
-        selectedTransaction: {
-          ...state.selectedTransaction,
-          ...{ category: action.payload },
-        },
-      }
-
     case "ATTACH_LABEL":
       return {
         ...state,
@@ -161,24 +152,6 @@ const transactions = (state = initialState, action) => {
         selectedTransaction: {
           ...state.selectedTransaction,
           ...{ labels: state.selectedTransaction.labels.filter(label => label.uuid !== action.label.uuid) },
-        },
-      }
-
-    case "SELECT_TO_ACCOUNT":
-      return {
-        ...state,
-        selectedTransaction: {
-          ...state.selectedTransaction,
-          ...{ account: action.payload },
-        },
-      }
-
-    case "SELECT_FROM_ACCOUNT":
-      return {
-        ...state,
-        selectedTransaction: {
-          ...state.selectedTransaction,
-          ...{ fromAccount: action.payload },
         },
       }
 
