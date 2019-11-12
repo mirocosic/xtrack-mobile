@@ -130,8 +130,8 @@ class Dashboard extends Component {
   renderExpenses = expenses => (
     Object.entries(expenses)
       .sort((a, b) => b[1] - a[1])
-      .map(item => (
-        <View key={item.id} style={{ ...styles.row, paddingLeft: 20 }}>
+      .map((item, idx) => (
+        <View key={idx} style={{ ...styles.row, paddingLeft: 20 }}>
           <Copy style={{ fontSize: 14 }}>{`${item[0]} `}</Copy>
           <Copy style={{ fontSize: 14 }}>{`${formatCurrency(item[1])}`}</Copy>
         </View>
