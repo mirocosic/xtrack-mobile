@@ -8,6 +8,7 @@ export default StyleSheet.create({
   wrap: {
     paddingLeft: 20,
     paddingRight: 20,
+    flex: 1,
   },
 
   formFieldWrap: {

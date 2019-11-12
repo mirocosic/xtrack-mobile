@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {
-  Text, View, ScrollView, TextInput, Animated, TouchableOpacity, TouchableWithoutFeedback,
+  Text, View, TextInput, Animated, TouchableOpacity, TouchableWithoutFeedback,
   Keyboard, Switch, Platform, ActionSheetIOS, Alert,
 } from "react-native";
 import { Calendar } from "react-native-calendars"
@@ -10,8 +10,8 @@ import Collapsible from "react-native-collapsible"
 import moment from "moment"
 import { get } from "lodash"
 
-import { Screen, Header, Label, CustomKeyboard, TransactionType } from "../../components"
-import { Copy, Title } from "../../components/typography"
+import { Screen, Header, Label, CustomKeyboard, TransactionType, PrimaryButton } from "../../components"
+import { Copy, CopyBlue, Title } from "../../components/typography"
 import Icon from "../../components/icon"
 import { formatCurrency } from "../../utils/currency"
 import styles from "./styles"
@@ -19,6 +19,7 @@ import styles from "./styles"
 class TransactionForm extends Component {
 
   state = {
+    moreOptionsOpen: false,
     blinker: new Animated.Value(0),
     transaction: this.props.selectedTransaction,
     accountType: "to",
@@ -295,7 +296,7 @@ class TransactionForm extends Component {
   }
 
   render() {
-    const { transaction, blinker } = this.state
+    const { transaction, blinker, moreOptionsOpen } = this.state
     const { navigation, removeLabel, darkMode, changeTransactionAmount } = this.props
 
     return (
@@ -308,7 +309,7 @@ class TransactionForm extends Component {
             actionBtnPress={() => this.deleteTransaction(transaction)}
           />
 
-          <ScrollView contentContainerStyle={styles.wrap}>
+          <View style={styles.wrap}>
 
             <TransactionType setType={type => this.setState({ transaction: { ...transaction, type } })} transaction={transaction} />
 
@@ -318,7 +319,8 @@ class TransactionForm extends Component {
 
                 <TouchableOpacity
                   ref={component => this.touchable = component}
-                  onPress={() => this.focusInput()}>
+                  onPress={() => { this.setState({ moreOptionsOpen: false }) }
+                  }>
                   <Animated.View style={{
                     opacity: blinker,
                     backgroundColor: "blue",
@@ -402,7 +404,7 @@ class TransactionForm extends Component {
 
             </View>
 
-            <View style={[styles.formFieldWrap, { alignItems: "center", paddingBottom: 20 }]}>
+            <View style={[styles.formFieldWrap, { alignItems: "center", paddingBottom: 10 }]}>
               <TextInput
                 onChangeText={value => this.setState({ transaction: { ...transaction, note: value } })}
                 value={transaction.note}
@@ -412,62 +414,92 @@ class TransactionForm extends Component {
               />
             </View>
 
-            <View style={[styles.formFieldWrap, { alignItems: "center" }]}>
-              <Copy>Recurring</Copy>
-              <Switch
-                value={!!transaction.recurring}
-                onValueChange={() => this.setState({ transaction: { ...transaction, recurring: !transaction.recurring } })}
-              />
-            </View>
-
-            <Collapsible collapsed={transaction.recurring === false} style={{ padding: 20, paddingTop: 10 }}>
-              <View style={styles.inlineBetween}>
-                <Copy>Every</Copy>
-                <TouchableOpacity onPress={() => this.selectRecurringSchedule()}>
-                  <Copy>{ (transaction.recurring && transaction.recurring.frequency) || "Month"}</Copy>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.inlineBetween}>
-                <Copy>End Date</Copy>
+            { !moreOptionsOpen
+              ? (
                 <TouchableOpacity
-                  style={{ flexDirection: "row", alignItems: "center" }}
-                  onPress={() => this.recurringCalendarModal.current.open()}>
-                  <Icon type="calendar-alt" textStyle={{ color: "teal" }} style={{ marginLeft: 0 }} />
-                  <Copy style={{ margin: 0 }}>
-                    { transaction.recurring && moment(transaction.recurring.endTimestamp).format("MMM Do YYYY")}
-                  </Copy>
+                  onPress={() => this.setState({ moreOptionsOpen: true })}
+                  style={{ justifyContent: "center", alignItems: "center" }}>
+                  <CopyBlue>More Options</CopyBlue>
                 </TouchableOpacity>
-              </View>
-            </Collapsible>
+              )
+              : (
+                <View>
+                  <View style={[styles.formFieldWrap, { alignItems: "center" }]}>
+                    <Copy>Recurring</Copy>
+                    <Switch
+                      value={!!transaction.recurring}
+                      onValueChange={() => this.setState({ transaction: { ...transaction, recurring: !transaction.recurring } })}
+                    />
+                  </View>
 
-            <View style={styles.formFieldWrap}>
-              <TouchableOpacity
-                style={{ backgroundColor: "teal", padding: 5, paddingLeft: 10, paddingRight: 10, borderRadius: 20 }}
-                onPress={() => this.labelsModal.current.open()}>
-                <Copy style={{ color: "white", fontSize: 12 }}>Add Tags</Copy>
-              </TouchableOpacity>
-              <View style={styles.labels}>
+                  <Collapsible collapsed={transaction.recurring === false} style={{ padding: 20, paddingTop: 10 }}>
+                    <View style={styles.inlineBetween}>
+                      <Copy>Every</Copy>
+                      <TouchableOpacity onPress={() => this.selectRecurringSchedule()}>
+                        <Copy>{ (transaction.recurring && transaction.recurring.frequency) || "Month"}</Copy>
+                      </TouchableOpacity>
+                    </View>
+                    <View style={styles.inlineBetween}>
+                      <Copy>End Date</Copy>
+                      <TouchableOpacity
+                        style={{ flexDirection: "row", alignItems: "center" }}
+                        onPress={() => this.recurringCalendarModal.current.open()}>
+                        <Icon type="calendar-alt" textStyle={{ color: "teal" }} style={{ marginLeft: 0 }} />
+                        <Copy style={{ margin: 0 }}>
+                          { transaction.recurring && moment(transaction.recurring.endTimestamp).format("MMM Do YYYY")}
+                        </Copy>
+                      </TouchableOpacity>
+                    </View>
+                  </Collapsible>
 
-                {transaction.labels.map(label => (
-                  <Label key={label.uuid} label={label} removeLabel={() => removeLabel(label)} />
-                ))}
+                  <View style={styles.formFieldWrap}>
+                    <TouchableOpacity
+                      style={{ backgroundColor: "teal", padding: 5, paddingLeft: 10, paddingRight: 10, borderRadius: 20 }}
+                      onPress={() => this.labelsModal.current.open()}>
+                      <Copy style={{ color: "white", fontSize: 12 }}>Add Tags</Copy>
+                    </TouchableOpacity>
+                    <View style={styles.labels}>
 
-              </View>
-            </View>
+                      {transaction.labels.map(label => (
+                        <Label key={label.uuid} label={label} removeLabel={() => removeLabel(label)} />
+                      ))}
 
-          </ScrollView>
+                    </View>
+                  </View>
 
-          <CustomKeyboard
-            handlePress={value => this.setState({ transaction: { ...transaction, ...{ amount: transaction.amount + value } } })}
-            handleSubmit={() => this.submitForm()}
-            setAmount={value => this.setState({ transaction: { ...transaction, ...{ amount: value } } })}
-            delete={() => this.setState({
-              transaction: {
-                ...transaction,
-                ...{ amount: transaction.amount.substring(0, transaction.amount.length - 1) },
-              },
-            })}
-          />
+                  <TouchableOpacity
+                    style={{ alignItems: "center", paddingBottom: 20 }}
+                    onPress={() => this.setState({ moreOptionsOpen: false })}
+                  >
+                    <CopyBlue>Less Options</CopyBlue>
+                  </TouchableOpacity>
+
+                  <PrimaryButton label="Save" onPress={() => this.submitForm()} />
+                </View>
+              )
+
+            }
+
+          </View>
+
+          {
+            !moreOptionsOpen
+
+              && (
+                <CustomKeyboard
+                  handlePress={value => this.setState({ transaction: { ...transaction, ...{ amount: transaction.amount + value } } })}
+                  handleSubmit={() => this.submitForm()}
+                  setAmount={value => this.setState({ transaction: { ...transaction, ...{ amount: value } } })}
+                  delete={() => this.setState({
+                    transaction: {
+                      ...transaction,
+                      ...{ amount: transaction.amount.substring(0, transaction.amount.length - 1) },
+                    },
+                  })}
+                />
+              )
+          }
+
 
           <Modalize
             adjustToContentHeight
