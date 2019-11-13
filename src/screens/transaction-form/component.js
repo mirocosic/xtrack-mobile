@@ -417,6 +417,7 @@ class TransactionForm extends Component {
             { !moreOptionsOpen
               ? (
                 <TouchableOpacity
+                  hitSlop={{ top: 20, bottom: 20, left: 10, right: 20 }}
                   onPress={() => this.setState({ moreOptionsOpen: true })}
                   style={{ justifyContent: "center", alignItems: "center" }}>
                   <CopyBlue>More Options</CopyBlue>
@@ -468,7 +469,8 @@ class TransactionForm extends Component {
                   </View>
 
                   <TouchableOpacity
-                    style={{ alignItems: "center", paddingBottom: 20 }}
+                    hitSlop={{ top: 20, bottom: 20, left: 10, right: 20 }}
+                    style={{ alignItems: "center", padding: 20 }}
                     onPress={() => this.setState({ moreOptionsOpen: false })}
                   >
                     <CopyBlue>Less Options</CopyBlue>
