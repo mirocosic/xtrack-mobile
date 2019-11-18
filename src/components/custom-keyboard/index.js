@@ -85,10 +85,10 @@ export default class CustomKeyboard extends Component {
           </View>
 
           <View>
-            <Digit digit="+" handlePress={() => this.handlePress("+")} small />
-            <Digit digit="-" handlePress={() => this.handlePress("-")} small />
-            <Digit digit="x" handlePress={() => this.handlePress("*")} small />
-            <Digit digit="/" handlePress={() => this.handlePress("/")} small />
+            <Digit digit="+" handlePress={() => this.handleOperation("+")} small />
+            <Digit digit="-" handlePress={() => this.handleOperation("-")} small />
+            <Digit digit="x" handlePress={() => this.handleOperation("*")} small />
+            <Digit digit="/" handlePress={() => this.handleOperation("/")} small />
           </View>
 
           <View>
