@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
   Text, View, TextInput, Animated, TouchableOpacity, TouchableWithoutFeedback,
-  Keyboard, Switch, Platform, ActionSheetIOS, Alert,
+  Keyboard, Switch, Platform, ActionSheetIOS, Alert, ScrollView,
 } from "react-native";
 import { Calendar } from "react-native-calendars"
 import { withNavigation } from "react-navigation"
@@ -525,7 +525,9 @@ class TransactionForm extends Component {
           <Modalize
             adjustToContentHeight
             ref={this.catModal}>
-            <View style={{ height: 500, width: "100%", padding: 20, backgroundColor: "white", borderRadius: 10 }}>
+            <ScrollView
+              style={{ height: 500, paddingBottom: 20, borderRadius: 10 }}
+              contentContainerStyle={{ width: "100%", padding: 20, backgroundColor: "white", borderRadius: 10 }}>
 
               <View style={{ padding: 10 }}>
                 {this.renderCategories()}
@@ -538,13 +540,12 @@ class TransactionForm extends Component {
 
               </View>
 
-              <TouchableOpacity
-                style={{ position: "absolute", top: 10, right: 10, borderRadius: 10 }}
-                onPress={() => this.catModal.current.close()}>
-                <Title>x</Title>
-              </TouchableOpacity>
-
-            </View>
+            </ScrollView>
+            <TouchableOpacity
+              style={{ position: "absolute", top: 10, right: 10, borderRadius: 10 }}
+              onPress={() => this.catModal.current.close()}>
+              <Title>x</Title>
+            </TouchableOpacity>
           </Modalize>
 
           <Modalize
