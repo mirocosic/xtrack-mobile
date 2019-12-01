@@ -1,4 +1,5 @@
-[![DeepScan grade](https://deepscan.io/api/teams/3259/projects/4804/branches/38352/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=3259&pid=4804&bid=38352) [![Greenkeeper badge](https://badges.greenkeeper.io/mirocosic/xtrack-mobile.svg)](https://greenkeeper.io/)
+
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 XTrack
 ========
