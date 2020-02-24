@@ -11,7 +11,7 @@ class TransactionType extends Component {
 
   state = {
     currentType: this.props.transaction.type,
-    xOffset: new Animated.Value(offsets[this.props.transaction.type]),
+    xOffset: new Animated.Value(offsets[this.props.transaction.type] || 0),
   }
 
   touchX = new Animated.Value(0);
