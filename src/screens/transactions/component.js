@@ -22,6 +22,7 @@ class Transactions extends Component {
   state = {
     height: new Animated.Value(0),
     scrollEnabled: true,
+    searchTerm: "",
   }
 
   componentDidMount() {
@@ -29,7 +30,7 @@ class Transactions extends Component {
   }
 
   render() {
-    const { height, scrollEnabled } = this.state
+    const { height, scrollEnabled, searchTerm } = this.state
     const { accountFilter, categoryFilter, openDrawer, appliedLabelsFilter, entries } = this.props
 
     const filtersApplied = accountFilter || categoryFilter || appliedLabelsFilter.length || false;
@@ -91,6 +92,7 @@ class Transactions extends Component {
                       <TextInput
                         style={styles.searchText}
                         placeholder="search by note, category,..."
+                        onChangeText={text => this.setState({ searchTerm: text })}
                       />
                     </View>
                   </View>
@@ -116,6 +118,10 @@ class Transactions extends Component {
                         }
                       })
                       return hasFilterLabel
+                    })
+                    .filter((item) => {
+                      if (searchTerm === "") { return true }
+                      return item.note.includes(searchTerm)
                     })
                     .map(value => (
                       <Transaction
