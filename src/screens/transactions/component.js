@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Animated, View, ScrollView, TouchableOpacity, TextInput } from "react-native"
+import { Animated, View, ScrollView, TouchableOpacity, TextInput, FlatList } from "react-native"
 import { withNavigation } from "react-navigation"
 import { get } from "lodash"
 import Screen from "../../components/screen"
@@ -45,6 +45,34 @@ class Transactions extends Component {
       inputRange: [-100, 0, 100],
       outputRange: [2.7, 1, 1],
     });
+
+    const transactions = entries
+      .filter((item) => {
+        if (!accountFilter) { return true }
+        if (!get(item, "account")) { return true }
+        return get(item, "account.id") === accountFilter.id
+      })
+      .filter((item) => {
+        if (!categoryFilter) { return true }
+        return get(item, "category.id") === categoryFilter.id
+      })
+      .filter((item) => {
+        if (appliedLabelsFilter.length === 0) { return true }
+        if (!item.labels.length) { return false }
+
+        let hasFilterLabel = false
+        item.labels.forEach((label) => {
+          if (appliedLabelsFilter.find(filter => filter.id === label.id)) {
+            hasFilterLabel = true
+          }
+        })
+        return hasFilterLabel
+      })
+      .filter((item) => {
+        if (searchTerm === "") { return true }
+        return item.note.includes(searchTerm)
+      })
+      .reverse()
 
     return (
       <Screen>
@@ -97,38 +125,19 @@ class Transactions extends Component {
                     </View>
                   </View>
 
-                  {entries
-                    .filter((item) => {
-                      if (!accountFilter) { return true }
-                      if (!get(item, "account")) { return true }
-                      return get(item, "account.id") === accountFilter.id
-                    })
-                    .filter((item) => {
-                      if (!categoryFilter) { return true }
-                      return get(item, "category.id") === categoryFilter.id
-                    })
-                    .filter((item) => {
-                      if (appliedLabelsFilter.length === 0) { return true }
-                      if (!item.labels.length) { return false }
-
-                      let hasFilterLabel = false
-                      item.labels.forEach((label) => {
-                        if (appliedLabelsFilter.find(filter => filter.id === label.id)) {
-                          hasFilterLabel = true
-                        }
-                      })
-                      return hasFilterLabel
-                    })
-                    .filter((item) => {
-                      if (searchTerm === "") { return true }
-                      return item.note.includes(searchTerm)
-                    })
-                    .map(value => (
+                  <FlatList
+                    data={transactions}
+                    initialNumToRender={20}
+                    renderItem={({ item }) => (
                       <Transaction
-                        key={value.id}
-                        transaction={value}
-                        toggleScroll={val => this.setState({ scrollEnabled: val })} />))
-                    .reverse()}
+                        key={item.id}
+                        transaction={item}
+                        toggleScroll={val => this.setState({ scrollEnabled: val })}
+                      />)
+                    }
+                    keyExtractor={item => item.id}
+                  />
+
                 </View>
               </ScrollView>
             )
