@@ -20,6 +20,7 @@
 		4E37FC17237819CF00074365 /* Font Awesome 5 Pro-Solid-900.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4E37FC12237819CF00074365 /* Font Awesome 5 Pro-Solid-900.otf */; };
 		4E37FC18237819CF00074365 /* Font Awesome 5 Pro-Regular-400.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4E37FC13237819CF00074365 /* Font Awesome 5 Pro-Regular-400.otf */; };
 		4E37FC19237819CF00074365 /* Font Awesome 5 Duotone-Solid-900.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4E37FC14237819CF00074365 /* Font Awesome 5 Duotone-Solid-900.otf */; };
+		4E577C952416521B00251270 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E577C942416521B00251270 /* CloudKit.framework */; };
 		4EF11E132198DBC700824335 /* Font-Awesome-5-Free-Regular-400.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EF11E122198DBC700824335 /* Font-Awesome-5-Free-Regular-400.ttf */; };
 		4EF11E152198EA3B00824335 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EF11E142198EA3B00824335 /* FontAwesome.ttf */; };
 		4EF11E172198EC6200824335 /* Font-Awesome-5-Free-Solid-900.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EF11E162198EC6200824335 /* Font-Awesome-5-Free-Solid-900.ttf */; };
@@ -97,6 +98,7 @@
 		4E37FC12237819CF00074365 /* Font Awesome 5 Pro-Solid-900.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Font Awesome 5 Pro-Solid-900.otf"; path = "../../assets/fonts/Font Awesome 5 Pro-Solid-900.otf"; sourceTree = "<group>"; };
 		4E37FC13237819CF00074365 /* Font Awesome 5 Pro-Regular-400.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Font Awesome 5 Pro-Regular-400.otf"; path = "../../assets/fonts/Font Awesome 5 Pro-Regular-400.otf"; sourceTree = "<group>"; };
 		4E37FC14237819CF00074365 /* Font Awesome 5 Duotone-Solid-900.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Font Awesome 5 Duotone-Solid-900.otf"; path = "../../assets/fonts/Font Awesome 5 Duotone-Solid-900.otf"; sourceTree = "<group>"; };
+		4E577C942416521B00251270 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		4EF11DD12198770A00824335 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		4EF11DE921987D6B00824335 /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
 		4EF11DEA21987D6B00824335 /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E577C952416521B00251270 /* CloudKit.framework in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
 				211AD73CA9364BFAA3D2362A /* libz.tbd in Frameworks */,
 				570C73BEAAE94832BAC7E53A /* libRNCAsyncStorage.a in Frameworks */,
@@ -176,6 +179,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E577C942416521B00251270 /* CloudKit.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
 				4EF11DD12198770A00824335 /* NotificationCenter.framework */,
 				5921A97B3045437A9E3B1FF7 /* libz.tbd */,
