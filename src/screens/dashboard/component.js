@@ -48,8 +48,9 @@ class Dashboard extends Component {
 
   sortByCategory = (expenses) => {
     const result = {}
+    const { categories } = this.props
     expenses.forEach((expense) => {
-      const category = this.props.categories.filter(cat => cat.id === expense.categoryId)
+      const category = categories.find(cat => cat.id === expense.categoryId)
       const currExpenseSum = result[category.name] || 0
       result[category.name] = currExpenseSum + parseFloat(expense.amount)
     })
