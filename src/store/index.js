@@ -3,6 +3,7 @@ import { persistStore, persistReducer } from "redux-persist"
 import storage from "redux-persist/lib/storage"
 import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2"
 import createSagaMiddleware from "redux-saga"
+import { composeWithDevTools } from "redux-devtools-extension"
 
 import common from "./common/reducer"
 import transactions from "./transactions/reducer"
@@ -29,7 +30,8 @@ const reducers = combineReducers({
 
 const pReducer = persistReducer(persistConfig, reducers)
 
-export const store = createStore(pReducer, applyMiddleware(sagaMiddleware))
+export const store = createStore(pReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)))
+// export const store = createStore(reducers, composeWithDevTools(applyMiddleware(sagaMiddleware)))
 export const persistor = persistStore(store)
 
 sagaMiddleware.run(rootSaga);
