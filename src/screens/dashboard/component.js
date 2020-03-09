@@ -22,16 +22,6 @@ const filterByMonth = (transactions, currentMonth) => (
   transactions.filter(t => moment(t.timestamp) > currentMonth.startOf("month")
                            && moment(t.timestamp) < currentMonth.endOf("month")))
 
-const sortByCategory = (expenses) => {
-  const result = {}
-  expenses.forEach((expense) => {
-    const currExpenseSum = result[expense.category.name] || 0
-    result[expense.category.name] = currExpenseSum + parseFloat(expense.amount)
-  })
-
-  return result
-}
-
 class Dashboard extends Component {
 
   static navigationOptions = () => ({
@@ -56,6 +46,16 @@ class Dashboard extends Component {
     setTimeout(() => this.scrollView.scrollTo({ x: width * 23, y: 0, animated: false }), 100)
   }
 
+  sortByCategory = (expenses) => {
+    const result = {}
+    expenses.forEach((expense) => {
+      const category = this.props.categories.filter(cat => cat.id === expense.categoryId)
+      const currExpenseSum = result[category.name] || 0
+      result[category.name] = currExpenseSum + parseFloat(expense.amount)
+    })
+
+    return result
+  }
 
   changeAccountFilter = () => {
     const { accounts, changeAccountFilter } = this.props
@@ -71,7 +71,7 @@ class Dashboard extends Component {
   calcExpenses = (account) => {
     const { transactions } = this.props
     if (transactions.length === 0) return 0;
-    const accountTransactions = transactions.filter(item => account.id === get(item, "account.id") && item.type === "expense")
+    const accountTransactions = transactions.filter(item => account.id === get(item, "accountId") && item.type === "expense")
     if (accountTransactions.length === 0) { return 0 }
     const total = accountTransactions.reduce((a, b) => ({ amount: parseFloat(a.amount) + parseFloat(b.amount) }))
 
@@ -81,7 +81,7 @@ class Dashboard extends Component {
   calcIncome = (account) => {
     const { transactions } = this.props
     if (transactions.length === 0) return 0;
-    const accountTransactions = transactions.filter(item => account.id === get(item, "account.id") && item.type === "income")
+    const accountTransactions = transactions.filter(item => account.id === get(item, "accountId") && item.type === "income")
     if (accountTransactions.length === 0) { return 0 }
     const total = accountTransactions.reduce((a, b) => ({ amount: parseFloat(a.amount) + parseFloat(b.amount) }))
 
@@ -185,8 +185,8 @@ class Dashboard extends Component {
 
           { months.map((item, idx) => {
             currentMonth.add(1, "month")
-            const sortedExpenses = sortByCategory(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
-            const sortedIncome = sortByCategory(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
+            const sortedExpenses = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
+            const sortedIncome = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
             const income = sum(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
             const expenses = sum(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
 
@@ -225,8 +225,8 @@ class Dashboard extends Component {
 
           {futureMonths.map((item, idx) => {
             currentMonth.add(1, "month")
-            const sortedExpenses = sortByCategory(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
-            const sortedIncome = sortByCategory(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
+            const sortedExpenses = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
+            const sortedIncome = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
             const income = sum(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
             const expenses = sum(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
 

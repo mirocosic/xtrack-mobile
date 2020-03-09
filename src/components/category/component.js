@@ -12,7 +12,7 @@ class Category extends Component {
 
   countTransactions = (catId) => {
     const { transactions } = this.props
-    return transactions.filter(transaction => get(transaction, "category.id") === catId).length
+    return transactions.filter(transaction => get(transaction, "categoryId") === catId).length
   }
 
   renderDeleteButton = () => (

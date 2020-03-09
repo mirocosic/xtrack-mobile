@@ -185,8 +185,8 @@ class TransactionForm extends Component {
         key={account.id}
         onPress={() => {
           accountType === "from"
-            ? this.setState({ transaction: { ...transaction, fromAccount: account } })
-            : this.setState({ transaction: { ...transaction, account } })
+            ? this.setState({ transaction: { ...transaction, fromAccountId: account.id } })
+            : this.setState({ transaction: { ...transaction, accountId: account.id } })
           this.accountsModal.current.close()
         }}
       >
@@ -204,7 +204,7 @@ class TransactionForm extends Component {
     const { transaction } = this.state
     const categoriesWithCount = categories.map(cat => ({
       ...cat,
-      count: transactions.filter(t => get(t, "category.id") === cat.id).length,
+      count: transactions.filter(t => get(t, "categoryId") === cat.id).length,
     }))
 
     return categoriesWithCount
@@ -213,7 +213,7 @@ class TransactionForm extends Component {
         <TouchableOpacity
           key={cat.id}
           onPress={() => {
-            this.setState({ transaction: { ...transaction, category: cat } })
+            this.setState({ transaction: { ...transaction, categoryId: cat.id } })
             this.catModal.current.close()
           }}>
           <View style={{ flexDirection: "row", alignItems: "center", margin: 5 }}>
@@ -369,7 +369,7 @@ class TransactionForm extends Component {
               <TouchableOpacity
                 style={[styles.selectBox, darkMode && styles.selectBoxDark]}
                 onPress={() => this.catModal.current.open()}>
-                {this.renderCategory(get(transaction, "category.id"))}
+                {this.renderCategory(get(transaction, "categoryId"))}
               </TouchableOpacity>
 
             </View>
@@ -385,7 +385,7 @@ class TransactionForm extends Component {
                     this.accountsModal.current.open()
                     this.setState({ accountType: "from" })
                   }}>
-                  { this.renderAccount(transaction.fromAccount.id)}
+                  { this.renderAccount(transaction.fromAccountId)}
                 </TouchableOpacity>
               </View>
             )}
@@ -399,7 +399,7 @@ class TransactionForm extends Component {
                   this.setState({ accountType: "to" })
                 }}
               >
-                { this.renderAccount(transaction.account.id) }
+                { this.renderAccount(transaction.accountId) }
               </TouchableOpacity>
 
             </View>

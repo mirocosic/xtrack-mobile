@@ -1,11 +1,12 @@
 import moment from "moment"
+import { get } from "lodash"
 import initialState from "./initial-state";
 import { makeUUID } from "../../utils/helper-gnomes"
 
 const transactions = (state = initialState, action) => {
 
   const transaction = action.transaction || {}
-  const { timestamp, account, fromAccount, amount, type, note, category, labels, parentTransactionId } = transaction
+  const { timestamp, accountId, fromAccountId, amount, type, note, categoryId, labels, parentTransactionId } = transaction
   const newId = makeUUID()
 
   switch (action.type) {
@@ -115,18 +116,18 @@ const transactions = (state = initialState, action) => {
             type,
             amount: -amount,
             note,
-            category,
+            categoryId,
             labels,
           },
           {
             id: makeUUID(),
             timestamp,
-            account,
-            fromAccount,
+            accountId,
+            fromAccountId,
             type,
             amount,
             note,
-            category,
+            categoryId,
             labels,
           },
         ],
@@ -169,9 +170,9 @@ const transactions = (state = initialState, action) => {
           amount: 0,
           note: "",
           type: "expense",
-          category: action.defaultCategory,
-          account: action.defaultAccount,
-          fromAccount: {},
+          categoryId: get(action, "defaultCategory.id"),
+          accountId: get(action, "defaultAccount.id"),
+          fromAccountId: {},
           labels: [],
           recurring: false,
         },
@@ -189,13 +190,13 @@ const transactions = (state = initialState, action) => {
     case "REMOVE_CATEGORY_TRANSACTIONS":
       return {
         ...state,
-        entries: state.entries.filter(item => item.category.id !== action.category.id),
+        entries: state.entries.filter(item => item.categoryId !== action.category.id),
       }
 
     case "REMOVE_ACCOUNT_TRANSACTIONS":
       return {
         ...state,
-        entries: state.entries.filter(item => item.account.id !== action.account.id),
+        entries: state.entries.filter(item => item.accountId !== action.account.id),
       }
 
     default:

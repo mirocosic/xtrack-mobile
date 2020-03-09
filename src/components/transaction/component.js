@@ -102,7 +102,7 @@ class Transaction extends Component {
         }}>
           <View key={transaction.id} style={[styles.container, darkMode && styles.containerDark]}>
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-              { renderCategory(categories, transaction.category.id)}
+              { renderCategory(categories, transaction.categoryId)}
               <Text style={[styles.amount, getAmountColor(transaction.type)]}>
                 {formatCurrency(transaction.amount)}
               </Text>

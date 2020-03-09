@@ -50,11 +50,11 @@ class Transactions extends Component {
       .filter((item) => {
         if (!accountFilter) { return true }
         if (!get(item, "account")) { return true }
-        return get(item, "account.id") === accountFilter.id
+        return get(item, "accountId") === accountFilter.id
       })
       .filter((item) => {
         if (!categoryFilter) { return true }
-        return get(item, "category.id") === categoryFilter.id
+        return get(item, "categoryId") === categoryFilter.id
       })
       .filter((item) => {
         if (appliedLabelsFilter.length === 0) { return true }

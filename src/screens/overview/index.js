@@ -4,18 +4,19 @@ import moment from "moment"
 
 import Component from "./component";
 
-const sortByCategory = (expenses) => {
+const sortByCategory = (categories, expenses) => {
   const result = {}
   expenses.forEach((expense) => {
-    const currExpenseSum = result[expense.category.name] || 0
-    result[expense.category.name] = currExpenseSum + expense.amount
+    const category = categories.filter(cat => cat.id === expense.categoryId)
+    const currExpenseSum = result[category.name] || 0
+    result[category.name] = currExpenseSum + expense.amount
   })
 
   return result
 }
 
 export const filterByAccount = (expenses, accountFilter) => (
-  accountFilter ? expenses.filter(item => accountFilter.id === get(item, "account.id")) : expenses
+  accountFilter ? expenses.filter(item => accountFilter.id === get(item, "accountId")) : expenses
 )
 
 export const filterByMonth = (transactions, currentMonth) => (
@@ -35,6 +36,7 @@ export default connect(
     expenses: state.transactions.expenses,
     expensesByCategory:
       sortByCategory(
+        state.categories.items,
         filterByMonth(
           state.transactions.entries.filter(item => item.type === "expense"),
           state.transactions.currentMonth,

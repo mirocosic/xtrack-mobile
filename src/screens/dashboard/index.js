@@ -7,6 +7,7 @@ export default connect(
     openOnForm: state.common.openOnForm,
     accounts: state.accounts.items,
     accountFilter: state.accounts.accountFilter,
+    categories: state.categories.items,
     transactions: state.transactions.entries,
     total: state.transactions.total,
     expenses: state.transactions.expenses,
