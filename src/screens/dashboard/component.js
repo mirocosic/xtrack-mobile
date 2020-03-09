@@ -131,12 +131,19 @@ class Dashboard extends Component {
   renderExpenses = expenses => (
     Object.entries(expenses)
       .sort((a, b) => b[1] - a[1])
-      .map((item, idx) => (
-        <View key={idx} style={{ ...styles.row, paddingLeft: 20 }}>
-          <Copy style={{ fontSize: 14 }}>{`${item[0]} `}</Copy>
-          <Copy style={{ fontSize: 14 }}>{`${formatCurrency(item[1])}`}</Copy>
-        </View>
-      ))
+      .map((item, idx) => {
+        const { categories } = this.props
+        const cat = categories.find(c => c.name === item[0])
+        return (
+          <View key={idx} style={{ ...styles.row, paddingLeft: 10 }}>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Icon type={get(cat, "icon", "")} textStyle={{ color: cat.color || "blue", fontSize: 12 }} style={{ marginRight: 5, width: 20, height: 20 }} />
+              <Copy style={{ fontSize: 14 }}>{`${item[0]} `}</Copy>
+            </View>
+            <Copy style={{ fontSize: 14 }}>{`${formatCurrency(item[1])}`}</Copy>
+          </View>
+        )
+      })
   )
 
   renderActionBtn = () => {
