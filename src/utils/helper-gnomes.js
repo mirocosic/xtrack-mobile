@@ -13,7 +13,7 @@ export const calculateTransactions = (transactions, transactionType, filter = { 
   let filteredTransactions = []
   switch (filter.type) {
     case "account":
-      filteredTransactions = transactions.filter(item => filter.value.id === get(item, "account.id") && item.type === transactionType)
+      filteredTransactions = transactions.filter(item => filter.value.id === get(item, "accountId") && item.type === transactionType)
       break;
 
     case "month":
