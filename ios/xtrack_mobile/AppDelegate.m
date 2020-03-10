@@ -6,7 +6,7 @@
  */
 
 #import "AppDelegate.h"
-
+#import <Firebase.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "RNSplashScreen.h"
@@ -29,6 +29,10 @@ RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                    launchOptions:launchOptions];
 
   [RNSentry installWithRootView:rootView];
+  
+  if ([FIRApp defaultApp] == nil) {
+    [FIRApp configure];
+  }
 
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
 
