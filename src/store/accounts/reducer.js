@@ -11,7 +11,7 @@ const categories = (state = initialState, action) => {
         items: [
           ...state.items,
           {
-            id: makeUUID,
+            id: makeUUID(),
             name,
             icon,
             color,
