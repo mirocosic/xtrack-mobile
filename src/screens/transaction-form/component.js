@@ -506,7 +506,7 @@ class TransactionForm extends Component {
           <Modalize
             adjustToContentHeight
             ref={this.accountsModal}>
-            <View style={{ height: 200, width: "100%", padding: 20, backgroundColor: "white", borderRadius: 10 }}>
+            <View style={{ height: 300, width: "100%", padding: 20, backgroundColor: "white", borderRadius: 10 }}>
               <Text style={{ textAlign: "center" }}>Select account</Text>
 
               <View style={{ padding: 10 }}>

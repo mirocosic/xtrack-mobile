@@ -12,7 +12,7 @@ import { formatCurrency } from "../../utils/currency"
 const accountBalance = (account, transactions) => {
   if (transactions.length === 0) return 0;
 
-  const accountTransactions = transactions.filter(item => account.id === get(item, "account.id"));
+  const accountTransactions = transactions.filter(item => account.id === get(item, "accountId"));
 
   if (accountTransactions.length === 0) { return 0 }
 
