@@ -32,4 +32,6 @@ export default StyleSheet.create({
     borderColor: palette.gray,
   },
 
+  accountWrapDark: { backgroundColor: palette.dark },
+
 })

@@ -194,7 +194,7 @@ class AccountEdit extends Component {
                 this.setState({ account: { ...account, currency: "HRK" } })
                 this.currencyModal.current.close()
               }}>
-              <Copy style={{ fontSize: 20 }}>HRK - Croatian Kuna</Copy>
+              <Copy style={{ fontSize: 14 }}>HRK - Croatian Kuna</Copy>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -204,7 +204,17 @@ class AccountEdit extends Component {
                 this.currencyModal.current.close()
               }}
             >
-              <Copy style={{ fontSize: 20 }}>EUR - European Euro</Copy>
+              <Copy style={{ fontSize: 14 }}>EUR - European Euro</Copy>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={{ margin: 20 }}
+              onPress={() => {
+                this.setState({ account: { ...account, currency: "USD" } })
+                this.currencyModal.current.close()
+              }}
+            >
+              <Copy style={{ fontSize: 14 }}>USD - United States Dollar</Copy>
             </TouchableOpacity>
 
           </View>

@@ -1,8 +1,15 @@
-export function formatCurrency(input = 0, digits = 2) {
+export function formatCurrency(input = 0, currency = "HRK", digits = 2) {
 
-  const formatter = new Intl.NumberFormat("hr-HR", {
+  const formats = {
+    HRK: "hr-HR",
+    EUR: "de-DE",
+    USD: "en-US",
+  }
+
+
+  const formatter = new Intl.NumberFormat(formats[currency], {
     style: "currency",
-    currency: "HRK",
+    currency,
     minimumFractionDigits: digits,
     currencyDisplay: "symbol",
   });

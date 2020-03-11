@@ -10,6 +10,8 @@ export default StyleSheet.create({
     paddingBottom: safePaddingBottom(0),
   },
 
+  wrapDark: { backgroundColor: palette.dark },
+
   row: { flexDirection: "row" },
 
   copy: { fontSize: 22 },

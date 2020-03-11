@@ -4,6 +4,7 @@ import { withNavigation } from "react-navigation"
 import { get } from "lodash"
 import moment from "moment"
 import SplashScreen from "react-native-splash-screen"
+
 import Screen from "../../components/screen"
 import Header from "../../components/header"
 import Icon from "../../components/icon"
@@ -11,12 +12,13 @@ import { Copy } from "../../components/typography"
 import __ from "../../utils/translations"
 import { formatCurrency } from "../../utils/currency"
 import palette from "../../utils/palette"
+import { calcAmount } from "../../utils/helper-gnomes"
 import styles from "./styles"
 
 const months = Array(24).fill(1)
 const futureMonths = Array(12).fill(1)
 
-const sum = transactions => transactions.reduce((acc, transaction) => acc + parseFloat(transaction.amount), 0)
+const sum = transactions => transactions.reduce((acc, transaction) => acc + calcAmount(transaction), 0)
 
 const filterByMonth = (transactions, currentMonth) => (
   transactions.filter(t => moment(t.timestamp) > currentMonth.startOf("month")
@@ -38,8 +40,11 @@ class Dashboard extends Component {
 
 
   componentDidMount() {
-    const { navigation, openOnForm } = this.props
+    const { navigation, openOnForm, mode } = this.props
+    console.log(this.props)
+    console.log("darkmode?", mode)
     const { width } = Dimensions.get("window")
+    // setDarkMode(useDarkMode())
     SplashScreen.hide()
     StatusBar.setBackgroundColor(palette.blue)
     openOnForm && navigation.navigate("TransactionForm", { clearForm: true })
@@ -52,7 +57,7 @@ class Dashboard extends Component {
     expenses.forEach((expense) => {
       const category = categories.find(cat => cat.id === expense.categoryId)
       const currExpenseSum = result[category.name] || 0
-      result[category.name] = currExpenseSum + parseFloat(expense.amount)
+      result[category.name] = currExpenseSum + calcAmount(expense)
     })
 
     return result
@@ -67,36 +72,6 @@ class Dashboard extends Component {
         { text: account.name, onPress: () => changeAccountFilter(account) }
       )),
     )
-  }
-
-  calcExpenses = (account) => {
-    const { transactions } = this.props
-    if (transactions.length === 0) return 0;
-    const accountTransactions = transactions.filter(item => account.id === get(item, "accountId") && item.type === "expense")
-    if (accountTransactions.length === 0) { return 0 }
-    const total = accountTransactions.reduce((a, b) => ({ amount: parseFloat(a.amount) + parseFloat(b.amount) }))
-
-    return total.amount;
-  }
-
-  calcIncome = (account) => {
-    const { transactions } = this.props
-    if (transactions.length === 0) return 0;
-    const accountTransactions = transactions.filter(item => account.id === get(item, "accountId") && item.type === "income")
-    if (accountTransactions.length === 0) { return 0 }
-    const total = accountTransactions.reduce((a, b) => ({ amount: parseFloat(a.amount) + parseFloat(b.amount) }))
-
-    return total.amount;
-  }
-
-  calcTotal = (account) => {
-    const { transactions } = this.props
-    if (transactions.length === 0) return 0;
-    const accountTransactions = transactions.filter(item => account.id === get(item, "account.id"));
-    if (accountTransactions.length === 0) { return 0 }
-    const total = accountTransactions.reduce((a, b) => ({ amount: parseFloat(a.amount) + parseFloat(b.amount) }));
-
-    return total.amount;
   }
 
   calcSavingsRate = (income, expenses) => {

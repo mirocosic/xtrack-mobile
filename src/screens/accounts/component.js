@@ -1,8 +1,10 @@
 import React, { Component } from "react"
 import { Alert, View, ScrollView, TouchableOpacity } from "react-native"
 import { get } from "lodash"
-import { withNavigation } from "react-navigation";
+import { withNavigation } from "react-navigation"
 import Swipeout from "react-native-swipeout"
+import { DarkModeContext } from "react-native-dark-mode"
+
 import { Screen, Header, Footer } from "../../components"
 import { Copy, CopyBlue } from "../../components/typography"
 import Icon from "../../components/icon"
@@ -22,6 +24,8 @@ const accountBalance = (account, transactions) => {
 }
 
 class Accounts extends Component {
+
+  static contextType = DarkModeContext
 
   state = { scroll: true }
 
@@ -61,7 +65,8 @@ class Accounts extends Component {
 
   render() {
     const { scroll } = this.state
-    const { navigation, darkMode, accounts, transactions } = this.props
+    const { navigation, accounts, transactions } = this.props
+    const darkMode = this.context === "dark"
     return (
       <Screen>
         <Header title="Accounts" backBtn />
@@ -88,7 +93,7 @@ class Accounts extends Component {
                       <Icon type={account.icon} style={{ marginRight: 10 }} textStyle={{ color: account.color, fontSize: 20 }} />
                       <Copy>
                         {`${account.name} `}
-                        <Copy style={{ fontSize: 12 }}>{`(${formatCurrency(accountBalance(account, transactions))})`}</Copy>
+                        <Copy style={{ fontSize: 12 }}>{`(${formatCurrency(accountBalance(account, transactions), account.currency)})`}</Copy>
                       </Copy>
                       {
                         account.defaultAccount

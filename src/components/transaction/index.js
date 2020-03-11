@@ -5,6 +5,7 @@ export default connect(
   state => ({
     darkMode: state.common.darkMode,
     categories: state.categories.items,
+    accounts: state.accounts.items,
   }),
 
   dispatch => ({

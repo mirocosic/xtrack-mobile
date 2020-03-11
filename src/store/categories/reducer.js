@@ -4,12 +4,17 @@ import { makeUUID } from "../../utils/helper-gnomes"
 const categories = (state = initialState, action) => {
   switch (action.type) {
 
+    // TODO: check if this is extra?
     case "ADD_NEW_CATEGORY":
       return {
         ...state,
         items: [
           ...state.items,
-          { id: state.items[state.items.length - 1].id + 1, name: action.payload.name, note: action.payload.note },
+          {
+            id: state.items[state.items.length - 1].id + 1,
+            name: action.payload.name,
+            note: action.payload.note,
+          },
         ],
       }
 
@@ -24,6 +29,7 @@ const categories = (state = initialState, action) => {
             type: action.category.type,
             icon: action.category.icon,
             color: action.category.color,
+            defaultCategory: state.items.length === 0,
           },
         ],
       }

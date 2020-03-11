@@ -1,13 +1,15 @@
 import React from "react"
 import { Text } from "react-native"
 import { connect } from "react-redux"
+import { useDarkMode } from "react-native-dark-mode"
+
 import styles from "./styles"
 
 export const font = "DIN 30640 Pro"
 
 const CopyCmp = (props) => {
-  const { darkMode, style, children } = props
-  const defaultStyle = darkMode ? styles.copyDark : styles.copy
+  const { style, children } = props
+  const defaultStyle = useDarkMode() ? styles.copyDark : styles.copy
   return (
     <Text style={{ ...defaultStyle, ...style }}>{children}</Text>
   )

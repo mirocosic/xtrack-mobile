@@ -1,4 +1,6 @@
 import { createBottomTabNavigator } from "react-navigation"
+import { useDarkMode } from "react-native-dark-mode"
+
 import { Dashboard, Overview, Reports, Profile, Transactions } from "../screens"
 import palette from "../utils/palette"
 import { font } from "../components/typography"
@@ -22,6 +24,7 @@ const BottomBarNavigator = createBottomTabNavigator({
     indicatorStyle: { backgroundColor: palette.secondary, fontFamily: font },
     style: {
       justifyContent: "space-around",
+      // backgroundColor: useDarkMode() ? "#000000" : "#ffffff",
       backgroundColor: "#ffffff",
       height: 65,
       paddingBottom: 5,

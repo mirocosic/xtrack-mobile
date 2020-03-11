@@ -8,7 +8,18 @@ export const makeUUID = () => (
     return v.toString(16)
   }))
 
-export const calculateTransactions = (transactions, transactionType, filter = { type: false, value: false }) => {
+export const calcAmount = (transaction) => {
+  switch (transaction.currency) {
+    case "EUR":
+      return 7.55 * parseFloat(transaction.amount)
+    case "USD":
+      return 6.66 * parseFloat(transaction.amount)
+    default:
+      return parseFloat(transaction.amount)
+  }
+}
+
+export const calculateTransactions = (transactions, transactionType, filter = { type: false, value: false }, normalize) => {
   if (transactions.length === 0) { return 0 }
   let filteredTransactions = []
   switch (filter.type) {
@@ -29,15 +40,22 @@ export const calculateTransactions = (transactions, transactionType, filter = { 
   const pastTransactions = filteredTransactions.filter(item => moment(item.timestamp) <= moment())
 
   if (pastTransactions.length === 0) { return 0 }
-  const total = pastTransactions.reduce((a, b) => ({ amount: parseFloat(a.amount) + parseFloat(b.amount) }));
 
-  return total.amount;
+  let total
+
+  if (normalize) {
+    total = pastTransactions.reduce((acc, transaction) => acc + calcAmount(transaction), 0)
+  } else {
+    total = pastTransactions.reduce((acc, transaction) => acc + parseFloat(transaction.amount), 0)
+  }
+
+  return total
 }
 
-export const calculateIncome = (transactions, filter = { type: false, value: false }) => (
-  calculateTransactions(transactions, "income", filter)
+export const calculateIncome = (transactions, filter = { type: false, value: false }, normalize = false) => (
+  calculateTransactions(transactions, "income", filter, normalize)
 )
 
-export const calculateExpenses = (transactions, filter = { type: false, value: false }) => (
-  calculateTransactions(transactions, "expense", filter)
+export const calculateExpenses = (transactions, filter = { type: false, value: false }, normalize = false) => (
+  calculateTransactions(transactions, "expense", filter, normalize)
 )

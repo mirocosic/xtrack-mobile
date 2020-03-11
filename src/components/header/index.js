@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import { View, TouchableOpacity } from "react-native"
 import { withNavigation } from "react-navigation"
+import { DarkModeContext } from "react-native-dark-mode"
+
 import { Title } from "../typography"
 import Icon from "../icon"
 import __ from "../../utils/translations"
@@ -8,12 +10,15 @@ import styles from "./styles"
 
 class Header extends Component {
 
+  static contextType = DarkModeContext
+
   state = {}
 
   render() {
     const { backBtn, backBtnPress, actionBtn, actionBtnPress, style, icon, title, children, navigation } = this.props
+    const darkMode = this.context === "dark"
     return (
-      <View style={[styles.container, style]}>
+      <View style={[styles.container, style, darkMode && styles.containerDark]}>
         { backBtn && (
           <TouchableOpacity style={styles.backBtn} onPress={() => { backBtnPress ? backBtnPress() : navigation.goBack() }}>
             <Icon type="chevronLeft" style={{ backgroundColor: "transparent" }} textStyle={{ color: "white" }} />

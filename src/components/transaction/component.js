@@ -1,9 +1,11 @@
 import React, { Component } from "react"
 import { Alert, Text, View, TouchableOpacity, Platform, ActionSheetIOS } from "react-native"
 import { withNavigation } from "react-navigation"
-import Swipeout from "react-native-swipeout";
+import Swipeout from "react-native-swipeout"
 import moment from "moment"
 import { get } from "lodash"
+import { DarkModeContext } from "react-native-dark-mode"
+
 import Label from "../label"
 import { Copy } from "../typography"
 import Icon from "../icon"
@@ -46,6 +48,8 @@ const renderCategory = (categories, id) => {
 
 class Transaction extends Component {
 
+  static contextType = DarkModeContext
+
   deleteTransaction = (transaction) => {
     const { removeAllRecurring, removeFutureRecurring, deleteTransaction } = this.props
 
@@ -82,8 +86,8 @@ class Transaction extends Component {
   }
 
   render() {
-    const { transaction, selectTransaction, navigation, darkMode, toggleScroll, categories } = this.props
-
+    const { transaction, selectTransaction, navigation, toggleScroll, categories } = this.props
+    const darkMode = this.context === "dark"
     return (
       <Swipeout
         right={[{
@@ -104,7 +108,7 @@ class Transaction extends Component {
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
               { renderCategory(categories, transaction.categoryId)}
               <Text style={[styles.amount, getAmountColor(transaction.type)]}>
-                {formatCurrency(transaction.amount)}
+                {formatCurrency(transaction.amount, transaction.currency)}
               </Text>
             </View>
 

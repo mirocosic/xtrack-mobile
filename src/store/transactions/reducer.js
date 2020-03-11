@@ -6,7 +6,7 @@ import { makeUUID } from "../../utils/helper-gnomes"
 const transactions = (state = initialState, action) => {
 
   const transaction = action.transaction || {}
-  const { timestamp, accountId, fromAccountId, amount, type, note, categoryId, labels, parentTransactionId } = transaction
+  const { timestamp, accountId, fromAccountId, amount, type, note, categoryId, labels, parentTransactionId, currency } = transaction
   const newId = makeUUID()
 
   switch (action.type) {
@@ -111,9 +111,10 @@ const transactions = (state = initialState, action) => {
           {
             id: makeUUID(),
             timestamp,
-            account: fromAccount,
-            fromAccount: account,
-            type,
+            accountId: fromAccountId,
+            fromAccountId: accountId,
+            // type,
+            type: "expense",
             amount: -amount,
             note,
             categoryId,
@@ -124,7 +125,8 @@ const transactions = (state = initialState, action) => {
             timestamp,
             accountId,
             fromAccountId,
-            type,
+            // type,
+            type: "income",
             amount,
             note,
             categoryId,

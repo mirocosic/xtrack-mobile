@@ -1,10 +1,14 @@
 import React, { Component } from "react"
 import { View, Text, TouchableOpacity } from "react-native"
+import { DarkModeContext } from "react-native-dark-mode"
+
 import palette from "../../utils/palette"
 import Digit from "../digit"
 import styles from "./styles"
 
 export default class CustomKeyboard extends Component {
+
+  static contextType = DarkModeContext
 
   state = {
     calculationMode: false,
@@ -46,9 +50,10 @@ export default class CustomKeyboard extends Component {
   render() {
     const { calculationMode, input } = this.state
     const { handleSubmit } = this.props
+    const darkMode = this.context === "dark"
 
     return (
-      <View style={styles.wrap}>
+      <View style={[styles.wrap, darkMode && styles.wrapDark]}>
 
         <View style={{ alignItems: "flex-end", padding: 5 }}>
           <Text>{input}</Text>

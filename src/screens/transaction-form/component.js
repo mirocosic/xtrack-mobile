@@ -185,8 +185,8 @@ class TransactionForm extends Component {
         key={account.id}
         onPress={() => {
           accountType === "from"
-            ? this.setState({ transaction: { ...transaction, fromAccountId: account.id } })
-            : this.setState({ transaction: { ...transaction, accountId: account.id } })
+            ? this.setState({ transaction: { ...transaction, fromAccountId: account.id, currency: account.currency } })
+            : this.setState({ transaction: { ...transaction, accountId: account.id, currency: account.currency } })
           this.accountsModal.current.close()
         }}
       >
@@ -335,7 +335,7 @@ class TransactionForm extends Component {
                     style={{ color: "teal", borderRadius: 20, zIndex: 100, fontSize: 30 }}>
                     {transaction.type === "expense" && "-" }
                     {transaction.type === "income" && "+" }
-                    {formatCurrency(transaction.amount)}
+                    {formatCurrency(transaction.amount, transaction.currency)}
 
                   </Copy>
                 </TouchableOpacity>
@@ -417,7 +417,7 @@ class TransactionForm extends Component {
             { !moreOptionsOpen
               ? (
                 <TouchableOpacity
-                  hitSlop={{ top: 20, bottom: 20, left: 10, right: 20 }}
+                  hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                   onPress={() => this.setState({ moreOptionsOpen: true })}
                   style={{ justifyContent: "center", alignItems: "center" }}>
                   <CopyBlue>More Options</CopyBlue>
@@ -469,8 +469,8 @@ class TransactionForm extends Component {
                   </View>
 
                   <TouchableOpacity
-                    hitSlop={{ top: 20, bottom: 20, left: 10, right: 20 }}
-                    style={{ alignItems: "center", padding: 20 }}
+                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                    style={{ alignItems: "center", margin: 20 }}
                     onPress={() => this.setState({ moreOptionsOpen: false })}
                   >
                     <CopyBlue>Less Options</CopyBlue>

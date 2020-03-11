@@ -3,12 +3,16 @@ import PropTypes from "prop-types"
 import { Alert, View, TouchableOpacity } from "react-native"
 import Swipeout from "react-native-swipeout"
 import { withNavigation } from "react-navigation"
+import { DarkModeContext } from "react-native-dark-mode"
+
 import { get } from "lodash"
 import Icon from "../icon"
 import { Copy } from "../typography"
 import styles from "./styles"
 
 class Category extends Component {
+
+  static contextType = DarkModeContext
 
   countTransactions = (catId) => {
     const { transactions } = this.props
@@ -49,7 +53,9 @@ class Category extends Component {
 
   render() {
     const cat = this.props.data
-    const { darkMode, selectCategory, navigation, toggleScroll } = this.props
+    const { selectCategory, navigation, toggleScroll } = this.props
+    const darkMode = this.context === "dark"
+
     return (
       <Swipeout
         right={[{

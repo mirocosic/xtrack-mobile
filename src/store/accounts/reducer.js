@@ -15,9 +15,9 @@ const categories = (state = initialState, action) => {
             name,
             icon,
             color,
-            defaultAccount,
             startingBalance,
             currency,
+            defaultAccount: state.items.length === 0,
           },
         ],
       }

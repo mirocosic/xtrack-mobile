@@ -1,9 +1,10 @@
 import React from "react";
 import { StatusBar } from "react-native"
 import { Sentry } from "react-native-sentry";
-
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
+import { DarkModeProvider } from "react-native-dark-mode"
+
 import { persistor, store } from "./store";
 import AppNavigator from "./navigators/app-navigator";
 import Drawer from "./components/drawer";
@@ -16,13 +17,15 @@ StatusBar.setBarStyle("light-content", true);
 
 export default () => (
   <Provider store={store}>
-    <PersistGate persistor={persistor}>
-      <Drawer
-        side="right"
-        open
-      >
-        <AppNavigator />
-      </Drawer>
-    </PersistGate>
+    <DarkModeProvider>
+      <PersistGate persistor={persistor}>
+        <Drawer
+          side="right"
+          open
+        >
+          <AppNavigator />
+        </Drawer>
+      </PersistGate>
+    </DarkModeProvider>
   </Provider>
 );

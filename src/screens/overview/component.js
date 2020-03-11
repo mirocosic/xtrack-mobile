@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import { ScrollView, View, Text, TouchableOpacity, Alert } from "react-native"
 import { withNavigation } from "react-navigation"
+import { DarkModeContext } from "react-native-dark-mode"
+
 import Screen from "../../components/screen"
 import Header from "../../components/header"
 import Icon from "../../components/icon"
@@ -11,7 +13,21 @@ import styles from "./styles"
 
 import { calculateIncome, calculateExpenses } from "../../utils/helper-gnomes"
 
+const calcStartingBalance = (account) => {
+  switch (account.currency) {
+    case "EUR":
+      return 7.55 * parseFloat(account.startingBalance)
+    case "USD":
+      return 6.66 * parseFloat(account.startingBalance)
+    default:
+      return parseFloat(account.startingBalance)
+  }
+}
+
+
 class Overview extends Component {
+
+  static contextType = DarkModeContext
 
   static navigationOptions = () => ({
     tabBarIcon: ({ tintColor }) => (
@@ -47,9 +63,9 @@ class Overview extends Component {
     let netWorth = 0
 
     accounts.forEach((acc) => {
-      const income = parseFloat(calculateIncome(transactions, { type: "account", value: acc }))
-      const expenses = parseFloat(calculateExpenses(transactions, { type: "account", value: acc }))
-      const startingBalance = acc.startingBalance ? parseFloat(acc.startingBalance) : 0
+      const income = parseFloat(calculateIncome(transactions, { type: "account", value: acc }, true))
+      const expenses = parseFloat(calculateExpenses(transactions, { type: "account", value: acc }, true))
+      const startingBalance = acc.startingBalance ? calcStartingBalance(acc) : 0
       netWorth = netWorth + startingBalance + income - expenses
     })
 
@@ -87,6 +103,7 @@ class Overview extends Component {
 
   render() {
     const { accounts, transactions } = this.props
+    const darkMode = this.context === "dark"
     return (
 
       <Screen>
@@ -103,29 +120,29 @@ class Overview extends Component {
             const startingBalance = acc.startingBalance ? parseFloat(acc.startingBalance) : 0
 
             return (
-              <View key={acc.id} style={styles.accountWrap}>
+              <View key={acc.id} style={[styles.accountWrap, darkMode && styles.accountWrapDark]}>
                 <Copy style={{ fontWeight: "bold" }}>{acc.name}</Copy>
                 <View>
                   { true && (
                     <View style={[styles.inline, { justifyContent: "space-between", paddingLeft: 20, paddingRight: 20 }]}>
                       <Copy>Starting Balance: </Copy>
-                      <Copy>{formatCurrency(startingBalance)}</Copy>
+                      <Copy>{formatCurrency(startingBalance, acc.currency)}</Copy>
                     </View>)
                   }
 
                   <View style={[styles.inline, { justifyContent: "space-between", paddingLeft: 20, paddingRight: 20 }]}>
                     <Copy>Income: </Copy>
-                    <Copy>{formatCurrency(income)}</Copy>
+                    <Copy>{formatCurrency(income, acc.currency)}</Copy>
                   </View>
 
                   <View style={[styles.inline, { justifyContent: "space-between", paddingLeft: 20, paddingRight: 20 }]}>
                     <Copy>Expenses: </Copy>
-                    <Copy>{formatCurrency(expenses)}</Copy>
+                    <Copy>{formatCurrency(expenses, acc.currency)}</Copy>
                   </View>
 
                   <View style={[styles.inline, { justifyContent: "space-between", paddingLeft: 20, paddingRight: 20 }]}>
                     <Copy>Balance: </Copy>
-                    <Copy style={{ color: "blue" }}>{formatCurrency(startingBalance + income - expenses)}</Copy>
+                    <Copy style={{ color: "blue" }}>{formatCurrency(startingBalance + income - expenses, acc.currency)}</Copy>
                   </View>
                 </View>
 

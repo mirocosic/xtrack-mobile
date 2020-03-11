@@ -9,6 +9,8 @@ export default StyleSheet.create({
     paddingBottom: 10,
   },
 
+  containerDark: { backgroundColor: palette.darkGray },
+
   backBtn: {
     zIndex: 100,
     color: "white",

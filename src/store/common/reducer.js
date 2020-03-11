@@ -3,6 +3,12 @@ import initialState from "./initial-state";
 const common = (state = initialState, action) => {
   switch (action.type) {
 
+    case "SET_DARK_MODE":
+      return {
+        ...state,
+        darkMode: action.value,
+      }
+
     case "TOGGLE_DARK_MODE":
       return {
         ...state,
