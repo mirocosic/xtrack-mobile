@@ -25,7 +25,7 @@ const CopyBlueCmp = (props) => {
 
 const TitleCmp = (props) => {
   const { darkMode, style, children } = props
-  const defaultStyle = darkMode ? styles.titleDark : styles.title
+  const defaultStyle = useDarkMode() ? styles.titleDark : styles.title
   return (
     <Text style={{ ...defaultStyle, ...style }}>{children}</Text>
   )

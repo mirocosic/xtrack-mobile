@@ -2,6 +2,8 @@ import React, { Component } from "react"
 import { Animated, View, ScrollView, TouchableOpacity, TextInput, FlatList } from "react-native"
 import { withNavigation } from "react-navigation"
 import { get } from "lodash"
+import { DarkModeContext } from "react-native-dark-mode"
+
 import Screen from "../../components/screen"
 import Header from "../../components/header"
 import Icon from "../../components/icon"
@@ -12,6 +14,8 @@ import palette from "../../utils/palette"
 import styles from "./styles"
 
 class Transactions extends Component {
+
+  static contextType = DarkModeContext
 
   static navigationOptions = () => ({
     tabBarIcon: ({ tintColor }) => (
@@ -32,7 +36,7 @@ class Transactions extends Component {
   render() {
     const { height, scrollEnabled, searchTerm } = this.state
     const { accountFilter, categoryFilter, openDrawer, appliedLabelsFilter, entries } = this.props
-
+    const darkMode = this.context === "dark"
     const filtersApplied = accountFilter || categoryFilter || appliedLabelsFilter.length || false;
 
     const headerHeight = height.interpolate({
@@ -89,7 +93,7 @@ class Transactions extends Component {
           position: "absolute",
           left: 0,
           width: "100%",
-          backgroundColor: palette.blue,
+          backgroundColor: darkMode ? palette.darkGray : palette.blue,
           overflow: "hidden",
           transform: [{ scale: headerScale }],
           height: headerHeight,
@@ -114,8 +118,8 @@ class Transactions extends Component {
               >
                 <View>
 
-                  <View style={styles.searchWrap}>
-                    <View style={styles.searchInnerWrap}>
+                  <View style={[styles.searchWrap, darkMode && styles.searchWrapDark]}>
+                    <View style={[styles.searchInnerWrap, darkMode && styles.searchInnerWrapDark]}>
                       <Icon type="search" style={{ backgroundColor: "transparent" }} textStyle={{ color: "teal" }} />
                       <TextInput
                         style={styles.searchText}

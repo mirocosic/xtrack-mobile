@@ -10,18 +10,19 @@ import Label from "../label"
 import { Copy } from "../typography"
 import Icon from "../icon"
 import { formatCurrency } from "../../utils/currency"
+import palette from "../../utils/palette"
 import styles from "./styles"
 
 const getAmountColor = (type) => {
   switch (type) {
     case "expense":
-      return { color: "#D32F2F" };
+      return { color: palette.red }
     case "income":
-      return { color: "green" };
+      return { color: palette.green }
     case "transfer":
-      return { color: "blue" };
+      return { color: palette.blue }
     default:
-      return { color: "#D32F2F" };
+      return { color: palette.red }
   }
 }
 
@@ -39,7 +40,7 @@ const renderCategory = (categories, id) => {
       <Icon
         type={get(category, "icon", "")}
         textStyle={{ color: get(category, "color", "blue") }}
-        style={{ padding: 5, marginRight: 10, backgroundColor: "white" }}
+        style={{ padding: 5, marginRight: 10 }}
       />
       <Copy>{category && category.name}</Copy>
     </View>

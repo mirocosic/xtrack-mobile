@@ -33,7 +33,7 @@ export default StyleSheet.create({
     marginRight: 10,
   },
 
-  expense: { backgroundColor: "red" },
+  expense: { backgroundColor: palette.red },
 
   income: { backgroundColor: "green" },
 

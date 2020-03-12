@@ -9,6 +9,7 @@ import Icon from "../../components/icon"
 import { Copy, Title } from "../../components/typography"
 import __ from "../../utils/translations"
 import { formatCurrency } from "../../utils/currency"
+import palette from "../../utils/palette"
 import styles from "./styles"
 
 import { calculateIncome, calculateExpenses } from "../../utils/helper-gnomes"
@@ -142,7 +143,7 @@ class Overview extends Component {
 
                   <View style={[styles.inline, { justifyContent: "space-between", paddingLeft: 20, paddingRight: 20 }]}>
                     <Copy>Balance: </Copy>
-                    <Copy style={{ color: "blue" }}>{formatCurrency(startingBalance + income - expenses, acc.currency)}</Copy>
+                    <Copy style={{ color: palette.blue }}>{formatCurrency(startingBalance + income - expenses, acc.currency)}</Copy>
                   </View>
                 </View>
 

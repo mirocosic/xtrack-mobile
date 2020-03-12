@@ -1,4 +1,5 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from "react-native"
+import palette from "../../utils/palette"
 
 export default StyleSheet.create({
 
@@ -28,6 +29,8 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: "gray",
   },
+
+  searchWrapDark: { backgroundColor: palette.dark },
 
   searchInnerWrap: {
     backgroundColor: "#e6e6e6",
