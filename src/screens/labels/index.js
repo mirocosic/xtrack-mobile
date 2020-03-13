@@ -1,11 +1,8 @@
-import { connect } from "react-redux";
-import Component from "./component";
+import { connect } from "react-redux"
+import Component from "./component"
 
 export default connect(
-  state => ({
-    labels: state.labels.items,
-    darkMode: state.common.darkMode,
-  }),
+  state => ({ labels: state.labels.items }),
 
   dispatch => ({
     add: payload => dispatch({ type: "ADD_LABEL", payload }),

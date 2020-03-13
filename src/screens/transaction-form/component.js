@@ -195,7 +195,7 @@ class TransactionForm extends Component {
       >
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Icon type={get(account, "icon", "")} style={{ marginRight: 10 }} textStyle={{ color: get(account, "color", "blue") }} />
-          <Text>{account.name}</Text>
+          <Copy>{account.name}</Copy>
         </View>
 
       </TouchableOpacity>
@@ -220,8 +220,8 @@ class TransactionForm extends Component {
             this.catModal.current.close()
           }}>
           <View style={{ flexDirection: "row", alignItems: "center", margin: 5 }}>
-            <Icon type={get(cat, "icon", "")} textStyle={{ color: cat.color || "blue" }} style={{ marginRight: 10, backgroundColor: "white" }} />
-            <Text>{cat.name}</Text>
+            <Icon type={get(cat, "icon", "")} textStyle={{ color: cat.color || "blue" }} style={{ marginRight: 10 }} />
+            <Copy>{cat.name}</Copy>
           </View>
 
         </TouchableOpacity>
@@ -508,8 +508,7 @@ class TransactionForm extends Component {
           <Modalize
             adjustToContentHeight
             ref={this.accountsModal}>
-            <View style={{ height: 300, width: "100%", padding: 20, backgroundColor: "white", borderRadius: 10 }}>
-              <Text style={{ textAlign: "center" }}>Select account</Text>
+            <View style={[{ minHeight: 300 }, styles.modalContainer, darkMode && styles.modalContainerDark]}>
 
               <View style={{ padding: 10 }}>
                 {this.renderAccounts(transaction.type)}
@@ -518,7 +517,7 @@ class TransactionForm extends Component {
               <TouchableOpacity
                 style={{ position: "absolute", right: 10 }}
                 onPress={() => this.accountsModal.current.close()}>
-                <Title>x</Title>
+                <Icon type="times" textStyle={{ color: "teal" }} />
               </TouchableOpacity>
 
             </View>
@@ -528,8 +527,8 @@ class TransactionForm extends Component {
             adjustToContentHeight
             ref={this.catModal}>
             <ScrollView
-              style={{ height: 500, paddingBottom: 20, borderRadius: 10 }}
-              contentContainerStyle={{ width: "100%", padding: 20, backgroundColor: "white", borderRadius: 10 }}>
+              style={[{ minHeight: 300, paddingBottom: 20, borderRadius: 10 }, styles.modal, darkMode && styles.modalDark]}
+              contentContainerStyle={[styles.modalContainer, darkMode && styles.modalContainerDark]}>
 
               <View style={{ padding: 10 }}>
                 {this.renderCategories()}
@@ -543,17 +542,12 @@ class TransactionForm extends Component {
               </View>
 
             </ScrollView>
-            <TouchableOpacity
-              style={{ position: "absolute", top: 10, right: 10, borderRadius: 10 }}
-              onPress={() => this.catModal.current.close()}>
-              <Title>x</Title>
-            </TouchableOpacity>
           </Modalize>
 
           <Modalize
             adjustToContentHeight
             ref={this.labelsModal}>
-            <View style={{ width: "100%", padding: 20, backgroundColor: "white", borderRadius: 10 }}>
+            <View style={[{ minHeight: 300 }, styles.modalContainer, darkMode && styles.modalContainerDark]}>
 
               <View style={{ padding: 10 }}>
                 {this.renderLabels()}
@@ -561,7 +555,7 @@ class TransactionForm extends Component {
                   style={[styles.inline, { justifyContent: "flex-start", paddingLeft: 5 }]}
                   onPress={() => navigation.navigate("LabelEdit", {})}>
                   <Icon type="plus" textStyle={{ color: "teal" }} />
-                  <Copy style={{ fontSize: 14 }}>Add new label</Copy>
+                  <Copy style={{ fontSize: 14 }}>Add new tag</Copy>
                 </TouchableOpacity>
 
               </View>
@@ -571,13 +565,20 @@ class TransactionForm extends Component {
 
           <Modalize
             modalHeight={400}
+            style={{ backgroundColor: darkMode ? palette.darkGray : "white" }}
             scrollViewProps={{ scrollEnabled: false }}
-            HeaderComponent={<View style={{ backgroundColor: "white", height: 20, borderTopRightRadius: 10, borderTopLeftRadius: 10 }} />}
-            ref={this.calendarModal}>
-            <View style={{ height: 500, width: "100%", padding: 10, backgroundColor: "white", borderRadius: 10 }}>
+            contentContainerStyle={[styles.modalContainer, darkMode && styles.modalContainerDark]}
+            ref={this.calendarModal}
+          >
+            <View style={[{ minHeight: 400 }, styles.modalContainer, darkMode && styles.modalContainerDark]}>
 
               <Calendar
-                theme={{ todayTextColor: "teal" }}
+                theme={{
+                  monthTextColor: darkMode ? palette.blue : palette.darkGray,
+                  dayTextColor: darkMode ? "white" : "black",
+                  todayTextColor: "teal",
+                  calendarBackground: darkMode ? palette.darkGray : "white",
+                }}
                 onDayPress={(day) => {
                   this.setState({ transaction: { ...transaction, ...{ timestamp: day.timestamp } } })
                   this.calendarModal.current.close()
