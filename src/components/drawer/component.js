@@ -1,14 +1,20 @@
 import React, { Component } from "react"
 import { View, ScrollView, TouchableOpacity } from "react-native"
 import RNDrawer from "react-native-drawer"
+import { DarkModeContext } from "react-native-dark-mode"
+
 import { PrimaryButton } from "../buttons"
 import Icon from "../icon"
 import { Title, Copy } from "../typography"
+import palette from "../../utils/palette"
 import styles from "./styles"
 
 export default class Drawer extends Component {
 
+  static contextType = DarkModeContext
+
   render() {
+    const darkMode = this.context === "dark"
     const {
       categories, accounts, changeAccountFilter, changeCategoryFilter, resetFilters,
       drawerOpen, applyLabelFilter, removeLabelFilter,
@@ -27,11 +33,11 @@ export default class Drawer extends Component {
         openDrawerOffset={100}
         content={
           (
-            <ScrollView style={styles.content} contentContainerStyle={{ paddingBottom: 40 }}>
+            <ScrollView style={[styles.content, darkMode && styles.contentDark]} contentContainerStyle={{ paddingBottom: 40 }}>
               <View style={styles.contentHeader}>
                 <Title>Filters</Title>
                 <TouchableOpacity onPress={() => closeDrawer()}>
-                  <Icon type="times" style={{ backgroundColor: "white" }} textStyle={{ color: "black" }} />
+                  <Icon type="times" style={{ backgroundColor: darkMode ? palette.dark : "white" }} textStyle={{ color: darkMode ? "white" : "black" }} />
                 </TouchableOpacity>
               </View>
 

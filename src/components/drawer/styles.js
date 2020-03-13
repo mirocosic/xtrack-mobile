@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native"
 import { safePaddingTop } from "../../utils/ui-utils"
+import palette from "../../utils/palette"
 
 export default StyleSheet.create({
   container: { backgroundColor: "white" },
@@ -10,6 +11,8 @@ export default StyleSheet.create({
     padding: 20,
     paddingTop: safePaddingTop(10),
   },
+
+  contentDark: { backgroundColor: palette.dark },
 
   contentHeader: {
     flexDirection: "row",

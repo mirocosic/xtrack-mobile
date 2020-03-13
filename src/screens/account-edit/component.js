@@ -3,10 +3,12 @@ import { Alert, ScrollView, View, TextInput, TouchableOpacity } from "react-nati
 import { withNavigation } from "react-navigation";
 import Modalize from "react-native-modalize"
 import { get } from "lodash"
+
 import { Screen, Header } from "../../components"
 import CategoryIcons from "../../components/category-icons"
 import Icon from "../../components/icon"
 import { Copy } from "../../components/typography"
+import palette from "../../utils/palette"
 import styles from "./styles"
 
 const colors = ["#FF5722", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
@@ -118,7 +120,7 @@ class AccountEdit extends Component {
           <View style={[styles.inlineBetween, { margin: 10 }]}>
             <Copy>Default account</Copy>
             <TouchableOpacity onPress={() => this.setState({ account: { ...account, defaultAccount: !account.defaultAccount } })}>
-              <Copy style={{ color: "blue" }}>{account.defaultAccount ? "Yes" : "No"}</Copy>
+              <Copy style={{ color: palette.blue }}>{account.defaultAccount ? "Yes" : "No"}</Copy>
             </TouchableOpacity>
           </View>
 
@@ -140,7 +142,7 @@ class AccountEdit extends Component {
           <View style={[styles.inlineBetween, { margin: 10 }]}>
             <Copy>Currency</Copy>
             <TouchableOpacity onPress={() => this.currencyModal.current.open()}>
-              <Copy style={{ color: "blue" }}>{account.currency || "HRK"}</Copy>
+              <Copy style={{ color: palette.blue }}>{account.currency || "HRK"}</Copy>
             </TouchableOpacity>
           </View>
 

@@ -3,12 +3,16 @@ import { Alert, View, ScrollView, TouchableOpacity } from "react-native"
 import { withNavigation } from "react-navigation"
 import Swipeout from "react-native-swipeout"
 import { get } from "lodash"
+import { DarkModeContext } from "react-native-dark-mode"
+
 import { Screen, Header, Footer } from "../../components"
 import { Copy, CopyBlue } from "../../components/typography"
 import Icon from "../../components/icon"
 import styles from "./styles"
 
 class Labels extends Component {
+
+    static contextType = DarkModeContext
 
     state = { scroll: true }
 
@@ -37,8 +41,10 @@ class Labels extends Component {
 
 
     render() {
-      const { navigation, labels, darkMode } = this.props
+      const { navigation, labels } = this.props
       const { scroll } = this.state
+      const darkMode = this.context === "dark"
+
       return (
         <Screen>
           <Header title="Tags" backBtn />

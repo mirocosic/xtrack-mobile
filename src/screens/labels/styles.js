@@ -13,7 +13,7 @@ export default StyleSheet.create({
     paddingLeft: 30,
   },
 
-  wrapDark: { borderColor: "white" },
+  wrapDark: { borderColor: "white", backgroundColor: palette.dark },
 
   swiperWrap: {
     borderBottomWidth: 1,
@@ -36,7 +36,7 @@ export default StyleSheet.create({
     paddingRight: 20,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
 
   input: {
@@ -45,12 +45,12 @@ export default StyleSheet.create({
     padding: 20,
     margin: 20,
     width: 200,
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
   },
 
   inputDark: {
     color: "white",
-    borderColor: "white"
+    borderColor: "white",
   },
 
   add: {
@@ -59,7 +59,7 @@ export default StyleSheet.create({
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "green"
+    backgroundColor: "green",
   },
 
   delete: {

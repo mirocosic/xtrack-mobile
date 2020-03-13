@@ -3,10 +3,12 @@ import { Alert, ScrollView, View, TextInput, TouchableOpacity } from "react-nati
 import { withNavigation } from "react-navigation";
 import Modalize from "react-native-modalize"
 import { get } from "lodash"
+
 import { Screen, Header } from "../../components"
 import CategoryIcons from "../../components/category-icons"
 import Icon from "../../components/icon"
 import { Copy } from "../../components/typography"
+import palette from "../../utils/palette"
 import styles from "./styles"
 
 const colors = ["#FF5722", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
@@ -107,7 +109,7 @@ class CategoryEdit extends Component {
           <View style={[styles.inlineBetween, { margin: 10 }]}>
             <Copy>Default category</Copy>
             <TouchableOpacity onPress={() => this.setState({ category: { ...category, defaultCategory: !category.defaultCategory } })}>
-              <Copy style={{ color: "blue", fontSize: 20 }}>{category.defaultCategory ? "Yes" : "No"}</Copy>
+              <Copy style={{ color: palette.blue, fontSize: 20 }}>{category.defaultCategory ? "Yes" : "No"}</Copy>
             </TouchableOpacity>
           </View>
 
