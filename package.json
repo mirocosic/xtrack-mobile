@@ -15,6 +15,7 @@
     "@react-native-firebase/app": "^6.3.4",
     "@react-native-firebase/firestore": "^6.3.4",
     "@react-navigation/bottom-tabs": "^5.1.1",
+    "@react-navigation/drawer": "^5.1.1",
     "@react-navigation/native": "^5.0.9",
     "@react-navigation/stack": "^5.1.1",
     "intl": "^1.2.5",

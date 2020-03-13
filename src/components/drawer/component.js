@@ -28,7 +28,7 @@ export default class Drawer extends Component {
         side={side || "left"}
         tapToClose
         onClose={() => {
-          closeDrawer();
+          closeDrawer()
         }}
         openDrawerOffset={100}
         content={
@@ -101,7 +101,7 @@ export default class Drawer extends Component {
                               }
                             </View>
 
-                            <View style={{ padding: 5, backgroundColor: item.color, width: 50, margin: 5, borderRadius: 5 }}>
+                            <View style={{ padding: 5, backgroundColor: item.color, margin: 5, borderRadius: 5 }}>
                               <Copy style={{ color: "white", fontSize: 12 }}>{item.name}</Copy>
                             </View>
                           </View>

@@ -21,7 +21,7 @@ const Icon = ({ type, textStyle, style, icon }) => (
         </FontAwesome>
       ) : (
         <Image
-          source={icons[icon] || icons.category}
+          source={icons[icon] || null}
           style={{ width: 20, height: 20, tintColor: "white" }} />
       )
    }
