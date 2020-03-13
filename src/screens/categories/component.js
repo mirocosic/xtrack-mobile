@@ -1,7 +1,5 @@
 import React, { Component } from "react"
 import { View, ScrollView, TouchableOpacity } from "react-native"
-import { withNavigation } from "react-navigation"
-import { DarkModeContext } from "react-native-dark-mode"
 
 import { Screen, Header, Footer } from "../../components"
 import Category from "../../components/category"
@@ -9,14 +7,11 @@ import { CopyBlue } from "../../components/typography"
 
 class Categories extends Component {
 
-  static contextType = DarkModeContext
-
   state = { scroll: true }
 
   render() {
     const { categories, navigation, selectCategory } = this.props
     const { scroll } = this.state
-    const darkMode = this.context === "dark"
 
     return (
       <Screen>
@@ -31,6 +26,7 @@ class Categories extends Component {
                   data={cat}
                   onPress={() => { selectCategory(cat); navigation.goBack() }}
                   toggleScroll={value => this.setState({ scroll: value })}
+                  navigation={navigation}
                 />
               ))
               .reverse()
@@ -51,4 +47,4 @@ class Categories extends Component {
   }
 }
 
-export default withNavigation(Categories);
+export default Categories

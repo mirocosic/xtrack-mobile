@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native"
 import globalStyles from "../../utils/styles"
+import palette from "../../utils/palette"
 
 export default StyleSheet.create({
 
@@ -38,9 +39,10 @@ export default StyleSheet.create({
     fontSize: 20,
     width: 200,
     borderBottomWidth: 1,
-    borderColor: "white",
+    // borderColor: "white",
     padding: 10,
     margin: 10,
+    backgroundColor: palette.darkGray,
   },
 
   amountInput: {
@@ -86,7 +88,7 @@ export default StyleSheet.create({
     alignItems: "center",
   },
 
-  selectBoxDark: { borderColor: "white" },
+  selectBoxDark: { color: "white", borderColor: "white", backgroundColor: palette.darkGray },
 
   labels: {
     flexDirection: "row",

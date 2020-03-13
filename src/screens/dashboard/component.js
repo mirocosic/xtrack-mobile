@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import { View, ScrollView, Alert, Dimensions, StatusBar } from "react-native"
-import { withNavigation } from "react-navigation"
 import { get } from "lodash"
 import moment from "moment"
 import SplashScreen from "react-native-splash-screen"
@@ -13,6 +12,7 @@ import __ from "../../utils/translations"
 import { formatCurrency } from "../../utils/currency"
 import palette from "../../utils/palette"
 import { calcAmount } from "../../utils/helper-gnomes"
+import { isIos } from "../../utils/os-utils"
 import styles from "./styles"
 
 const months = Array(24).fill(1)
@@ -26,27 +26,17 @@ const filterByMonth = (transactions, currentMonth) => (
 
 class Dashboard extends Component {
 
-  static navigationOptions = () => ({
-    tabBarIcon: ({ tintColor }) => (
-      <Icon style={{ backgroundColor: "white" }} textStyle={{ fontSize: 26, color: tintColor }} type="tasks" />
-    ),
-  })
-
   state = {
     title: "",
     showScrollToEnd: false,
     showScrollToStart: false,
   }
 
-
   componentDidMount() {
-    const { navigation, openOnForm, mode } = this.props
-    console.log(this.props)
-    console.log("darkmode?", mode)
+    const { navigation, openOnForm } = this.props
     const { width } = Dimensions.get("window")
-    // setDarkMode(useDarkMode())
     SplashScreen.hide()
-    StatusBar.setBackgroundColor(palette.blue)
+    isIos && StatusBar.setBackgroundColor(palette.blue)
     openOnForm && navigation.navigate("TransactionForm", { clearForm: true })
     setTimeout(() => this.scrollView.scrollTo({ x: width * 23, y: 0, animated: false }), 100)
   }
@@ -251,4 +241,4 @@ class Dashboard extends Component {
   }
 }
 
-export default withNavigation(Dashboard);
+export default Dashboard

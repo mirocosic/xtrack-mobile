@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import { Alert, Text, View, TouchableOpacity, Platform, ActionSheetIOS } from "react-native"
-import { withNavigation } from "react-navigation"
 import Swipeout from "react-native-swipeout"
 import moment from "moment"
 import { get } from "lodash"
@@ -144,4 +143,4 @@ class Transaction extends Component {
   }
 }
 
-export default withNavigation(Transaction)
+export default Transaction

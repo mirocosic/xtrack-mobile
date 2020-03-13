@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Alert, ScrollView, View, TextInput, TouchableOpacity } from "react-native";
-import { withNavigation } from "react-navigation";
+import { Alert, ScrollView, View, TextInput, TouchableOpacity } from "react-native"
 import Modalize from "react-native-modalize"
 import { get } from "lodash"
 
@@ -17,7 +16,7 @@ const defaultCategory = { icon: "shoppingBasket", color: "#0097A7" }
 
 class CategoryEdit extends Component {
 
-  state = { category: this.props.categories.filter(item => this.props.navigation.state.params.id === item.id)[0] || defaultCategory }
+  state = { category: this.props.categories.filter(item => this.props.route.params.id === item.id)[0] || defaultCategory }
 
   input = React.createRef()
 
@@ -158,4 +157,4 @@ class CategoryEdit extends Component {
   }
 }
 
-export default withNavigation(CategoryEdit)
+export default CategoryEdit

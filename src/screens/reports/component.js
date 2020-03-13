@@ -1,8 +1,7 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 import { Alert, Animated, View, ScrollView, TouchableOpacity } from "react-native"
-
-import { withNavigation } from "react-navigation";
 import { get } from "lodash"
+
 import Screen from "../../components/screen"
 import Header from "../../components/header"
 import Icon from "../../components/icon"
@@ -144,4 +143,4 @@ class Reports extends Component {
   }
 }
 
-export default withNavigation(Reports);
+export default Reports

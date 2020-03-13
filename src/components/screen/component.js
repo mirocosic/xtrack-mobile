@@ -17,4 +17,4 @@ Screen.propTypes = {
   children: PropTypes.any,
 }
 
-export default Screen;
+export default Screen

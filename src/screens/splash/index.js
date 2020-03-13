@@ -1,6 +1,6 @@
 import React from "react"
 import { View, Button } from "react-native"
-import { withNavigation } from "react-navigation"
+
 import Screen from "../../components/screen"
 import { Copy, Title } from "../../components/typography"
 import translate from "../../utils/translations"
@@ -16,4 +16,4 @@ const Splash = props => (
   </Screen>
 )
 
-export default withNavigation(Splash);
+export default Splash

@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import { ScrollView, View, Text, TouchableOpacity, Alert } from "react-native"
-import { withNavigation } from "react-navigation"
 import { DarkModeContext } from "react-native-dark-mode"
 
 import Screen from "../../components/screen"
@@ -158,4 +157,4 @@ class Overview extends Component {
   }
 }
 
-export default withNavigation(Overview)
+export default Overview

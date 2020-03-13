@@ -2,7 +2,6 @@ import React, { Component } from "react"
 import PropTypes from "prop-types"
 import { Alert, View, TouchableOpacity } from "react-native"
 import Swipeout from "react-native-swipeout"
-import { withNavigation } from "react-navigation"
 import { DarkModeContext } from "react-native-dark-mode"
 
 import { get } from "lodash"
@@ -107,9 +106,6 @@ class Category extends Component {
   }
 }
 
-Category.propTypes = {
-  darkMode: PropTypes.bool.isRequired,
-  remove: PropTypes.func.isRequired,
-}
+Category.propTypes = { remove: PropTypes.func.isRequired }
 
-export default withNavigation(Category);
+export default Category

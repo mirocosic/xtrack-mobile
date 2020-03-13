@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import { Alert, View, ScrollView, TouchableOpacity } from "react-native"
-import { withNavigation } from "react-navigation"
 import Swipeout from "react-native-swipeout"
 import { get } from "lodash"
 import { DarkModeContext } from "react-native-dark-mode"
@@ -102,4 +101,4 @@ class Labels extends Component {
     }
 }
 
-export default withNavigation(Labels);
+export default Labels

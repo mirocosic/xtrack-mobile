@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import { Alert, View, ScrollView, TouchableOpacity } from "react-native"
 import { get } from "lodash"
-import { withNavigation } from "react-navigation"
 import Swipeout from "react-native-swipeout"
 import { DarkModeContext } from "react-native-dark-mode"
 
@@ -131,4 +130,4 @@ class Accounts extends Component {
 }
 
 
-export default withNavigation(Accounts);
+export default Accounts

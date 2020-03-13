@@ -1,7 +1,6 @@
 import React from "react"
 import { TouchableOpacity } from "react-native"
 
-import { withNavigation } from "react-navigation"
 import Icon from "../icon"
 import styles from "./styles"
 
@@ -20,4 +19,4 @@ const AddTransaction = props => (
   </TouchableOpacity>
 )
 
-export default withNavigation(AddTransaction)
+export default AddTransaction

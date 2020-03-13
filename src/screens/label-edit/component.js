@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { View, TextInput, TouchableOpacity } from "react-native"
-import { withNavigation } from "react-navigation"
 import Modalize from "react-native-modalize"
+
 import Screen from "../../components/screen"
 import Header from "../../components/header"
 import { Copy } from "../../components/typography"
@@ -12,7 +12,7 @@ const colors = ["#FF5722", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
 
 class LabelEdit extends Component {
 
-  state = { label: this.props.navigation.state.params.label || {} }
+  state = { label: this.props.route.params.label || {} }
 
   input = React.createRef()
 
@@ -83,4 +83,4 @@ class LabelEdit extends Component {
   }
 }
 
-export default withNavigation(LabelEdit);
+export default LabelEdit

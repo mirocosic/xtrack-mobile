@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import { View, Text, TouchableOpacity } from "react-native"
-import { withNavigation } from "react-navigation"
 import { DarkModeContext } from "react-native-dark-mode"
 
 import styles from "./styles"
@@ -28,4 +27,4 @@ class Footer extends Component {
   }
 }
 
-export default withNavigation(Footer)
+export default Footer

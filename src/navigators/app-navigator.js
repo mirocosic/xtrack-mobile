@@ -1,29 +1,32 @@
-import { createStackNavigator } from "react-navigation";
+import React from "react"
+import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native"
+import { createStackNavigator } from "@react-navigation/stack"
+import { useDarkMode } from "react-native-dark-mode"
 
-import BottomBarNavigator from "./bottom-bar-navigator";
+import BottomBarNavigator from "./bottom-bar-navigator"
 import {
   TransactionForm, Dashboard, Profile, Categories, Accounts, Labels,
   CategoryEdit, Splash, Overview, AccountEdit, LabelEdit, Backup,
 } from "../screens"
 
-const AppStack = createStackNavigator({
-  Splash: { screen: Splash },
-  Main: { screen: BottomBarNavigator },
-  Dashboard: { screen: Dashboard },
-  Overview: { screen: Overview },
-  Categories: { screen: Categories },
-  CategoryEdit: { screen: CategoryEdit },
-  Accounts: { screen: Accounts },
-  AccountEdit: { screen: AccountEdit },
-  TransactionForm: { screen: TransactionForm },
-  Profile: { screen: Profile },
-  Labels: { screen: Labels },
-  LabelEdit: { screen: LabelEdit },
-  Backup: { screen: Backup },
+const Stack = createStackNavigator()
 
-}, {
-  headerMode: "none",
-  initialRouteName: "Main",
-});
-
-export default AppStack;
+export default () => (
+  <NavigationContainer theme={useDarkMode() ? DarkTheme : DefaultTheme}>
+    <Stack.Navigator initialRouteName="Main" headerMode="none">
+      <Stack.Screen name="Splash" component={Splash} />
+      <Stack.Screen name="Main" component={BottomBarNavigator} />
+      <Stack.Screen name="Dashboard" component={Dashboard} />
+      <Stack.Screen name="Overview" component={Overview} />
+      <Stack.Screen name="Categories" component={Categories} />
+      <Stack.Screen name="CategoryEdit" component={CategoryEdit} />
+      <Stack.Screen name="Accounts" component={Accounts} />
+      <Stack.Screen name="AccountEdit" component={AccountEdit} />
+      <Stack.Screen name="TransactionForm" component={TransactionForm} />
+      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="Labels" component={Labels} />
+      <Stack.Screen name="LabelEdit" component={LabelEdit} />
+      <Stack.Screen name="Backup" component={Backup} />
+    </Stack.Navigator>
+  </NavigationContainer>
+)

@@ -1,6 +1,5 @@
-import React, { Component } from "react";
-import { View, Switch, Alert, TouchableOpacity } from "react-native";
-import { withNavigation } from "react-navigation";
+import React, { Component } from "react"
+import { View, Switch, Alert, TouchableOpacity } from "react-native"
 
 import Icon from "../../components/icon"
 import Screen from "../../components/screen"
@@ -10,12 +9,6 @@ import __ from "../../utils/translations"
 import styles from "./styles"
 
 class Profile extends Component {
-
-  static navigationOptions = () => ({
-    tabBarIcon: ({ tintColor }) => (
-      <Icon style={{ backgroundColor: "white" }} textStyle={{ fontSize: 26, color: tintColor }} type="cog" />
-    ),
-  })
 
   selectLanguage = () => {
     const { setLanguage } = this.props
@@ -105,4 +98,4 @@ class Profile extends Component {
   }
 }
 
-export default withNavigation(Profile);
+export default Profile

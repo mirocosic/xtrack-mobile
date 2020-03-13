@@ -36,10 +36,12 @@ export default StyleSheet.create({
     backgroundColor: "#e6e6e6",
     flexDirection: "row",
     flex: 1,
-    margin: 20,
+    margin: 25,
     marginTop: 30,
     borderRadius: 10,
   },
+
+  searchInnerWrapDark: { backgroundColor: palette.darkGray },
 
   searchText: {
     backgroundColor: "#e6e6e6",
@@ -47,6 +49,9 @@ export default StyleSheet.create({
     paddingBottom: 10,
     paddingRight: 20,
     paddingLeft: 20,
+    marginLeft: 0,
   },
+
+  searchTextDark: { backgroundColor: palette.darkGray },
 
 })

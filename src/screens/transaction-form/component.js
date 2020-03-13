@@ -1,22 +1,25 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 import {
   Text, View, TextInput, Animated, TouchableOpacity, TouchableWithoutFeedback,
   Keyboard, Switch, Platform, ActionSheetIOS, Alert, ScrollView,
 } from "react-native";
 import { Calendar } from "react-native-calendars"
-import { withNavigation } from "react-navigation"
 import Modalize from "react-native-modalize"
 import Collapsible from "react-native-collapsible"
 import moment from "moment"
 import { get } from "lodash"
+import { DarkModeContext } from "react-native-dark-mode"
 
 import { Screen, Header, Label, CustomKeyboard, TransactionType, PrimaryButton } from "../../components"
 import { Copy, CopyBlue, Title } from "../../components/typography"
 import Icon from "../../components/icon"
 import { formatCurrency } from "../../utils/currency"
+import palette from "../../utils/palette"
 import styles from "./styles"
 
 class TransactionForm extends Component {
+
+  static contextType = DarkModeContext
 
   state = {
     moreOptionsOpen: false,
@@ -36,8 +39,8 @@ class TransactionForm extends Component {
   recurringCalendarModal = React.createRef()
 
   componentDidMount() {
-    const { navigation, accounts, categories, clearSelectedCategory, clearTransactionForm } = this.props
-    if (navigation.state.params && navigation.state.params.clearForm) {
+    const { route, accounts, categories, clearSelectedCategory, clearTransactionForm } = this.props
+    if (route.params && route.params.clearForm) {
       const defaultAccount = accounts.find(acc => acc.defaultAccount)
       const defaultCategory = categories.find(cat => cat.defaultCategory)
       clearSelectedCategory()
@@ -247,9 +250,8 @@ class TransactionForm extends Component {
         <Icon
           type={get(category, "icon", "")}
           textStyle={{ color: get(category, "color", "blue") }}
-          style={{ backgroundColor: "white" }}
         />
-        <Text>{category && category.name}</Text>
+        <Copy>{category && category.name}</Copy>
       </View>
     )
   }
@@ -263,9 +265,8 @@ class TransactionForm extends Component {
         <Icon
           type={get(account, "icon", "")}
           textStyle={{ color: get(account, "color", "blue") }}
-          style={{ backgroundColor: "white" }}
         />
-        <Text>{account && account.name}</Text>
+        <Copy>{account && account.name}</Copy>
       </View>
     )
   }
@@ -297,7 +298,8 @@ class TransactionForm extends Component {
 
   render() {
     const { transaction, blinker, moreOptionsOpen } = this.state
-    const { navigation, removeLabel, darkMode, changeTransactionAmount } = this.props
+    const { navigation, removeLabel, changeTransactionAmount } = this.props
+    const darkMode = this.context === "dark"
 
     return (
       <TouchableWithoutFeedback onPress={() => this.blurInput()}>
@@ -346,7 +348,7 @@ class TransactionForm extends Component {
                   onChangeText={value => changeTransactionAmount(value)}
                   onBlur={() => Keyboard.dismiss()}
                   value={transaction.amount.toString()}
-                  style={{ backgroundColor: "white", width: 0, height: 0, fontSize: 50 }}
+                  style={{ backgroundColor: darkMode ? palette.darkGray : "white", width: 0, height: 0, fontSize: 50 }}
                   keyboardAppearance={darkMode ? "dark" : "light"}
                   keyboardType="numeric"
                   returnKeyType="done"
@@ -609,4 +611,4 @@ class TransactionForm extends Component {
   }
 }
 
-export default withNavigation(TransactionForm);
+export default TransactionForm

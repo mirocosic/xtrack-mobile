@@ -1,9 +1,8 @@
 import React, { Component } from "react"
-import { Alert, View, TouchableOpacity } from "react-native";
+import { Alert, View, TouchableOpacity } from "react-native"
 
-import { withNavigation } from "react-navigation";
 import { Screen, Header, Footer } from "../../components"
-import { Copy } from "../../components/typography"
+import { Copy, CopyBlue } from "../../components/typography"
 
 class Backup extends Component {
 
@@ -27,7 +26,7 @@ class Backup extends Component {
         <Footer>
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity onPress={() => this.createBackup()}>
-              <Copy style={{ color: "teal" }}>Create new backup</Copy>
+              <CopyBlue>Create new backup</CopyBlue>
             </TouchableOpacity>
           </View>
         </Footer>
@@ -36,4 +35,4 @@ class Backup extends Component {
   }
 }
 
-export default withNavigation(Backup);
+export default Backup

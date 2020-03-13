@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import { Animated, View, ScrollView, TouchableOpacity, TextInput, FlatList } from "react-native"
-import { withNavigation } from "react-navigation"
 import { get } from "lodash"
 import { DarkModeContext } from "react-native-dark-mode"
 
@@ -17,12 +16,6 @@ class Transactions extends Component {
 
   static contextType = DarkModeContext
 
-  static navigationOptions = () => ({
-    tabBarIcon: ({ tintColor }) => (
-      <Icon style={{ backgroundColor: "white" }} textStyle={{ fontSize: 26, color: tintColor }} type="exchangeAlt" />
-    ),
-  })
-
   state = {
     height: new Animated.Value(0),
     scrollEnabled: true,
@@ -35,7 +28,7 @@ class Transactions extends Component {
 
   render() {
     const { height, scrollEnabled, searchTerm } = this.state
-    const { accountFilter, categoryFilter, openDrawer, appliedLabelsFilter, entries } = this.props
+    const { navigation, accountFilter, categoryFilter, openDrawer, appliedLabelsFilter, entries } = this.props
     const darkMode = this.context === "dark"
     const filtersApplied = accountFilter || categoryFilter || appliedLabelsFilter.length || false;
 
@@ -122,7 +115,7 @@ class Transactions extends Component {
                     <View style={[styles.searchInnerWrap, darkMode && styles.searchInnerWrapDark]}>
                       <Icon type="search" style={{ backgroundColor: "transparent" }} textStyle={{ color: "teal" }} />
                       <TextInput
-                        style={styles.searchText}
+                        style={[styles.searchText, darkMode && styles.searchTextDark]}
                         placeholder="search by note, category,..."
                         onChangeText={text => this.setState({ searchTerm: text })}
                       />
@@ -137,6 +130,7 @@ class Transactions extends Component {
                         key={item.id}
                         transaction={item}
                         toggleScroll={val => this.setState({ scrollEnabled: val })}
+                        navigation={navigation}
                       />)
                     }
                     keyExtractor={item => item.id}
@@ -152,4 +146,4 @@ class Transactions extends Component {
   }
 }
 
-export default withNavigation(Transactions);
+export default Transactions

@@ -1,6 +1,5 @@
-import React, { Component } from "react";
-import { Alert, ScrollView, View, TextInput, TouchableOpacity } from "react-native";
-import { withNavigation } from "react-navigation";
+import React, { Component } from "react"
+import { Alert, ScrollView, View, TextInput, TouchableOpacity } from "react-native"
 import Modalize from "react-native-modalize"
 import { get } from "lodash"
 
@@ -35,9 +34,9 @@ class AccountEdit extends Component {
   currencyModal = React.createRef()
 
   componentDidMount() {
-    const { navigation, accounts } = this.props
-    if (navigation.state.params) {
-      this.setState({ account: accounts.filter(item => navigation.state.params.id === item.id)[0] })
+    const { route, accounts } = this.props
+    if (route.params) {
+      this.setState({ account: accounts.filter(item => route.params.id === item.id)[0] })
     }
   }
 
@@ -227,4 +226,4 @@ class AccountEdit extends Component {
   }
 }
 
-export default withNavigation(AccountEdit)
+export default AccountEdit

@@ -33,4 +33,6 @@ export default StyleSheet.create({
     backgroundColor: "white",
   },
 
+  digitDark: { backgroundColor: palette.darkGray, color: "white" },
+
 })
