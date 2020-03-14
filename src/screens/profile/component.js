@@ -59,7 +59,7 @@ class Profile extends Component {
           style={styles.settingWrap}
         >
           <View>
-            <Copy>Labels</Copy>
+            <Copy>Tags</Copy>
             <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
               Tag your transactions with labels for easy tracking
             </Copy>

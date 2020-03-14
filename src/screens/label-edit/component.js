@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { View, TextInput, TouchableOpacity } from "react-native"
 import Modalize from "react-native-modalize"
+import { DarkModeContext } from "react-native-dark-mode"
 
 import Screen from "../../components/screen"
 import Header from "../../components/header"
@@ -8,9 +9,11 @@ import { Copy } from "../../components/typography"
 
 import styles from "./styles"
 
-const colors = ["#FF5722", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
+const colors = ["#FF5722", "#F39A27", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
 
 class LabelEdit extends Component {
+
+  static contextType = DarkModeContext
 
   state = { label: this.props.route.params.label || {} }
 
@@ -25,7 +28,7 @@ class LabelEdit extends Component {
   }
 
   render() {
-    const { darkMode } = this.props
+    const darkMode = this.context === "dark"
     const { label } = this.state
 
     return (
@@ -65,9 +68,9 @@ class LabelEdit extends Component {
         </View>
 
         <Modalize
-          modalHeight={300}
-          ref={this.colorModal}
-        >
+          adjustToContentHeight
+          modalStyle={[styles.modal, darkMode && styles.modalDark]}
+          ref={this.colorModal}>
           <View style={styles.colorPicker}>
             {colors.map(color => (
               <TouchableOpacity

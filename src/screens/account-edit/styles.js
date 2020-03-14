@@ -71,6 +71,7 @@ export default StyleSheet.create({
     paddingTop: 20,
     paddingLeft: 30,
     paddingRight: 20,
+    minHeight: 200,
   },
 
   colorBox: {
@@ -84,4 +85,6 @@ export default StyleSheet.create({
     borderWidth: 2,
     borderColor: "black",
   },
+
+  modalDark: { backgroundColor: palette.darkGray },
 })

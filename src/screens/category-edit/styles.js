@@ -68,6 +68,7 @@ export default StyleSheet.create({
   copySelected: { color: "white" },
 
   colorPicker: {
+    minHeight: 200,
     flexDirection: "row",
     paddingTop: 20,
     paddingLeft: 30,
@@ -85,4 +86,8 @@ export default StyleSheet.create({
     borderWidth: 2,
     borderColor: "black",
   },
+
+  selectedColorBlack: { borderColor: "white" },
+
+  modalDark: { backgroundColor: palette.darkGray },
 })

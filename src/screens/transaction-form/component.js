@@ -193,7 +193,7 @@ class TransactionForm extends Component {
           this.accountsModal.current.close()
         }}
       >
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <View style={{ flexDirection: "row", alignItems: "center", margin: 5 }}>
           <Icon type={get(account, "icon", "")} style={{ marginRight: 10 }} textStyle={{ color: get(account, "color", "blue") }} />
           <Copy>{account.name}</Copy>
         </View>
@@ -507,70 +507,70 @@ class TransactionForm extends Component {
 
           <Modalize
             adjustToContentHeight
+            modalStyle={[styles.modal, darkMode && styles.modalDark]}
             ref={this.accountsModal}>
-            <View style={[{ minHeight: 300 }, styles.modalContainer, darkMode && styles.modalContainerDark]}>
-
-              <View style={{ padding: 10 }}>
-                {this.renderAccounts(transaction.type)}
-              </View>
-
+            <ScrollView style={{ minHeight: 200, maxHeight: 400, padding: 10 }}>
+              {this.renderAccounts(transaction.type)}
               <TouchableOpacity
                 style={{ position: "absolute", right: 10 }}
                 onPress={() => this.accountsModal.current.close()}>
                 <Icon type="times" textStyle={{ color: "teal" }} />
               </TouchableOpacity>
-
-            </View>
-          </Modalize>
-
-          <Modalize
-            adjustToContentHeight
-            ref={this.catModal}>
-            <ScrollView
-              style={[{ minHeight: 300, paddingBottom: 20, borderRadius: 10 }, styles.modal, darkMode && styles.modalDark]}
-              contentContainerStyle={[styles.modalContainer, darkMode && styles.modalContainerDark]}>
-
-              <View style={{ padding: 10 }}>
-                {this.renderCategories()}
-                <TouchableOpacity
-                  style={[styles.inline, { justifyContent: "flex-start", paddingLeft: 5 }]}
-                  onPress={() => navigation.navigate("CategoryEdit", {})}>
-                  <Icon type="plus" textStyle={{ color: "teal" }} />
-                  <Copy style={{ fontSize: 14 }}>Add new category</Copy>
-                </TouchableOpacity>
-
-              </View>
-
+              <TouchableOpacity
+                style={[styles.inline, { justifyContent: "flex-start", paddingLeft: 5 }]}
+                onPress={() => navigation.navigate("AccountEdit", {})}>
+                <Icon type="plus" textStyle={{ color: "teal" }} />
+                <Copy style={{ fontSize: 14 }}>Add new account</Copy>
+              </TouchableOpacity>
             </ScrollView>
           </Modalize>
 
           <Modalize
             adjustToContentHeight
-            ref={this.labelsModal}>
-            <View style={[{ minHeight: 300 }, styles.modalContainer, darkMode && styles.modalContainerDark]}>
-
-              <View style={{ padding: 10 }}>
-                {this.renderLabels()}
-                <TouchableOpacity
-                  style={[styles.inline, { justifyContent: "flex-start", paddingLeft: 5 }]}
-                  onPress={() => navigation.navigate("LabelEdit", {})}>
-                  <Icon type="plus" textStyle={{ color: "teal" }} />
-                  <Copy style={{ fontSize: 14 }}>Add new tag</Copy>
-                </TouchableOpacity>
-
-              </View>
-
-            </View>
+            modalStyle={[styles.modal, darkMode && styles.modalDark]}
+            ref={this.catModal}>
+            <ScrollView style={{ minHeight: 200, maxHeight: 400, padding: 10 }}>
+              {this.renderCategories()}
+              <TouchableOpacity
+                style={{ position: "absolute", right: 10 }}
+                onPress={() => this.catModal.current.close()}>
+                <Icon type="times" textStyle={{ color: "teal" }} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.inline, { justifyContent: "flex-start", paddingLeft: 5 }]}
+                onPress={() => navigation.navigate("CategoryEdit", {})}>
+                <Icon type="plus" textStyle={{ color: "teal" }} />
+                <Copy style={{ fontSize: 14 }}>Add new category</Copy>
+              </TouchableOpacity>
+            </ScrollView>
           </Modalize>
 
           <Modalize
-            modalHeight={400}
-            style={{ backgroundColor: darkMode ? palette.darkGray : "white" }}
+            adjustToContentHeight
+            modalStyle={[styles.modal, darkMode && styles.modalDark]}
+            ref={this.labelsModal}>
+            <ScrollView style={{ minHeight: 200, maxHeight: 400, padding: 10 }}>
+              {this.renderLabels()}
+              <TouchableOpacity
+                style={{ position: "absolute", right: 10 }}
+                onPress={() => this.labelsModal.current.close()}>
+                <Icon type="times" textStyle={{ color: "teal" }} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.inline, { justifyContent: "flex-start", paddingLeft: 5 }]}
+                onPress={() => navigation.navigate("LabelEdit", {})}>
+                <Icon type="plus" textStyle={{ color: "teal" }} />
+                <Copy style={{ fontSize: 14 }}>Add new tag</Copy>
+              </TouchableOpacity>
+            </ScrollView>
+          </Modalize>
+
+          <Modalize
+            adjustToContentHeight
+            modalStyle={[styles.modal, darkMode && styles.modalDark]}
             scrollViewProps={{ scrollEnabled: false }}
-            contentContainerStyle={[styles.modalContainer, darkMode && styles.modalContainerDark]}
-            ref={this.calendarModal}
-          >
-            <View style={[{ minHeight: 400 }, styles.modalContainer, darkMode && styles.modalContainerDark]}>
+            ref={this.calendarModal}>
+            <ScrollView style={{ minHeight: 400, maxHeight: 400, padding: 10 }}>
 
               <Calendar
                 theme={{
@@ -585,7 +585,7 @@ class TransactionForm extends Component {
                 }}
               />
 
-            </View>
+            </ScrollView>
           </Modalize>
 
           <Modalize

@@ -1,18 +1,21 @@
 import React, { Component } from "react"
 import { Alert, ScrollView, View, TextInput, TouchableOpacity } from "react-native"
 import Modalize from "react-native-modalize"
+import { DarkModeContext } from "react-native-dark-mode"
 import { get } from "lodash"
 
 import { Screen, Header } from "../../components"
 import CategoryIcons from "../../components/category-icons"
 import Icon from "../../components/icon"
-import { Copy } from "../../components/typography"
+import { Copy, CopyBlue } from "../../components/typography"
 import palette from "../../utils/palette"
 import styles from "./styles"
 
-const colors = ["#FF5722", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
+const colors = ["#FF5722", "#F39A27", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
 
 class AccountEdit extends Component {
+
+  static contextType = DarkModeContext
 
   state = {
     account: {
@@ -70,7 +73,7 @@ class AccountEdit extends Component {
   }
 
   render() {
-    const { darkMode } = this.props
+    const darkMode = this.context === "dark"
     const { account } = this.state
     return (
       <Screen>
@@ -119,7 +122,7 @@ class AccountEdit extends Component {
           <View style={[styles.inlineBetween, { margin: 10 }]}>
             <Copy>Default account</Copy>
             <TouchableOpacity onPress={() => this.setState({ account: { ...account, defaultAccount: !account.defaultAccount } })}>
-              <Copy style={{ color: palette.blue }}>{account.defaultAccount ? "Yes" : "No"}</Copy>
+              <CopyBlue style={{ fontSize: 20 }}>{account.defaultAccount ? "Yes" : "No"}</CopyBlue>
             </TouchableOpacity>
           </View>
 
@@ -141,7 +144,7 @@ class AccountEdit extends Component {
           <View style={[styles.inlineBetween, { margin: 10 }]}>
             <Copy>Currency</Copy>
             <TouchableOpacity onPress={() => this.currencyModal.current.open()}>
-              <Copy style={{ color: palette.blue }}>{account.currency || "HRK"}</Copy>
+              <CopyBlue style={{ fontSize: 20 }}>{account.currency || "HRK"}</CopyBlue>
             </TouchableOpacity>
           </View>
 
@@ -154,7 +157,8 @@ class AccountEdit extends Component {
         </ScrollView>
 
         <Modalize
-          modalHeight={300}
+          adjustToContentHeight
+          modalStyle={[styles.modal, darkMode && styles.modalDark]}
           ref={this.iconsModal}>
           <View style={{ padding: 20 }}>
             <CategoryIcons
@@ -168,7 +172,8 @@ class AccountEdit extends Component {
         </Modalize>
 
         <Modalize
-          modalHeight={200}
+          adjustToContentHeight
+          modalStyle={[styles.modal, darkMode && styles.modalDark]}
           ref={this.colorModal}
         >
           <View style={styles.colorPicker}>
@@ -186,7 +191,8 @@ class AccountEdit extends Component {
         </Modalize>
 
         <Modalize
-          modalHeight={300}
+          adjustToContentHeight
+          modalStyle={[styles.modal, darkMode && styles.modalDark]}
           ref={this.currencyModal}>
           <View style={{ padding: 20 }}>
             <TouchableOpacity

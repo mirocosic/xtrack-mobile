@@ -1,20 +1,22 @@
 import React, { Component } from "react";
 import { Alert, ScrollView, View, TextInput, TouchableOpacity } from "react-native"
 import Modalize from "react-native-modalize"
+import { DarkModeContext } from "react-native-dark-mode"
 import { get } from "lodash"
 
 import { Screen, Header } from "../../components"
 import CategoryIcons from "../../components/category-icons"
 import Icon from "../../components/icon"
-import { Copy } from "../../components/typography"
-import palette from "../../utils/palette"
+import { Copy, CopyBlue } from "../../components/typography"
 import styles from "./styles"
 
-const colors = ["#FF5722", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
+const colors = ["#FF5722", "#F39A27", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
 
 const defaultCategory = { icon: "shoppingBasket", color: "#0097A7" }
 
 class CategoryEdit extends Component {
+
+  static contextType = DarkModeContext
 
   state = { category: this.props.categories.filter(item => this.props.route.params.id === item.id)[0] || defaultCategory }
 
@@ -59,8 +61,8 @@ class CategoryEdit extends Component {
   }
 
   render() {
-    const { darkMode } = this.props
     const { category } = this.state
+    const darkMode = this.context === "dark"
     return (
       <Screen>
         <Header
@@ -108,7 +110,7 @@ class CategoryEdit extends Component {
           <View style={[styles.inlineBetween, { margin: 10 }]}>
             <Copy>Default category</Copy>
             <TouchableOpacity onPress={() => this.setState({ category: { ...category, defaultCategory: !category.defaultCategory } })}>
-              <Copy style={{ color: palette.blue, fontSize: 20 }}>{category.defaultCategory ? "Yes" : "No"}</Copy>
+              <CopyBlue style={{ fontSize: 20 }}>{category.defaultCategory ? "Yes" : "No"}</CopyBlue>
             </TouchableOpacity>
           </View>
 
@@ -121,9 +123,9 @@ class CategoryEdit extends Component {
         </ScrollView>
 
         <Modalize
-          modalHeight={200}
-          ref={this.colorModal}
-        >
+          adjustToContentHeight
+          modalStyle={[styles.modal, darkMode && styles.modalDark]}
+          ref={this.colorModal}>
           <View style={styles.colorPicker}>
             { colors.map(color => (
               <TouchableOpacity
@@ -139,7 +141,8 @@ class CategoryEdit extends Component {
         </Modalize>
 
         <Modalize
-          modalHeight={300}
+          adjustToContentHeight
+          modalStyle={[styles.modal, darkMode && styles.modalDark]}
           ref={this.iconsModal}>
           <View style={{ padding: 20 }}>
             <CategoryIcons
