@@ -23,7 +23,7 @@ class Profile extends Component {
   }
 
   render() {
-    const { navigation, locationTracking, openOnForm, toggleOpenOnForm } = this.props
+    const { navigation, locationTracking, openOnForm, toggleOpenOnForm, language } = this.props
 
     return (
       <Screen>
@@ -91,6 +91,14 @@ class Profile extends Component {
             <Copy>Open app on transaction form</Copy>
             <Switch value={openOnForm} onValueChange={toggleOpenOnForm} />
           </View>
+
+          <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+            <Copy>Language</Copy>
+            <TouchableOpacity onPress={this.selectLanguage}>
+              <Copy>{language.name}</Copy>
+            </TouchableOpacity>
+          </View>
+
 
         </View>
       </Screen>

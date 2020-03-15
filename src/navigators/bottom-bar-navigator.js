@@ -8,6 +8,7 @@ import Icon from "../components/icon"
 import palette from "../utils/palette"
 import { font } from "../components/typography"
 import { safePaddingBottom } from "../utils/ui-utils"
+import __ from "../utils/translations"
 
 const AddRedirector = ({ navigation }) => {
   React.useEffect(() => {
@@ -42,7 +43,7 @@ export default () => (
     }}
   >
     <Tab.Screen
-      name="Dashboard"
+      name={__("Dashboard")}
       component={Dashboard}
       options={{
         tabBarIcon: ({ color }) => (
@@ -51,7 +52,7 @@ export default () => (
       }}
     />
     <Tab.Screen
-      name="Overview"
+      name={__("Overview")}
       component={Overview}
       options={{
         tabBarIcon: ({ color }) => (
@@ -60,7 +61,7 @@ export default () => (
       }}
     />
     <Tab.Screen
-      name="Add"
+      name={__("Add")}
       component={AddRedirector}
       options={{
         tabBarIcon: () => (
@@ -73,7 +74,7 @@ export default () => (
       }}
     />
     <Tab.Screen
-      name="Transactions"
+      name={__("Transactions")}
       component={Transactions}
       options={{
         tabBarIcon: ({ color }) => (
@@ -81,7 +82,7 @@ export default () => (
         ),
       }} />
     <Tab.Screen
-      name="Settings"
+      name={__("Settings")}
       component={Profile}
       options={{
         tabBarIcon: ({ color }) => (

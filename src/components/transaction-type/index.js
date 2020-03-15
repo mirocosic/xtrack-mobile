@@ -1,8 +1,9 @@
 import React, { Component } from "react"
 import { Animated, Easing, View, TouchableOpacity } from "react-native"
 import { FlingGestureHandler, Directions, State } from "react-native-gesture-handler"
-import ReactNativeHapticFeedback from "react-native-haptic-feedback";
+import ReactNativeHapticFeedback from "react-native-haptic-feedback"
 import { Copy } from "../typography"
+import __ from "../../utils/translations"
 import styles from "./styles"
 
 const offsets = { expense: 0, income: 120, transfer: 240 }
@@ -118,7 +119,7 @@ class TransactionType extends Component {
                 onPress={() => { setType("income"); this.onClick("income") }}
                 style={[styles.transactionTypeButton]}>
                 <View style={styles.typeWrap}>
-                  <Copy style={{ color: "white" }}>INCOME</Copy>
+                  <Copy style={{ color: "white" }}>{__("INCOME")}</Copy>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity

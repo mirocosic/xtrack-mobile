@@ -1,6 +1,6 @@
 import { store } from "../store"
 
-const state = store.getState();
+// const state = store.getState();
 
 const translations = {
   eng: {},
@@ -9,19 +9,59 @@ const translations = {
     Language: "Jezik",
     "Welcome to XTrack!": "Dobrodošli u XTrack!",
     "Go to app": "Kreni",
-    Dashboard: "Pregled",
+    Dashboard: "Kontrola",
+    Overview: "Pregled",
+    Transactions: "Transakcije",
+    "Transaction form": "Transakcija",
     Total: "Ukupno",
     Type: "Tip",
     Amount: "Iznos",
+    Income: "Prihodi",
+    INCOME: "PRIHOD",
+    EXPENSE: "TROŠAK",
+    TRANSFER: "PRIJENOS",
+    "Income: ": "Prihodi: ",
+    Expenses: "Troškovi",
+    Expense: "Trošak",
+    Transfer: "Prijenos",
+    "Expenses: ": "Troškovi: ",
+    Balance: "Bilanca",
+    Account: "Račun",
+    "Balance: ": "Bilanca: ",
+    "Savings Rate: ": "Stopa štednje: ",
+    "Net worth: ": "Neto vrijednost: ",
     Category: "Kategorija",
+    Categories: "Kategorije",
+    Accounts: "Računi",
+    Tags: "Oznake",
     Date: "Datum",
     Note: "Bilješka",
+    Settings: "Postavke",
+    "Enable Location Tracking": "Omogući praćenje lokacije",
+    "Open app on transaction form": "Otvori aplikaciju na transakciji",
+    Add: "Dodaj",
+    "Starting Balance: ": "Početno stanje: ",
+    "Starting Balance": "Početno stanje",
+    "More Options": "Više opcija",
+    "Less Options": "Manje opcija",
+    "From Account:": "Sa Računa:",
+    "To ": "Na ",
+    Save: "Spremi",
+    Name: "Naziv",
+    Color: "Boja",
+    Icon: "Ikona",
+    "Default category": "Zadana kategorija",
+    Yes: "Da",
+    No: "Ne",
+    Currency: "Valuta",
+    "Default account": "Zadani račun",
   },
 
 }
 
 const translate = (string) => {
-  const language = state.common.language.code;
+  const state = store.getState();
+  const language = state.common.language.code
   if (!language) { return string; }
   if (!translations[language][string]) { return string; }
 

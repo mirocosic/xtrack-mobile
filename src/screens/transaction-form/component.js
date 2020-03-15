@@ -393,7 +393,10 @@ class TransactionForm extends Component {
             )}
 
             <View style={styles.formFieldWrap}>
-              <Copy>{transaction.type === "transfer" && "To "}Account</Copy>
+              <View style={styles.inlineStart}>
+                <Copy>{transaction.type === "transfer" && "To "}</Copy>
+                <Copy>Account</Copy>
+              </View>
               <TouchableOpacity
                 style={[styles.selectBox, darkMode && styles.selectBoxDark]}
                 onPress={() => {

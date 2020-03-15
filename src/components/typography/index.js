@@ -2,6 +2,7 @@ import React from "react"
 import { Text } from "react-native"
 import { connect } from "react-redux"
 import { useDarkMode } from "react-native-dark-mode"
+import __ from "../../utils/translations"
 
 import styles from "./styles"
 
@@ -11,7 +12,7 @@ const CopyCmp = (props) => {
   const { style, children } = props
   const defaultStyle = useDarkMode() ? styles.copyDark : styles.copy
   return (
-    <Text style={{ ...defaultStyle, ...style }}>{children}</Text>
+    <Text style={{ ...defaultStyle, ...style }}>{__(children)}</Text>
   )
 }
 
@@ -19,7 +20,7 @@ const CopyBlueCmp = (props) => {
   const { darkMode, style, children } = props
   const defaultStyle = useDarkMode() ? styles.copyDark : styles.copyBlue
   return (
-    <Text style={{ ...defaultStyle, ...style }}>{children}</Text>
+    <Text style={{ ...defaultStyle, ...style }}>{__(children)}</Text>
   )
 }
 
@@ -27,12 +28,12 @@ const TitleCmp = (props) => {
   const { darkMode, style, children } = props
   const defaultStyle = useDarkMode() ? styles.titleDark : styles.title
   return (
-    <Text style={{ ...defaultStyle, ...style }}>{children}</Text>
+    <Text style={{ ...defaultStyle, ...style }}>{__(children)}</Text>
   )
 }
 
 export const Copy = connect(
-  state => ({ darkMode: state.common.darkMode }),
+  state => ({ language: state.common.language }),
   null,
 )(CopyCmp)
 
