@@ -3,9 +3,9 @@ import { store } from "../store"
 // const state = store.getState();
 
 const translations = {
-  eng: {},
+  en: {},
 
-  hrv: {
+  hr: {
     Language: "Jezik",
     "Welcome to XTrack!": "Dobrodošli u XTrack!",
     "Go to app": "Kreni",

@@ -501,6 +501,8 @@ PODS:
     - React
   - RNGestureHandler (1.6.0):
     - React
+  - RNLocalize (1.3.4):
+    - React
   - RNReactNativeHapticFeedback (1.8.2):
     - React
   - RNReanimated (1.7.0):
@@ -552,6 +554,7 @@ DEPENDENCIES:
   - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
   - RNFS (from `../node_modules/react-native-fs`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNLocalize (from `../node_modules/react-native-localize`)
   - RNReactNativeHapticFeedback (from `../node_modules/react-native-haptic-feedback`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -648,6 +651,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fs"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNLocalize:
+    :path: "../node_modules/react-native-localize"
   RNReactNativeHapticFeedback:
     :path: "../node_modules/react-native-haptic-feedback"
   RNReanimated:
@@ -712,6 +717,7 @@ SPEC CHECKSUMS:
   RNFBFirestore: 04c1eb90463c208ee072988d463c74bec09d08c1
   RNFS: a8fbe7060fa49157d819466404794ad9c58e58cf
   RNGestureHandler: dde546180bf24af0b5f737c8ad04b6f3fa51609a
+  RNLocalize: 215c419a17d7585eb7a63c748ebfd042e0cb2c3d
   RNReactNativeHapticFeedback: e11a4da0ce174e9f88b03cbaf5d76d94633cdee2
   RNReanimated: 031fe8d9ea93c2bd689a40f05320ef9d96f74d7f
   RNScreens: 03bf608b92ac0acf323f47d8f5b63a8f829340c8
