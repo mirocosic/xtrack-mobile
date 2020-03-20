@@ -3,10 +3,10 @@ import { all, takeEvery, takeLatest, put, call, select, delay } from "redux-saga
 import * as RNLocalize from "react-native-localize"
 
 function* initApp() {
-  yield delay(500)
-  yield console.log(RNLocalize.getLocales())
+  // yield delay(500)
+  // yield console.log(RNLocalize.getLocales())
   const { languageCode } = RNLocalize.getLocales()[0]
-  console.log(languageCode)
+  // console.log(languageCode)
   yield put({ type: "SET_LANGUAGE", language: { code: languageCode, name: "Hrvatski" } })
 
 }
