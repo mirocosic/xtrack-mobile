@@ -107,8 +107,8 @@ class Overview extends Component {
     return (
 
       <Screen>
-        <Header title="Overview" />
-        <ScrollView style={{ padding: 20 }} contentContainerStyle={{ paddingBottom: 40 }}>
+
+        <ScrollView style={{ padding: 20, marginTop: 20 }} contentContainerStyle={{ paddingBottom: 40 }}>
           <View style={styles.inlineStart}>
             <Title>Net worth: </Title>
             <Copy style={{ fontWeight: "bold", fontSize: 20 }}>{formatCurrency(this.calculateNetWorth())}</Copy>

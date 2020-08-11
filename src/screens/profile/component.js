@@ -26,8 +26,9 @@ class Profile extends Component {
     const { navigation, locationTracking, openOnForm, toggleOpenOnForm, language } = this.props
 
     return (
-      <Screen>
-        <Header title="Settings" />
+      <Screen style={{ paddingTop: 20 }}>
+
+        <View style={styles.settingWrap} />
 
         <TouchableOpacity
           onPress={() => navigation.navigate("Categories")}

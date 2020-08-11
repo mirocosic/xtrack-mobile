@@ -140,11 +140,6 @@ class Dashboard extends Component {
 
     return (
       <Screen>
-        <Header
-          // title={title}
-          actionBtn={this.renderActionBtn()}
-          actionBtnPress={() => this.scrollView.scrollTo({ x: width * 23, animated: true })}
-        />
 
         <ScrollView
           horizontal
@@ -163,8 +158,8 @@ class Dashboard extends Component {
             return (
               <ScrollView key={idx} style={styles.monthContainer}>
 
-                <View style={styles.inlineAround}>
-                  <Title>{currentMonth.format("MMMM")}</Title>
+                <View style={[styles.inlineAround, { margin: 15 }]}>
+                  <Title>{currentMonth.format("MMMM YYYY")}</Title>
                 </View>
 
                 <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
@@ -207,8 +202,8 @@ class Dashboard extends Component {
             return (
               <ScrollView key={idx} style={styles.monthContainer}>
 
-                <View style={styles.inlineAround}>
-                  <Title>{currentMonth.format("MMMM")}</Title>
+                <View style={[styles.inlineAround, { margin: 15 }]}>
+                  <Title>{currentMonth.format("MMMM YYYY")}</Title>
                 </View>
 
                 <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
