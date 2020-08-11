@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
@@ -22,30 +21,16 @@
 		4E37FC19237819CF00074365 /* Font Awesome 5 Duotone-Solid-900.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4E37FC14237819CF00074365 /* Font Awesome 5 Duotone-Solid-900.otf */; };
 		4E516CFD2416CBA200794D44 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E516CF82416CBA200794D44 /* GoogleService-Info.plist */; };
 		4E577C952416521B00251270 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E577C942416521B00251270 /* CloudKit.framework */; };
+		4E70CF342435178C0071C48C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E70CF332435178C0071C48C /* Launch Screen.storyboard */; };
 		4EF11E132198DBC700824335 /* Font-Awesome-5-Free-Regular-400.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EF11E122198DBC700824335 /* Font-Awesome-5-Free-Regular-400.ttf */; };
 		4EF11E152198EA3B00824335 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EF11E142198EA3B00824335 /* FontAwesome.ttf */; };
 		4EF11E172198EC6200824335 /* Font-Awesome-5-Free-Solid-900.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EF11E162198EC6200824335 /* Font-Awesome-5-Free-Solid-900.ttf */; };
 		570C73BEAAE94832BAC7E53A /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3226FDE0AE45A8AC0F619C /* libRNCAsyncStorage.a */; };
-		9AAC22DF1F314FABB1BE8F6A /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EA30F8EFCF4A0DBC513425 /* libRNFS.a */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		F54F31FF3E30C0DEFA2D2D63 /* libPods-xtrack_mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A7AD1D1E39CC60FF212A2D2 /* libPods-xtrack_mobile.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4E51C4A023433C6C007865B3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E09020212AFB4A15905675B8 /* RNFS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F12AFB9B1ADAF8F800E0535D;
-			remoteInfo = RNFS;
-		};
-		4E51C4A223433C6C007865B3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E09020212AFB4A15905675B8 /* RNFS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6456441F1EB8DA9100672408;
-			remoteInfo = "RNFS-tvOS";
-		};
 		4E5B35322312EAE500467824 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B7F8024455BF42A3934CF5E1 /* RNGestureHandler.xcodeproj */;
@@ -101,6 +86,7 @@
 		4E37FC14237819CF00074365 /* Font Awesome 5 Duotone-Solid-900.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Font Awesome 5 Duotone-Solid-900.otf"; path = "../../assets/fonts/Font Awesome 5 Duotone-Solid-900.otf"; sourceTree = "<group>"; };
 		4E516CF82416CBA200794D44 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "xtrack_mobile/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4E577C942416521B00251270 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		4E70CF332435178C0071C48C /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		4EBD78832420BF1200417E6D /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		4EBD78882420BF1300417E6D /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		4EF11DD12198770A00824335 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -116,11 +102,9 @@
 		4EF11E142198EA3B00824335 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = ../assets/fonts/FontAwesome.ttf; sourceTree = "<group>"; };
 		4EF11E162198EC6200824335 /* Font-Awesome-5-Free-Solid-900.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Font-Awesome-5-Free-Solid-900.ttf"; path = "../assets/fonts/Font-Awesome-5-Free-Solid-900.ttf"; sourceTree = "<group>"; };
 		5921A97B3045437A9E3B1FF7 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		73EA30F8EFCF4A0DBC513425 /* libRNFS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFS.a; sourceTree = "<group>"; };
 		B0B30CFA5948378C7AD664CD /* Pods-xtrack_mobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xtrack_mobileTests.debug.xcconfig"; path = "Target Support Files/Pods-xtrack_mobileTests/Pods-xtrack_mobileTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B7F8024455BF42A3934CF5E1 /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
 		DE3226FDE0AE45A8AC0F619C /* libRNCAsyncStorage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCAsyncStorage.a; sourceTree = "<group>"; };
-		E09020212AFB4A15905675B8 /* RNFS.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFS.xcodeproj; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EE72A51CEAB04711B89F1D6D /* libRNSentry.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSentry.a; sourceTree = "<group>"; };
 		F3C4053A0E24E2AF4CD4F138 /* libPods-xtrack_mobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-xtrack_mobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,7 +121,6 @@
 				211AD73CA9364BFAA3D2362A /* libz.tbd in Frameworks */,
 				570C73BEAAE94832BAC7E53A /* libRNCAsyncStorage.a in Frameworks */,
 				3132F406861241C282C920CC /* libRNGestureHandler.a in Frameworks */,
-				9AAC22DF1F314FABB1BE8F6A /* libRNFS.a in Frameworks */,
 				F54F31FF3E30C0DEFA2D2D63 /* libPods-xtrack_mobile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -177,6 +160,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				4E70CF332435178C0071C48C /* Launch Screen.storyboard */,
 			);
 			name = xtrack_mobile;
 			sourceTree = "<group>";
@@ -206,15 +190,6 @@
 				4E1B9A3423748ED100B867C3 /* DINNeuzeitGroteskPro-Light.ttf */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		4E51C49C23433C6C007865B3 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4E51C4A123433C6C007865B3 /* libRNFS.a */,
-				4E51C4A323433C6C007865B3 /* libRNFS.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		4E5B352E2312EAE400467824 /* Products */ = {
@@ -257,7 +232,6 @@
 			isa = PBXGroup;
 			children = (
 				B7F8024455BF42A3934CF5E1 /* RNGestureHandler.xcodeproj */,
-				E09020212AFB4A15905675B8 /* RNFS.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -361,10 +335,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 4E51C49C23433C6C007865B3 /* Products */;
-					ProjectRef = E09020212AFB4A15905675B8 /* RNFS.xcodeproj */;
-				},
-				{
 					ProductGroup = 4E5B352E2312EAE400467824 /* Products */;
 					ProjectRef = B7F8024455BF42A3934CF5E1 /* RNGestureHandler.xcodeproj */;
 				},
@@ -377,20 +347,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		4E51C4A123433C6C007865B3 /* libRNFS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNFS.a;
-			remoteRef = 4E51C4A023433C6C007865B3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4E51C4A323433C6C007865B3 /* libRNFS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNFS.a;
-			remoteRef = 4E51C4A223433C6C007865B3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		4E5B35332312EAE500467824 /* libRNGestureHandler.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -418,6 +374,7 @@
 				4E37FC17237819CF00074365 /* Font Awesome 5 Pro-Solid-900.otf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				4E37FC19237819CF00074365 /* Font Awesome 5 Duotone-Solid-900.otf in Resources */,
+				4E70CF342435178C0071C48C /* Launch Screen.storyboard in Resources */,
 				4EF11E172198EC6200824335 /* Font-Awesome-5-Free-Solid-900.ttf in Resources */,
 				4E37FC15237819CF00074365 /* Font Awesome 5 Pro-Light-300.otf in Resources */,
 				4E37FC18237819CF00074365 /* Font Awesome 5 Pro-Regular-400.otf in Resources */,
@@ -579,7 +536,6 @@
 					"$(SRCROOT)/../node_modules/react-native-sentry/ios/**",
 					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-fs/**",
 				);
 				INFOPLIST_FILE = xtrack_mobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -608,7 +564,6 @@
 					"$(SRCROOT)/../node_modules/react-native-sentry/ios/**",
 					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-fs/**",
 				);
 				INFOPLIST_FILE = xtrack_mobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
