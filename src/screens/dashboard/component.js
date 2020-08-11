@@ -4,10 +4,7 @@ import { get } from "lodash"
 import moment from "moment"
 import SplashScreen from "react-native-splash-screen"
 
-import Screen from "../../components/screen"
-import Header from "../../components/header"
-import Icon from "../../components/icon"
-import { Copy } from "../../components/typography"
+import { Screen, Header, Icon, Copy, Title } from "../../components"
 import __ from "../../utils/translations"
 import { formatCurrency } from "../../utils/currency"
 import palette from "../../utils/palette"
@@ -136,7 +133,7 @@ class Dashboard extends Component {
 
   render() {
     const { transactions } = this.props
-    const { title } = this.state
+    // const { title } = moment().subtract(screenNum, "month").format("MMMM")
     const { width } = Dimensions.get("window")
     const currentMonth = moment()
     currentMonth.subtract(24, "month")
@@ -144,7 +141,7 @@ class Dashboard extends Component {
     return (
       <Screen>
         <Header
-          title={title}
+          // title={title}
           actionBtn={this.renderActionBtn()}
           actionBtnPress={() => this.scrollView.scrollTo({ x: width * 23, animated: true })}
         />
@@ -153,7 +150,7 @@ class Dashboard extends Component {
           horizontal
           pagingEnabled
           ref={ref => this.scrollView = ref}
-          onScroll={this.handleScroll}
+          // onScroll={this.handleScroll}
           showsHorizontalScrollIndicator={false}>
 
           { months.map((item, idx) => {
@@ -165,6 +162,10 @@ class Dashboard extends Component {
 
             return (
               <ScrollView key={idx} style={styles.monthContainer}>
+
+                <View style={styles.inlineAround}>
+                  <Title>{currentMonth.format("MMMM")}</Title>
+                </View>
 
                 <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
                   <Copy style={{ fontSize: 18 }}>Income: </Copy>
@@ -205,6 +206,10 @@ class Dashboard extends Component {
 
             return (
               <ScrollView key={idx} style={styles.monthContainer}>
+
+                <View style={styles.inlineAround}>
+                  <Title>{currentMonth.format("MMMM")}</Title>
+                </View>
 
                 <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
                   <Copy style={{ fontSize: 18 }}>Income: </Copy>
