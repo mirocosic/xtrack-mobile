@@ -51,8 +51,8 @@ class Category extends Component {
   }
 
   render() {
-    const cat = this.props.data
-    const { selectCategory, navigation, toggleScroll } = this.props
+    const { selectCategory, navigation, toggleScroll, data } = this.props
+    const cat = data
     const darkMode = this.context === "dark"
 
     return (

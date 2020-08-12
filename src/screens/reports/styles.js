@@ -9,18 +9,14 @@ export default StyleSheet.create({
     borderRadius: 10,
   },
 
-  accountCardDark: {
-    backgroundColor: palette.dark
-  },
+  accountCardDark: { backgroundColor: palette.dark },
 
-  accountDetails: {
-    paddingLeft: 20,
-  },
+  accountDetails: { paddingLeft: 20 },
 
   overview: {
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 20
+    padding: 20,
   },
 
   addButton: {

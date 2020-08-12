@@ -8,16 +8,18 @@ export default class AnimatedAmount extends Component {
   state = { amount: 0 }
 
   componentWillReceiveProps(nextProps) {
+    const { amount } = this.state
     const interval = setInterval(() => {
-      this.setState({amount: this.state.amount + 1 }, () => {
-        if (this.state.amount === nextProps.amount) clearInterval(interval);
+      this.setState({ amount: amount + 1 }, () => {
+        if (amount === nextProps.amount) clearInterval(interval);
       })
     }, 1)
   }
 
   render() {
+    const { amount } = this.state
     return (
-      <Title>{formatCurrency(this.state.amount)}</Title>
+      <Title>{formatCurrency(amount)}</Title>
     )
   }
 }

@@ -497,7 +497,7 @@ class TransactionForm extends Component {
                   handlePress={value => this.setState({ transaction: { ...transaction, ...{ amount: transaction.amount + value } } })}
                   handleSubmit={() => this.submitForm()}
                   setAmount={value => this.setState({ transaction: { ...transaction, ...{ amount: value } } })}
-                  delete={() => this.setState({
+                  del={() => this.setState({
                     transaction: {
                       ...transaction,
                       ...{ amount: transaction.amount.substring(0, transaction.amount.length - 1) },

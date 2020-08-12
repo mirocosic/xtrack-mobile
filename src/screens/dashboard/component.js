@@ -24,7 +24,6 @@ const filterByMonth = (transactions, currentMonth) => (
 class Dashboard extends Component {
 
   state = {
-    title: "",
     showScrollToEnd: false,
     showScrollToStart: false,
   }
@@ -86,8 +85,8 @@ class Dashboard extends Component {
     } else {
       this.setState({ showScrollToEnd: false, showScrollToStart: false })
     }
-    const screenNum = Math.round(23 - (event.nativeEvent.contentOffset.x / width))
-    this.setState({ title: moment().subtract(screenNum, "month").format("MMMM") })
+    // const screenNum = Math.round(23 - (event.nativeEvent.contentOffset.x / width))
+    // this.setState({ title: moment().subtract(screenNum, "month").format("MMMM") })
   }
 
   renderExpenses = expenses => (
@@ -133,8 +132,6 @@ class Dashboard extends Component {
 
   render() {
     const { transactions } = this.props
-    // const { title } = moment().subtract(screenNum, "month").format("MMMM")
-    const { width } = Dimensions.get("window")
     const currentMonth = moment()
     currentMonth.subtract(24, "month")
 
@@ -145,7 +142,6 @@ class Dashboard extends Component {
           horizontal
           pagingEnabled
           ref={ref => this.scrollView = ref}
-          // onScroll={this.handleScroll}
           showsHorizontalScrollIndicator={false}>
 
           { months.map((item, idx) => {

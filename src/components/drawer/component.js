@@ -23,7 +23,7 @@ export default class Drawer extends Component {
 
     return (
       <RNDrawer
-        ref={ref => this._drawer = ref}
+        ref={(ref) => { this.drawer = ref }}
         open={drawerOpen}
         side={side || "left"}
         tapToClose
