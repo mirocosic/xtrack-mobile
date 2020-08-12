@@ -5,7 +5,7 @@ import { useDarkMode } from "react-native-dark-mode"
 
 import BottomBarNavigator from "./bottom-bar-navigator"
 import {
-  TransactionForm, Dashboard, Profile, Categories, Accounts, Labels,
+  TransactionForm, Dashboard, Settings, Categories, Accounts, Labels,
   CategoryEdit, Splash, Overview, AccountEdit, LabelEdit, Backup,
 } from "../screens"
 
@@ -23,7 +23,7 @@ export default () => (
       <Stack.Screen name="Accounts" component={Accounts} />
       <Stack.Screen name="AccountEdit" component={AccountEdit} />
       <Stack.Screen name="TransactionForm" component={TransactionForm} />
-      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="Labels" component={Labels} />
       <Stack.Screen name="LabelEdit" component={LabelEdit} />
       <Stack.Screen name="Backup" component={Backup} />

@@ -1,9 +1,8 @@
 import React from "react"
-import { View } from "react-native"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { useDarkMode } from "react-native-dark-mode"
 
-import { Dashboard, Overview, Profile, Transactions } from "../screens"
+import { Dashboard, Overview, Settings, Transactions } from "../screens"
 import Icon from "../components/icon"
 import palette from "../utils/palette"
 import { font } from "../components/typography"
@@ -83,7 +82,7 @@ export default () => (
       }} />
     <Tab.Screen
       name={__("Settings")}
-      component={Profile}
+      component={Settings}
       options={{
         tabBarIcon: ({ color }) => (
           <Icon style={{ backgroundColor: useDarkMode() ? palette.darkGray : "white" }} textStyle={{ fontSize: 26, color }} type="cog" />

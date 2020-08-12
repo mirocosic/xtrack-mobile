@@ -3,12 +3,11 @@ import { View, Switch, Alert, TouchableOpacity } from "react-native"
 
 import Icon from "../../components/icon"
 import Screen from "../../components/screen"
-import Header from "../../components/header"
 import { Copy } from "../../components/typography"
 import __ from "../../utils/translations"
 import styles from "./styles"
 
-class Profile extends Component {
+class Settings extends Component {
 
   selectLanguage = () => {
     const { setLanguage } = this.props
@@ -107,4 +106,4 @@ class Profile extends Component {
   }
 }
 
-export default Profile
+export default Settings
