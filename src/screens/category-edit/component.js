@@ -86,8 +86,6 @@ class CategoryEdit extends Component {
                   ...{ name: text },
                 },
               })}
-              returnKeyType="done"
-              onSubmitEditing={() => this.handleSave(category)}
               placeholder="category name"
               value={category.name}
               />
@@ -112,6 +110,25 @@ class CategoryEdit extends Component {
             <TouchableOpacity onPress={() => this.setState({ category: { ...category, defaultCategory: !category.defaultCategory } })}>
               <CopyBlue style={{ fontSize: 20 }}>{category.defaultCategory ? "Yes" : "No"}</CopyBlue>
             </TouchableOpacity>
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Copy>Monthly Budget</Copy>
+            <TextInput
+              ref={this.input}
+              style={[styles.input, darkMode && styles.inputDark]}
+              onChangeText={text => this.setState({
+                category: {
+                  ...category,
+                  ...{ budget: text },
+                },
+              })}
+              returnKeyType="done"
+              keyboardType="numeric"
+              onSubmitEditing={() => this.handleSave(category)}
+              placeholder="add budget"
+              value={category.budget}
+              />
           </View>
 
           <TouchableOpacity

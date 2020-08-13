@@ -100,8 +100,13 @@ class Dashboard extends Component {
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Icon type={get(cat, "icon", "")} textStyle={{ color: cat.color || "blue", fontSize: 12 }} style={{ marginRight: 5, width: 20, height: 20 }} />
               <Copy style={{ fontSize: 14 }}>{`${item[0]} `}</Copy>
+
             </View>
-            <Copy style={{ fontSize: 14 }}>{`${formatCurrency(item[1])}`}</Copy>
+            <Copy style={{ fontSize: 14 }}>
+              {`${formatCurrency(item[1])} `}
+              {cat.budget && cat.budget > 0 && <Copy style={{ fontSize: 10 }}>({(item[1] / cat.budget) * 100}%)</Copy>}
+            </Copy>
+
           </View>
         )
       })

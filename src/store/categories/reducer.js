@@ -26,6 +26,7 @@ const categories = (state = initialState, action) => {
           {
             id: makeUUID(),
             name: action.category.name,
+            budget: action.category.budget,
             type: action.category.type,
             icon: action.category.icon,
             color: action.category.color,
