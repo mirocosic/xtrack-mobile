@@ -38,7 +38,7 @@ class AccountEdit extends Component {
 
   componentDidMount() {
     const { route, accounts } = this.props
-    if (route.params) {
+    if (route.params && route.params.id) {
       this.setState({ account: accounts.filter(item => route.params.id === item.id)[0] })
     }
   }
