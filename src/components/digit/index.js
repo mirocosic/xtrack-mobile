@@ -22,24 +22,12 @@ export default class Digit extends Component {
         onPressOut={() => this.setState({ pressed: false })}
         onShowUnderlay={() => this.setState({ pressed: true })}
         onHideUnderlay={() => this.setState({ pressed: false })}
-        style={pressed ? darkMode ? styles.pressedDigitDark : styles.pressedDigit
-          : darkMode ? styles.digitDark : styles.digit}
-        onPress={() => handlePress(digit)}
-      >
-        {
-          small
-            ? (
-              <Text style={pressed ? darkMode ? styles.pressedCopySmallDark : styles.copySmall
-                : darkMode ? styles.copySmallDark : styles.copySmall}>{digit}
-              </Text>
-            )
-            : (
-              <Text style={pressed ? darkMode ? styles.pressedCopy : styles.pressedCopyDark
-                : darkMode ? styles.copyDark : styles.copy}>{digit}
-              </Text>
-            )
-        }
-
+        style={[styles.digit, darkMode && styles.digitDark, pressed && styles.pressedDigit]}
+        onPress={() => handlePress(digit)}>
+        <Text
+          style={[small ? styles.copySmall : styles.copy, darkMode && styles.copyDark, pressed && styles.pressedCopy]}>
+          {digit}
+        </Text>
       </TouchableOpacity>
     )
   }
