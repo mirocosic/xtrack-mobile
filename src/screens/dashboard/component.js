@@ -4,7 +4,7 @@ import { get } from "lodash"
 import moment from "moment"
 import SplashScreen from "react-native-splash-screen"
 
-import { Screen, Header, Icon, Copy, Title } from "../../components"
+import { Screen, Icon, Copy, Title } from "../../components"
 import __ from "../../utils/translations"
 import { formatCurrency } from "../../utils/currency"
 import palette from "../../utils/palette"
@@ -20,6 +20,13 @@ const sum = transactions => transactions.reduce((acc, transaction) => acc + calc
 const filterByMonth = (transactions, currentMonth) => (
   transactions.filter(t => moment(t.timestamp) > currentMonth.startOf("month")
                            && moment(t.timestamp) < currentMonth.endOf("month")))
+
+const renderBudget = (value, budget) => {
+  const result = Math.round((value / budget) * 100)
+  let color = false
+  if (result >= 100) { color = palette.red } else if (result >= 80) { color = palette.orange } else { color = false }
+  return budget && budget > 0 && <Copy style={{ fontSize: 12, color }}>({result}%)</Copy>
+}
 
 class Dashboard extends Component {
 
@@ -99,12 +106,12 @@ class Dashboard extends Component {
           <View key={idx} style={{ ...styles.row, paddingLeft: 10 }}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Icon type={get(cat, "icon", "")} textStyle={{ color: cat.color || "blue", fontSize: 12 }} style={{ marginRight: 5, width: 20, height: 20 }} />
-              <Copy style={{ fontSize: 14 }}>{`${item[0]} `}</Copy>
+              <Copy style={{ fontSize: 14 }}>{`${item[0]} `} { renderBudget(item[1], cat.budget) } </Copy>
 
             </View>
             <Copy style={{ fontSize: 14 }}>
-              {`${formatCurrency(item[1])} `}
-              {cat.budget && cat.budget > 0 && <Copy style={{ fontSize: 10 }}>({(item[1] / cat.budget) * 100}%)</Copy>}
+
+              {` ${formatCurrency(item[1])} `}
             </Copy>
 
           </View>
