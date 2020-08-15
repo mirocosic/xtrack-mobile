@@ -2,6 +2,8 @@ import { StyleSheet } from "react-native"
 
 export default StyleSheet.create({
 
+  typeWrap: { paddingTop: 2 },
+
   formFieldWrap: {
     height: 30,
     width: 340,
