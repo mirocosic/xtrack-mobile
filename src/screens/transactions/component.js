@@ -27,7 +27,7 @@ class Transactions extends Component {
   }
 
   render() {
-    const { height, scrollEnabled, searchTerm } = this.state
+    const { height, searchTerm } = this.state
     const { navigation, accountFilter, categoryFilter, openDrawer, appliedLabelsFilter, entries } = this.props
     const darkMode = this.context === "dark"
     const filtersApplied = accountFilter || categoryFilter || appliedLabelsFilter.length || false;
@@ -76,10 +76,14 @@ class Transactions extends Component {
         <View style={{ position: "absolute", alignItems: "center", justifyContent: "center", zIndex: 1000, width: "100%", flex: 1 }}>
           <Header title="Transactions" style={{ flex: 1, width: "100%", alignItems: "center", justifyContent: "center" }}>
             <TouchableOpacity onPress={() => openDrawer()} style={{ position: "absolute", right: 10, bottom: 5 }}>
-              <Icon type="filter" style={{ backgroundColor: "transparent" }} textStyle={{ fontSize: 12, color: filtersApplied ? "black" : "white" }} />
+              <Icon
+                type="filter"
+                style={{ backgroundColor: "transparent" }}
+                textStyle={{ fontSize: 12, color: filtersApplied ? "black" : "white" }} />
             </TouchableOpacity>
           </Header>
         </View>
+
         <Animated.View style={{
           justifyContent: "center",
           zIndex: 100,
@@ -102,42 +106,29 @@ class Transactions extends Component {
               </View>
             )
             : (
-              <ScrollView
-                contentContainerStyle={{ paddingTop: 80 }}
-                ref={(ref) => { this.scrollView = ref }}
-                scrollEnabled={scrollEnabled}
-                scrollEventThrottle={16}
-                onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: height } } }])}
-              >
-                <View>
-
+              <FlatList
+                style={{ paddingTop: 75 }}
+                data={transactions}
+                initialNumToRender={20}
+                ListHeaderComponent={() => (
                   <View style={[styles.searchWrap, darkMode && styles.searchWrapDark]}>
                     <View style={[styles.searchInnerWrap, darkMode && styles.searchInnerWrapDark]}>
                       <Icon type="search" style={{ backgroundColor: "transparent" }} textStyle={{ color: "teal" }} />
                       <TextInput
                         style={[styles.searchText, darkMode && styles.searchTextDark]}
                         placeholder="search by note, category,..."
-                        onChangeText={text => this.setState({ searchTerm: text })}
-                      />
+                        onChangeText={text => this.setState({ searchTerm: text })} />
                     </View>
                   </View>
-
-                  <FlatList
-                    data={transactions}
-                    initialNumToRender={20}
-                    renderItem={({ item }) => (
-                      <Transaction
-                        key={item.id}
-                        transaction={item}
-                        toggleScroll={val => this.setState({ scrollEnabled: val })}
-                        navigation={navigation}
-                      />)
-                    }
-                    keyExtractor={item => item.id}
-                  />
-
-                </View>
-              </ScrollView>
+                )}
+                renderItem={({ item }) => (
+                  <Transaction
+                    key={item.id}
+                    transaction={item}
+                    toggleScroll={val => this.setState({ scrollEnabled: val })}
+                    navigation={navigation} />)}
+                keyExtractor={item => item.id}
+              />
             )
         }
 
