@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import {
-  Text, View, TextInput, Animated, TouchableOpacity, TouchableWithoutFeedback,
+  View, TextInput, Animated, TouchableOpacity, TouchableWithoutFeedback,
   Keyboard, Switch, Platform, ActionSheetIOS, Alert, ScrollView,
 } from "react-native";
 import { Calendar } from "react-native-calendars"
@@ -95,13 +95,13 @@ class TransactionForm extends Component {
     if (transaction.id) {
       this.editTransaction(transaction)
     } else {
-      add(transaction)
       navigation.goBack()
+      setTimeout(() => add(transaction))
     }
 
     if (!transaction.id && transaction.recurring) {
-      addRecurring(transaction.recurring)
       navigation.goBack()
+      setTimeout(() => addRecurring(transaction.recurring))
     }
   }
 
