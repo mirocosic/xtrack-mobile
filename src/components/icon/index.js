@@ -16,7 +16,7 @@ const Icon = ({ type, textStyle, style, icon }) => (
       ? (
         <FontAwesome
           style={[{ fontSize: 16, color: "white" }, textStyle]}
-          type="FontAwesome5FreeSolid">
+          type="FontAwesome5Pro-Solid">
           {Icons[type]}
         </FontAwesome>
       ) : (
