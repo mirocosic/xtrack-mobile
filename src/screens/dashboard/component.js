@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, ScrollView, Alert, Dimensions, StatusBar } from "react-native"
+import { View, ScrollView, Alert, Dimensions, StatusBar, TouchableOpacity } from "react-native"
 import { get } from "lodash"
 import moment from "moment"
 import SplashScreen from "react-native-splash-screen"
@@ -96,6 +96,7 @@ class Dashboard extends Component {
     // this.setState({ title: moment().subtract(screenNum, "month").format("MMMM") })
   }
 
+
   renderExpenses = expenses => (
     Object.entries(expenses)
       .sort((a, b) => b[1] - a[1])
@@ -144,6 +145,7 @@ class Dashboard extends Component {
 
   render() {
     const { transactions } = this.props
+    const { width } = Dimensions.get("window")
     const currentMonth = moment()
     currentMonth.subtract(24, "month")
 
@@ -162,12 +164,22 @@ class Dashboard extends Component {
             const sortedIncome = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
             const income = sum(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
             const expenses = sum(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
-
             return (
               <ScrollView key={idx} style={styles.monthContainer}>
 
-                <View style={[styles.inlineAround, { margin: 15 }]}>
+                <View style={[styles.inlineBetween, { marginTop: 15, marginBottom: 15 }]}>
+                  <View />
                   <Title>{currentMonth.format("MMMM YYYY")}</Title>
+                  { idx !== 23
+                    ? (
+                      <TouchableOpacity onPress={() => this.scrollView.scrollTo({ x: width * 23, animated: true })}>
+                        <View style={[styles.inline, { width: 10 }]}>
+                          <Icon type="forward" style={{ marginRight: 0 }} textStyle={{ fontSize: 12 }} />
+                        </View>
+                      </TouchableOpacity>
+                    ) : <View />
+                  }
+
                 </View>
 
                 <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
@@ -210,9 +222,19 @@ class Dashboard extends Component {
             return (
               <ScrollView key={idx} style={styles.monthContainer}>
 
-                <View style={[styles.inlineAround, { margin: 15 }]}>
+
+                <View style={[styles.inlineBetween, { marginTop: 15, marginBottom: 15 }]}>
+                  <TouchableOpacity onPress={() => this.scrollView.scrollTo({ x: width * 23, animated: true })}>
+                    <View style={[styles.inline, { width: 10 }]}>
+                      <Icon type="backward" style={{ marginLeft: 0 }} textStyle={{ fontSize: 12 }} />
+                    </View>
+                  </TouchableOpacity>
+
                   <Title>{currentMonth.format("MMMM YYYY")}</Title>
+                  <View />
+
                 </View>
+
 
                 <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
                   <Copy style={{ fontSize: 18 }}>Income: </Copy>
