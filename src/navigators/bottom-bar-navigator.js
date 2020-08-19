@@ -1,4 +1,5 @@
 import React from "react"
+import ReactNativeHapticFeedback from "react-native-haptic-feedback"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { useDarkMode } from "react-native-dark-mode"
 
@@ -12,6 +13,7 @@ import __ from "../utils/translations"
 const AddRedirector = ({ navigation }) => {
   React.useEffect(() => {
     const unsubscribe = navigation.addListener("tabPress", (e) => {
+      ReactNativeHapticFeedback.trigger("impactLight");
       e.preventDefault()
       navigation.navigate("TransactionForm", { clearForm: true })
     });
