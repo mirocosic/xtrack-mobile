@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Animated, View, ScrollView, TouchableOpacity, TextInput, FlatList } from "react-native"
+import { Animated, View, TouchableOpacity, TextInput, FlatList } from "react-native"
 import { get } from "lodash"
 import { DarkModeContext } from "react-native-dark-mode"
 
@@ -18,7 +18,6 @@ class Transactions extends Component {
 
   state = {
     height: new Animated.Value(0),
-    scrollEnabled: true,
     searchTerm: "",
   }
 

@@ -37,7 +37,11 @@ export default class Drawer extends Component {
               <View style={styles.contentHeader}>
                 <Title>Filters</Title>
                 <TouchableOpacity onPress={() => closeDrawer()}>
-                  <Icon type="times" style={{ backgroundColor: darkMode ? palette.dark : "white" }} textStyle={{ color: darkMode ? "white" : "black" }} />
+                  <Icon
+                    type="times"
+                    style={{ backgroundColor: darkMode ? palette.dark : "white" }}
+                    textStyle={{ color: darkMode ? "white" : "black" }}
+                  />
                 </TouchableOpacity>
               </View>
 

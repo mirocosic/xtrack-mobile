@@ -125,11 +125,13 @@ class Overview extends Component {
               <View key={acc.id} style={[styles.accountWrap, darkMode && styles.accountWrapDark]}>
                 <Copy style={{ fontWeight: "bold", fontSize: 16, paddingBottom: 5 }}>{acc.name}</Copy>
                 <View>
-                  { true && (
+                  { true
+                    && (
                     <View style={[styles.inline, { justifyContent: "space-between", paddingLeft: 0, paddingRight: 20 }]}>
                       <Copy>Starting Balance: </Copy>
                       <Copy>{formatCurrency(startingBalance, acc.currency)}</Copy>
-                    </View>)
+                    </View>
+                    )
                   }
 
                   <View style={[styles.inline, { justifyContent: "space-between", paddingLeft: 0, paddingRight: 20 }]}>

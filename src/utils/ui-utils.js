@@ -1,7 +1,11 @@
 import { isIphoneX } from "react-native-iphone-x-helper";
 import { isIos } from "./os-utils"
 
-export const safePaddingTop = (offset = 0) => (isIphoneX() ? 34 : isIos ? 20 : 0) + offset
+export const safePaddingTop = (offset = 0) => {
+  if (isIphoneX()) { return 34 + offset }
+  if (isIos) { return 20 + offset }
+  return 0 + offset
+}
 export const safePaddingBottom = (offset = 0) => (isIphoneX() ? 34 : 0) + offset
 export const HEADER_MAX_HEIGHT = 150;
 export const HEADER_MIN_HEIGHT = 80;

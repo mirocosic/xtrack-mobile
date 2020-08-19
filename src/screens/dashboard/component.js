@@ -12,8 +12,8 @@ import { calcAmount } from "../../utils/helper-gnomes"
 import { isIos } from "../../utils/os-utils"
 import styles from "./styles"
 
-const months = Array(24).fill(1)
-const futureMonths = Array(12).fill(1)
+const months = [...Array(24).keys()]
+const futureMonths = [...Array(12).keys()]
 
 const sum = transactions => transactions.reduce((acc, transaction) => acc + calcAmount(transaction), 0)
 
@@ -100,13 +100,17 @@ class Dashboard extends Component {
   renderExpenses = expenses => (
     Object.entries(expenses)
       .sort((a, b) => b[1] - a[1])
-      .map((item, idx) => {
+      .map((item) => {
         const { categories } = this.props
         const cat = categories.find(c => c.name === item[0])
         return (
-          <View key={idx} style={{ ...styles.row, paddingLeft: 10 }}>
+          <View key={item[0]} style={{ ...styles.row, paddingLeft: 10 }}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Icon type={get(cat, "icon", "")} textStyle={{ color: cat.color || "blue", fontSize: 12 }} style={{ marginRight: 5, width: 20, height: 20 }} />
+              <Icon
+                type={get(cat, "icon", "")}
+                textStyle={{ color: cat.color || "blue", fontSize: 12 }}
+                style={{ marginRight: 5, width: 20, height: 20 }}
+              />
               <Copy style={{ fontSize: 14 }}>{`${item[0]} `} { renderBudget(item[1], cat.budget) } </Copy>
 
             </View>
@@ -155,7 +159,7 @@ class Dashboard extends Component {
         <ScrollView
           horizontal
           pagingEnabled
-          ref={ref => this.scrollView = ref}
+          ref={(ref) => { this.scrollView = ref }}
           showsHorizontalScrollIndicator={false}>
 
           { months.map((item, idx) => {
@@ -165,7 +169,7 @@ class Dashboard extends Component {
             const income = sum(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
             const expenses = sum(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
             return (
-              <ScrollView key={idx} style={styles.monthContainer}>
+              <ScrollView key={item} style={styles.monthContainer}>
 
                 <View style={[styles.inlineBetween, { marginTop: 15, marginBottom: 15 }]}>
                   <View />
@@ -212,7 +216,7 @@ class Dashboard extends Component {
 
           })}
 
-          {futureMonths.map((item, idx) => {
+          {futureMonths.map((item) => {
             currentMonth.add(1, "month")
             const sortedExpenses = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
             const sortedIncome = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
@@ -220,8 +224,7 @@ class Dashboard extends Component {
             const expenses = sum(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
 
             return (
-              <ScrollView key={idx} style={styles.monthContainer}>
-
+              <ScrollView key={item} style={styles.monthContainer}>
 
                 <View style={[styles.inlineBetween, { marginTop: 15, marginBottom: 15 }]}>
                   <TouchableOpacity onPress={() => this.scrollView.scrollTo({ x: width * 23, animated: true })}>
