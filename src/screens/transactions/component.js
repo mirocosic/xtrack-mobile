@@ -106,7 +106,7 @@ class Transactions extends Component {
             )
             : (
               <FlatList
-                style={{ paddingTop: 75 }}
+                style={{ marginTop: 75 }}
                 data={transactions}
                 initialNumToRender={20}
                 ListHeaderComponent={() => (
