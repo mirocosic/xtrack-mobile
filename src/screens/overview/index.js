@@ -32,6 +32,7 @@ export default connect(
     monthFilter: state.transactions.monthFilter,
     currentMonth: state.transactions.currentMonth,
     transactions: state.transactions.entries,
+    categories: state.categories.items,
     total: state.transactions.total,
     expenses: state.transactions.expenses,
     expensesByCategory:

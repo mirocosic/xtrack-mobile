@@ -1,14 +1,15 @@
 import React, { Component } from "react"
 import { ScrollView, View, Text, TouchableOpacity, Alert } from "react-native"
 import { DarkModeContext } from "react-native-dark-mode"
+import { get } from "lodash"
 
 import { Screen, Icon, Copy, Title } from "../../components"
 import __ from "../../utils/translations"
 import { formatCurrency } from "../../utils/currency"
+import { calcAmount, calculateIncome, calculateExpenses } from "../../utils/helper-gnomes"
 import palette from "../../utils/palette"
 import styles from "./styles"
 
-import { calculateIncome, calculateExpenses } from "../../utils/helper-gnomes"
 
 const calcStartingBalance = (account) => {
   switch (account.currency) {
@@ -21,6 +22,8 @@ const calcStartingBalance = (account) => {
   }
 }
 
+const sum = transactions => transactions.reduce((acc, transaction) => acc + calcAmount(transaction), 0)
+
 
 class Overview extends Component {
 
@@ -31,6 +34,45 @@ class Overview extends Component {
       <Icon style={{ backgroundColor: "white" }} textStyle={{ fontSize: 26, color: tintColor }} type="tachometer-alt" />
     ),
   })
+
+  sortByCategory = (expenses) => {
+    const result = {}
+    const { categories } = this.props
+    expenses.forEach((expense) => {
+      const category = categories.find(cat => cat.id === expense.categoryId)
+      const currExpenseSum = result[category.name] || 0
+      result[category.name] = currExpenseSum + calcAmount(expense)
+    })
+
+    return result
+  }
+
+  renderExpenses = expenses => (
+    Object.entries(expenses)
+      .sort((a, b) => b[1] - a[1])
+      .map((item) => {
+        const { categories } = this.props
+        const cat = categories.find(c => c.name === item[0])
+        return (
+          <View key={item[0]} style={{ ...styles.row, paddingLeft: 10 }}>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Icon
+                type={get(cat, "icon", "")}
+                textStyle={{ color: cat.color || "blue", fontSize: 12 }}
+                style={{ marginRight: 5, width: 20, height: 20 }}
+              />
+              <Copy style={{ fontSize: 14 }}>{`${item[0]} `} </Copy>
+
+            </View>
+            <Copy style={{ fontSize: 14 }}>
+
+              {` ${formatCurrency(item[1])} `}
+            </Copy>
+
+          </View>
+        )
+      })
+  )
 
   changeAccountFilter = () => {
     const { accounts, changeAccountFilter } = this.props
@@ -153,6 +195,24 @@ class Overview extends Component {
               </View>
             )
           })}
+
+
+          <Title style={{ textAlign: "center", marginTop: 20, marginBottom: 20 }}>All time breakdown</Title>
+
+
+          <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
+            <Copy style={{ fontSize: 18 }}>Income: </Copy>
+            <Copy style={{ fontSize: 18, color: palette.green }}>{formatCurrency(sum(transactions.filter(t => t.type === "income")))}</Copy>
+          </View>
+
+          { this.renderExpenses(this.sortByCategory(transactions.filter(t => t.type === "income")))}
+
+          <View style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}>
+            <Copy style={{ fontSize: 18 }}>Expenses: </Copy>
+            <Copy style={{ fontSize: 18, color: palette.red }}>{formatCurrency(sum(transactions.filter(t => t.type === "expense")))}</Copy>
+          </View>
+
+          { this.renderExpenses(this.sortByCategory(transactions.filter(t => t.type === "expense")))}
 
         </ScrollView>
       </Screen>
