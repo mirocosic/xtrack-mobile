@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Alert, ScrollView, View, TextInput, TouchableOpacity } from "react-native"
-import Modalize from "react-native-modalize"
+import { Modalize } from "react-native-modalize"
 import { DarkModeContext } from "react-native-dark-mode"
 import { get } from "lodash"
 
@@ -98,8 +98,6 @@ class AccountEdit extends Component {
                   ...{ name: text },
                 },
               })}
-              returnKeyType="done"
-              onSubmitEditing={() => this.handleSave(account)}
               placeholder="account name"
               value={account.name}
               />

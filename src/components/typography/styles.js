@@ -2,14 +2,12 @@ import { StyleSheet } from "react-native"
 import { isIos } from "../../utils/os-utils"
 import palette from "../../utils/palette"
 
-export const font = "DIN 30640 Pro"
+export const font = "DIN 30640 Pro" // TODO: replace with new great font!!
 
 export default StyleSheet.create({
   copy: {
     color: palette.black,
-    fontFamily: font,
     fontSize: 14,
-    top: isIos ? 3 : 0,
   },
 
   copyBlue: {
@@ -36,6 +34,7 @@ export default StyleSheet.create({
     fontSize: 18,
     padding: 5,
     color: palette.white,
+
   },
 
 })

@@ -28,8 +28,6 @@ RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
 
-  [RNSentry installWithRootView:rootView];
-  
   if ([FIRApp defaultApp] == nil) {
     [FIRApp configure];
   }

@@ -5,6 +5,7 @@ import Label from "./label"
 import { PrimaryButton, SecondaryButton } from "./buttons"
 import CustomKeyboard from "./custom-keyboard"
 import TransactionType from "./transaction-type"
+import Transaction from "./transaction"
 import Icon from "./icon"
 import { Copy, Title } from "./typography"
 
@@ -20,4 +21,5 @@ export {
   Icon,
   Copy,
   Title,
+  Transaction,
 }

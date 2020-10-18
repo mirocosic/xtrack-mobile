@@ -1,16 +1,29 @@
 import React, { Component } from "react"
-import { View, ScrollView, Alert, Dimensions, StatusBar, TouchableOpacity } from "react-native"
+import { View, ScrollView, Alert, Dimensions, StatusBar, TouchableOpacity, FlatList } from "react-native"
 import { get } from "lodash"
 import moment from "moment"
 import SplashScreen from "react-native-splash-screen"
+import Collapsible from "react-native-collapsible"
 
-import { Screen, Icon, Copy, Title } from "../../components"
+import { Screen, Icon, Copy, Title, Transaction } from "../../components"
 import __ from "../../utils/translations"
 import { formatCurrency } from "../../utils/currency"
 import palette from "../../utils/palette"
 import { calcAmount } from "../../utils/helper-gnomes"
 import { isIos } from "../../utils/os-utils"
 import styles from "./styles"
+
+const compare = (a, b) => {
+
+  if (a.categoryId < b.categoryId) {
+    return -1;
+  }
+  if (a.categoryId > b.categoryId) {
+    return 1;
+  }
+  return 0;
+
+}
 
 const months = [...Array(24).keys()]
 const futureMonths = [...Array(12).keys()]
@@ -33,6 +46,7 @@ class Dashboard extends Component {
   state = {
     showScrollToEnd: false,
     showScrollToStart: false,
+    breakdownCollapsed: true,
   }
 
   componentDidMount() {
@@ -148,7 +162,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { transactions } = this.props
+    const { transactions, navigation } = this.props
     const { width } = Dimensions.get("window")
     const currentMonth = moment()
     currentMonth.subtract(24, "month")
@@ -162,14 +176,16 @@ class Dashboard extends Component {
           ref={(ref) => { this.scrollView = ref }}
           showsHorizontalScrollIndicator={false}>
 
-          { months.map((item, idx) => {
+          { months.map((month, idx) => {
             currentMonth.add(1, "month")
             const sortedExpenses = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
             const sortedIncome = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
             const income = sum(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
             const expenses = sum(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
+            const currentMonthTransactions = filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth).sort(compare)
+
             return (
-              <ScrollView key={item} style={styles.monthContainer}>
+              <ScrollView key={month} style={styles.monthContainer}>
 
                 <View style={[styles.inlineBetween, { marginTop: 15, marginBottom: 15 }]}>
                   <View />
@@ -211,12 +227,33 @@ class Dashboard extends Component {
                   <Copy style={{ fontSize: 18, color: palette.blue }}>{this.calcSavingsRate(income, expenses)}</Copy>
                 </View>
 
+                <TouchableOpacity
+                  onPress={() => this.setState({ breakdownCollapsed: !this.state.breakdownCollapsed })}
+                  style={{ flexDirection: "row", alignItems: "center", paddingTop: 30 }}>
+                  <Copy>Breakdown</Copy>
+                  <Icon type={this.state.breakdownCollapsed ? "chevron-down" : "chevron-up"} style={{ marginLeft: 0 }} textStyle={{ fontSize: 12, color: "black" }} />
+                </TouchableOpacity>
+
+                <Collapsible collapsed={this.state.breakdownCollapsed}>
+                  <FlatList
+                    data={currentMonthTransactions}
+                    initialNumToRender={20}
+                    renderItem={({ item }) => (
+                      <Transaction
+                        key={item.id}
+                        transaction={item}
+                        navigation={navigation} />)}
+                    keyExtractor={item => item.id}
+                  />
+                </Collapsible>
+
+
               </ScrollView>
             )
 
           })}
 
-          {futureMonths.map((item) => {
+          {futureMonths.map((month) => {
             currentMonth.add(1, "month")
             const sortedExpenses = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
             const sortedIncome = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
@@ -224,7 +261,7 @@ class Dashboard extends Component {
             const expenses = sum(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
 
             return (
-              <ScrollView key={item} style={styles.monthContainer}>
+              <ScrollView key={month} style={styles.monthContainer}>
 
                 <View style={[styles.inlineBetween, { marginTop: 15, marginBottom: 15 }]}>
                   <TouchableOpacity onPress={() => this.scrollView.scrollTo({ x: width * 23, animated: true })}>

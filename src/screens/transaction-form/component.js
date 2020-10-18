@@ -4,14 +4,21 @@ import {
   Keyboard, Switch, Platform, ActionSheetIOS, Alert, ScrollView,
 } from "react-native";
 import { Calendar } from "react-native-calendars"
-import Modalize from "react-native-modalize"
+import { Modalize } from "react-native-modalize"
 import Collapsible from "react-native-collapsible"
 import moment from "moment"
 import { get } from "lodash"
 import { DarkModeContext } from "react-native-dark-mode"
 
-import { Screen, Header, Label, CustomKeyboard, TransactionType, PrimaryButton } from "../../components"
-import { Copy, CopyBlue, Title } from "../../components/typography"
+import {
+  Screen,
+  Header,
+  Label,
+  CustomKeyboard,
+  TransactionType,
+  PrimaryButton,
+} from "../../components"
+import { Copy, CopyBlue } from "../../components/typography"
 import Icon from "../../components/icon"
 import { formatCurrency } from "../../utils/currency"
 import palette from "../../utils/palette"
@@ -85,6 +92,11 @@ class TransactionForm extends Component {
   submitForm = () => {
     const { transfer, add, navigation, addRecurring } = this.props
     const { transaction } = this.state
+
+    if (!transaction.categoryId || !transaction.accountId) {
+      Alert.alert("Warning!", "Make sure you have selected a category and an account.")
+      return
+    }
 
     if (transaction.type === "transfer") {
       transfer(transaction)
@@ -251,7 +263,7 @@ class TransactionForm extends Component {
           type={get(category, "icon", "")}
           textStyle={{ color: get(category, "color", "blue") }}
         />
-        <Copy>{category && category.name}</Copy>
+        <Copy>{category ? category.name : <Copy style={{ fontStyle: "italic" }}>select category</Copy>}</Copy>
       </View>
     )
   }
@@ -266,7 +278,7 @@ class TransactionForm extends Component {
           type={get(account, "icon", "")}
           textStyle={{ color: get(account, "color", "blue") }}
         />
-        <Copy>{account && account.name}</Copy>
+        <Copy>{account ? account.name : <Copy style={{ fontStyle: "italic" }}>select account</Copy>}</Copy>
       </View>
     )
   }
@@ -330,8 +342,7 @@ class TransactionForm extends Component {
                     position: "absolute",
                     top: 0,
                     zIndex: 10000,
-                  }}>
-                  </Animated.View>
+                  }} />
 
                   <Copy
                     style={{ color: "teal", borderRadius: 20, zIndex: 100, fontSize: 30 }}>

@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { View, TextInput, TouchableOpacity } from "react-native"
-import Modalize from "react-native-modalize"
+import { Modalize } from "react-native-modalize"
 import { DarkModeContext } from "react-native-dark-mode"
 
 import Screen from "../../components/screen"
@@ -15,7 +15,7 @@ class LabelEdit extends Component {
 
   static contextType = DarkModeContext
 
-  state = { label: this.props.route.params.label || {} }
+  state = { label: this.props.route.params.label || { color: "#0097A7" } }
 
   input = React.createRef()
 
@@ -43,9 +43,7 @@ class LabelEdit extends Component {
               ref={this.input}
               style={[styles.input, darkMode && styles.inputDark]}
               onChangeText={text => this.setState({ label: { ...label, name: text } })}
-              returnKeyType="done"
-              onSubmitEditing={() => this.handleSave(label)}
-              placeholder="new label"
+              placeholder="tag name"
               value={label.name}
             />
 

@@ -5,6 +5,7 @@ import { DarkModeContext } from "react-native-dark-mode"
 import palette from "../../utils/palette"
 import Digit from "../digit"
 import styles from "./styles"
+import { Copy } from "../typography"
 
 export default class CustomKeyboard extends Component {
 
@@ -58,7 +59,7 @@ export default class CustomKeyboard extends Component {
       <View style={[styles.wrap, darkMode && styles.wrapDark]}>
 
         <View style={{ alignItems: "flex-end", padding: 5 }}>
-          <Text>{input}</Text>
+          <Copy>{input}</Copy>
         </View>
 
         <View style={{ flexDirection: "row" }}>
