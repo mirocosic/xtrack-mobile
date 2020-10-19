@@ -22,7 +22,7 @@ class Settings extends Component {
   }
 
   render() {
-    const { navigation, locationTracking, openOnForm, toggleOpenOnForm, language } = this.props
+    const { navigation, openOnForm, toggleOpenOnForm, language } = this.props
 
     return (
       <Screen style={{ paddingTop: 20 }}>
@@ -81,11 +81,6 @@ class Settings extends Component {
         </TouchableOpacity>
 
         <View style={{ padding: 20 }}>
-
-          <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-            <Copy>Enable Location Tracking</Copy>
-            <Switch value={locationTracking} onValueChange={this.handleLocationTracking} />
-          </View>
 
           <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
             <Copy>Open app on transaction form</Copy>
