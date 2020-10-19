@@ -9,8 +9,7 @@ class Backup extends Component {
   state = {}
 
   createBackup = () => {
-    Alert.alert("Create backup", "Do you want to create a new backup?", [
-      { text: "Cancel", style: "cancel" },
+    Alert.alert("In development", "This feature is coming soon! Please hold on 🙂", [
       { text: "OK", onPress: () => {} },
     ])
   }
