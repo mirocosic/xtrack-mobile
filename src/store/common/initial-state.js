@@ -5,5 +5,5 @@ export default {
   drawerIsCanceled: false,
   darkMode: false,
   openOnForm: false,
-  language: { code: "hr", name: "Hrvatski" },
+  language: { code: "hrv", name: "Hrvatski" },
 }

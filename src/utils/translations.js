@@ -1,11 +1,10 @@
+import { get } from "lodash"
 import { store } from "../store"
 
-// const state = store.getState();
-
 const translations = {
-  en: {},
+  eng: {},
 
-  hr: {
+  hrv: {
     Language: "Jezik",
     "Welcome to XTrack!": "Dobrodošli u XTrack!",
     "Go to app": "Kreni",
@@ -61,11 +60,11 @@ const translations = {
 
 const translate = (string) => {
   const state = store.getState();
-  const language = state.common.language.code
+  const language = get(state, "common.language.code")
   if (!language) { return string; }
-  if (!translations[language][string]) { return string; }
+  if (!get(translations, [language, string])) { return string; }
 
-  return translations[language][string];
+  return get(translations, [language, string])
 
 }
 
