@@ -87,7 +87,7 @@ class Settings extends Component {
             <Switch value={openOnForm} onValueChange={toggleOpenOnForm} />
           </View>
 
-          <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+          <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between", display: "none" }}>
             <Copy>Language</Copy>
             <TouchableOpacity onPress={this.selectLanguage}>
               <Copy>{language.name}</Copy>
