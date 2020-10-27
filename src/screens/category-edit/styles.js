@@ -68,8 +68,9 @@ export default StyleSheet.create({
   copySelected: { color: "white" },
 
   colorPicker: {
-    minHeight: 200,
+    minHeight: 100,
     flexDirection: "row",
+    flexWrap: "wrap",
     paddingTop: 20,
     paddingLeft: 30,
     paddingRight: 20,
