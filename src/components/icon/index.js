@@ -1,6 +1,7 @@
 import React from "react"
 import { View, Image } from "react-native"
 import FontAwesome, { Icons } from "react-native-fontawesome"
+// https://medium.com/@mehrankhandev/ultimate-guide-to-use-custom-fonts-in-react-native-77fcdf859cf4
 
 import money from "../../../assets/icons/money.png"
 import category from "../../../assets/icons/default.png"
