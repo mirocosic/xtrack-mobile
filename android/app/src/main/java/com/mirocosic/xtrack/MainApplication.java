@@ -3,7 +3,7 @@ package com.mirocosic.xtrack;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
-import com.facebook.react.BuildConfig;
+// import com.facebook.react.BuildConfig;
 import com.facebook.react.ReactApplication;
 //import com.rnfs.RNFSPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
