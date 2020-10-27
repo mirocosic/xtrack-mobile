@@ -1,9 +1,9 @@
 import React, { Component } from "react"
-import { View, ScrollView, Alert, Dimensions, StatusBar, TouchableOpacity, FlatList } from "react-native"
+import { View, ScrollView, Alert, Dimensions, StatusBar, TouchableOpacity } from "react-native"
 import { get } from "lodash"
 import moment from "moment"
 import SplashScreen from "react-native-splash-screen"
-import Collapsible from "react-native-collapsible"
+import { Modalize } from "react-native-modalize"
 
 import { Screen, Icon, Copy, Title, Transaction } from "../../components"
 import __ from "../../utils/translations"
@@ -46,8 +46,10 @@ class Dashboard extends Component {
   state = {
     showScrollToEnd: false,
     showScrollToStart: false,
-    breakdownCollapsed: true,
+    breakdownTransactions: [],
   }
+
+  breakdownModal = React.createRef()
 
   componentDidMount() {
     const { navigation, openOnForm } = this.props
@@ -228,24 +230,14 @@ class Dashboard extends Component {
                 </View>
 
                 <TouchableOpacity
-                  onPress={() => this.setState({ breakdownCollapsed: !this.state.breakdownCollapsed })}
+                  onPress={() => {
+                    this.setState({ breakdownTransactions: currentMonthTransactions })
+                    this.breakdownModal.current.open()
+                  }}
                   style={{ flexDirection: "row", alignItems: "center", paddingTop: 30 }}>
-                  <Copy>Breakdown</Copy>
-                  <Icon type={this.state.breakdownCollapsed ? "chevron-down" : "chevron-up"} style={{ marginLeft: 0 }} textStyle={{ fontSize: 12, color: "black" }} />
-                </TouchableOpacity>
+                  <Copy>Expenses Breakdown</Copy>
 
-                <Collapsible collapsed={this.state.breakdownCollapsed}>
-                  <FlatList
-                    data={currentMonthTransactions}
-                    initialNumToRender={20}
-                    renderItem={({ item }) => (
-                      <Transaction
-                        key={item.id}
-                        transaction={item}
-                        navigation={navigation} />)}
-                    keyExtractor={item => item.id}
-                  />
-                </Collapsible>
+                </TouchableOpacity>
 
 
               </ScrollView>
@@ -305,6 +297,22 @@ class Dashboard extends Component {
           })}
 
         </ScrollView>
+
+        <Modalize
+          adjustToContentHeight
+          modalStyle={[styles.modal, styles.modalDark, { backgroundColor: palette.darkGray }]}
+          modalTopOffset={100}
+          flatListProps={{
+            data: this.state.breakdownTransactions,
+            initialNumToRender: 20,
+            renderItem: ({ item }) => (
+              <Transaction
+                key={item.id}
+                transaction={item}
+                navigation={navigation} />),
+            keyExtractor: item => item.id,
+          }}
+          ref={this.breakdownModal} />
 
       </Screen>
     )
