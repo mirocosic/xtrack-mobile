@@ -90,7 +90,7 @@ class Labels extends Component {
           </ScrollView>
           <Footer>
             <View style={{ alignItems: "center" }}>
-              <TouchableOpacity onPress={() => navigation.navigate("LabelEdit", { label: {} })}>
+              <TouchableOpacity onPress={() => navigation.navigate("LabelEdit", { label: { color: "#0097A7" } })}>
                 <CopyBlue>Add new tag</CopyBlue>
               </TouchableOpacity>
             </View>

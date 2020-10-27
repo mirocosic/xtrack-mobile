@@ -11,11 +11,13 @@ import styles from "./styles"
 
 const colors = ["#FF5722", "#F39A27", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
 
+const defaultLabel = { color: "#0097A7" }
+
 class LabelEdit extends Component {
 
   static contextType = DarkModeContext
 
-  state = { label: this.props.route.params.label || { color: "#0097A7" } }
+  state = { label: this.props.route.params.label || defaultLabel }
 
   input = React.createRef()
 
@@ -79,6 +81,7 @@ class LabelEdit extends Component {
             ))}
           </View>
         </Modalize>
+
       </Screen>
     )
   }

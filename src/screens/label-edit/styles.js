@@ -8,10 +8,11 @@ export default StyleSheet.create({
 
   colorPicker: {
     flexDirection: "row",
+    flexWrap: "wrap",
     paddingTop: 20,
     paddingLeft: 30,
     paddingRight: 20,
-    minHeight: 200,
+    minHeight: 100,
   },
 
   colorBox: {
