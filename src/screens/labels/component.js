@@ -8,6 +8,7 @@ import { Screen, Header, Footer } from "../../components"
 import { Copy, CopyBlue } from "../../components/typography"
 import Icon from "../../components/icon"
 import styles from "./styles"
+import { isAndroid } from "../../utils/os-utils"
 
 class Labels extends Component {
 
@@ -89,7 +90,7 @@ class Labels extends Component {
             </View>
           </ScrollView>
           <Footer>
-            <View style={{ alignItems: "center" }}>
+            <View style={[{ alignItems: "center" }, isAndroid && { paddingBottom: 10 }]}>
               <TouchableOpacity onPress={() => navigation.navigate("LabelEdit", { label: { color: "#0097A7" } })}>
                 <CopyBlue>Add new tag</CopyBlue>
               </TouchableOpacity>

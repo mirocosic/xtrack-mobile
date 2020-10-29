@@ -87,6 +87,7 @@ class CategoryEdit extends Component {
                 },
               })}
               placeholder="category name"
+              placeholderTextColor="gray"
               value={category.name}
               />
           </View>
@@ -127,6 +128,7 @@ class CategoryEdit extends Component {
               keyboardType="numeric"
               onSubmitEditing={() => this.handleSave(category)}
               placeholder="add budget"
+              placeholderTextColor="gray"
               value={category.budget}
               />
           </View>

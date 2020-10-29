@@ -116,6 +116,7 @@ class Transactions extends Component {
                       <TextInput
                         style={[styles.searchText, darkMode && styles.searchTextDark]}
                         placeholder="search by note, category,..."
+                        placeholderTextColor="gray"
                         onChangeText={text => this.setState({ searchTerm: text })} />
                     </View>
                   </View>

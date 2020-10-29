@@ -48,6 +48,10 @@ export default StyleSheet.create({
     paddingBottom: 5,
   },
 
-  modal: { marginBottom: 20, paddingBottom: 20, backgroundColor: "white" },
+  modal: {
+    marginBottom: 0,
+    paddingBottom: 0,
+    backgroundColor: "white",
+  },
 
 })

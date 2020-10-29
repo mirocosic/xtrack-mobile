@@ -4,6 +4,7 @@ import { View, ScrollView, TouchableOpacity } from "react-native"
 import { Screen, Header, Footer } from "../../components"
 import Category from "../../components/category"
 import { CopyBlue } from "../../components/typography"
+import { isAndroid } from "../../utils/os-utils"
 
 class Categories extends Component {
 
@@ -35,7 +36,7 @@ class Categories extends Component {
         </ScrollView>
 
         <Footer>
-          <View style={{ alignItems: "center" }}>
+          <View style={[{ alignItems: "center" }, isAndroid && { paddingBottom: 10 }]}>
             <TouchableOpacity onPress={() => navigation.navigate("CategoryEdit", { id: false })}>
               <CopyBlue>Add new category</CopyBlue>
             </TouchableOpacity>

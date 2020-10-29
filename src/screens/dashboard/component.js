@@ -319,7 +319,9 @@ class Dashboard extends Component {
             adjustToContentHeight
             modalStyle={[styles.modal, styles.modalDark, darkMode && { backgroundColor: palette.dark }]}
             modalTopOffset={100}
+            FloatingComponent={isIos ? null : <TouchableOpacity onPress={() => this.breakdownModal.current.close()} style={{ position: "absolute", top: 20, right: 20 }}><Title>X</Title></TouchableOpacity>}
             flatListProps={{
+              style: { paddingBottom: 20 },
               showsVerticalScrollIndicator: false,
               data: this.state.breakdownTransactions,
               initialNumToRender: 20,

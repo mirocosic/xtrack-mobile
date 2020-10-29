@@ -99,6 +99,7 @@ class AccountEdit extends Component {
                 },
               })}
               placeholder="account name"
+              placeholderTextColor="gray"
               value={account.name}
               />
           </View>
@@ -127,7 +128,7 @@ class AccountEdit extends Component {
           <View style={[styles.inputContainer, { marginTop: 10, marginBottom: 10 }]}>
             <Copy>Starting Balance</Copy>
             <TextInput
-              style={{ fontSize: 20, borderBottomWidth: 1, width: 50 }}
+              style={[{ fontSize: 20, borderBottomWidth: 1, width: 50 }, darkMode && { color: "gray" }]}
               keyboardType="numeric"
               onChangeText={text => this.setState({
                 account: {
@@ -135,6 +136,7 @@ class AccountEdit extends Component {
                   ...{ startingBalance: text },
                 },
               })}
+              placeholderTextColor="gray"
               value={account.startingBalance}
             />
           </View>

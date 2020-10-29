@@ -9,6 +9,7 @@ import { Copy, CopyBlue } from "../../components/typography"
 import Icon from "../../components/icon"
 import styles from "./styles"
 import { formatCurrency } from "../../utils/currency"
+import { isAndroid } from "../../utils/os-utils"
 
 const accountBalance = (account, transactions) => {
   if (transactions.length === 0) return 0;
@@ -116,7 +117,7 @@ class Accounts extends Component {
         </ScrollView>
 
         <Footer>
-          <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <View style={[{ alignItems: "center" }, isAndroid && { paddingBottom: 10 }]}>
             <TouchableOpacity
               onPress={() => navigation.navigate("AccountEdit")}>
               <CopyBlue>Add new account</CopyBlue>

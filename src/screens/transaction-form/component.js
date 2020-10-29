@@ -359,7 +359,7 @@ class TransactionForm extends Component {
                   onChangeText={value => changeTransactionAmount(value)}
                   onBlur={() => Keyboard.dismiss()}
                   value={transaction.amount.toString()}
-                  style={{ backgroundColor: darkMode ? palette.darkGray : "white", width: 0, height: 0, fontSize: 50 }}
+                  style={{ backgroundColor: darkMode ? "white" : "white", width: 0, height: 0, fontSize: 0, display: "none" }}
                   keyboardAppearance={darkMode ? "dark" : "light"}
                   keyboardType="numeric"
                   returnKeyType="done"
@@ -425,6 +425,7 @@ class TransactionForm extends Component {
                 onChangeText={value => this.setState({ transaction: { ...transaction, note: value } })}
                 value={transaction.note}
                 placeholder="enter note..."
+                placeholderTextColor="gray"
                 style={[styles.textInput, darkMode && styles.textInputDark, { marginLeft: 0, padding: 10, height: 40, width: "100%" }]}
                 keyboardAppearance={darkMode ? "dark" : "light"}
               />

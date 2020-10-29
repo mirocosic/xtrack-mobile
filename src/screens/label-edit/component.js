@@ -46,6 +46,7 @@ class LabelEdit extends Component {
               style={[styles.input, darkMode && styles.inputDark]}
               onChangeText={text => this.setState({ label: { ...label, name: text } })}
               placeholder="tag name"
+              placeholderTextColor="gray"
               value={label.name}
             />
 
