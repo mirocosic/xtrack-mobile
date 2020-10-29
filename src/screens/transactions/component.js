@@ -106,7 +106,7 @@ class Transactions extends Component {
             )
             : (
               <FlatList
-                style={{ marginTop: 75 }}
+                style={[{ marginTop: 75, backgroundColor: "white" }, darkMode && { backgroundColor: palette.dark }]}
                 data={transactions}
                 initialNumToRender={20}
                 ListHeaderComponent={() => (

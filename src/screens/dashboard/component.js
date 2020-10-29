@@ -4,6 +4,8 @@ import { get } from "lodash"
 import moment from "moment"
 import SplashScreen from "react-native-splash-screen"
 import { Modalize } from "react-native-modalize"
+import { Portal } from "react-native-portalize"
+import { DarkModeContext } from "react-native-dark-mode"
 
 import { Screen, Icon, Copy, Title, Transaction } from "../../components"
 import __ from "../../utils/translations"
@@ -34,6 +36,8 @@ const filterByMonth = (transactions, currentMonth) => (
   transactions.filter(t => moment(t.timestamp) > currentMonth.startOf("month")
                            && moment(t.timestamp) < currentMonth.endOf("month")))
 
+const filterByCategory = (transactions, categoryId) => transactions.filter(t => t.categoryId === categoryId)
+
 const renderBudget = (value, budget) => {
   const result = Math.round((value / budget) * 100)
   let color = false
@@ -48,6 +52,8 @@ class Dashboard extends Component {
     showScrollToStart: false,
     breakdownTransactions: [],
   }
+
+  static contextType = DarkModeContext
 
   breakdownModal = React.createRef()
 
@@ -113,15 +119,24 @@ class Dashboard extends Component {
   }
 
 
-  renderExpenses = expenses => (
+  renderExpenses = (expenses, currentMonthTransactions, modal) => (
     Object.entries(expenses)
       .sort((a, b) => b[1] - a[1])
       .map((item) => {
         const { categories } = this.props
         const cat = categories.find(c => c.name === item[0])
         return (
-          <View key={item[0]} style={{ ...styles.row, paddingLeft: 10 }}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <TouchableOpacity
+            key={item[0]}
+            style={{ ...styles.row, paddingLeft: 10 }}
+            onPress={() => {
+              this.setState({ breakdownTransactions: filterByCategory(currentMonthTransactions, cat.id) })
+              this.breakdownModal.current.open()
+            }}
+          >
+            <View
+              style={{ flexDirection: "row", alignItems: "center" }}
+              >
               <Icon
                 type={get(cat, "icon", "")}
                 textStyle={{ color: cat.color || "blue", fontSize: 12 }}
@@ -135,7 +150,7 @@ class Dashboard extends Component {
               {` ${formatCurrency(item[1])} `}
             </Copy>
 
-          </View>
+          </TouchableOpacity>
         )
       })
   )
@@ -168,6 +183,7 @@ class Dashboard extends Component {
     const { width } = Dimensions.get("window")
     const currentMonth = moment()
     currentMonth.subtract(24, "month")
+    const darkMode = this.context === "dark"
 
     return (
       <Screen>
@@ -185,6 +201,7 @@ class Dashboard extends Component {
             const income = sum(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
             const expenses = sum(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
             const currentMonthTransactions = filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth).sort(compare)
+            const currentMonthIncome = filterByMonth(transactions.filter(t => t.type === "income"), currentMonth).sort(compare)
 
             return (
               <ScrollView key={month} style={styles.monthContainer}>
@@ -204,20 +221,30 @@ class Dashboard extends Component {
 
                 </View>
 
-                <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
+                <TouchableOpacity
+                  style={[styles.inlineBetween, { marginBottom: 10 }]}
+                  onPress={() => {
+                    this.setState({ breakdownTransactions: currentMonthIncome })
+                    this.breakdownModal.current.open()
+                  }}>
                   <Copy style={{ fontSize: 18 }}>Income: </Copy>
                   <Copy style={{ fontSize: 18, color: palette.green }}>{formatCurrency(income)}</Copy>
-                </View>
+                </TouchableOpacity>
 
-                {this.renderExpenses(sortedIncome)}
+                {this.renderExpenses(sortedIncome, currentMonthIncome)}
 
 
-                <View style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}>
+                <TouchableOpacity
+                  style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}
+                  onPress={() => {
+                    this.setState({ breakdownTransactions: currentMonthTransactions })
+                    this.breakdownModal.current.open()
+                  }}>
                   <Copy style={{ fontSize: 18 }}>Expenses: </Copy>
                   <Copy style={{ fontSize: 18, color: palette.red }}>{formatCurrency(expenses)}</Copy>
-                </View>
+                </TouchableOpacity>
 
-                {this.renderExpenses(sortedExpenses)}
+                {this.renderExpenses(sortedExpenses, currentMonthTransactions)}
 
                 <View style={[styles.inlineBetween, { marginTop: 30, paddingTop: 10, borderTopWidth: 1 }]}>
                   <Copy style={{ fontSize: 18 }}>Balance: </Copy>
@@ -228,17 +255,6 @@ class Dashboard extends Component {
                   <Copy style={{ fontSize: 18 }}>Savings Rate: </Copy>
                   <Copy style={{ fontSize: 18, color: palette.blue }}>{this.calcSavingsRate(income, expenses)}</Copy>
                 </View>
-
-                <TouchableOpacity
-                  onPress={() => {
-                    this.setState({ breakdownTransactions: currentMonthTransactions })
-                    this.breakdownModal.current.open()
-                  }}
-                  style={{ flexDirection: "row", alignItems: "center", paddingTop: 30 }}>
-                  <Copy>Expenses Breakdown</Copy>
-
-                </TouchableOpacity>
-
 
               </ScrollView>
             )
@@ -298,21 +314,24 @@ class Dashboard extends Component {
 
         </ScrollView>
 
-        <Modalize
-          adjustToContentHeight
-          modalStyle={[styles.modal, styles.modalDark, { backgroundColor: palette.darkGray }]}
-          modalTopOffset={100}
-          flatListProps={{
-            data: this.state.breakdownTransactions,
-            initialNumToRender: 20,
-            renderItem: ({ item }) => (
-              <Transaction
-                key={item.id}
-                transaction={item}
-                navigation={navigation} />),
-            keyExtractor: item => item.id,
-          }}
-          ref={this.breakdownModal} />
+        <Portal>
+          <Modalize
+            adjustToContentHeight
+            modalStyle={[styles.modal, styles.modalDark, darkMode && { backgroundColor: palette.dark }]}
+            modalTopOffset={100}
+            flatListProps={{
+              showsVerticalScrollIndicator: false,
+              data: this.state.breakdownTransactions,
+              initialNumToRender: 20,
+              renderItem: ({ item }) => (
+                <Transaction
+                  key={item.id}
+                  transaction={item}
+                  navigation={navigation} />),
+              keyExtractor: item => item.id,
+            }}
+            ref={this.breakdownModal} />
+        </Portal>
 
       </Screen>
     )
