@@ -22,6 +22,7 @@
 		4E37FC19237819CF00074365 /* Font Awesome 5 Duotone-Solid-900.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4E37FC14237819CF00074365 /* Font Awesome 5 Duotone-Solid-900.otf */; };
 		4E516CFD2416CBA200794D44 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E516CF82416CBA200794D44 /* GoogleService-Info.plist */; };
 		4E577C952416521B00251270 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E577C942416521B00251270 /* CloudKit.framework */; };
+		4E5B33CE254CA18100309486 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E5B33CB254CA18100309486 /* AppCenter-Config.plist */; };
 		4E70CF342435178C0071C48C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E70CF332435178C0071C48C /* Launch Screen.storyboard */; };
 		4EF11E132198DBC700824335 /* Font-Awesome-5-Free-Regular-400.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EF11E122198DBC700824335 /* Font-Awesome-5-Free-Regular-400.ttf */; };
 		4EF11E152198EA3B00824335 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EF11E142198EA3B00824335 /* FontAwesome.ttf */; };
@@ -87,6 +88,7 @@
 		4E37FC14237819CF00074365 /* Font Awesome 5 Duotone-Solid-900.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Font Awesome 5 Duotone-Solid-900.otf"; path = "../../assets/fonts/Font Awesome 5 Duotone-Solid-900.otf"; sourceTree = "<group>"; };
 		4E516CF82416CBA200794D44 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "xtrack_mobile/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4E577C942416521B00251270 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		4E5B33CB254CA18100309486 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		4E70CF332435178C0071C48C /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		4EBD78832420BF1200417E6D /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		4EBD78882420BF1300417E6D /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/MainInterface.strings; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 		13B07FAE1A68108700A75B9A /* xtrack_mobile */ = {
 			isa = PBXGroup;
 			children = (
+				4E5B33CB254CA18100309486 /* AppCenter-Config.plist */,
 				4E516CF82416CBA200794D44 /* GoogleService-Info.plist */,
 				4E27AEAE231700CF00818DB1 /* xtrack_mobile.entitlements */,
 				4EF11E162198EC6200824335 /* Font-Awesome-5-Free-Solid-900.ttf */,
@@ -378,6 +381,7 @@
 				4E37FC15237819CF00074365 /* Font Awesome 5 Pro-Light-300.otf in Resources */,
 				4E37FC18237819CF00074365 /* Font Awesome 5 Pro-Regular-400.otf in Resources */,
 				4E1B9A3723748ED200B867C3 /* DINNeuzeitGroteskPro-Bold.ttf in Resources */,
+				4E5B33CE254CA18100309486 /* AppCenter-Config.plist in Resources */,
 				4EF11E132198DBC700824335 /* Font-Awesome-5-Free-Regular-400.ttf in Resources */,
 				4E37FC16237819CF00074365 /* Font Awesome 5 Brands-Regular-400.otf in Resources */,
 				4EF11E152198EA3B00824335 /* FontAwesome.ttf in Resources */,
