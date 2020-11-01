@@ -29,6 +29,7 @@ class LabelEdit extends Component {
     navigation.goBack()
   }
 
+
   render() {
     const darkMode = this.context === "dark"
     const { label } = this.state
@@ -48,6 +49,7 @@ class LabelEdit extends Component {
               placeholder="tag name"
               placeholderTextColor="gray"
               value={label.name}
+              autoFocus={!label.name}
             />
 
           </View>
