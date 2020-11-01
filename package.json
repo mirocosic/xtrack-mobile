@@ -28,7 +28,7 @@
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-animate-number": "^0.1.2",
-    "react-native-calendars": "^1.21.0",
+    "react-native-calendars": "^1.403.0",
     "react-native-collapsible": "^1.5.1",
     "react-native-color-wheel": "^0.1.7",
     "react-native-dark-mode": "^0.2.2",

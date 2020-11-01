@@ -518,6 +518,7 @@ class TransactionForm extends Component {
 
 
           <Modalize
+            onOpen={() => Keyboard.dismiss()}
             adjustToContentHeight
             modalStyle={[styles.modal, darkMode && styles.modalDark]}
             ref={this.accountsModal}>
@@ -538,6 +539,7 @@ class TransactionForm extends Component {
           </Modalize>
 
           <Modalize
+            onOpen={() => Keyboard.dismiss()}
             adjustToContentHeight
             modalStyle={[styles.modal, darkMode && styles.modalDark]}
             ref={this.catModal}>
@@ -558,6 +560,7 @@ class TransactionForm extends Component {
           </Modalize>
 
           <Modalize
+            onOpen={() => Keyboard.dismiss()}
             adjustToContentHeight
             modalStyle={[styles.modal, darkMode && styles.modalDark]}
             ref={this.labelsModal}>
@@ -578,6 +581,7 @@ class TransactionForm extends Component {
           </Modalize>
 
           <Modalize
+            onOpen={() => Keyboard.dismiss()}
             adjustToContentHeight
             modalStyle={[styles.modal, darkMode && styles.modalDark]}
             scrollViewProps={{ scrollEnabled: false }}
@@ -585,10 +589,19 @@ class TransactionForm extends Component {
             <ScrollView style={{ minHeight: 400, maxHeight: 400, padding: 10 }}>
 
               <Calendar
+                renderArrow={(direction) => {
+                  if (direction === "left") {
+                    return <Icon type="chevronLeft" textStyle={{ color: darkMode ? palette.blue : palette.darkGray }} />
+                  }
+                  if (direction === "right") {
+                    return <Icon type="chevronRight" textStyle={{ color: darkMode ? palette.blue : palette.darkGray }} />
+                  }
+                }}
                 theme={{
                   monthTextColor: darkMode ? palette.blue : palette.darkGray,
+                  arrowColor: darkMode ? palette.blue : palette.darkGray,
                   dayTextColor: darkMode ? "white" : "black",
-                  todayTextColor: "teal",
+                  todayTextColor: palette.blue,
                   calendarBackground: darkMode ? palette.darkGray : "white",
                 }}
                 onDayPress={(day) => {
@@ -601,6 +614,7 @@ class TransactionForm extends Component {
           </Modalize>
 
           <Modalize
+            onOpen={() => Keyboard.dismiss()}
             modalHeight={400}
             scrollViewProps={{ scrollEnabled: false }}
             HeaderComponent={<View style={{ backgroundColor: "white", height: 20, borderTopRightRadius: 10, borderTopLeftRadius: 10 }} />}
