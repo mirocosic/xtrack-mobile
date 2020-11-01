@@ -89,9 +89,12 @@ class Labels extends Component {
               ))}
             </View>
           </ScrollView>
+
           <Footer>
             <View style={[{ alignItems: "center" }, isAndroid && { paddingBottom: 10 }]}>
-              <TouchableOpacity onPress={() => navigation.navigate("LabelEdit", { label: { color: "#0097A7" } })}>
+              <TouchableOpacity
+                hitSlop={{ top: 10, botton: 10, left: 10, right: 10 }}
+                onPress={() => navigation.navigate("LabelEdit", { label: { color: "#0097A7" } })}>
                 <CopyBlue>Add new tag</CopyBlue>
               </TouchableOpacity>
             </View>
