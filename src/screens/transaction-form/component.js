@@ -47,16 +47,13 @@ class TransactionForm extends Component {
 
   componentDidMount() {
     const { route, accounts, categories, clearSelectedCategory, clearTransactionForm } = this.props
+
     if (route.params && route.params.clearForm) {
       const defaultAccount = accounts.find(acc => acc.defaultAccount)
       const defaultCategory = categories.find(cat => cat.defaultCategory)
       clearSelectedCategory()
       clearTransactionForm(defaultAccount, defaultCategory)
     }
-  }
-
-  componentWillReceiveProps = (nextProps) => {
-    this.setState({ transaction: nextProps.selectedTransaction });
   }
 
   focusInput = () => {
