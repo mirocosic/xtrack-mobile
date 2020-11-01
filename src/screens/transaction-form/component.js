@@ -512,7 +512,7 @@ class TransactionForm extends Component {
                     <CopyBlue>Less Options</CopyBlue>
                   </TouchableOpacity>
 
-                  <PrimaryButton label="Save" onPress={() => this.submitForm()} />
+                  <PrimaryButton label="Save" onPress={() => this.submitForm()} style={{ borderRadius: 5 }} />
                 </View>
               )
 

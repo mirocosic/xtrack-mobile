@@ -32,14 +32,13 @@ export default StyleSheet.create({
     margin: 10,
     width: 100,
     backgroundColor: "white",
+    borderRadius: 5,
   },
 
   textInputDark: {
     color: "white",
     fontSize: 20,
     width: 200,
-    borderBottomWidth: 1,
-    // borderColor: "white",
     padding: 10,
     margin: 10,
     backgroundColor: palette.darkGray,
