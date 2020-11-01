@@ -17,6 +17,7 @@ import {
   CustomKeyboard,
   TransactionType,
   PrimaryButton,
+  TertiaryButton,
 } from "../../components"
 import { Copy, CopyBlue } from "../../components/typography"
 import Icon from "../../components/icon"
@@ -329,7 +330,7 @@ class TransactionForm extends Component {
 
   render() {
     const { transaction, blinker, moreOptionsOpen } = this.state
-    const { navigation, removeLabel, changeTransactionAmount } = this.props
+    const { navigation, changeTransactionAmount } = this.props
     const darkMode = this.context === "dark"
 
     return (
@@ -337,9 +338,8 @@ class TransactionForm extends Component {
         <Screen style={{ paddingLeft: 0, paddingRight: 0 }}>
           <Header
             title="Transaction form"
-            backBtn
-            actionBtn={transaction.id && <Icon type="trash-alt" />}
-            actionBtnPress={() => this.deleteTransaction(transaction)}
+            actionBtn={<Icon type="times" />}
+            actionBtnPress={() => navigation.goBack()}
           />
 
           <View style={styles.wrap}>
@@ -513,6 +513,8 @@ class TransactionForm extends Component {
                   </TouchableOpacity>
 
                   <PrimaryButton label="Save" onPress={() => this.submitForm()} style={{ borderRadius: 5 }} />
+
+                  <TertiaryButton label="Delete" onPress={() => this.deleteTransaction(transaction)} style={{ borderRadius: 5 }} />
                 </View>
               )
 

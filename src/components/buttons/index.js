@@ -27,3 +27,15 @@ export const SecondaryButton = (props) => {
     </TouchableOpacity>
   )
 }
+
+export const TertiaryButton = (props) => {
+  const { label, onPress } = props
+
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <View style={{ ...styles.wrap }}>
+        <Copy style={styles.label}>{label}</Copy>
+      </View>
+    </TouchableOpacity>
+  )
+}

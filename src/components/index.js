@@ -2,7 +2,7 @@ import Screen from "./screen"
 import Header from "./header"
 import Footer from "./footer"
 import Label from "./label"
-import { PrimaryButton, SecondaryButton } from "./buttons"
+import { PrimaryButton, SecondaryButton, TertiaryButton } from "./buttons"
 import CustomKeyboard from "./custom-keyboard"
 import TransactionType from "./transaction-type"
 import Transaction from "./transaction"
@@ -16,6 +16,7 @@ export {
   Label,
   PrimaryButton,
   SecondaryButton,
+  TertiaryButton,
   CustomKeyboard,
   TransactionType,
   Icon,
