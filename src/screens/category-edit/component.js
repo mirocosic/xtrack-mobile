@@ -89,7 +89,6 @@ class CategoryEdit extends Component {
               placeholder="category name"
               placeholderTextColor="gray"
               value={category.name}
-              autoFocus={!category.name}
               />
           </View>
 

@@ -49,7 +49,6 @@ class LabelEdit extends Component {
               placeholder="tag name"
               placeholderTextColor="gray"
               value={label.name}
-              autoFocus={!label.name}
             />
 
           </View>

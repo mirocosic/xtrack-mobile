@@ -101,7 +101,6 @@ class AccountEdit extends Component {
               placeholder="account name"
               placeholderTextColor="gray"
               value={account.name}
-              autoFocus={!account.name}
               />
           </View>
 
