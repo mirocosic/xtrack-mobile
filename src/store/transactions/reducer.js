@@ -135,29 +135,6 @@ const transactions = (state = initialState, action) => {
         ],
       }
 
-    case "ATTACH_LABEL":
-      return {
-        ...state,
-        selectedTransaction: {
-          ...state.selectedTransaction,
-          ...{
-            labels: [
-              ...state.selectedTransaction.labels,
-              { uuid: makeUUID(), ...action.payload },
-            ],
-          },
-        },
-      }
-
-    case "REMOVE_LABEL":
-      return {
-        ...state,
-        selectedTransaction: {
-          ...state.selectedTransaction,
-          ...{ labels: state.selectedTransaction.labels.filter(label => label.uuid !== action.label.uuid) },
-        },
-      }
-
     case "SET_TRANSFER_MODE":
       return {
         ...state,

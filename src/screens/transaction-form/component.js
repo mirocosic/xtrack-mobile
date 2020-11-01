@@ -21,6 +21,7 @@ import {
 import { Copy, CopyBlue } from "../../components/typography"
 import Icon from "../../components/icon"
 import { formatCurrency } from "../../utils/currency"
+import { makeUUID } from "../../utils/helper-gnomes"
 import palette from "../../utils/palette"
 import styles from "./styles"
 
@@ -238,16 +239,37 @@ class TransactionForm extends Component {
   }
 
   renderLabels = () => {
-    const { labels, attachLabel } = this.props
+    const { labels } = this.props
+    const { transaction } = this.state
+
     return labels.map(label => (
       <TouchableOpacity
         key={label.id}
-        onPress={() => attachLabel(label)}>
+        onPress={() => {
+          this.setState({
+            transaction: {
+              ...transaction,
+              ...{ labels: [...transaction.labels, { uuid: makeUUID(), ...label }] },
+            },
+          })
 
+          this.labelsModal.current.close()
+        }}
+      >
         <Label key={label.uuid} label={label} style={{ width: 70 }} />
 
       </TouchableOpacity>
     ))
+  }
+
+  removeLabel = (label) => {
+    const { transaction } = this.state
+    this.setState({
+      transaction: {
+        ...transaction,
+        ...{ labels: transaction.labels.filter(l => l.uuid !== label.uuid) },
+      },
+    })
   }
 
   renderCategory = (id) => {
@@ -476,7 +498,7 @@ class TransactionForm extends Component {
                     <View style={styles.labels}>
 
                       {transaction.labels.map(label => (
-                        <Label key={label.uuid} label={label} removeLabel={() => removeLabel(label)} />
+                        <Label key={label.uuid} label={label} removeLabel={() => this.removeLabel(label)} />
                       ))}
 
                     </View>

@@ -27,8 +27,6 @@ export default connect(
     removeFutureRecurring: transaction => dispatch({ type: "REMOVE_FUTURE_RECURRING_TRANSACTIONS", transaction }),
     setTransferMode: value => dispatch({ type: "SET_TRANSFER_MODE", value }),
     clearSelectedCategory: () => dispatch({ type: "CLEAR_SELECTED_CATEGORY" }),
-    attachLabel: payload => dispatch({ type: "ATTACH_LABEL", payload }),
-    removeLabel: label => dispatch({ type: "REMOVE_LABEL", label }),
     changeAccountFilter: account => dispatch({ type: "CHANGE_ACCOUNT_FILTER", account }),
     clearTransactionForm: (defaultAccount, defaultCategory) => dispatch({ type: "CLEAR_TRANSACTION_FORM", defaultAccount, defaultCategory }),
   }),
