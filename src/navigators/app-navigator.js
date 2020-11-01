@@ -20,12 +20,9 @@ const MainStackScreen = () => (
     <MainStack.Screen name="Dashboard" component={Dashboard} />
     <MainStack.Screen name="Overview" component={Overview} />
     <MainStack.Screen name="Categories" component={Categories} />
-    <MainStack.Screen name="CategoryEdit" component={CategoryEdit} />
     <MainStack.Screen name="Accounts" component={Accounts} />
-    <MainStack.Screen name="AccountEdit" component={AccountEdit} />
     <MainStack.Screen name="Settings" component={Settings} />
     <MainStack.Screen name="Labels" component={Labels} />
-    <MainStack.Screen name="LabelEdit" component={LabelEdit} />
     <MainStack.Screen name="Backup" component={Backup} />
   </MainStack.Navigator>
 )
@@ -35,6 +32,11 @@ export default () => (
     <Host>
       <RootStack.Navigator initialRouteName="App" headerMode="none" mode="modal">
         <RootStack.Screen name="App" component={MainStackScreen} />
+
+        <MainStack.Screen name="CategoryEdit" component={CategoryEdit} />
+        <MainStack.Screen name="AccountEdit" component={AccountEdit} />
+        <MainStack.Screen name="LabelEdit" component={LabelEdit} />
+
         <RootStack.Screen
           name="TransactionForm"
           component={TransactionForm}
