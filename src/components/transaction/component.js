@@ -1,8 +1,10 @@
 import React from "react"
-import { Text, View, TouchableOpacity } from "react-native"
+import { Text, View, TouchableOpacity, Animated } from "react-native"
 import moment from "moment"
 import { get } from "lodash"
 import { useDarkMode } from "react-native-dark-mode"
+import Swipeable from "react-native-gesture-handler/Swipeable"
+import { RectButton } from "react-native-gesture-handler"
 
 import Label from "../label"
 import { Copy } from "../typography"
@@ -24,6 +26,15 @@ const getAmountColor = (type) => {
   }
 }
 
+const renderActions = (transaction, deleteTransaction) => (
+  <RectButton
+    onPress={() => deleteTransaction(transaction)}
+    style={{ alignItems: "center", justifyContent: "center", backgroundColor: palette.red, paddingHorizontal: 20 }}
+    >
+    <Copy>Delete</Copy>
+  </RectButton>
+)
+
 const renderCategory = (categories, id) => {
   const category = categories.find(cat => id === cat.id)
 
@@ -39,39 +50,45 @@ const renderCategory = (categories, id) => {
   )
 }
 
-const Transaction = ({ transaction, selectTransaction, navigation, categories }) => {
+const Transaction = ({ transaction, selectTransaction, deleteTransaction, navigation, categories }) => {
 
   const darkMode = useDarkMode()
 
   return (
-    <TouchableOpacity
-      style={{ borderBottomWidth: 1, borderColor: "gray" }}
-      onPress={() => {
-        selectTransaction(transaction)
-        navigation.navigate("TransactionForm", { transaction })
-      }}>
-      <View key={transaction.id} style={[styles.container, darkMode && styles.containerDark]}>
-        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-          { renderCategory(categories, transaction.categoryId)}
-          <Text style={[styles.amount, getAmountColor(transaction.type)]}>
-            {formatCurrency(transaction.amount, transaction.currency)}
-          </Text>
-        </View>
+    <Swipeable
+      renderRightActions={() => renderActions(transaction, deleteTransaction)}
+      containerStyle={{ borderBottomWidth: 1, borderColor: "gray" }}
+      >
+      <RectButton
+        style={[styles.container, darkMode && styles.containerDark]}
+        onPress={() => {
+          selectTransaction(transaction)
+          navigation.navigate("TransactionForm", { transaction })
+        }}>
+        <View
+          key={transaction.id}
+          >
+          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+            { renderCategory(categories, transaction.categoryId)}
+            <Text style={[styles.amount, getAmountColor(transaction.type)]}>
+              {formatCurrency(transaction.amount, transaction.currency)}
+            </Text>
+          </View>
 
-        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-          <View style={styles.inline}>
-            <Copy style={{ fontSize: 12 }}>{moment(transaction.timestamp).format("D.MM.YYYY. HH:mm")}</Copy>
-            {transaction.recurring && (
+          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+            <View style={styles.inline}>
+              <Copy style={{ fontSize: 12 }}>{moment(transaction.timestamp).format("D.MM.YYYY. HH:mm")}</Copy>
+              {transaction.recurring && (
               <Icon
                 type="sync"
                 textStyle={{ color: "gray", fontSize: 14 }}
                 style={{ width: 15, height: 15, marginLeft: 10 }}
               />
-            )}
-          </View>
-          <Copy>{transaction.note}</Copy>
-          <View style={styles.labels}>
-            {transaction.labels
+              )}
+            </View>
+            <Copy>{transaction.note}</Copy>
+            <View style={styles.labels}>
+              {transaction.labels
                   && transaction.labels.map(label => (
                     <Label
                       key={label.uuid}
@@ -79,11 +96,12 @@ const Transaction = ({ transaction, selectTransaction, navigation, categories })
                       style={{ marginLeft: 5, paddingRight: 10 }}
                       />
                   ))}
+            </View>
           </View>
-        </View>
 
-      </View>
-    </TouchableOpacity>
+        </View>
+      </RectButton>
+    </Swipeable>
   )
 }
 
