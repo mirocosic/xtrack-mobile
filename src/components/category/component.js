@@ -1,8 +1,9 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 import { Alert, View, TouchableOpacity } from "react-native"
-import Swipeout from "react-native-swipeout"
 import { DarkModeContext } from "react-native-dark-mode"
+import Swipeable from "react-native-gesture-handler/Swipeable"
+import { RectButton } from "react-native-gesture-handler"
 
 import { get } from "lodash"
 import Icon from "../icon"
@@ -18,15 +19,31 @@ class Category extends Component {
     return transactions.filter(transaction => get(transaction, "categoryId") === catId).length
   }
 
-  renderDeleteButton = () => (
-    <View style={styles.deleteButton}>
+  renderDeleteButton = cat => (
+    <RectButton
+      style={styles.deleteButton}
+      onPress={() => {
+        this.deleteCategory(cat)
+      }}
+    >
+
       <Icon type="trash-alt" />
-    </View>
+    </RectButton>
   );
 
-  renderEditButton = () => (
-    <View style={styles.editButton}>
+  renderEditButton = cat => (
+    <RectButton
+      style={styles.editButton}
+      onPress={() => this.props.navigation.navigate("CategoryEdit", { id: cat.id })}
+    >
       <Icon type="pen" />
+    </RectButton>
+  )
+
+  renderActions = cat => (
+    <View style={{ flexDirection: "row", width: 160 }}>
+      { this.renderDeleteButton(cat)}
+      { this.renderEditButton(cat)}
     </View>
   )
 
@@ -51,30 +68,19 @@ class Category extends Component {
   }
 
   render() {
-    const { selectCategory, navigation, toggleScroll, data } = this.props
+    const { selectCategory, navigation, data } = this.props
     const cat = data
     const darkMode = this.context === "dark"
 
     return (
-      <Swipeout
-        right={[{
-          backgroundColor: "#f8f8fc",
-          component: this.renderDeleteButton(),
-          onPress: () => this.deleteCategory(cat),
-        },
-        {
-          backgroundColor: "blue",
-          component: this.renderEditButton(),
-          onPress: () => navigation.navigate("CategoryEdit", { id: cat.id }),
-        }]}
-        style={{ borderBottomWidth: 1, borderColor: "gray" }}
-        sensitivity={20}
-        scroll={value => toggleScroll(value)}
-        buttonWidth={70}
-        backgroundColor="#f8f8fc">
+      <Swipeable
+        renderRightActions={() => this.renderActions(cat)}
+        containerStyle={{ borderBottomWidth: 1, borderColor: "gray" }}
+      >
 
-        <TouchableOpacity
+        <RectButton
           key={cat.id}
+          style={[styles.wrap, darkMode && styles.wrapDark]}
           onPress={() => navigation.navigate("CategoryEdit", { id: cat.id })}>
 
           <View key={cat.id} style={[styles.categoryWrap, darkMode && styles.catWrapDark]}>
@@ -100,8 +106,8 @@ class Category extends Component {
             </TouchableOpacity>
 
           </View>
-        </TouchableOpacity>
-      </Swipeout>
+        </RectButton>
+      </Swipeable>
     );
   }
 }

@@ -1,8 +1,9 @@
 import React, { Component } from "react"
-import { Alert, View, ScrollView, TouchableOpacity } from "react-native"
+import { Alert, View, ScrollView } from "react-native"
 import { get } from "lodash"
-import Swipeout from "react-native-swipeout"
 import { DarkModeContext } from "react-native-dark-mode"
+import Swipeable from "react-native-gesture-handler/Swipeable"
+import { RectButton, BorderlessButton } from "react-native-gesture-handler"
 
 import { Screen, Header, Footer } from "../../components"
 import { Copy, CopyBlue } from "../../components/typography"
@@ -29,9 +30,14 @@ class Accounts extends Component {
 
   state = { scroll: true }
 
-  renderDeleteButton = () => (
-    <View style={styles.deleteButton}>
-      <Icon type="trash-alt" />
+  renderDeleteButton = account => (
+    <View style={{ width: 70 }}>
+      <RectButton
+        style={styles.deleteButton}
+        onPress={() => this.handleDelete(account)}
+      >
+        <Icon type="trash-alt" />
+      </RectButton>
     </View>
   );
 
@@ -73,20 +79,12 @@ class Accounts extends Component {
         <ScrollView scrollEnabled={scroll}>
           <View style={{ borderColor: "gray", borderTopWidth: 1 }}>
             {accounts.map(account => (
-              <Swipeout
+              <Swipeable
                 key={account.id}
-                right={[{
-                  backgroundColor: "#f8f8fc",
-                  component: this.renderDeleteButton(),
-                  onPress: () => this.handleDelete(account),
-                }]}
-                style={styles.swiperWrap}
-                sensitivity={10}
-                buttonWidth={70}
-                backgroundColor="#f8f8fc"
-                scroll={value => this.setState({ scroll: value })}
+                renderRightActions={() => this.renderDeleteButton(account)}
+                containerStyle={styles.swiperWrap}
               >
-                <TouchableOpacity onPress={() => navigation.navigate("AccountEdit", { id: account.id })}>
+                <RectButton onPress={() => navigation.navigate("AccountEdit", { id: account.id })}>
 
                   <View key={account.id} style={[styles.wrap, darkMode && styles.wrapDark]}>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -101,16 +99,16 @@ class Accounts extends Component {
                       }
                     </View>
 
-                    <TouchableOpacity onPress={() => {
+                    <RectButton onPress={() => {
                       navigation.navigate("AccountEdit")
                     }}>
                       <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
-                    </TouchableOpacity>
+                    </RectButton>
 
                   </View>
 
-                </TouchableOpacity>
-              </Swipeout>
+                </RectButton>
+              </Swipeable>
             ))}
           </View>
 
@@ -118,10 +116,10 @@ class Accounts extends Component {
 
         <Footer>
           <View style={[{ alignItems: "center" }, isAndroid && { paddingBottom: 10 }]}>
-            <TouchableOpacity
+            <BorderlessButton
               onPress={() => navigation.navigate("AccountEdit")}>
               <CopyBlue>Add new account</CopyBlue>
-            </TouchableOpacity>
+            </BorderlessButton>
           </View>
         </Footer>
 

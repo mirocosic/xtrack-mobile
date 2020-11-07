@@ -12,10 +12,13 @@ export default StyleSheet.create({
     paddingBottom: 10,
   },
 
-  catWrapDark: {
+  wrap: { backgroundColor: "white" },
+
+  wrapDark: {
     borderColor: "white",
     backgroundColor: palette.dark,
   },
+
 
   deleteButton: {
     alignItems: "center",

@@ -2,7 +2,7 @@ import { connect } from "react-redux"
 import Component from "./component"
 
 export default connect(
-  state => ({ labels: state.labels.items }),
+  state => ({ labels: state.labels.items, transactions: state.transactions.entries }),
 
   dispatch => ({
     add: payload => dispatch({ type: "ADD_LABEL", payload }),

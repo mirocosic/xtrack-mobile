@@ -1,8 +1,9 @@
 import React, { Component } from "react"
-import { Alert, View, ScrollView, TouchableOpacity } from "react-native"
-import Swipeout from "react-native-swipeout"
-import { get } from "lodash"
+import { View, ScrollView, TouchableOpacity } from "react-native"
 import { DarkModeContext } from "react-native-dark-mode"
+import Swipeable from "react-native-gesture-handler/Swipeable"
+import { RectButton } from "react-native-gesture-handler"
+
 
 import { Screen, Header, Footer } from "../../components"
 import { Copy, CopyBlue } from "../../components/typography"
@@ -16,9 +17,15 @@ class Labels extends Component {
 
     state = { scroll: true }
 
-    renderDeleteButton = () => (
-      <View style={styles.deleteButton}>
-        <Icon type="trash-alt" />
+    renderDeleteButton = label => (
+      <View style={[{ width: 70 }]}>
+        <RectButton
+          onPress={() => this.props.remove(label.id)}
+          style={styles.deleteButton}
+          activeOpacity={0.5}
+        >
+          <Icon type="trash-alt" />
+        </RectButton>
       </View>
     );
 
@@ -28,17 +35,6 @@ class Labels extends Component {
         <Copy style={{ color: "white" }}>Edit</Copy>
       </View>
     )
-
-    handleDelete = (id) => {
-      const { transactions, deleteAccount } = this.props
-      const count = transactions.filter(item => id === get(item, "account.id")).length
-      if (count > 0) {
-        Alert.alert("Warning", "Cannot delete account that contains transactions.")
-      } else {
-        deleteAccount(id)
-      }
-    }
-
 
     render() {
       const { navigation, labels } = this.props
@@ -51,20 +47,12 @@ class Labels extends Component {
           <ScrollView scrollEnabled={scroll}>
             <View>
               {labels.map(label => (
-                <Swipeout
+                <Swipeable
                   key={label.id}
-                  right={[{
-                    backgroundColor: "#f8f8fc",
-                    component: this.renderDeleteButton(),
-                    onPress: () => this.handleDelete(label.id),
-                  }]}
-                  style={styles.swiperWrap}
-                  sensitivity={10}
-                  buttonWidth={70}
-                  backgroundColor="#f8f8fc"
-                  scroll={value => this.setState({ scroll: value })}
+                  renderRightActions={() => this.renderDeleteButton(label)}
+                  containerStyle={styles.swiperWrap}
                 >
-                  <TouchableOpacity
+                  <RectButton
                     key={label.id}
                     onPress={() => navigation.navigate("LabelEdit", { label })}
                   >
@@ -84,19 +72,19 @@ class Labels extends Component {
 
                     </View>
 
-                  </TouchableOpacity>
-                </Swipeout>
+                  </RectButton>
+                </Swipeable>
               ))}
             </View>
           </ScrollView>
 
           <Footer>
             <View style={[{ alignItems: "center" }, isAndroid && { paddingBottom: 10 }]}>
-              <TouchableOpacity
+              <RectButton
                 hitSlop={{ top: 10, botton: 10, left: 10, right: 10 }}
                 onPress={() => navigation.navigate("LabelEdit", { label: { color: "#0097A7" } })}>
                 <CopyBlue>Add new tag</CopyBlue>
-              </TouchableOpacity>
+              </RectButton>
             </View>
           </Footer>
 
