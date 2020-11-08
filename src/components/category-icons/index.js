@@ -75,7 +75,7 @@ const CategoryIcons = props => (
 
       { solid.map(value => (
         <TouchableOpacity
-          key={value}
+          key={`${value}solid`}
           onPress={() => { props.select(getKeyByValue(Icons, value)) }}>
           <FontAwesome
             type="FontAwesome5FreeSolid"
