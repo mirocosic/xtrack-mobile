@@ -33,7 +33,7 @@ export default () => (
   <Tab.Navigator
     lazy={false}
     tabBarOptions={{
-      activeTintColor: palette.blue,
+      activeTintColor: "#2059f4",
       inactiveTintColor: useDarkMode() ? palette.white : palette.black,
       showIcon: true,
       upperCaseLabel: false,

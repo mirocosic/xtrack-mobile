@@ -86,71 +86,74 @@ class AccountEdit extends Component {
           actionBtnPress={() => this.handleDelete(account)}
         />
 
-        <ScrollView style={{ padding: 20 }}>
-          <View style={styles.inputContainer}>
+        <ScrollView style={{ padding: 20 }} contentContainerStyle={{ flex: 1, justifyContent: "space-between" }}>
+          <View>
 
-            <Copy>Name</Copy>
-            <TextInput
-              ref={this.input}
-              style={[styles.input, darkMode && styles.inputDark]}
-              onChangeText={text => this.setState({
-                account: {
-                  ...account,
-                  ...{ name: text },
-                },
-              })}
-              placeholder="account name"
-              placeholderTextColor="gray"
-              value={account.name}
+            <View style={styles.inputContainer}>
+
+              <Copy>Name</Copy>
+              <TextInput
+                ref={this.input}
+                style={[styles.input, darkMode && styles.inputDark]}
+                onChangeText={text => this.setState({
+                  account: {
+                    ...account,
+                    ...{ name: text },
+                  },
+                })}
+                placeholder="account name"
+                placeholderTextColor="gray"
+                value={account.name}
               />
-          </View>
+            </View>
 
-          <View style={[styles.inlineBetween, { margin: 10 }]}>
-            <Copy>Icon</Copy>
-            <TouchableOpacity onPress={() => this.iconsModal.current.open()}>
-              <Icon type={account.icon} textStyle={{ color: account.color, fontSize: 30 }} />
-            </TouchableOpacity>
-          </View>
+            <View style={[styles.inlineBetween, { margin: 10 }]}>
+              <Copy>Icon</Copy>
+              <TouchableOpacity onPress={() => this.iconsModal.current.open()}>
+                <Icon type={account.icon} textStyle={{ color: account.color, fontSize: 30 }} />
+              </TouchableOpacity>
+            </View>
 
-          <View style={[styles.inlineBetween, { margin: 10 }]}>
-            <Copy>Color</Copy>
-            <TouchableOpacity onPress={() => this.colorModal.current.open()}>
-              <View style={{ width: 40, height: 40, backgroundColor: account.color, borderRadius: 5 }} />
-            </TouchableOpacity>
-          </View>
+            <View style={[styles.inlineBetween, { margin: 10 }]}>
+              <Copy>Color</Copy>
+              <TouchableOpacity onPress={() => this.colorModal.current.open()}>
+                <View style={{ width: 40, height: 40, backgroundColor: account.color, borderRadius: 5 }} />
+              </TouchableOpacity>
+            </View>
 
-          <View style={[styles.inlineBetween, { margin: 10 }]}>
-            <Copy>Default account</Copy>
-            <TouchableOpacity onPress={() => this.setState({ account: { ...account, defaultAccount: !account.defaultAccount } })}>
-              <CopyBlue style={{ fontSize: 20 }}>{account.defaultAccount ? "Yes" : "No"}</CopyBlue>
-            </TouchableOpacity>
-          </View>
+            <View style={[styles.inlineBetween, { margin: 10 }]}>
+              <Copy>Default account</Copy>
+              <TouchableOpacity onPress={() => this.setState({ account: { ...account, defaultAccount: !account.defaultAccount } })}>
+                <CopyBlue style={{ fontSize: 20 }}>{account.defaultAccount ? "Yes" : "No"}</CopyBlue>
+              </TouchableOpacity>
+            </View>
 
-          <View style={[styles.inputContainer, { marginTop: 10, marginBottom: 10 }]}>
-            <Copy>Starting Balance</Copy>
-            <TextInput
-              style={[{ fontSize: 20, borderBottomWidth: 1, width: 50 }, darkMode && { color: "gray" }]}
-              keyboardType="numeric"
-              onChangeText={text => this.setState({
-                account: {
-                  ...account,
-                  ...{ startingBalance: text },
-                },
-              })}
-              placeholderTextColor="gray"
-              value={account.startingBalance}
+            <View style={[styles.inputContainer, { marginTop: 10, marginBottom: 10 }]}>
+              <Copy>Starting Balance</Copy>
+              <TextInput
+                style={[{ fontSize: 20, borderBottomWidth: 1, width: 50 }, darkMode && { color: "gray" }]}
+                keyboardType="numeric"
+                onChangeText={text => this.setState({
+                  account: {
+                    ...account,
+                    ...{ startingBalance: text },
+                  },
+                })}
+                placeholderTextColor="gray"
+                value={account.startingBalance}
             />
-          </View>
+            </View>
 
-          <View style={[styles.inlineBetween, { margin: 10 }]}>
-            <Copy>Currency</Copy>
-            <TouchableOpacity onPress={() => this.currencyModal.current.open()}>
-              <CopyBlue style={{ fontSize: 20 }}>{account.currency || "HRK"}</CopyBlue>
-            </TouchableOpacity>
+            <View style={[styles.inlineBetween, { margin: 10 }]}>
+              <Copy>Currency</Copy>
+              <TouchableOpacity onPress={() => this.currencyModal.current.open()}>
+                <CopyBlue style={{ fontSize: 20 }}>{account.currency || "HRK"}</CopyBlue>
+              </TouchableOpacity>
+            </View>
+
           </View>
 
           <TouchableOpacity
-
             onPress={() => this.handleSave(account)}>
             <LinearGradient
               start={{ x: 0, y: 0 }}

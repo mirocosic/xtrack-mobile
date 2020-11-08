@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { View, TextInput, TouchableOpacity } from "react-native"
 import { Modalize } from "react-native-modalize"
 import { DarkModeContext } from "react-native-dark-mode"
+import LinearGradient from "react-native-linear-gradient"
 
 import Screen from "../../components/screen"
 import Header from "../../components/header"
@@ -38,33 +39,41 @@ class LabelEdit extends Component {
       <Screen>
         <Header title={label.name} backBtn />
 
-        <View style={{ padding: 20 }}>
+        <View style={{ padding: 20, flex: 1, justifyContent: "space-between" }}>
 
-          <View style={styles.inputContainer}>
-            <Copy>Name</Copy>
-            <TextInput
-              ref={this.input}
-              style={[styles.input, darkMode && styles.inputDark]}
-              onChangeText={text => this.setState({ label: { ...label, name: text } })}
-              placeholder="tag name"
-              placeholderTextColor="gray"
-              value={label.name}
+          <View>
+
+            <View style={styles.inputContainer}>
+              <Copy>Name</Copy>
+              <TextInput
+                ref={this.input}
+                style={[styles.input, darkMode && styles.inputDark]}
+                onChangeText={text => this.setState({ label: { ...label, name: text } })}
+                placeholder="tag name"
+                placeholderTextColor="gray"
+                value={label.name}
             />
 
-          </View>
+            </View>
 
-          <View style={[styles.inlineBetween, { margin: 10 }]}>
-            <Copy>Color</Copy>
-            <TouchableOpacity onPress={() => this.colorModal.current.open()}>
-              <View style={{ width: 40, height: 40, backgroundColor: label.color, borderRadius: 5 }} />
-            </TouchableOpacity>
+            <View style={[styles.inlineBetween, { margin: 10 }]}>
+              <Copy>Color</Copy>
+              <TouchableOpacity onPress={() => this.colorModal.current.open()}>
+                <View style={{ width: 40, height: 40, backgroundColor: label.color, borderRadius: 5 }} />
+              </TouchableOpacity>
+            </View>
+
           </View>
 
           <TouchableOpacity
-            style={styles.add}
-            onPress={() => this.handleSave(label)}
-          >
-            <Copy style={{ color: "white" }}>Save</Copy>
+            onPress={() => this.handleSave(label)}>
+            <LinearGradient
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              colors={["#2292f4", "#2031f4"]}
+              style={[{ height: 50, width: 200 }, styles.add]}>
+              <Copy style={{ color: "white" }}>Save</Copy>
+            </LinearGradient>
           </TouchableOpacity>
 
         </View>

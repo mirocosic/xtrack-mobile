@@ -74,64 +74,67 @@ class CategoryEdit extends Component {
           actionBtnPress={() => this.deleteCategory(category)}
         />
 
-        <ScrollView style={{ margin: 20 }}>
+        <ScrollView style={{ margin: 20 }} contentContainerStyle={{ flex: 1, justifyContent: "space-between" }}>
+          <View>
 
-          <View style={styles.inputContainer}>
-            <Copy>Name</Copy>
-            <TextInput
-              ref={this.input}
-              style={[styles.input, darkMode && styles.inputDark]}
-              onChangeText={text => this.setState({
-                category: {
-                  ...category,
-                  ...{ name: text },
-                },
-              })}
-              placeholder="category name"
-              placeholderTextColor="gray"
-              value={category.name}
+            <View style={styles.inputContainer}>
+              <Copy>Name</Copy>
+              <TextInput
+                ref={this.input}
+                style={[styles.input, darkMode && styles.inputDark]}
+                onChangeText={text => this.setState({
+                  category: {
+                    ...category,
+                    ...{ name: text },
+                  },
+                })}
+                placeholder="category name"
+                placeholderTextColor="gray"
+                value={category.name}
               />
-          </View>
+            </View>
 
-          <View style={[styles.inlineBetween, { margin: 10 }]}>
-            <Copy>Icon</Copy>
-            <TouchableOpacity onPress={() => this.iconsModal.current.open()}>
-              <Icon type={category.icon} textStyle={{ color: category.color, fontSize: 30 }} />
-            </TouchableOpacity>
-          </View>
+            <View style={[styles.inlineBetween, { margin: 10 }]}>
+              <Copy>Icon</Copy>
+              <TouchableOpacity onPress={() => this.iconsModal.current.open()}>
+                <Icon type={category.icon} textStyle={{ color: category.color, fontSize: 30 }} />
+              </TouchableOpacity>
+            </View>
 
-          <View style={[styles.inlineBetween, { margin: 10 }]}>
-            <Copy>Color</Copy>
-            <TouchableOpacity onPress={() => this.colorModal.current.open()}>
-              <View style={{ width: 40, height: 40, backgroundColor: category.color, borderRadius: 5 }} />
-            </TouchableOpacity>
-          </View>
+            <View style={[styles.inlineBetween, { margin: 10 }]}>
+              <Copy>Color</Copy>
+              <TouchableOpacity onPress={() => this.colorModal.current.open()}>
+                <View style={{ width: 40, height: 40, backgroundColor: category.color, borderRadius: 5 }} />
+              </TouchableOpacity>
+            </View>
 
-          <View style={[styles.inlineBetween, { margin: 10 }]}>
-            <Copy>Default category</Copy>
-            <TouchableOpacity onPress={() => this.setState({ category: { ...category, defaultCategory: !category.defaultCategory } })}>
-              <CopyBlue style={{ fontSize: 20 }}>{category.defaultCategory ? "Yes" : "No"}</CopyBlue>
-            </TouchableOpacity>
-          </View>
+            <View style={[styles.inlineBetween, { margin: 10 }]}>
+              <Copy>Default category</Copy>
+              <TouchableOpacity onPress={() => this.setState({ category: { ...category, defaultCategory: !category.defaultCategory } })}>
+                <CopyBlue style={{ fontSize: 20 }}>{category.defaultCategory ? "Yes" : "No"}</CopyBlue>
+              </TouchableOpacity>
+            </View>
 
-          <View style={styles.inputContainer}>
-            <Copy>Monthly Budget</Copy>
-            <TextInput
-              ref={this.input}
-              style={[styles.input, darkMode && styles.inputDark]}
-              onChangeText={text => this.setState({
-                category: {
-                  ...category,
-                  ...{ budget: text },
-                },
-              })}
-              returnKeyType="done"
-              keyboardType="numeric"
-              onSubmitEditing={() => this.handleSave(category)}
-              placeholder="add budget"
-              placeholderTextColor="gray"
-              value={category.budget}
+            <View style={styles.inputContainer}>
+              <Copy>Monthly Budget</Copy>
+              <TextInput
+                ref={this.input}
+                style={[styles.input, darkMode && styles.inputDark]}
+                onChangeText={text => this.setState({
+                  category: {
+                    ...category,
+                    ...{ budget: text },
+                  },
+                })}
+                returnKeyType="done"
+                keyboardType="numeric"
+                onSubmitEditing={() => this.handleSave(category)}
+                placeholder="add budget"
+                placeholderTextColor="gray"
+                value={category.budget}
               />
+            </View>
+
           </View>
 
           <TouchableOpacity
