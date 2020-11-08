@@ -74,7 +74,7 @@ class Transactions extends Component {
       <Screen>
         <View style={{ position: "absolute", alignItems: "center", justifyContent: "center", zIndex: 1000, width: "100%", flex: 1 }}>
           <Header title="Transactions" style={{ flex: 1, width: "100%", alignItems: "center", justifyContent: "center" }}>
-            <TouchableOpacity onPress={() => openDrawer()} style={{ position: "absolute", right: 10, bottom: 5 }}>
+            <TouchableOpacity onPress={() => navigation.openDrawer()} style={{ position: "absolute", right: 10, bottom: 5 }}>
               <Icon
                 type="filter"
                 style={{ backgroundColor: "transparent" }}

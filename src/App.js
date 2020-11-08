@@ -19,12 +19,9 @@ export default () => (
   <Provider store={store}>
     <DarkModeProvider>
       <PersistGate persistor={persistor}>
-        <Drawer
-          side="right"
-          open
-        >
-          <AppNavigator />
-        </Drawer>
+
+        <AppNavigator />
+
       </PersistGate>
     </DarkModeProvider>
   </Provider>
