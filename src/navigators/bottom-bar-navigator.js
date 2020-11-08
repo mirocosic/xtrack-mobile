@@ -4,6 +4,7 @@ import ReactNativeHapticFeedback from "react-native-haptic-feedback"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { useDarkMode } from "react-native-dark-mode"
 import { RectButton } from "react-native-gesture-handler"
+import LinearGradient from "react-native-linear-gradient"
 
 import { Dashboard, Overview, Settings, Transactions } from "../screens"
 import Icon from "../components/icon"
@@ -79,24 +80,23 @@ export default () => (
               alignItems: "center",
               borderRadius: 40,
             }}>
-            <RectButton
-              activeOpacity={0.2}
-              style={{
-                backgroundColor: palette.blue,
+
+            <LinearGradient
+              colors={["#2292f4", "#2031f4"]}
+              style={[{
                 height: 60,
                 width: 60,
                 bottom: 20,
-                borderRadius: 30,
                 position: "absolute",
                 top: 10,
+                borderRadius: 30,
                 alignItems: "center",
                 justifyContent: "center",
-              }}
-              >
+              }]}>
               <Icon
                 textStyle={{ fontSize: 30, color: "white" }}
                 type="plus" />
-            </RectButton>
+            </LinearGradient>
           </RectButton>
         ),
       }}

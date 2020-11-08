@@ -3,6 +3,7 @@ import { Alert, ScrollView, View, TextInput, TouchableOpacity } from "react-nati
 import { Modalize } from "react-native-modalize"
 import { DarkModeContext } from "react-native-dark-mode"
 import { get } from "lodash"
+import LinearGradient from "react-native-linear-gradient"
 
 import { Screen, Header } from "../../components"
 import CategoryIcons from "../../components/category-icons"
@@ -149,9 +150,15 @@ class AccountEdit extends Component {
           </View>
 
           <TouchableOpacity
-            style={styles.add}
+
             onPress={() => this.handleSave(account)}>
-            <Copy style={{ color: "white" }}>Save</Copy>
+            <LinearGradient
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              colors={["#2292f4", "#2031f4"]}
+              style={[{ height: 50, width: 200 }, styles.add]}>
+              <Copy style={{ color: "white" }}>Save</Copy>
+            </LinearGradient>
           </TouchableOpacity>
 
         </ScrollView>
