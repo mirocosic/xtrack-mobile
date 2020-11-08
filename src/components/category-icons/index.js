@@ -14,7 +14,6 @@ const regular = [
   Icons.bell,
   Icons.square,
   Icons.moneyBillAlt,
-
 ]
 
 const solid = [
@@ -54,6 +53,7 @@ const solid = [
   Icons.filter,
   Icons.snowflake,
   Icons.paw,
+  Icons.cat,
 
   Icons.male,
   Icons.female,

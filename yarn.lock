@@ -6525,7 +6525,7 @@ react-native-drawer@^2.5.1:
 
 react-native-fontawesome@mirocosic/react-native-fontawesome:
   version "5.7.0"
-  resolved "https://codeload.github.com/mirocosic/react-native-fontawesome/tar.gz/90416e7d98cad54d5babcadcf42712dd287208d3"
+  resolved "https://codeload.github.com/mirocosic/react-native-fontawesome/tar.gz/c8eabbabed58e87c38d9c989ac96c71d4453c9a0"
 
 react-native-fs@^2.14.1:
   version "2.14.1"
