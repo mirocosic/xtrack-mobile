@@ -1,7 +1,9 @@
 import React from "react"
+import { View } from "react-native"
 import ReactNativeHapticFeedback from "react-native-haptic-feedback"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { useDarkMode } from "react-native-dark-mode"
+import { RectButton } from "react-native-gesture-handler"
 
 import { Dashboard, Overview, Settings, Transactions } from "../screens"
 import Icon from "../components/icon"
@@ -66,11 +68,36 @@ export default () => (
       component={AddRedirector}
       options={{
         tabBarIcon: () => (
-          <Icon
-            style={{ backgroundColor: palette.blue, height: 50, width: 50, bottom: 10, borderRadius: 50 }}
-            textStyle={{ fontSize: 30, color: "white" }}
-            type="plus"
-            />
+          <RectButton
+            activeOpacity={0.5}
+            style={{
+              backgroundColor: palette.dark,
+              marginBottom: 20,
+              width: 80,
+              height: 80,
+              marginTop: -20,
+              alignItems: "center",
+              borderRadius: 40,
+            }}>
+            <RectButton
+              activeOpacity={0.2}
+              style={{
+                backgroundColor: palette.blue,
+                height: 60,
+                width: 60,
+                bottom: 20,
+                borderRadius: 30,
+                position: "absolute",
+                top: 10,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              >
+              <Icon
+                textStyle={{ fontSize: 30, color: "white" }}
+                type="plus" />
+            </RectButton>
+          </RectButton>
         ),
       }}
     />
