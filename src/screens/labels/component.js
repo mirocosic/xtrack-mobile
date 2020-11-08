@@ -20,15 +20,7 @@ const renderDeleteButton = (label, remove) => (
   </View>
 )
 
-const renderEditButton = () => (
-  <View style={styles.editButton}>
-    <Icon style={{ backgroundColor: "blue" }} />
-    <Copy style={{ color: "white" }}>Edit</Copy>
-  </View>
-)
-
 const Labels = ({ remove, navigation, labels }) => {
-
   const darkMode = useColorScheme() === "dark"
 
   return (
@@ -43,20 +35,18 @@ const Labels = ({ remove, navigation, labels }) => {
               containerStyle={styles.swiperWrap}>
               <RectButton
                 key={label.id}
+                style={[styles.wrap, darkMode && styles.wrapDark]}
                 onPress={() => navigation.navigate("LabelEdit", { label })}>
-                <View key={label.id} style={[styles.wrap, darkMode && styles.wrapDark]}>
+                <View key={label.id} style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <View style={{ width: 30, height: 30, backgroundColor: label.color, marginRight: 10, borderRadius: 50 }} />
                     <Copy>{label.name}</Copy>
                   </View>
 
-                  <TouchableOpacity onPress={() => navigation.navigate("LabelEdit")}>
-                    <Icon
-                      type="chevronRight"
-                      style={{ backgroundColor: "transparent" }}
-                      textStyle={{ color: "gray" }}
-                        />
-                  </TouchableOpacity>
+                  <Icon
+                    type="chevronRight"
+                    style={{ backgroundColor: "transparent" }}
+                    textStyle={{ color: "gray" }} />
 
                 </View>
 

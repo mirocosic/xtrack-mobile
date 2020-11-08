@@ -6,9 +6,6 @@ export default StyleSheet.create({
   colorPicker: { flexDirection: "row" },
 
   wrap: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
     padding: 10,
     paddingLeft: 30,
   },
