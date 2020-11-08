@@ -63,7 +63,7 @@ const Transaction = ({ transaction, selectTransaction, deleteTransaction, naviga
         style={[styles.container, darkMode && styles.containerDark]}
         onPress={() => {
           selectTransaction(transaction)
-          navigation.navigate("TransactionForm", { transaction })
+          navigation.navigate("TransactionForm", { transactionId: transaction.id })
         }}>
         <View
           key={transaction.id}
