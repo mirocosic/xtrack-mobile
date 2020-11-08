@@ -63,7 +63,7 @@ class Dashboard extends Component {
     !isIos && StatusBar.setBackgroundColor(palette.blue)
     openOnForm && navigation.navigate("TransactionForm", { clearForm: true })
     setTimeout(() => this.scrollView.scrollTo({ x: width * 23, y: 0, animated: false }), 100)
-    setTimeout(() => SplashScreen.hide(), 1000)
+    setTimeout(() => SplashScreen.hide(), 500)
   }
 
   sortByCategory = (expenses) => {
