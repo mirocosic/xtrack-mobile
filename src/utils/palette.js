@@ -7,6 +7,7 @@ export default {
   babyBlue: "#89cff0",
   lightBlue: "#cdebf9",
   blue: "#2196F3",
+  darkBlue: "#2059f4",
   light: "#f8f8fc",
   dark: "rgb(30,31,32)",
   orange: "#fe9700",

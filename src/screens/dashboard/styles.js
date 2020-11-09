@@ -36,7 +36,7 @@ export default StyleSheet.create({
   monthContainer: {
     height: "100%",
     width: Dimensions.get("window").width,
-    padding: 40,
+    padding: 20,
     paddingTop: 20,
   },
 

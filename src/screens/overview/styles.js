@@ -14,6 +14,9 @@ export default StyleSheet.create({
   row: {
     display: "flex",
     flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingBottom: 5,
   },
 
   rangeSelector: {
@@ -27,20 +30,9 @@ export default StyleSheet.create({
     backgroundColor: "white",
     marginTop: 20,
     padding: 10,
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: palette.gray,
+    borderRadius: 10,
   },
 
-  accountWrapDark: { backgroundColor: palette.dark },
-
-
-  row: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingBottom: 5,
-  },
+  accountWrapDark: { backgroundColor: palette.darkGray },
 
 })

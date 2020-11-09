@@ -18,7 +18,7 @@ export default StyleSheet.create({
   },
 
   copyDark: {
-    color: palette.white,
+    color: palette.light,
     fontSize: 14,
   },
 

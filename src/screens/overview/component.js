@@ -165,32 +165,20 @@ class Overview extends Component {
 
             return (
               <View key={acc.id} style={[styles.accountWrap, darkMode && styles.accountWrapDark]}>
-                <Copy style={{ fontWeight: "bold", fontSize: 16, paddingBottom: 5 }}>{acc.name}</Copy>
-                <View>
-                  { true
-                    && (
-                    <View style={[styles.inline, { justifyContent: "space-between", paddingLeft: 0, paddingRight: 20 }]}>
-                      <Copy>Starting Balance: </Copy>
-                      <Copy>{formatCurrency(startingBalance, acc.currency)}</Copy>
-                    </View>
-                    )
-                  }
-
-                  <View style={[styles.inline, { justifyContent: "space-between", paddingLeft: 0, paddingRight: 20 }]}>
-                    <Copy>Income: </Copy>
-                    <Copy>{formatCurrency(income, acc.currency)}</Copy>
+                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+                  <View>
+                    <Copy style={{ fontWeight: "bold", fontSize: 22, paddingBottom: 5 }}>{acc.name}</Copy>
+                    <Icon type={acc.icon} textStyle={{ fontSize: 30, color: palette.darkBlue }} />
                   </View>
 
-                  <View style={[styles.inline, { justifyContent: "space-between", paddingLeft: 0, paddingRight: 20 }]}>
-                    <Copy>Expenses: </Copy>
-                    <Copy>{formatCurrency(expenses, acc.currency)}</Copy>
+                  <View>
+                    <Copy style={{ fontSize: 20, color: palette.green, textAlign: "right" }}>+{formatCurrency(income, acc.currency)}</Copy>
+                    <Copy style={{ marginVertical: 5, fontSize: 20, color: palette.red, textAlign: "right" }}>-{formatCurrency(expenses, acc.currency)}</Copy>
+                    <Copy style={{ fontSize: 20, color: palette.blue, textAlign: "right" }}>{formatCurrency(startingBalance + income - expenses, acc.currency)}</Copy>
                   </View>
 
-                  <View style={[styles.inline, { justifyContent: "space-between", paddingLeft: 0, paddingRight: 20 }]}>
-                    <Copy>Balance: </Copy>
-                    <Copy style={{ color: palette.blue }}>{formatCurrency(startingBalance + income - expenses, acc.currency)}</Copy>
-                  </View>
                 </View>
+
 
               </View>
             )
