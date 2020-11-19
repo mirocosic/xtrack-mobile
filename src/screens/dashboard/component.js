@@ -47,13 +47,13 @@ const renderBudget = (value, budget) => {
 
 class Dashboard extends Component {
 
+  static contextType = DarkModeContext
+
   state = {
     showScrollToEnd: false,
     showScrollToStart: false,
     breakdownTransactions: [],
   }
-
-  static contextType = DarkModeContext
 
   breakdownModal = React.createRef()
 

@@ -1,5 +1,5 @@
 import React from "react"
-import { View, ScrollView, TouchableOpacity, useColorScheme } from "react-native"
+import { View, ScrollView, useColorScheme } from "react-native"
 import Swipeable from "react-native-gesture-handler/Swipeable"
 import { RectButton } from "react-native-gesture-handler"
 
