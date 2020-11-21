@@ -8,7 +8,7 @@ import { Host } from "react-native-portalize"
 import BottomBarNavigator from "./bottom-bar-navigator"
 import {
   TransactionForm, Dashboard, Settings, Categories, Accounts, Labels,
-  CategoryEdit, Splash, Overview, AccountEdit, LabelEdit, Backup,
+  CategoryEdit, Splash, Overview, AccountEdit, LabelEdit, Backup, Onboarding,
 } from "../screens"
 import DrawerContent from "../components/drawer"
 
@@ -17,9 +17,10 @@ const RootStack = createStackNavigator()
 const Drawer = createDrawerNavigator()
 
 const MainStackScreen = () => (
-  <MainStack.Navigator initialRouteName="Main" headerMode="none">
+  <MainStack.Navigator initialRouteName="Onboarding" headerMode="none">
     <MainStack.Screen name="Main" component={BottomBarNavigator} />
     <MainStack.Screen name="Splash" component={Splash} />
+    <MainStack.Screen name="Onboarding" component={Onboarding} />
     <MainStack.Screen name="Dashboard" component={Dashboard} />
     <MainStack.Screen name="Overview" component={Overview} />
     <MainStack.Screen name="Categories" component={Categories} />

@@ -12,6 +12,7 @@ import Labels from "./labels"
 import LabelEdit from "./label-edit"
 import Transactions from "./transactions"
 import Backup from "./backup"
+import Onboarding from "./onboarding"
 
 export {
   Dashboard,
@@ -28,4 +29,5 @@ export {
   LabelEdit,
   Transactions,
   Backup,
+  Onboarding,
 }

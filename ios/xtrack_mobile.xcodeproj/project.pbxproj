@@ -24,6 +24,7 @@
 		4E577C952416521B00251270 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E577C942416521B00251270 /* CloudKit.framework */; };
 		4E5B33CE254CA18100309486 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E5B33CB254CA18100309486 /* AppCenter-Config.plist */; };
 		4E70CF342435178C0071C48C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E70CF332435178C0071C48C /* Launch Screen.storyboard */; };
+		4E901F152568840B0053B6FC /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E901F142568840B0053B6FC /* File.swift */; };
 		4EF11E132198DBC700824335 /* Font-Awesome-5-Free-Regular-400.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EF11E122198DBC700824335 /* Font-Awesome-5-Free-Regular-400.ttf */; };
 		4EF11E152198EA3B00824335 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EF11E142198EA3B00824335 /* FontAwesome.ttf */; };
 		4EF11E172198EC6200824335 /* Font-Awesome-5-Free-Solid-900.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EF11E162198EC6200824335 /* Font-Awesome-5-Free-Solid-900.ttf */; };
@@ -90,6 +91,8 @@
 		4E577C942416521B00251270 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		4E5B33CB254CA18100309486 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		4E70CF332435178C0071C48C /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		4E901F132568840A0053B6FC /* xtrack_mobile-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "xtrack_mobile-Bridging-Header.h"; sourceTree = "<group>"; };
+		4E901F142568840B0053B6FC /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		4EBD78832420BF1200417E6D /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		4EBD78882420BF1300417E6D /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		4EF11DD12198770A00824335 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -165,6 +168,8 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				4E70CF332435178C0071C48C /* Launch Screen.storyboard */,
+				4E901F142568840B0053B6FC /* File.swift */,
+				4E901F132568840A0053B6FC /* xtrack_mobile-Bridging-Header.h */,
 			);
 			name = xtrack_mobile;
 			sourceTree = "<group>";
@@ -315,6 +320,7 @@
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = QDRTVHPM2W;
+						LastSwiftMigration = 1220;
 						SystemCapabilities = {
 							com.apple.iCloud = {
 								enabled = 1;
@@ -496,6 +502,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				4E901F152568840B0053B6FC /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -530,6 +537,7 @@
 			baseConfigurationReference = 34A3366899A71184995FFF13 /* Pods-xtrack_mobile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = xtrack_mobile/xtrack_mobile.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 37;
@@ -551,6 +559,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mirocosic.xtrack;
 				PRODUCT_NAME = xtrack_mobile;
+				SWIFT_OBJC_BRIDGING_HEADER = "xtrack_mobile-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -560,6 +571,7 @@
 			baseConfigurationReference = 27495AB8CDBBC7179FA9A4C4 /* Pods-xtrack_mobile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = xtrack_mobile/xtrack_mobile.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 37;
@@ -580,6 +592,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mirocosic.xtrack;
 				PRODUCT_NAME = xtrack_mobile;
+				SWIFT_OBJC_BRIDGING_HEADER = "xtrack_mobile-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

@@ -80,6 +80,19 @@ class Settings extends Component {
           <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
         </TouchableOpacity>
 
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Onboarding")}
+          style={styles.settingWrap}>
+          <View>
+            <Copy>Onboarding</Copy>
+            <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
+              Check out the onboarding carousel!
+            </Copy>
+          </View>
+
+          <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
+        </TouchableOpacity>
+
         <View style={{ padding: 20 }}>
 
           <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
@@ -96,6 +109,8 @@ class Settings extends Component {
 
 
         </View>
+
+        
 
         <Copy style={{ textAlign: "center", marginTop: 50 }}>App version: 1.0.6 (37)</Copy>
       </Screen>
