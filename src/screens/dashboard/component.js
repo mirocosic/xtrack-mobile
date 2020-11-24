@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, ScrollView, Alert, Dimensions, StatusBar, TouchableOpacity } from "react-native"
+import { View, ScrollView, Alert, Dimensions, StatusBar, TouchableOpacity, Animated } from "react-native"
 import { get } from "lodash"
 import moment from "moment"
 import SplashScreen from "react-native-splash-screen"
@@ -53,9 +53,12 @@ class Dashboard extends Component {
     showScrollToEnd: false,
     showScrollToStart: false,
     breakdownTransactions: [],
+    scrollX: new Animated.Value(0)
   }
 
   breakdownModal = React.createRef()
+
+  scrollRef = React.createRef()
 
   componentDidMount() {
     const { navigation, openOnForm } = this.props
@@ -188,10 +191,15 @@ class Dashboard extends Component {
     return (
       <Screen>
 
-        <ScrollView
+        <Animated.ScrollView
           horizontal
           pagingEnabled
           ref={(ref) => { this.scrollView = ref }}
+          scrollEventThrottle={16}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { x: this.state.scrollX } } }],
+            { useNativeDriver: false },
+          )}
           showsHorizontalScrollIndicator={false}>
 
           { months.map((month, idx) => {
@@ -203,8 +211,25 @@ class Dashboard extends Component {
             const currentMonthTransactions = filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth).sort(compare)
             const currentMonthIncome = filterByMonth(transactions.filter(t => t.type === "income"), currentMonth).sort(compare)
 
+            const opacity = this.state.scrollX.interpolate({
+              inputRange: [(idx - 1) * width, idx * width , width * (idx + 1)],
+              outputRange: [0, 1, 0],
+              extrapolate: "clamp",
+            })
+
+            const scale = this.state.scrollX.interpolate({
+              inputRange: [(idx - 1) * width, idx * width , width * (idx + 1)],
+              outputRange: [0.9, 1, 0.9],
+              extrapolate: "clamp",
+            })
+
+            const bg = this.state.scrollX.interpolate({
+              inputRange: [(idx - 1) * width, idx * width , width * (idx + 1)],
+              outputRange: ["rgb(7, 16,145)", "rgb(13,61,251)", "rgb(7, 16,145)"],
+            })
+
             return (
-              <ScrollView key={month} style={styles.monthContainer}>
+              <Animated.ScrollView key={month} style={[styles.monthContainer, {opacity, transform: [{scale}]}]}>
 
                 <View style={[styles.inlineBetween, { marginTop: 15, marginBottom: 15 }]}>
                   <View />
@@ -256,20 +281,32 @@ class Dashboard extends Component {
                   <Copy style={{ fontSize: 18, color: palette.blue }}>{this.calcSavingsRate(income, expenses)}</Copy>
                 </View>
 
-              </ScrollView>
+              </Animated.ScrollView>
             )
 
           })}
 
-          {futureMonths.map((month) => {
+          {futureMonths.map((month, idx) => {
             currentMonth.add(1, "month")
             const sortedExpenses = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
             const sortedIncome = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
             const income = sum(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
             const expenses = sum(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
 
+            const opacity = this.state.scrollX.interpolate({
+              inputRange: [(idx + 24 - 1) * width, (idx + 24) * width , width * (idx + 24 + 1)],
+              outputRange: [0, 1, 0],
+              extrapolate: "clamp",
+            })
+
+            const scale = this.state.scrollX.interpolate({
+              inputRange: [(idx + 24 - 1) * width, (idx + 24) * width , width * (idx + 24 + 1)],
+              outputRange: [0.9, 1, 0.9],
+              extrapolate: "clamp",
+            })
+
             return (
-              <ScrollView key={month} style={styles.monthContainer}>
+              <Animated.ScrollView key={month} style={[styles.monthContainer, {opacity, transform: [{scale}]}]}>
 
                 <View style={[styles.inlineBetween, { marginTop: 15, marginBottom: 15 }]}>
                   <TouchableOpacity onPress={() => this.scrollView.scrollTo({ x: width * 23, animated: true })}>
@@ -308,11 +345,11 @@ class Dashboard extends Component {
                   <Copy style={{ fontSize: 18, color: palette.blue }}>{this.calcSavingsRate(income, expenses)}</Copy>
                 </View>
 
-              </ScrollView>
+              </Animated.ScrollView>
             )
           })}
 
-        </ScrollView>
+        </Animated.ScrollView>
 
         <Portal>
           <Modalize
