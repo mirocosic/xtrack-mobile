@@ -72,13 +72,12 @@ export default () => (
           <RectButton
             activeOpacity={0.5}
             style={{
-              backgroundColor: palette.dark,
               marginBottom: 20,
-              width: 80,
-              height: 80,
+              width: 60,
+              height: 60,
               marginTop: -20,
               alignItems: "center",
-              borderRadius: 40,
+              borderRadius: 40
             }}>
 
             <LinearGradient
@@ -86,9 +85,6 @@ export default () => (
               style={[{
                 height: 60,
                 width: 60,
-                bottom: 20,
-                position: "absolute",
-                top: 10,
                 borderRadius: 30,
                 alignItems: "center",
                 justifyContent: "center",
