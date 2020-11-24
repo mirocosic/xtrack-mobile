@@ -3,6 +3,7 @@ import { View, Text, ScrollView, Dimensions, Animated, StyleSheet, TouchableOpac
 import LottieView from "lottie-react-native"
 import { RectButton } from "react-native-gesture-handler"
 import SplashScreen from "react-native-splash-screen"
+import AsyncStorage from '@react-native-community/async-storage'
 
 import Screen from "../../components/screen"
 
@@ -69,8 +70,16 @@ const Onboarding = ({ navigation }) => {
   })
 
   useEffect(() => {
-    SplashScreen.hide()
-  }, [])
+    const getAsyncData = async () => {
+      const result = await AsyncStorage.getItem("@onboarding-done")
+      if (result === "true") { navigation.navigate("Main")}
+      setTimeout(() => SplashScreen.hide(), 500)
+    }
+
+    getAsyncData()
+
+  }, []);
+
 
   return (
     <Screen>
@@ -161,7 +170,10 @@ const Onboarding = ({ navigation }) => {
       <Animated.View style={{ position: "absolute", width, bottom: "10%", marginTop: 100, alignItems: "center", justifyContent: "center", opacity: opacityBtn, transform: [{ translateY: positionY }] }}>
         <RectButton
           style={{ width: 300, borderColor: "white", borderWidth: 2, borderRadius: 25, height: 50, alignItems: "center", justifyContent: "center" }}
-          onPress={() => navigation.navigate("Main")}>
+          onPress={() => {
+            AsyncStorage.setItem("@onboarding-done", "true")
+            navigation.navigate("Main")
+          }}>
           <Text style={{ fontSize: 16, fontWeight: "bold", color: "white" }}>Let's go!</Text>
         </RectButton>
 
