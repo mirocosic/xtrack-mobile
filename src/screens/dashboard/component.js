@@ -223,17 +223,25 @@ class Dashboard extends Component {
               extrapolate: "clamp",
             })
 
+            const transX = this.state.scrollX.interpolate({
+              inputRange: [(idx - 1) * width, idx * width , width * (idx + 1)],
+              outputRange: [200, 0, -200],
+            })
+
             const bg = this.state.scrollX.interpolate({
               inputRange: [(idx - 1) * width, idx * width , width * (idx + 1)],
               outputRange: ["rgb(7, 16,145)", "rgb(13,61,251)", "rgb(7, 16,145)"],
             })
 
             return (
-              <Animated.ScrollView key={month} style={[styles.monthContainer, {opacity, transform: [{scale}]}]}>
+              <Animated.ScrollView key={month} style={[styles.monthContainer, {opacity}]}>
 
                 <View style={[styles.inlineBetween, { marginTop: 15, marginBottom: 15 }]}>
                   <View />
-                  <Title>{currentMonth.format("MMMM YYYY")}</Title>
+                  <Animated.View style={{transform: [{translateX: transX}]}}>
+                    <Title>{currentMonth.format("MMMM YYYY")}</Title>
+                  </Animated.View>
+
                   { idx !== 23
                     ? (
                       <TouchableOpacity onPress={() => this.scrollView.scrollTo({ x: width * 23, animated: true })}>
@@ -292,21 +300,27 @@ class Dashboard extends Component {
             const sortedIncome = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
             const income = sum(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
             const expenses = sum(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
+            const inputRange = [(idx + 24 - 1) * width, (idx + 24) * width , width * (idx + 24 + 1)]
 
             const opacity = this.state.scrollX.interpolate({
-              inputRange: [(idx + 24 - 1) * width, (idx + 24) * width , width * (idx + 24 + 1)],
+              inputRange,
               outputRange: [0, 1, 0],
               extrapolate: "clamp",
             })
 
             const scale = this.state.scrollX.interpolate({
-              inputRange: [(idx + 24 - 1) * width, (idx + 24) * width , width * (idx + 24 + 1)],
+              inputRange,
               outputRange: [0.9, 1, 0.9],
               extrapolate: "clamp",
             })
 
+            const transX = this.state.scrollX.interpolate({
+              inputRange,
+              outputRange: [200, 0, -200],
+            })
+
             return (
-              <Animated.ScrollView key={month} style={[styles.monthContainer, {opacity, transform: [{scale}]}]}>
+              <Animated.ScrollView key={month} style={[styles.monthContainer, {opacity}]}>
 
                 <View style={[styles.inlineBetween, { marginTop: 15, marginBottom: 15 }]}>
                   <TouchableOpacity onPress={() => this.scrollView.scrollTo({ x: width * 23, animated: true })}>
@@ -315,7 +329,10 @@ class Dashboard extends Component {
                     </View>
                   </TouchableOpacity>
 
-                  <Title>{currentMonth.format("MMMM YYYY")}</Title>
+                  <Animated.View style={{transform: [{translateX: transX}]}}>
+                    <Title>{currentMonth.format("MMMM YYYY")}</Title>
+                  </Animated.View>
+
                   <View />
 
                 </View>
