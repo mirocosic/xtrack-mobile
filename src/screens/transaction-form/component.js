@@ -59,8 +59,9 @@ class TransactionForm extends Component {
         {
           amount: 0,
           type: "expense",
-          accountId: defaultAccount.id,
-          categoryId: defaultCategory.id,
+          timestamp: Date.now(),
+          accountId: defaultAccount?.id,
+          categoryId: defaultCategory?.id,
           labels: [],
         },
       })
