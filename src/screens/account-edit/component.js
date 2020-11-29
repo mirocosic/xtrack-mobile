@@ -9,7 +9,6 @@ import { Screen, Header } from "../../components"
 import CategoryIcons from "../../components/category-icons"
 import Icon from "../../components/icon"
 import { Copy, CopyBlue } from "../../components/typography"
-import palette from "../../utils/palette"
 import styles from "./styles"
 
 const colors = ["#FF5722", "#F39A27", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];

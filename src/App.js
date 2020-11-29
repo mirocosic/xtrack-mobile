@@ -1,13 +1,11 @@
 import React from "react"
 import { StatusBar } from "react-native"
-import * as Sentry from "@sentry/react-native"
 import { Provider } from "react-redux"
 import { PersistGate } from "redux-persist/lib/integration/react"
 import { DarkModeProvider } from "react-native-dark-mode"
 
 import { persistor, store } from "./store"
 import AppNavigator from "./navigators/app-navigator"
-import Drawer from "./components/drawer"
 import "intl"
 import "intl/locale-data/jsonp/en"
 

@@ -3,7 +3,7 @@ import { persistStore, persistReducer } from "redux-persist"
 import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2"
 import createSagaMiddleware from "redux-saga"
 import { composeWithDevTools } from "redux-devtools-extension"
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from "@react-native-community/async-storage"
 
 import common from "./common/reducer"
 import transactions from "./transactions/reducer"
@@ -31,7 +31,7 @@ const reducers = combineReducers({
 const pReducer = persistReducer(persistConfig, reducers)
 
 export const store = createStore(pReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)))
-// export const store = createStore(reducers, composeWithDevTools(applyMiddleware(sagaMiddleware)))
+//export const store = createStore(reducers, composeWithDevTools(applyMiddleware(sagaMiddleware)))
 export const persistor = persistStore(store)
 
 sagaMiddleware.run(rootSaga);
