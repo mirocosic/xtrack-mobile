@@ -14,6 +14,7 @@ export default connect(
     add: category => dispatch({ type: "ADD_CATEGORY", category }),
     edit: category => dispatch({ type: "EDIT_CATEGORY", category }),
     remove: category => dispatch({ type: "REMOVE_CATEGORY", category }),
+    removeTransactions: category => dispatch({ type: "REMOVE_CATEGORY_TRANSACTIONS", category }),
     selectCategory: payload => dispatch({ type: "SELECT_CATEGORY", payload }),
     setDefault: category => dispatch({ type: "SET_DEFAULT_CATEGORY", category }),
   }),
