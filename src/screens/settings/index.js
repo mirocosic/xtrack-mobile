@@ -6,6 +6,8 @@ export default connect(
     darkMode: state.common.darkMode,
     openOnForm: state.common.openOnForm,
     language: state.common.language,
+    accounts: state.accounts.items,
+    categories: state.categories.items,
   }),
 
   dispatch => ({
@@ -13,5 +15,6 @@ export default connect(
     toggleOpenOnForm: () => dispatch({ type: "TOGGLE_OPEN_ON_FORM" }),
     setLanguage: language => dispatch({ type: "SWITCH_LANGUAGE", language }),
     erase: () => dispatch({ type: "ERASE" }),
+    add: transaction => dispatch({ type: "ADD_TRANSACTION", transaction }),
   }),
 )(Component);
