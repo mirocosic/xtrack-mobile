@@ -8,9 +8,11 @@ export default StyleSheet.create({
 
   container: {
     padding: 10,
-    paddingTop: 5,
-    paddingBottom: 5,
+    paddingTop: 0,
+    paddingBottom: 0,
     backgroundColor: "white",
+    borderBottomColor: palette.gray,
+    borderWidth: 1,
   },
 
   background: {

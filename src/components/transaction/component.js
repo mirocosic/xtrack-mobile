@@ -13,11 +13,13 @@ import Animated, {
   not,
   set,
   useCode,
+  Easing,
+  interpolate,
 } from "react-native-reanimated"
 
 import { PanGestureHandler, State, RectButton } from "react-native-gesture-handler"
 
-import { 
+import {
   usePanGestureHandler, useValue, snapPoint,
   timing,
   useClock,
@@ -62,71 +64,88 @@ const renderCategory = (categories, id) => {
 
 const HEIGHT = 65
 const { width } = Dimensions.get("window")
-const snapPoints = [-width, -100, 0];
+const snapPoints = [-width, -100, 0]
 
 const Transaction = ({ transaction, selectTransaction, deleteTransaction, navigation, categories }) => {
 
   const darkMode = useDarkMode()
 
   const {
-    gestureHandler, translation,
+    gestureHandler,
+    translation,
     velocity,
     state,
   } = usePanGestureHandler()
   const translateX = useValue(0)
 
-  const offsetX = useValue(0);
-  const height = useValue(HEIGHT);
-  const deleteOpacity = useValue(1);
-  const clock = useClock();
-  const to = snapPoint(translateX, velocity.x, snapPoints);
-  const shouldRemove = useValue(0);
+  const offsetX = useValue(0)
+  const opacityTextSwipe = useValue(0)
+  const buttonOpacity = useValue(1)
+  const height = useValue(HEIGHT)
+  const deleteOpacity = useValue(1)
+  const clock = useClock()
+  const to = snapPoint(translateX, velocity.x, snapPoints)
+  const shouldRemove = useValue(0)
 
   const onSwipe = () => {
-    deleteTransaction(transaction)
+    setTimeout(() => deleteTransaction(transaction), 500)
   }
 
   useCode(
     () => [
       cond(
         eq(state, State.ACTIVE),
-        set(translateX, add(offsetX, clamp(translation.x,  -9999, minus(offsetX) )))
+        set(translateX, add(offsetX, clamp(translation.x, -9999, minus(offsetX)))),
+      ),
+      cond(
+        eq(state, State.ACTIVE),
+        set(opacityTextSwipe, interpolate(translation.x, { inputRange: [-width + 100, 100], outputRange: [1, 0] })),
       ),
       cond(eq(state, State.END), [
-        set(translateX, timing({ clock, from: translateX, to })),
+        set(translateX, timing({ clock, from: translateX, to, easing: Easing.out(Easing.cubic) })),
         set(offsetX, translateX),
-        cond(eq(to, -width), set(shouldRemove, 1)),
+        cond(
+          eq(to, -width),
+          set(shouldRemove, 1),
+        ),
       ]),
       cond(shouldRemove, [
         set(height, timing({ from: HEIGHT, to: 0 })),
+        set(opacityTextSwipe, timing({ from: 1, to: 0 })),
+        set(buttonOpacity, timing({ from: 1, to: 0 })),
+        set(translateX, timing({ from: translateX, to: -width })),
         set(deleteOpacity, 0),
         cond(not(clockRunning(clock)), call([], onSwipe)),
       ]),
     ],
-    [onSwipe],
+    [],
   );
 
   return (
-    <Animated.View>
+    <Animated.View key={transaction.id}>
+
       <Animated.View style={[styles.background]}>
+        <Animated.Text style={{ position: "absolute", left: width / 2 - 50, color: "white", opacity: opacityTextSwipe }}>
+          {"<< Swipe To Delete"}
+        </Animated.Text>
         <RectButton
-          onPress={() => deleteTransaction(transaction)}
-          style={{ alignItems: "center", justifyContent: "center", backgroundColor: palette.red, paddingHorizontal: 20 }}
-          >
-          <Copy>Delete</Copy>
+          onPress={() => shouldRemove.setValue(1)}
+          style={{ width: 100, alignItems: "center" }}>
+          <Animated.View style={{ opacity: buttonOpacity }}>
+            <Icon type="trash" />
+          </Animated.View>
         </RectButton>
       </Animated.View>
+
       <PanGestureHandler failOffsetY={[-5, 5]} activeOffsetX={[-5, 5]} {...gestureHandler}>
-        <Animated.View style={{ borderBottomWidth: 1, borderBottomColor: palette.gray, height, transform: [{ translateX }] }}>
+        <Animated.View style={{ height, transform: [{ translateX }] }}>
           <RectButton
-            style={[styles.container, darkMode && styles.containerDark]}
+            style={{ height: HEIGHT }}
             onPress={() => {
               selectTransaction(transaction)
               navigation.navigate("TransactionForm", { transactionId: transaction.id })
             }}>
-            <View
-              key={transaction.id}
-              >
+            <View style={[styles.container, { height: HEIGHT }, darkMode && styles.containerDark]}>
               <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                 { renderCategory(categories, transaction.categoryId)}
                 <Text style={[styles.amount, getAmountColor(transaction.type)]}>
