@@ -74,8 +74,8 @@ class Dashboard extends Component {
     const { categories } = this.props
     expenses.forEach((expense) => {
       const category = categories.find(cat => cat.id === expense.categoryId)
-      const currExpenseSum = result[category.name] || 0
-      result[category.name] = currExpenseSum + calcAmount(expense)
+      const currExpenseSum = result[category?.name] || 0
+      result[category?.name] = currExpenseSum + calcAmount(expense)
     })
 
     return result
@@ -87,7 +87,7 @@ class Dashboard extends Component {
       __("Select account"),
       __("Please choose account"),
       accounts.map(account => (
-        { text: account.name, onPress: () => changeAccountFilter(account) }
+        { text: account?.name, onPress: () => changeAccountFilter(account) }
       )),
     )
   }
