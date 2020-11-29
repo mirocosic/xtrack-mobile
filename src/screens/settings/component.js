@@ -21,6 +21,23 @@ class Settings extends Component {
     )
   }
 
+  generateTransactions = () => {
+    const { accounts, categories, add } = this.props;
+    const defaultAccount = accounts.find(acc => acc.defaultAccount)
+    const defaultCategory = categories.find(cat => cat.defaultCategory)
+
+    for (let i = 0; i < 10; i++) {
+      add({
+        timestamp: Date.now(),
+        type: "expense",
+        categoryId: defaultCategory?.id,
+        accountId: defaultAccount?.id,
+        amount: 10,
+        labels: [],
+      })
+    }
+  }
+
   render() {
     const { navigation, openOnForm, toggleOpenOnForm, language } = this.props
 
@@ -69,8 +86,7 @@ class Settings extends Component {
 
         <TouchableOpacity
           onPress={() => navigation.navigate("Backup")}
-          style={styles.settingWrap}
-        >
+          style={styles.settingWrap}>
           <View style={{ maxWidth: 300 }}>
             <Copy>Backup/Restore</Copy>
             <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
@@ -87,6 +103,19 @@ class Settings extends Component {
             <Copy>Onboarding</Copy>
             <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
               Check out the onboarding carousel!
+            </Copy>
+          </View>
+
+          <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => this.generateTransactions()}
+          style={styles.settingWrap}>
+          <View>
+            <Copy>Dummy Data</Copy>
+            <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
+              Generate Demo Dummy Transactions (x10)
             </Copy>
           </View>
 
