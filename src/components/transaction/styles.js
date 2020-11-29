@@ -13,6 +13,15 @@ export default StyleSheet.create({
     backgroundColor: "white",
   },
 
+  background: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: palette.red,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    overflow: "hidden",
+  },
+
   containerDark: { backgroundColor: palette.dark },
 
   amount: { fontSize: 20 },
