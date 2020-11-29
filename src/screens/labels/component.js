@@ -1,10 +1,11 @@
 import React from "react"
-import { View, ScrollView, useColorScheme } from "react-native"
+import { View, ScrollView, useColorScheme, TouchableOpacity } from "react-native"
 import Swipeable from "react-native-gesture-handler/Swipeable"
 import { RectButton } from "react-native-gesture-handler"
+import LinearGradient from "react-native-linear-gradient"
 
-import { Screen, Header, Footer } from "../../components"
-import { Copy, CopyBlue } from "../../components/typography"
+import { Screen, Header } from "../../components"
+import { Copy } from "../../components/typography"
 import Icon from "../../components/icon"
 import styles from "./styles"
 import { isAndroid } from "../../utils/os-utils"
@@ -56,15 +57,18 @@ const Labels = ({ remove, navigation, labels }) => {
         </View>
       </ScrollView>
 
-      <Footer>
-        <View style={[{ alignItems: "center" }, isAndroid && { paddingBottom: 10 }]}>
-          <RectButton
-            hitSlop={{ top: 10, botton: 10, left: 10, right: 10 }}
-            onPress={() => navigation.navigate("LabelEdit", { label: { color: "#0097A7" } })}>
-            <CopyBlue>Add new tag</CopyBlue>
-          </RectButton>
-        </View>
-      </Footer>
+      <View style={[isAndroid && { paddingBottom: 10 }, { width: "80%", left: "10%", bottom: 20, position: "absolute" }]}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("LabelEdit", { label: { color: "#0097A7" } })}>
+          <LinearGradient
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            colors={["#2292f4", "#2031f4"]}
+            style={[{ height: 50, width: 200 }, styles.add]}>
+            <Copy style={{ color: "white" }}>Add new tag</Copy>
+          </LinearGradient>
+        </TouchableOpacity>
+      </View>
 
     </Screen>
   )

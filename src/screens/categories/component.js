@@ -1,51 +1,49 @@
-import React, { Component } from "react"
-import { View, ScrollView, TouchableOpacity } from "react-native"
+import React from "react"
+import { View, ScrollView } from "react-native"
+import { TouchableOpacity } from "react-native-gesture-handler"
+import LinearGradient from "react-native-linear-gradient"
 
-import { Screen, Header, Footer } from "../../components"
+import { Screen, Header, Copy } from "../../components"
 import Category from "../../components/category"
-import { CopyBlue } from "../../components/typography"
 import { isAndroid } from "../../utils/os-utils"
+import styles from "./styles"
 
-class Categories extends Component {
+const Categories = ({ categories, navigation, selectCategory }) => (
 
-  state = { scroll: true }
+  <Screen>
+    <Header title="Categories" backBtn />
+    <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
+      <View>
+        {categories
+          .sort((a, b) => a.name < b.name)
+          .map(cat => (
+            <Category
+              key={cat.id}
+              data={cat}
+              onPress={() => { selectCategory(cat); navigation.goBack() }}
+              navigation={navigation}
+            />
+          ))
+          .reverse()
+        }
+      </View>
+    </ScrollView>
 
-  render() {
-    const { categories, navigation, selectCategory } = this.props
-    const { scroll } = this.state
+    <View style={[isAndroid && { paddingBottom: 10 }, { width: "80%", left: "10%", bottom: 20, position: "absolute" }]}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("CategoryEdit", { id: false })}>
+        <LinearGradient
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          colors={["#2292f4", "#2031f4"]}
+          style={[{ height: 50, width: 200 }, styles.add]}>
+          <Copy style={{ color: "white" }}>Add new category</Copy>
+        </LinearGradient>
+      </TouchableOpacity>
+    </View>
 
-    return (
-      <Screen>
-        <Header title="Categories" backBtn />
-        <ScrollView scrollEnabled={scroll}>
-          <View>
-            {categories
-              .sort((a, b) => a.name < b.name)
-              .map(cat => (
-                <Category
-                  key={cat.id}
-                  data={cat}
-                  onPress={() => { selectCategory(cat); navigation.goBack() }}
-                  toggleScroll={value => this.setState({ scroll: value })}
-                  navigation={navigation}
-                />
-              ))
-              .reverse()
-            }
-          </View>
-        </ScrollView>
+  </Screen>
 
-        <Footer>
-          <View style={[{ alignItems: "center" }, isAndroid && { paddingBottom: 10 }]}>
-            <TouchableOpacity onPress={() => navigation.navigate("CategoryEdit", { id: false })}>
-              <CopyBlue>Add new category</CopyBlue>
-            </TouchableOpacity>
-          </View>
-        </Footer>
-
-      </Screen>
-    )
-  }
-}
+)
 
 export default Categories

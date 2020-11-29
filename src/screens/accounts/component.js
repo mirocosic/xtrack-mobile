@@ -3,10 +3,11 @@ import { Alert, View, ScrollView } from "react-native"
 import { get } from "lodash"
 import { DarkModeContext } from "react-native-dark-mode"
 import Swipeable from "react-native-gesture-handler/Swipeable"
-import { RectButton, BorderlessButton } from "react-native-gesture-handler"
+import { RectButton, TouchableOpacity } from "react-native-gesture-handler"
+import LinearGradient from "react-native-linear-gradient"
 
 import { Screen, Header, Footer } from "../../components"
-import { Copy, CopyBlue } from "../../components/typography"
+import { Copy } from "../../components/typography"
 import Icon from "../../components/icon"
 import styles from "./styles"
 import { formatCurrency } from "../../utils/currency"
@@ -70,20 +71,19 @@ class Accounts extends Component {
   }
 
   render() {
-    const { scroll } = this.state
     const { navigation, accounts, transactions } = this.props
     const darkMode = this.context === "dark"
+
     return (
       <Screen>
         <Header title="Accounts" backBtn />
-        <ScrollView scrollEnabled={scroll}>
+        <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
           <View style={{ borderColor: "gray", borderTopWidth: 1 }}>
             {accounts.map(account => (
               <Swipeable
                 key={account.id}
                 renderRightActions={() => this.renderDeleteButton(account)}
-                containerStyle={styles.swiperWrap}
-              >
+                containerStyle={styles.swiperWrap}>
                 <RectButton onPress={() => navigation.navigate("AccountEdit", { id: account.id })}>
 
                   <View key={account.id} style={[styles.wrap, darkMode && styles.wrapDark]}>
@@ -114,14 +114,18 @@ class Accounts extends Component {
 
         </ScrollView>
 
-        <Footer>
-          <View style={[{ alignItems: "center" }, isAndroid && { paddingBottom: 10 }]}>
-            <BorderlessButton
-              onPress={() => navigation.navigate("AccountEdit")}>
-              <CopyBlue>Add new account</CopyBlue>
-            </BorderlessButton>
-          </View>
-        </Footer>
+        <View style={[isAndroid && { paddingBottom: 10 }, { width: "80%", left: "10%", bottom: 20, position: "absolute" }]}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("AccountEdit")}>
+            <LinearGradient
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              colors={["#2292f4", "#2031f4"]}
+              style={[{ height: 50, width: 200 }, styles.add]}>
+              <Copy style={{ color: "white" }}>Add new account</Copy>
+            </LinearGradient>
+          </TouchableOpacity>
+        </View>
 
       </Screen>
     )

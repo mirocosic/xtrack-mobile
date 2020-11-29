@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native"
+import palette from "../../utils/palette"
 
 export default StyleSheet.create({
 
@@ -43,4 +44,15 @@ export default StyleSheet.create({
     borderRadius: 30,
     backgroundColor: "green",
   },
+
+  add: {
+    width: "100%",
+    height: 40,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    backgroundColor: palette.blue,
+  },
+
 })

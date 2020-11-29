@@ -45,4 +45,14 @@ export default StyleSheet.create({
     flex: 1,
   },
 
+  add: {
+    width: "100%",
+    height: 40,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    backgroundColor: palette.blue,
+  },
+
 })
