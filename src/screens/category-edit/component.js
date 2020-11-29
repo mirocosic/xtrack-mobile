@@ -37,7 +37,7 @@ class CategoryEdit extends Component {
 
   countTransactions = (catId) => {
     const { transactions } = this.props
-    return transactions.filter(transaction => get(transaction, "category.id") === catId).length
+    return transactions.filter(transaction => get(transaction, "categoryId") === catId).length
   }
 
   deleteCategory = (category) => {
