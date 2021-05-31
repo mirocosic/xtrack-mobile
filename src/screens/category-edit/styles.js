@@ -3,7 +3,6 @@ import globalStyles from "../../utils/styles"
 import palette from "../../utils/palette"
 
 export default StyleSheet.create({
-
   ...globalStyles,
 
   inputContainer: {

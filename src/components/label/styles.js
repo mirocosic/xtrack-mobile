@@ -1,7 +1,6 @@
 import { StyleSheet } from "react-native"
 
 export default StyleSheet.create({
-
   labels: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -27,5 +26,4 @@ export default StyleSheet.create({
     paddingRight: 5,
     marginLeft: 5,
   },
-
 })

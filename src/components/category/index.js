@@ -1,5 +1,5 @@
-import { connect } from "react-redux";
-import Component from "./component";
+import { connect } from "react-redux"
+import Component from "./component"
 
 export default connect(
   state => ({
@@ -12,4 +12,4 @@ export default connect(
     remove: category => dispatch({ type: "REMOVE_CATEGORY", category }),
     removeTransactions: category => dispatch({ type: "REMOVE_CATEGORY_TRANSACTIONS", category }),
   }),
-)(Component);
+)(Component)

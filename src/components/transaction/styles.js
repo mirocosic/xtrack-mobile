@@ -3,7 +3,6 @@ import globalStyles from "../../utils/styles"
 import palette from "../../utils/palette"
 
 export default StyleSheet.create({
-
   ...globalStyles,
 
   container: {
@@ -64,5 +63,4 @@ export default StyleSheet.create({
     flex: 1,
     height: 70,
   },
-
 })

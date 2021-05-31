@@ -8,5 +8,4 @@ export default StyleSheet.create({
   },
 
   containerDark: { backgroundColor: palette.dark },
-
 })

@@ -8,7 +8,6 @@ import styles from "./styles"
 import { Copy } from "../typography"
 
 export default class CustomKeyboard extends Component {
-
   static contextType = DarkModeContext
 
   state = {
@@ -57,7 +56,6 @@ export default class CustomKeyboard extends Component {
 
     return (
       <View style={[styles.wrap, darkMode && styles.wrapDark]}>
-
         <View style={{ alignItems: "flex-end", padding: 5 }}>
           <Copy>{input}</Copy>
         </View>
@@ -65,11 +63,9 @@ export default class CustomKeyboard extends Component {
         <View style={{ flexDirection: "row" }}>
           <View style={{ flex: 1 }}>
             <View style={styles.row}>
-
               <Digit digit="1" handlePress={() => this.handlePress("1")} />
               <Digit digit="2" handlePress={() => this.handlePress("2")} />
               <Digit digit="3" handlePress={() => this.handlePress("3")} />
-
             </View>
 
             <View style={styles.row}>
@@ -89,7 +85,6 @@ export default class CustomKeyboard extends Component {
               <Digit digit="0" handlePress={() => this.handlePress("0")} />
               <Digit digit="" handlePress={() => {}} />
             </View>
-
           </View>
 
           <View>
@@ -106,14 +101,10 @@ export default class CustomKeyboard extends Component {
             <TouchableOpacity
               style={[styles.digit, !calculationMode && { backgroundColor: palette.blue }]}
               onPress={() => (calculationMode ? this.calculate() : handleSubmit())}>
-              <Text style={{ color: !calculationMode ? "white" : "black" }}>
-                { calculationMode ? "=" : "OK"}
-              </Text>
+              <Text style={{ color: !calculationMode ? "white" : "black" }}>{calculationMode ? "=" : "OK"}</Text>
             </TouchableOpacity>
           </View>
-
         </View>
-
       </View>
     )
   }

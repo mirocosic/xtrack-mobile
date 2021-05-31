@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 import { Alert, ScrollView, View, TextInput, TouchableOpacity } from "react-native"
 import { Modalize } from "react-native-modalize"
 import { DarkModeContext } from "react-native-dark-mode"
@@ -11,12 +11,11 @@ import Icon from "../../components/icon"
 import { Copy, CopyBlue } from "../../components/typography"
 import styles from "./styles"
 
-const colors = ["#FF5722", "#F39A27", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
+const colors = ["#FF5722", "#F39A27", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"]
 
 const defaultCategory = { icon: "shoppingBasket", color: "#0097A7" }
 
 class CategoryEdit extends Component {
-
   static contextType = DarkModeContext
 
   state = { category: this.props.categories.filter(item => this.props.route.params.id === item.id)[0] || defaultCategory }
@@ -26,7 +25,6 @@ class CategoryEdit extends Component {
   iconsModal = React.createRef()
 
   colorModal = React.createRef()
-
 
   handleSave = (category) => {
     const { edit, add, setDefault, navigation } = this.props
@@ -43,18 +41,20 @@ class CategoryEdit extends Component {
   deleteCategory = (category) => {
     const { remove, removeTransactions, navigation } = this.props
     if (this.countTransactions(category.id) > 0) {
-      Alert.alert(
-        "Warning!",
-        "Cannot delete category that has transactions",
-        [{
+      Alert.alert("Warning!", "Cannot delete category that has transactions", [
+        {
           text: "Cancel",
           style: "cancel",
         },
         {
           text: "Delete all transactions",
-          onPress: () => { removeTransactions(category); remove(category); navigation.goBack() },
-        }],
-      )
+          onPress: () => {
+            removeTransactions(category)
+            remove(category)
+            navigation.goBack()
+          },
+        },
+      ])
     } else {
       remove(category)
       navigation.goBack()
@@ -76,7 +76,6 @@ class CategoryEdit extends Component {
 
         <ScrollView style={{ margin: 20 }} contentContainerStyle={{ flex: 1, justifyContent: "space-between" }}>
           <View>
-
             <View style={styles.inputContainer}>
               <Copy>Name</Copy>
               <TextInput
@@ -87,7 +86,8 @@ class CategoryEdit extends Component {
                     ...category,
                     ...{ name: text },
                   },
-                })}
+                })
+                }
                 placeholder="category name"
                 placeholderTextColor="gray"
                 value={category.name}
@@ -125,7 +125,8 @@ class CategoryEdit extends Component {
                     ...category,
                     ...{ budget: text },
                   },
-                })}
+                })
+                }
                 returnKeyType="done"
                 keyboardType="numeric"
                 onSubmitEditing={() => this.handleSave(category)}
@@ -134,29 +135,18 @@ class CategoryEdit extends Component {
                 value={category.budget}
               />
             </View>
-
           </View>
 
-          <TouchableOpacity
-            onPress={() => this.handleSave(category)}>
-            <LinearGradient
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              colors={["#2292f4", "#2031f4"]}
-              style={[{ height: 50, width: 200 }, styles.add]}>
+          <TouchableOpacity onPress={() => this.handleSave(category)}>
+            <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={["#2292f4", "#2031f4"]} style={[{ height: 50, width: 200 }, styles.add]}>
               <Copy style={{ color: "white" }}>Save</Copy>
             </LinearGradient>
           </TouchableOpacity>
-
-
         </ScrollView>
 
-        <Modalize
-          adjustToContentHeight
-          modalStyle={[styles.modal, darkMode && styles.modalDark]}
-          ref={this.colorModal}>
+        <Modalize adjustToContentHeight modalStyle={[styles.modal, darkMode && styles.modalDark]} ref={this.colorModal}>
           <View style={styles.colorPicker}>
-            { colors.map(color => (
+            {colors.map(color => (
               <TouchableOpacity
                 key={color}
                 style={[styles.colorBox, category.color === color && styles.selectedColor, { backgroundColor: color }]}
@@ -169,10 +159,7 @@ class CategoryEdit extends Component {
           </View>
         </Modalize>
 
-        <Modalize
-          adjustToContentHeight
-          modalStyle={[styles.modal, darkMode && styles.modalDark]}
-          ref={this.iconsModal}>
+        <Modalize adjustToContentHeight modalStyle={[styles.modal, darkMode && styles.modalDark]} ref={this.iconsModal}>
           <View style={{ padding: 20 }}>
             <CategoryIcons
               selected={category.icon || "car"}
@@ -183,7 +170,6 @@ class CategoryEdit extends Component {
             />
           </View>
         </Modalize>
-
       </Screen>
     )
   }

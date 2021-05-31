@@ -11,10 +11,9 @@ import Icon from "../../components/icon"
 import { Copy, CopyBlue } from "../../components/typography"
 import styles from "./styles"
 
-const colors = ["#FF5722", "#F39A27", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
+const colors = ["#FF5722", "#F39A27", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"]
 
 class AccountEdit extends Component {
-
   static contextType = DarkModeContext
 
   state = {
@@ -54,18 +53,20 @@ class AccountEdit extends Component {
     const { remove, removeTransactions, navigation, transactions } = this.props
     const count = transactions.filter(item => account.id === get(item, "account.id")).length
     if (count > 0) {
-      Alert.alert(
-        "Warning!",
-        "Cannot delete account that contains transactions",
-        [{
+      Alert.alert("Warning!", "Cannot delete account that contains transactions", [
+        {
           text: "Cancel",
           style: "cancel",
         },
         {
           text: "Delete all transactions",
-          onPress: () => { removeTransactions(account); remove(account); navigation.goBack() },
-        }],
-      )
+          onPress: () => {
+            removeTransactions(account)
+            remove(account)
+            navigation.goBack()
+          },
+        },
+      ])
     } else {
       remove(account)
       navigation.goBack()
@@ -87,9 +88,7 @@ class AccountEdit extends Component {
 
         <ScrollView style={{ padding: 20 }} contentContainerStyle={{ flex: 1, justifyContent: "space-between" }}>
           <View>
-
             <View style={styles.inputContainer}>
-
               <Copy>Name</Copy>
               <TextInput
                 ref={this.input}
@@ -99,7 +98,8 @@ class AccountEdit extends Component {
                     ...account,
                     ...{ name: text },
                   },
-                })}
+                })
+                }
                 placeholder="account name"
                 placeholderTextColor="gray"
                 value={account.name}
@@ -137,10 +137,11 @@ class AccountEdit extends Component {
                     ...account,
                     ...{ startingBalance: text },
                   },
-                })}
+                })
+                }
                 placeholderTextColor="gray"
                 value={account.startingBalance}
-            />
+              />
             </View>
 
             <View style={[styles.inlineBetween, { margin: 10 }]}>
@@ -149,26 +150,16 @@ class AccountEdit extends Component {
                 <CopyBlue style={{ fontSize: 20 }}>{account.currency || "HRK"}</CopyBlue>
               </TouchableOpacity>
             </View>
-
           </View>
 
-          <TouchableOpacity
-            onPress={() => this.handleSave(account)}>
-            <LinearGradient
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              colors={["#2292f4", "#2031f4"]}
-              style={[{ height: 50, width: 200 }, styles.add]}>
+          <TouchableOpacity onPress={() => this.handleSave(account)}>
+            <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={["#2292f4", "#2031f4"]} style={[{ height: 50, width: 200 }, styles.add]}>
               <Copy style={{ color: "white" }}>Save</Copy>
             </LinearGradient>
           </TouchableOpacity>
-
         </ScrollView>
 
-        <Modalize
-          adjustToContentHeight
-          modalStyle={[styles.modal, darkMode && styles.modalDark]}
-          ref={this.iconsModal}>
+        <Modalize adjustToContentHeight modalStyle={[styles.modal, darkMode && styles.modalDark]} ref={this.iconsModal}>
           <View style={{ padding: 20 }}>
             <CategoryIcons
               selected={account.icon || "car"}
@@ -180,13 +171,9 @@ class AccountEdit extends Component {
           </View>
         </Modalize>
 
-        <Modalize
-          adjustToContentHeight
-          modalStyle={[styles.modal, darkMode && styles.modalDark]}
-          ref={this.colorModal}
-        >
+        <Modalize adjustToContentHeight modalStyle={[styles.modal, darkMode && styles.modalDark]} ref={this.colorModal}>
           <View style={styles.colorPicker}>
-            { colors.map(color => (
+            {colors.map(color => (
               <TouchableOpacity
                 key={color}
                 style={[styles.colorBox, account.color === color && styles.selectedColor, { backgroundColor: color }]}
@@ -199,10 +186,7 @@ class AccountEdit extends Component {
           </View>
         </Modalize>
 
-        <Modalize
-          adjustToContentHeight
-          modalStyle={[styles.modal, darkMode && styles.modalDark]}
-          ref={this.currencyModal}>
+        <Modalize adjustToContentHeight modalStyle={[styles.modal, darkMode && styles.modalDark]} ref={this.currencyModal}>
           <View style={{ padding: 20 }}>
             <TouchableOpacity
               style={{ margin: 20 }}
@@ -218,8 +202,7 @@ class AccountEdit extends Component {
               onPress={() => {
                 this.setState({ account: { ...account, currency: "EUR" } })
                 this.currencyModal.current.close()
-              }}
-            >
+              }}>
               <Copy style={{ fontSize: 14 }}>EUR - European Euro</Copy>
             </TouchableOpacity>
 
@@ -228,14 +211,11 @@ class AccountEdit extends Component {
               onPress={() => {
                 this.setState({ account: { ...account, currency: "USD" } })
                 this.currencyModal.current.close()
-              }}
-            >
+              }}>
               <Copy style={{ fontSize: 14 }}>USD - United States Dollar</Copy>
             </TouchableOpacity>
-
           </View>
         </Modalize>
-
       </Screen>
     )
   }

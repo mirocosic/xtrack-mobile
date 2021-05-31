@@ -3,7 +3,6 @@ import { safePaddingBottom } from "../../utils/ui-utils"
 import palette from "../../utils/palette"
 
 export default StyleSheet.create({
-
   wrap: {
     backgroundColor: palette.light,
     borderColor: palette.blue,
@@ -34,5 +33,4 @@ export default StyleSheet.create({
   },
 
   digitDark: { backgroundColor: palette.darkGray, color: "white" },
-
 })

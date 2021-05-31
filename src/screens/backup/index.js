@@ -5,13 +5,10 @@ import { Screen, Header, Footer } from "../../components"
 import { Copy, CopyBlue } from "../../components/typography"
 
 class Backup extends Component {
-
   state = {}
 
   createBackup = () => {
-    Alert.alert("In development", "This feature is coming soon! Please hold on 🙂", [
-      { text: "OK", onPress: () => {} },
-    ])
+    Alert.alert("In development", "This feature is coming soon! Please hold on 🙂", [{ text: "OK", onPress: () => {} }])
   }
 
   render() {

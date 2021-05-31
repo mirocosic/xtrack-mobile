@@ -12,10 +12,7 @@ import { isAndroid } from "../../utils/os-utils"
 
 const renderDeleteButton = (label, remove) => (
   <View style={[{ width: 70 }]}>
-    <RectButton
-      onPress={() => remove(label.id)}
-      style={styles.deleteButton}
-      activeOpacity={0.5}>
+    <RectButton onPress={() => remove(label.id)} style={styles.deleteButton} activeOpacity={0.5}>
       <Icon type="trash-alt" />
     </RectButton>
   </View>
@@ -30,27 +27,16 @@ const Labels = ({ remove, navigation, labels }) => {
       <ScrollView>
         <View>
           {labels.map(label => (
-            <Swipeable
-              key={label.id}
-              renderRightActions={() => renderDeleteButton(label, remove)}
-              containerStyle={styles.swiperWrap}>
-              <RectButton
-                key={label.id}
-                style={[styles.wrap, darkMode && styles.wrapDark]}
-                onPress={() => navigation.navigate("LabelEdit", { label })}>
+            <Swipeable key={label.id} renderRightActions={() => renderDeleteButton(label, remove)} containerStyle={styles.swiperWrap}>
+              <RectButton key={label.id} style={[styles.wrap, darkMode && styles.wrapDark]} onPress={() => navigation.navigate("LabelEdit", { label })}>
                 <View key={label.id} style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <View style={{ width: 30, height: 30, backgroundColor: label.color, marginRight: 10, borderRadius: 50 }} />
                     <Copy>{label.name}</Copy>
                   </View>
 
-                  <Icon
-                    type="chevronRight"
-                    style={{ backgroundColor: "transparent" }}
-                    textStyle={{ color: "gray" }} />
-
+                  <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
                 </View>
-
               </RectButton>
             </Swipeable>
           ))}
@@ -58,18 +44,12 @@ const Labels = ({ remove, navigation, labels }) => {
       </ScrollView>
 
       <View style={[isAndroid && { paddingBottom: 10 }, { width: "80%", left: "10%", bottom: 20, position: "absolute" }]}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("LabelEdit", { label: { color: "#0097A7" } })}>
-          <LinearGradient
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            colors={["#2292f4", "#2031f4"]}
-            style={[{ height: 50, width: 200 }, styles.add]}>
+        <TouchableOpacity onPress={() => navigation.navigate("LabelEdit", { label: { color: "#0097A7" } })}>
+          <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={["#2292f4", "#2031f4"]} style={[{ height: 50, width: 200 }, styles.add]}>
             <Copy style={{ color: "white" }}>Add new tag</Copy>
           </LinearGradient>
         </TouchableOpacity>
       </View>
-
     </Screen>
   )
 }

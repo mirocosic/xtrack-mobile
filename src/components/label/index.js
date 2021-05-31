@@ -6,7 +6,6 @@ import palette from "../../utils/palette"
 import styles from "./styles"
 
 export default class Label extends Component {
-
   labelCopyColor = (labelColor) => {
     switch (labelColor) {
       case "blue":
@@ -23,16 +22,12 @@ export default class Label extends Component {
     return (
       <View
         key={label.uuid}
-        style={[styles.label, { backgroundColor: label.color, borderWidth: 1, borderColor: label.color ? label.color : palette.lightGray }, style]}
-      >
-        <Copy style={{ fontSize: 12, color: this.labelCopyColor(label.color) }}>{ label.name }</Copy>
-        { removeLabel && (
-          <TouchableOpacity
-            onPress={() => removeLabel(label)}
-            style={styles.removeLabel}>
+        style={[styles.label, { backgroundColor: label.color, borderWidth: 1, borderColor: label.color ? label.color : palette.lightGray }, style]}>
+        <Copy style={{ fontSize: 12, color: this.labelCopyColor(label.color) }}>{label.name}</Copy>
+        {removeLabel && (
+          <TouchableOpacity onPress={() => removeLabel(label)} style={styles.removeLabel}>
             <View style={{ backgroundColor: "white", borderRadius: 10, width: 16, height: 16, alignItems: "center", justifyContent: "center" }}>
               <Icon type="times" textStyle={{ color: label.color, fontSize: 12 }} style={{ marginTop: 1, marginLeft: 2 }} />
-
             </View>
           </TouchableOpacity>
         )}

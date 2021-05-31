@@ -5,7 +5,6 @@ import { DarkModeContext } from "react-native-dark-mode"
 import styles from "./styles"
 
 export default class Digit extends Component {
-
   static contextType = DarkModeContext
 
   state = { pressed: false }
@@ -22,10 +21,18 @@ export default class Digit extends Component {
         onPressOut={() => this.setState({ pressed: false })}
         onShowUnderlay={() => this.setState({ pressed: true })}
         onHideUnderlay={() => this.setState({ pressed: false })}
-        style={[styles.digit, darkMode && styles.digitDark, pressed && styles.pressedDigit]}
+        style={[
+          styles.digit,
+          darkMode && styles.digitDark,
+          pressed && styles.pressedDigit,
+        ]}
         onPress={() => handlePress(digit)}>
         <Text
-          style={[small ? styles.copySmall : styles.copy, darkMode && styles.copyDark, pressed && styles.pressedCopy]}>
+          style={[
+            small ? styles.copySmall : styles.copy,
+            darkMode && styles.copyDark,
+            pressed && styles.pressedCopy,
+          ]}>
           {digit}
         </Text>
       </TouchableOpacity>

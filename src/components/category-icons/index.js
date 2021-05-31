@@ -5,16 +5,10 @@ import propTypes from "prop-types"
 import styles from "./styles"
 
 function getKeyByValue(object, value) {
-  return Object.keys(object).find(key => object[key] === value);
+  return Object.keys(object).find(key => object[key] === value)
 }
 
-const regular = [
-  Icons.addressCard,
-  Icons.creditCard,
-  Icons.bell,
-  Icons.square,
-  Icons.moneyBillAlt,
-]
+const regular = [Icons.addressCard, Icons.creditCard, Icons.bell, Icons.square, Icons.moneyBillAlt]
 
 const solid = [
   Icons.archive,
@@ -62,29 +56,25 @@ const solid = [
 const CategoryIcons = props => (
   <View style={styles.container}>
     <View style={styles.iconWrap}>
-      { regular.map(value => (
-        <TouchableOpacity
-          key={value}
-          onPress={() => props.select(getKeyByValue(Icons, value))}>
-          <FontAwesome
-            type="FontAwesome5FreeRegular"
-            style={[styles.icon, Icons[props.selected] === value && styles.selected]}>{value}
-          </FontAwesome>
-        </TouchableOpacity>
-      ))}
-
-      { solid.map(value => (
-        <TouchableOpacity
-          key={`${value}solid`}
-          onPress={() => { props.select(getKeyByValue(Icons, value)) }}>
-          <FontAwesome
-            type="FontAwesome5FreeSolid"
-            style={[styles.icon, Icons[props.selected] === value && styles.selected]}>
+      {regular.map(value => (
+        <TouchableOpacity key={value} onPress={() => props.select(getKeyByValue(Icons, value))}>
+          <FontAwesome type="FontAwesome5FreeRegular" style={[styles.icon, Icons[props.selected] === value && styles.selected]}>
             {value}
           </FontAwesome>
         </TouchableOpacity>
       ))}
 
+      {solid.map(value => (
+        <TouchableOpacity
+          key={`${value}solid`}
+          onPress={() => {
+            props.select(getKeyByValue(Icons, value))
+          }}>
+          <FontAwesome type="FontAwesome5FreeSolid" style={[styles.icon, Icons[props.selected] === value && styles.selected]}>
+            {value}
+          </FontAwesome>
+        </TouchableOpacity>
+      ))}
     </View>
   </View>
 )

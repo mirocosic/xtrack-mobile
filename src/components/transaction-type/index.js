@@ -1,6 +1,10 @@
 import React, { Component } from "react"
 import { Animated, Easing, View, TouchableOpacity } from "react-native"
-import { FlingGestureHandler, Directions, State } from "react-native-gesture-handler"
+import {
+  FlingGestureHandler,
+  Directions,
+  State,
+} from "react-native-gesture-handler"
 import ReactNativeHapticFeedback from "react-native-haptic-feedback"
 import { Copy } from "../typography"
 import __ from "../../utils/translations"
@@ -9,32 +13,33 @@ import styles from "./styles"
 const offsets = { expense: 0, income: 120, transfer: 240 }
 
 class TransactionType extends Component {
-
   state = {
     currentType: this.props.transaction.type,
     xOffset: new Animated.Value(offsets[this.props.transaction.type] || 0),
   }
 
-  touchX = new Animated.Value(0);
+  touchX = new Animated.Value(0)
 
-  onPanGestureEvent = Animated.event([{ nativeEvent: { x: this.touchX } }], { useNativeDriver: true })
+  onPanGestureEvent = Animated.event([{ nativeEvent: { x: this.touchX } }], {
+    useNativeDriver: true,
+  })
 
-  onClick = (type) => {
+  onClick = type => {
     const { xOffset } = this.state
     let position = 0
     switch (type) {
       case "expense":
         position = 0
         this.setState({ currentType: "expense" })
-        break;
+        break
       case "income":
         position = 120
         this.setState({ currentType: "income" })
-        break;
+        break
       case "transfer":
         position = 240
         this.setState({ currentType: "transfer" })
-        break;
+        break
       default:
         position = 0
     }
@@ -51,8 +56,12 @@ class TransactionType extends Component {
 
     const color = xOffset.interpolate({
       inputRange: [0, 100, 200],
-      outputRange: ["rgba(189, 13, 13, 1)", "rgba(3, 120, 1, 1)", "rgba(4, 80, 135, 1)"],
-    });
+      outputRange: [
+        "rgba(189, 13, 13, 1)",
+        "rgba(3, 120, 1, 1)",
+        "rgba(4, 80, 135, 1)",
+      ],
+    })
 
     const width = xOffset.interpolate({
       inputRange: [0, 60, 120, 180, 240],
@@ -77,8 +86,8 @@ class TransactionType extends Component {
             if (nativeEvent.state === State.END) {
               ReactNativeHapticFeedback.trigger("impactLight")
             }
-          }}>
-
+          }}
+        >
           <FlingGestureHandler
             direction={Directions.LEFT}
             onHandlerStateChange={({ nativeEvent }) => {
@@ -92,39 +101,51 @@ class TransactionType extends Component {
                 }
               }
 
-              ReactNativeHapticFeedback.trigger("impactLight");
-
-            }}>
+              ReactNativeHapticFeedback.trigger("impactLight")
+            }}
+          >
             <Animated.View style={styles.formFieldWrap}>
-              <Animated.View style={[
-                styles.slider,
-                {
-                  backgroundColor: color,
-                  height: 40,
-                  width,
-                  left: xOffset,
-                }]}>
-
-              </Animated.View>
-
+              <Animated.View
+                style={[
+                  styles.slider,
+                  {
+                    backgroundColor: color,
+                    height: 40,
+                    width,
+                    left: xOffset,
+                  },
+                ]}
+              />
 
               <TouchableOpacity
-                onPress={() => { setType("expense"); this.onClick("expense") }}
-                style={[styles.transactionTypeButton]}>
+                onPress={() => {
+                  setType("expense")
+                  this.onClick("expense")
+                }}
+                style={[styles.transactionTypeButton]}
+              >
                 <View style={styles.typeWrap}>
                   <Copy style={{ color: "white" }}>EXPENSE</Copy>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => { setType("income"); this.onClick("income") }}
-                style={[styles.transactionTypeButton]}>
+                onPress={() => {
+                  setType("income")
+                  this.onClick("income")
+                }}
+                style={[styles.transactionTypeButton]}
+              >
                 <View style={styles.typeWrap}>
                   <Copy style={{ color: "white" }}>{__("INCOME")}</Copy>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => { setType("transfer"); this.onClick("transfer") }}
-                style={[styles.transactionTypeButton]}>
+                onPress={() => {
+                  setType("transfer")
+                  this.onClick("transfer")
+                }}
+                style={[styles.transactionTypeButton]}
+              >
                 <View style={styles.typeWrap}>
                   <Copy style={{ color: "white" }}>TRANSFER</Copy>
                 </View>

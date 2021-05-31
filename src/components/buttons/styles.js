@@ -1,7 +1,6 @@
 import { StyleSheet } from "react-native"
 
 export default StyleSheet.create({
-
   wrap: {
     padding: 10,
     marginTop: 5,
@@ -10,5 +9,4 @@ export default StyleSheet.create({
   },
 
   label: { color: "white" },
-
 })

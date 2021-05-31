@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { View, TouchableOpacity } from "react-native"
 import { DarkModeContext } from "react-native-dark-mode"
-import { DrawerContentScrollView } from "@react-navigation/drawer";
+import { DrawerContentScrollView } from "@react-navigation/drawer"
 
 import { PrimaryButton } from "../buttons"
 import Icon from "../icon"
@@ -10,45 +10,48 @@ import palette from "../../utils/palette"
 import styles from "./styles"
 
 export default class Drawer extends Component {
-
   static contextType = DarkModeContext
 
   render() {
     const darkMode = this.context === "dark"
     const {
-      categories, accounts, changeAccountFilter, changeCategoryFilter, resetFilters,
-      applyLabelFilter, removeLabelFilter, navigation,
-      accountFilter, categoryFilter, labels, appliedLabelsFilter,
-    } = this.props;
+      categories,
+      accounts,
+      changeAccountFilter,
+      changeCategoryFilter,
+      resetFilters,
+      applyLabelFilter,
+      removeLabelFilter,
+      navigation,
+      accountFilter,
+      categoryFilter,
+      labels,
+      appliedLabelsFilter,
+    } = this.props
 
     return (
       <DrawerContentScrollView>
         <View style={styles.contentHeader}>
           <Title>Filters</Title>
           <TouchableOpacity onPress={() => navigation.closeDrawer()}>
-            <Icon
-              type="times"
-              style={{ backgroundColor: darkMode ? palette.dark : "white" }}
-              textStyle={{ color: darkMode ? "white" : "black" }} />
-
+            <Icon type="times" style={{ backgroundColor: darkMode ? palette.dark : "white" }} textStyle={{ color: darkMode ? "white" : "black" }} />
           </TouchableOpacity>
         </View>
 
         <View style={{ paddingLeft: 5 }}>
-
           <Copy style={{ paddingTop: 10 }}>Account</Copy>
           <View style={{ paddingTop: 10, paddingLeft: 10 }}>
-            { accounts.map(acc => (
+            {accounts.map(acc => (
               <TouchableOpacity
                 key={acc.id}
                 style={{ flexDirection: "row", alignItems: "center", margin: 5 }}
                 onPress={() => (accountFilter.id === acc.id ? changeAccountFilter(false) : changeAccountFilter(acc))}>
                 <View style={{ borderRadius: 20, borderWidth: 2, borderColor: "teal", marginRight: 5 }}>
-                  {
-                          accountFilter.id === acc.id
-                            ? <Icon type="check" style={{ width: 22, height: 22 }} textStyle={{ color: "teal", fontSize: 14 }} />
-                            : <Icon style={{ width: 22, height: 22 }} textStyle={{ color: "teal", fontSize: 14 }} />
-                        }
+                  {accountFilter.id === acc.id ? (
+                    <Icon type="check" style={{ width: 22, height: 22 }} textStyle={{ color: "teal", fontSize: 14 }} />
+                  ) : (
+                    <Icon style={{ width: 22, height: 22 }} textStyle={{ color: "teal", fontSize: 14 }} />
+                  )}
                 </View>
                 <Copy style={{ fontSize: 14 }}>{acc.name}</Copy>
               </TouchableOpacity>
@@ -58,17 +61,17 @@ export default class Drawer extends Component {
           <View style={{ marginTop: 20 }}>
             <Copy>Category</Copy>
             <View style={{ paddingTop: 10, paddingLeft: 10 }}>
-              { categories.map(cat => (
+              {categories.map(cat => (
                 <TouchableOpacity
                   key={cat.id}
                   onPress={() => (categoryFilter.id === cat.id ? changeCategoryFilter(false) : changeCategoryFilter(cat))}
                   style={{ flexDirection: "row", alignItems: "center", margin: 5 }}>
                   <View style={{ borderRadius: 20, borderWidth: 2, borderColor: "teal", marginRight: 5 }}>
-                    {
-                            categoryFilter.id === cat.id
-                              ? <Icon type="check" style={{ width: 22, height: 22 }} textStyle={{ color: "teal", fontSize: 14 }} />
-                              : <Icon style={{ width: 22, height: 22 }} textStyle={{ color: "teal", fontSize: 14 }} />
-                          }
+                    {categoryFilter.id === cat.id ? (
+                      <Icon type="check" style={{ width: 22, height: 22 }} textStyle={{ color: "teal", fontSize: 14 }} />
+                    ) : (
+                      <Icon style={{ width: 22, height: 22 }} textStyle={{ color: "teal", fontSize: 14 }} />
+                    )}
                   </View>
                   <Copy style={{ fontSize: 14 }}>{cat.name}</Copy>
                 </TouchableOpacity>
@@ -79,19 +82,21 @@ export default class Drawer extends Component {
           <View style={{ marginTop: 20 }}>
             <Copy>Labels</Copy>
             <View style={{ padding: 10 }}>
-              { labels.map((item) => {
+              {labels.map((item) => {
                 const labelFilterApplied = appliedLabelsFilter.find(labelFilter => labelFilter.id === item.id)
                 return (
                   <TouchableOpacity
                     key={item.id}
-                    onPress={() => { labelFilterApplied ? removeLabelFilter(item) : applyLabelFilter(item) }}>
+                    onPress={() => {
+                      labelFilterApplied ? removeLabelFilter(item) : applyLabelFilter(item)
+                    }}>
                     <View style={{ flexDirection: "row", alignItems: "center", paddingLeft: 5 }}>
                       <View style={{ borderWidth: 2, borderColor: "teal", borderRadius: 5 }}>
-                        {
-                                labelFilterApplied
-                                  ? <Icon type="check" style={{ width: 22, height: 22 }} textStyle={{ color: "teal", fontSize: 14 }} />
-                                  : <Icon style={{ width: 22, height: 22 }} textStyle={{ color: "teal" }} />
-                              }
+                        {labelFilterApplied ? (
+                          <Icon type="check" style={{ width: 22, height: 22 }} textStyle={{ color: "teal", fontSize: 14 }} />
+                        ) : (
+                          <Icon style={{ width: 22, height: 22 }} textStyle={{ color: "teal" }} />
+                        )}
                       </View>
 
                       <View style={{ padding: 5, backgroundColor: item.color, margin: 5, borderRadius: 5 }}>
@@ -105,10 +110,13 @@ export default class Drawer extends Component {
           </View>
 
           <PrimaryButton
-            onPress={() => { resetFilters(); navigation.closeDrawer(); }}
+            onPress={() => {
+              resetFilters()
+              navigation.closeDrawer()
+            }}
             label="Clear"
-            style={{ borderRadius: 20, alignItems: "center" }} />
-
+            style={{ borderRadius: 20, alignItems: "center" }}
+          />
         </View>
       </DrawerContentScrollView>
     )

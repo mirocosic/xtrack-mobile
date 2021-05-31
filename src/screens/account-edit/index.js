@@ -1,5 +1,5 @@
-import { connect } from "react-redux";
-import Component from "./component";
+import { connect } from "react-redux"
+import Component from "./component"
 
 export default connect(
   state => ({
@@ -16,4 +16,4 @@ export default connect(
     removeTransactions: account => dispatch({ type: "REMOVE_ACCOUNT_TRANSACTIONS", account }),
     setDefault: account => dispatch({ type: "SET_DEFAULT_ACCOUNT", account }),
   }),
-)(Component);
+)(Component)

@@ -10,19 +10,27 @@
   "env": {
     "es6": true
   },
-  "extends": "airbnb",
+  "extends": [
+    "airbnb",
+    "plugin:prettier/recommended",
+  ],
+  "plugins": ["prettier"],
+
   "rules": {
-      "func-names": [2, "never"],
-      "max-len": [2, { "code": 150 }],
-      "semi": 0,
-      "quotes": [1, "double"],
-      "padded-blocks": [0, "always"],
-      "object-curly-newline": [2, { "multiline": true }],
-      "no-unused-expressions": [2, { "allowShortCircuit": true, "allowTernary": true }],
-      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-      "react/jsx-boolean-value": [1],
-      "react/jsx-closing-bracket-location": [0],
-      "react/jsx-one-expression-per-line": [0],
-      "react/prop-types": [0],
-    }
+    "func-names": [2, "never"],
+    "max-len": [2, {"code": 150}],
+    "semi": [0, "never"],
+    "quotes": [1, "double"],
+    "padded-blocks": [0, "always"],
+    "object-curly-newline": [2, {"multiline": true}],
+    "no-unused-expressions": [
+      2,
+      {"allowShortCircuit": true, "allowTernary": true}
+    ],
+    "react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx"]}],
+    "react/jsx-boolean-value": [1],
+    "react/jsx-closing-bracket-location": [0],
+    "react/jsx-one-expression-per-line": [0],
+    "react/prop-types": [0]
+  }
 }

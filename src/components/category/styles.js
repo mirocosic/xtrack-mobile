@@ -19,7 +19,6 @@ export default StyleSheet.create({
     backgroundColor: palette.dark,
   },
 
-
   deleteButton: {
     alignItems: "center",
     justifyContent: "center",

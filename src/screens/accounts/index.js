@@ -1,5 +1,5 @@
-import { connect } from "react-redux";
-import Component from "./component";
+import { connect } from "react-redux"
+import Component from "./component"
 
 export default connect(
   state => ({
@@ -15,4 +15,4 @@ export default connect(
     setTo: payload => dispatch({ type: "SELECT_TO_ACCOUNT", payload }),
     setFrom: payload => dispatch({ type: "SELECT_FROM_ACCOUNT", payload }),
   }),
-)(Component);
+)(Component)

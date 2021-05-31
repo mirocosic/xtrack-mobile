@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native"
 import palette from "../../utils/palette"
 
 export default StyleSheet.create({
-
   wrap: {
     flexDirection: "row",
     alignItems: "center",
@@ -54,5 +53,4 @@ export default StyleSheet.create({
     alignSelf: "center",
     backgroundColor: palette.blue,
   },
-
 })

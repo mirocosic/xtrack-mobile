@@ -1,7 +1,6 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from "react-native"
 
 export default StyleSheet.create({
-
   addButton: {
     position: "absolute",
     bottom: 20,
@@ -12,5 +11,4 @@ export default StyleSheet.create({
     justifyContent: "center",
     padding: 0,
   },
-
 })

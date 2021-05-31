@@ -1,7 +1,6 @@
 import { StyleSheet } from "react-native"
 
 export default StyleSheet.create({
-
   typeWrap: { paddingTop: 2 },
 
   formFieldWrap: {
@@ -32,5 +31,4 @@ export default StyleSheet.create({
     position: "absolute",
     backgroundColor: "red",
   },
-
 })

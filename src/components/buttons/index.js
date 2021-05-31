@@ -4,7 +4,7 @@ import { Copy } from "../typography"
 import palette from "../../utils/palette"
 import styles from "./styles"
 
-export const PrimaryButton = (props) => {
+export const PrimaryButton = props => {
   const { label, onPress, style } = props
 
   return (
@@ -16,7 +16,7 @@ export const PrimaryButton = (props) => {
   )
 }
 
-export const SecondaryButton = (props) => {
+export const SecondaryButton = props => {
   const { label, onPress } = props
 
   return (
@@ -28,7 +28,7 @@ export const SecondaryButton = (props) => {
   )
 }
 
-export const TertiaryButton = (props) => {
+export const TertiaryButton = props => {
   const { label, onPress } = props
 
   return (

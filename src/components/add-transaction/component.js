@@ -13,9 +13,15 @@ const AddTransaction = props => (
     }}
     style={styles.addButton}>
     <Icon
-      style={{ backgroundColor: "teal", width: 50, height: 50, borderRadius: 25 }}
+      style={{
+        backgroundColor: "teal",
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+      }}
       textStyle={{ fontSize: 30 }}
-      type="plus" />
+      type="plus"
+    />
   </TouchableOpacity>
 )
 
