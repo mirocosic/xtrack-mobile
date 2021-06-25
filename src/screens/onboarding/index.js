@@ -3,7 +3,7 @@ import { View, Text, ScrollView, Dimensions, Animated, StyleSheet, TouchableOpac
 import LottieView from "lottie-react-native"
 import { RectButton } from "react-native-gesture-handler"
 import SplashScreen from "react-native-splash-screen"
-import AsyncStorage from "@react-native-community/async-storage"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 import Screen from "../../components/screen"
 
