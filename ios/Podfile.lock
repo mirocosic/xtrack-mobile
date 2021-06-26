@@ -234,8 +234,8 @@ PODS:
     - React-cxxreact (= 0.63.3)
     - React-jsi (= 0.63.3)
   - React-jsinspector (0.63.3)
-  - react-native-safe-area-context (0.7.3):
-    - React
+  - react-native-safe-area-context (3.2.0):
+    - React-Core
   - react-native-splash-screen (3.2.0):
     - React
   - React-RCTActionSheet (0.63.3):
@@ -302,25 +302,53 @@ PODS:
     - React
   - RNCAsyncStorage (1.15.5):
     - React-Core
-  - RNCMaskedView (0.1.7):
+  - RNCMaskedView (0.1.11):
     - React
   - RNFBApp (7.3.1):
     - Firebase/CoreOnly (~> 6.25.0)
     - React
-  - RNFS (2.14.1):
+  - RNFS (2.18.0):
     - React
-  - RNGestureHandler (1.8.0):
+  - RNGestureHandler (1.10.3):
+    - React-Core
+  - RNLocalize (1.4.3):
+    - React-Core
+  - RNReactNativeHapticFeedback (1.11.0):
+    - React-Core
+  - RNReanimated (2.2.0):
+    - DoubleConversion
+    - FBLazyVector
+    - FBReactNativeSpec
+    - Folly
+    - glog
+    - RCTRequired
+    - RCTTypeSafety
     - React
-  - RNLocalize (1.3.4):
-    - React
-  - RNReactNativeHapticFeedback (1.8.2):
-    - React
-  - RNReanimated (1.7.0):
-    - React
-  - RNScreens (2.3.0):
-    - React
-  - RNSentry (1.7.1):
-    - React
+    - React-callinvoker
+    - React-Core
+    - React-Core/DevSupport
+    - React-Core/RCTWebSocket
+    - React-CoreModules
+    - React-cxxreact
+    - React-jsi
+    - React-jsiexecutor
+    - React-jsinspector
+    - React-RCTActionSheet
+    - React-RCTAnimation
+    - React-RCTBlob
+    - React-RCTImage
+    - React-RCTLinking
+    - React-RCTNetwork
+    - React-RCTSettings
+    - React-RCTText
+    - React-RCTVibration
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - RNScreens (3.4.0):
+    - React-Core
+    - React-RCTImage
+  - RNSentry (1.9.0):
+    - React-Core
     - Sentry (~> 5.2.0)
   - Sentry (5.2.2):
     - Sentry/Core (= 5.2.2)
@@ -516,7 +544,7 @@ SPEC CHECKSUMS:
   React-jsi: df07aa95b39c5be3e41199921509bfa929ed2b9d
   React-jsiexecutor: b56c03e61c0dd5f5801255f2160a815f4a53d451
   React-jsinspector: 8e68ffbfe23880d3ee9bafa8be2777f60b25cbe2
-  react-native-safe-area-context: e200d4433aba6b7e60b52da5f37af11f7a0b0392
+  react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   React-RCTActionSheet: 53ea72699698b0b47a6421cb1c8b4ab215a774aa
   React-RCTAnimation: 1befece0b5183c22ae01b966f5583f42e69a83c2
@@ -530,15 +558,15 @@ SPEC CHECKSUMS:
   ReactCommon: 4167844018c9ed375cc01a843e9ee564399e53c3
   ReactNativeDarkMode: 0178ffca3b10f6a7c9f49d6f9810232b328fa949
   RNCAsyncStorage: 56a3355a10b5d660c48c6e37325ac85ebfd09885
-  RNCMaskedView: 76c40a1d41c3e2535df09246a2b5487f04de0814
+  RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNFBApp: cd70a6c061bc485994e28c7d58ab760538850f0e
-  RNFS: a8fbe7060fa49157d819466404794ad9c58e58cf
-  RNGestureHandler: 7a5833d0f788dbd107fbb913e09aa0c1ff333c39
-  RNLocalize: 215c419a17d7585eb7a63c748ebfd042e0cb2c3d
-  RNReactNativeHapticFeedback: e11a4da0ce174e9f88b03cbaf5d76d94633cdee2
-  RNReanimated: 031fe8d9ea93c2bd689a40f05320ef9d96f74d7f
-  RNScreens: 03bf608b92ac0acf323f47d8f5b63a8f829340c8
-  RNSentry: 2bae4ffee2e66376ef42cb845a494c3bde17bc56
+  RNFS: 3ab21fa6c56d65566d1fb26c2228e2b6132e5e32
+  RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
+  RNLocalize: 7c7aeda16c01db7a0918981c14875c0a53be9b79
+  RNReactNativeHapticFeedback: 653a8c126a0f5e88ce15ffe280b3ff37e1fbb285
+  RNReanimated: d9da990fc90123f4ffbfdda93d00fc15174863a8
+  RNScreens: 21b73c94c9117e1110a79ee0ee80c93ccefed8ce
+  RNSentry: 1adaa43b01c6a3ab5091d4d1add66b7c58558898
   Sentry: 8fa58a051237554f22507fb483b9a1de0171a2dc
   Yoga: 7d13633d129fd179e01b8953d38d47be90db185a
 

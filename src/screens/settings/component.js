@@ -26,13 +26,13 @@ class Settings extends Component {
     const defaultAccount = accounts.find(acc => acc.defaultAccount)
     const defaultCategory = categories.find(cat => cat.defaultCategory)
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 100; i++) {
       add({
         timestamp: Date.now(),
         type: "expense",
         categoryId: defaultCategory?.id,
         accountId: defaultAccount?.id,
-        amount: 10,
+        amount: 233,
         labels: [],
       })
     }
