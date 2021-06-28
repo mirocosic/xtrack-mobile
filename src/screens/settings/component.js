@@ -115,7 +115,7 @@ class Settings extends Component {
           <View>
             <Copy>Dummy Data</Copy>
             <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
-              Generate Demo Dummy Transactions (x10)
+              Generate Demo Dummy Transactions (x100)
             </Copy>
           </View>
 
@@ -141,7 +141,7 @@ class Settings extends Component {
 
 
 
-        <Copy style={{ textAlign: "center", marginTop: 50 }}>App version: 1.0.8 (40)</Copy>
+        <Copy style={{ textAlign: "center", marginTop: 50 }}>App version: 1.0.10 (1)</Copy>
       </Screen>
     )
   }
