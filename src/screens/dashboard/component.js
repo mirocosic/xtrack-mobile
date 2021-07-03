@@ -32,9 +32,11 @@ const futureMonths = [...Array(12).keys()]
 
 const sum = transactions => transactions.reduce((acc, transaction) => acc + calcAmount(transaction), 0)
 
-const filterByMonth = (transactions, currentMonth) => (
-  transactions.filter(t => moment(t.timestamp) > currentMonth.startOf("month")
-                           && moment(t.timestamp) < currentMonth.endOf("month")))
+const filterByMonth = (transactions, currentDate) => {
+  const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1)
+  const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0)
+  return transactions.filter(t => t.timestamp > firstDayOfMonth.getTime() && t.timestamp < lastDayOfMonth.getTime())
+}
 
 const filterByCategory = (transactions, categoryId) => transactions.filter(t => t.categoryId === categoryId)
 
@@ -204,12 +206,12 @@ class Dashboard extends Component {
 
           { months.map((month, idx) => {
             currentMonth.add(1, "month")
-            const sortedExpenses = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
-            const sortedIncome = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
-            const income = sum(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
-            const expenses = sum(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
-            const currentMonthTransactions = filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth).sort(compare)
-            const currentMonthIncome = filterByMonth(transactions.filter(t => t.type === "income"), currentMonth).sort(compare)
+            const sortedExpenses = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth.toDate()))
+            const sortedIncome = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth.toDate()))
+            const income = sum(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth.toDate()))
+            const expenses = sum(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth.toDate()))
+            const currentMonthTransactions = filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth.toDate()).sort(compare)
+            const currentMonthIncome = filterByMonth(transactions.filter(t => t.type === "income"), currentMonth.toDate()).sort(compare)
 
             const opacity = this.state.scrollX.interpolate({
               inputRange: [(idx - 1) * width, idx * width , width * (idx + 1)],
@@ -296,10 +298,10 @@ class Dashboard extends Component {
 
           {futureMonths.map((month, idx) => {
             currentMonth.add(1, "month")
-            const sortedExpenses = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
-            const sortedIncome = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
-            const income = sum(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth))
-            const expenses = sum(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth))
+            const sortedExpenses = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth.toDate()))
+            const sortedIncome = this.sortByCategory(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth.toDate()))
+            const income = sum(filterByMonth(transactions.filter(t => t.type === "income"), currentMonth.toDate()))
+            const expenses = sum(filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth.toDate()))
             const inputRange = [(idx + 24 - 1) * width, (idx + 24) * width , width * (idx + 24 + 1)]
 
             const opacity = this.state.scrollX.interpolate({
@@ -334,7 +336,6 @@ class Dashboard extends Component {
                   </Animated.View>
 
                   <View />
-
                 </View>
 
 
