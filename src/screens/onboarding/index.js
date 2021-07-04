@@ -128,8 +128,8 @@ const Onboarding = ({ navigation }) => {
             <Animated.Text style={{ textAlign: "center", color: "white", fontSize: 30, fontWeight: "800", transform: [{ translateX: trans1 }] }}>
               Become a master of your finances
             </Animated.Text>
-            <Text style={{ textAlign: "center", marginTop: 20, color: "white" }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus aliquet aliquet dui et faucibus.
+            <Text style={{ textAlign: "center", marginTop: 20, color: "white", fontSize: 16 }}>
+              Do you feel like you have no idea where your money goes? Would you like to know your spending habits?
             </Text>
           </View>
         </View>
@@ -139,8 +139,8 @@ const Onboarding = ({ navigation }) => {
             <Animated.Text style={{ textAlign: "center", color: "white", fontSize: 30, fontWeight: "800", transform: [{ translateX: trans2 }] }}>
               Secure your financial future
             </Animated.Text>
-            <Text style={{ textAlign: "center", marginTop: 20, color: "white" }}>
-              Ut convallis tincidunt justo quis rutrum. In augue libero, ultricies at malesuada at, mollis ut magna.
+            <Text style={{ textAlign: "center", marginTop: 20, color: "white", fontSize: 16 }}>
+              Are you afraid of retirement age and not sure that you'll be financialy safe? Take control of your finances and be sure about your financial future! 
             </Text>
           </View>
         </View>
@@ -150,8 +150,8 @@ const Onboarding = ({ navigation }) => {
             <Animated.Text style={{ textAlign: "center", color: "white", fontSize: 30, fontWeight: "800", transform: [{ translateX: trans3 }] }}>
               Track all your expenses in one place
             </Animated.Text>
-            <Text style={{ textAlign: "center", marginTop: 20, color: "white" }}>
-              Nunc eros sapien, condimentum quis scelerisque eget, vehicula sit amet est. Integer egestas consequat sapien, et pharetra lacus.
+            <Text style={{ textAlign: "center", marginTop: 20, color: "white", fontSize: 16 }}>
+              XTrack will enable you to have an in-depth knowledge of your finances at a glance!
             </Text>
           </View>
         </View>
