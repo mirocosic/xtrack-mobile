@@ -135,13 +135,9 @@ class Settings extends Component {
               <Copy>{language.name}</Copy>
             </TouchableOpacity>
           </View>
-
-
         </View>
 
-
-
-        <Copy style={{ textAlign: "center", marginTop: 50 }}>App version: 1.0.11 (1)</Copy>
+        <Copy style={{ textAlign: "center", marginTop: 50 }}>App version: 1.0.11 (2)</Copy>
       </Screen>
     )
   }
