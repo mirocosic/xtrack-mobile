@@ -63,11 +63,11 @@ class Dashboard extends Component {
   scrollRef = React.createRef()
 
   componentDidMount() {
-    const { navigation, openOnForm } = this.props
+    const { route, navigation, openOnForm } = this.props
     const { width } = Dimensions.get("window")
     !isIos && StatusBar.setBackgroundColor(palette.blue)
-    openOnForm && navigation.navigate("TransactionForm", { clearForm: true })
     setTimeout(() => this.scrollView.scrollTo({ x: width * 23, y: 0, animated: false }), 100)
+    setTimeout((()=> openOnForm && navigation.navigate("TransactionForm", { clearForm: true })), 0)
     setTimeout(() => SplashScreen.hide(), 500)
   }
 

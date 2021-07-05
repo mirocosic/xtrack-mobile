@@ -16,8 +16,8 @@ const MainStack = createStackNavigator()
 const RootStack = createStackNavigator()
 const Drawer = createDrawerNavigator()
 
-const MainStackScreen = () => (
-  <MainStack.Navigator initialRouteName="Onboarding" headerMode="none">
+const MainStackScreen =  () => (
+    <MainStack.Navigator initialRouteName="Splash" headerMode="none">
     <MainStack.Screen name="Main" component={BottomBarNavigator} />
     <MainStack.Screen name="Splash" component={Splash} />
     <MainStack.Screen name="Onboarding" component={Onboarding} />

@@ -137,7 +137,7 @@ class Settings extends Component {
           </View>
         </View>
 
-        <Copy style={{ textAlign: "center", marginTop: 50 }}>App version: 1.0.11 (2)</Copy>
+        <Copy style={{ textAlign: "center", marginTop: 50 }}>App version: 1.0.11 (4)</Copy>
       </Screen>
     )
   }

@@ -65,19 +65,10 @@ const Onboarding = ({ navigation }) => {
     extrapolate: "clamp",
   })
 
-  useEffect(() => {
-    const getAsyncData = async () => {
-      const result = await AsyncStorage.getItem("@onboarding-done")
-      if (result === "true") {
-        navigation.navigate("Main")
-      }
-      setTimeout(() => SplashScreen.hide(), 500)
-    }
-
-    getAsyncData()
-  }, [])
+  useEffect(() => {setTimeout(() => SplashScreen.hide(), 600), []})
 
   return (
+    
     <Screen>
       <Backdrop scrollX={scrollX} />
 
