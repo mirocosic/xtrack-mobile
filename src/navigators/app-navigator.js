@@ -1,6 +1,6 @@
 import React from "react"
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native"
-import { createStackNavigator, CardStyleInterpolators } from "@react-navigation/stack"
+import { createStackNavigator, CardStyleInterpolators, TransitionPresets } from "@react-navigation/stack"
 import { createDrawerNavigator } from "@react-navigation/drawer"
 import { useDarkMode } from "react-native-dark-mode"
 import { Host } from "react-native-portalize"
@@ -33,20 +33,20 @@ const MainStackScreen =  () => (
 
 const Main = () => (
   <Host>
-    <RootStack.Navigator initialRouteName="App" headerMode="none" mode="modal">
+    <RootStack.Navigator initialRouteName="App" headerMode="none" mode="modal"
+       screenOptions={{
+        gestureEnabled: true,
+        cardOverlayEnabled: true,
+        ...TransitionPresets.ModalPresentationIOS}}>
+
       <RootStack.Screen name="App" component={MainStackScreen} />
+      <RootStack.Screen name="TransactionForm" component={TransactionForm} />
 
       <MainStack.Screen name="CategoryEdit" component={CategoryEdit} />
       <MainStack.Screen name="AccountEdit" component={AccountEdit} />
       <MainStack.Screen name="LabelEdit" component={LabelEdit} />
 
-      <RootStack.Screen
-        name="TransactionForm"
-        component={TransactionForm}
-        options={{
-          title: "Profile",
-          cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
-        }} />
+      
     </RootStack.Navigator>
   </Host>
 )

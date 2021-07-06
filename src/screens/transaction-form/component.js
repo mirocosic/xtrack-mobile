@@ -318,9 +318,8 @@ class TransactionForm extends Component {
       <Screen style={{ paddingLeft: 0, paddingRight: 0 }}>
         <Header
           title="Transaction form"
-          actionBtn={<Icon type="times" />}
-          actionBtnPress={() => navigation.goBack()}
-          />
+          style={{paddingTop: 10}}
+        />
 
         <View style={styles.wrap}>
 
