@@ -35,7 +35,6 @@ const Main = () => (
   <Host>
     <RootStack.Navigator initialRouteName="App" headerMode="none" mode="modal"
        screenOptions={{
-        gestureEnabled: true,
         cardOverlayEnabled: true,
         ...TransitionPresets.ModalPresentationIOS}}>
 
@@ -54,11 +53,15 @@ const Main = () => (
 export default () => (
   <NavigationContainer theme={useDarkMode() ? DarkTheme : DefaultTheme}>
     <Drawer.Navigator
-      drawerPosition="right"
+      openByDefault={true}
+      screenOptions={{
+        drawerPosition: "right",
+        headerShown: false
+      }}
       drawerContent={({ navigation }) => <DrawerContent navigation={navigation} />}>
       <Drawer.Screen
-        name="Drawer"
-        component={Main} />
+        name="Main"
+        component={Main}/>
     </Drawer.Navigator>
   </NavigationContainer>
 )

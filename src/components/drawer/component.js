@@ -30,7 +30,7 @@ export default class Drawer extends Component {
     } = this.props
 
     return (
-      <DrawerContentScrollView>
+      <DrawerContentScrollView style={{paddingHorizontal: 20}}>
         <View style={styles.contentHeader}>
           <Title>Filters</Title>
           <TouchableOpacity onPress={() => navigation.closeDrawer()}>
