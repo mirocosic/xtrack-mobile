@@ -2,7 +2,6 @@ import React from "react"
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native"
 import { createStackNavigator, CardStyleInterpolators, TransitionPresets } from "@react-navigation/stack"
 import { createDrawerNavigator } from "@react-navigation/drawer"
-import { useDarkMode } from "react-native-dark-mode"
 import { Host } from "react-native-portalize"
 
 import BottomBarNavigator from "./bottom-bar-navigator"
@@ -11,6 +10,7 @@ import {
   CategoryEdit, Splash, Overview, AccountEdit, LabelEdit, Backup, Onboarding,
 } from "../screens"
 import DrawerContent from "../components/drawer"
+import { useDarkTheme } from "../utils/ui-utils"
 
 const MainStack = createStackNavigator()
 const RootStack = createStackNavigator()
@@ -51,7 +51,7 @@ const Main = () => (
 )
 
 export default () => (
-  <NavigationContainer theme={useDarkMode() ? DarkTheme : DefaultTheme}>
+  <NavigationContainer theme={useDarkTheme() ? DarkTheme : DefaultTheme}>
     <Drawer.Navigator
       openByDefault={true}
       screenOptions={{

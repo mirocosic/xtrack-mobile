@@ -74,7 +74,8 @@ class AccountEdit extends Component {
   }
 
   render() {
-    const darkMode = this.context === "dark"
+    const { theme } = this.props
+    const darkMode =  theme === "system" ? this.context === "dark" : theme === "dark"
     const { account } = this.state
     return (
       <Screen>

@@ -68,8 +68,8 @@ class Accounts extends Component {
   }
 
   render() {
-    const { navigation, accounts, transactions } = this.props
-    const darkMode = this.context === "dark"
+    const { navigation, accounts, transactions, theme } = this.props
+    const darkMode =  theme === "system" ? this.context === "dark" : theme === "dark"
 
     return (
       <Screen>

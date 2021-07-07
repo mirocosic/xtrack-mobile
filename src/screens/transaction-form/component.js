@@ -311,8 +311,8 @@ class TransactionForm extends Component {
 
   render() {
     const { transaction, moreOptionsOpen } = this.state
-    const { navigation, changeTransactionAmount } = this.props
-    const darkMode = this.context === "dark"
+    const { navigation, changeTransactionAmount, theme } = this.props
+    const darkMode =  theme === "system" ? this.context === "dark" : theme === "dark"
 
     return (
       <Screen style={{ paddingLeft: 0, paddingRight: 0 }}>

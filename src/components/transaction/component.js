@@ -2,7 +2,6 @@ import React from "react"
 import { Animated, Text, View, Dimensions, useWindowDimensions } from "react-native"
 import moment from "moment"
 import { get } from "lodash"
-import { useDarkMode } from "react-native-dark-mode"
 
 import { PanGestureHandler, State, RectButton } from "react-native-gesture-handler"
 import Swipeable from 'react-native-gesture-handler/Swipeable'
@@ -12,6 +11,7 @@ import { Copy } from "../typography"
 import Icon from "../icon"
 import { formatCurrency } from "../../utils/currency"
 import palette from "../../utils/palette"
+import { useDarkTheme } from "../../utils/ui-utils"
 import styles from "./styles"
 
 const getAmountColor = (type) => {
@@ -39,7 +39,6 @@ const renderCategory = (categories, id) => {
 }
 
 const Transaction = ({ transaction, selectTransaction, deleteTransaction, navigation, categories }) => {
-  const darkMode = useDarkMode()
 
   const HEIGHT = 65
   
@@ -64,7 +63,7 @@ const Transaction = ({ transaction, selectTransaction, deleteTransaction, naviga
               selectTransaction(transaction)
               navigation.navigate("TransactionForm", { transactionId: transaction.id })
             }}>
-            <View style={[styles.container, { height: HEIGHT }, darkMode && styles.containerDark]}>
+            <View style={[styles.container, { height: HEIGHT }, useDarkTheme() && styles.containerDark]}>
               <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                 {renderCategory(categories, transaction.categoryId)}
                 <Text style={[styles.amount, getAmountColor(transaction.type)]}>{formatCurrency(transaction.amount, transaction.currency)}</Text>

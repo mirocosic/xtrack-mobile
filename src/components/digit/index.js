@@ -1,41 +1,33 @@
-import React, { Component } from "react"
+import React, { Component, useState } from "react"
 import { Text, TouchableOpacity } from "react-native"
-import { DarkModeContext } from "react-native-dark-mode"
-
+import { useDarkTheme } from "../../utils/ui-utils"
 import styles from "./styles"
 
-export default class Digit extends Component {
-  static contextType = DarkModeContext
+export default ({handlePress, small, digit}) => {
+  const [isPressed, setIsPressed] = useState(false)
 
-  state = { pressed: false }
-
-  render() {
-    const { pressed } = this.state
-    const { small, handlePress, digit } = this.props
-    const darkMode = this.context === "dark"
-    return (
-      <TouchableOpacity
+  return (
+    <TouchableOpacity
         underlayColor="teal"
         activeOpacity={0.6}
-        onPressIn={() => this.setState({ pressed: true })}
-        onPressOut={() => this.setState({ pressed: false })}
-        onShowUnderlay={() => this.setState({ pressed: true })}
-        onHideUnderlay={() => this.setState({ pressed: false })}
+        onPressIn={() => setIsPressed(true)}
+        onPressOut={() => setIsPressed(false)}
+        onShowUnderlay={() => setIsPressed(true)}
+        onHideUnderlay={() => setIsPressed(false)}
         style={[
           styles.digit,
-          darkMode && styles.digitDark,
-          pressed && styles.pressedDigit,
+          useDarkTheme() && styles.digitDark,
+          isPressed && styles.pressedDigit,
         ]}
         onPress={() => handlePress(digit)}>
         <Text
           style={[
             small ? styles.copySmall : styles.copy,
-            darkMode && styles.copyDark,
-            pressed && styles.pressedCopy,
+            useDarkTheme() && styles.copyDark,
+            isPressed && styles.pressedCopy,
           ]}>
           {digit}
         </Text>
       </TouchableOpacity>
-    )
-  }
+  )
 }

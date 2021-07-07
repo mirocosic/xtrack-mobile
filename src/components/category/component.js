@@ -69,9 +69,9 @@ class Category extends Component {
   }
 
   render() {
-    const { selectCategory, navigation, data } = this.props
+    const { selectCategory, navigation, data, theme } = this.props
     const cat = data
-    const darkMode = this.context === "dark"
+    const darkMode =  theme === "system" ? this.context === "dark" : theme === "dark"
 
     return (
       <Swipeable

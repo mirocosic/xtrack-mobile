@@ -10,7 +10,7 @@ import { Dashboard, Overview, Settings, Transactions } from "../screens"
 import Icon from "../components/icon"
 import palette from "../utils/palette"
 import { font } from "../components/typography"
-import { safePaddingBottom } from "../utils/ui-utils"
+import { safePaddingBottom, useDarkTheme } from "../utils/ui-utils"
 import __ from "../utils/translations"
 
 const AddRedirector = ({ navigation }) => {
@@ -34,13 +34,13 @@ export default () => (
     lazy={false}
     tabBarOptions={{
       activeTintColor: "#2059f4",
-      inactiveTintColor: useDarkMode() ? palette.white : palette.black,
+      inactiveTintColor: useDarkTheme() ? palette.white : palette.black,
       showIcon: true,
       upperCaseLabel: false,
       indicatorStyle: { backgroundColor: palette.secondary, fontFamily: font },
       style: {
         justifyContent: "space-around",
-        backgroundColor: useDarkMode() ? palette.darkGray : "#ffffff",
+        backgroundColor: useDarkTheme() ? palette.darkGray : "#ffffff",
         height: 65 + safePaddingBottom(),
         paddingBottom: safePaddingBottom(),
       },
@@ -51,7 +51,7 @@ export default () => (
       component={Dashboard}
       options={{
         tabBarIcon: ({ color }) => (
-          <Icon style={{ backgroundColor: useDarkMode() ? palette.darkGray : "white" }} textStyle={{ fontSize: 26, color }} type="tasks" />
+          <Icon style={{ backgroundColor: useDarkTheme() ? palette.darkGray : "white" }} textStyle={{ fontSize: 26, color }} type="tasks" />
         ),
       }}
     />
@@ -60,7 +60,7 @@ export default () => (
       component={Overview}
       options={{
         tabBarIcon: ({ color }) => (
-          <Icon style={{ backgroundColor: useDarkMode() ? palette.darkGray : "white" }} textStyle={{ fontSize: 26, color }} type="tachometer-alt" />
+          <Icon style={{ backgroundColor: useDarkTheme() ? palette.darkGray : "white" }} textStyle={{ fontSize: 26, color }} type="tachometer-alt" />
         ),
       }}
     />
@@ -102,7 +102,7 @@ export default () => (
       component={Transactions}
       options={{
         tabBarIcon: ({ color }) => (
-          <Icon style={{ backgroundColor: useDarkMode() ? palette.darkGray : "white" }} textStyle={{ fontSize: 26, color }} type="exchangeAlt" />
+          <Icon style={{ backgroundColor: useDarkTheme() ? palette.darkGray : "white" }} textStyle={{ fontSize: 26, color }} type="exchangeAlt" />
         ),
       }} />
     <Tab.Screen
@@ -110,7 +110,7 @@ export default () => (
       component={Settings}
       options={{
         tabBarIcon: ({ color }) => (
-          <Icon style={{ backgroundColor: useDarkMode() ? palette.darkGray : "white" }} textStyle={{ fontSize: 26, color }} type="cog" />
+          <Icon style={{ backgroundColor: useDarkTheme() ? palette.darkGray : "white" }} textStyle={{ fontSize: 26, color }} type="cog" />
         ),
       }} />
 

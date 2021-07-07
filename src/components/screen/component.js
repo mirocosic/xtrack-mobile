@@ -1,12 +1,11 @@
 import React from "react"
 import { View } from "react-native"
-import { useDarkMode } from "react-native-dark-mode"
+import { useDarkTheme } from "../../utils/ui-utils"
 import styles from "./styles"
 
 const Screen = ({ style, children }) => (
   <View
-    style={[styles.container, style, useDarkMode() && styles.containerDark]}
-  >
+    style={[styles.container, style, useDarkTheme() && styles.containerDark]}>
     {children}
   </View>
 )

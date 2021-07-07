@@ -6,6 +6,7 @@ export default connect(
     accounts: state.accounts.items,
     transactions: state.transactions.entries,
     darkMode: state.common.darkMode,
+    theme: state.common.theme,
     transferMode: state.transactions.transferMode,
   }),
 

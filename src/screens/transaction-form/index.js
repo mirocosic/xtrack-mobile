@@ -4,6 +4,7 @@ import Component from "./component";
 export default connect(
   state => ({
     darkMode: state.common.darkMode,
+    theme: state.common.theme,
     transactions: state.transactions.entries,
     transferMode: state.transactions.transferMode,
     selectedTransaction: state.transactions.selectedTransaction,

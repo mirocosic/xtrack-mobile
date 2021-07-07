@@ -9,6 +9,7 @@ import { Copy } from "../../components/typography"
 import Icon from "../../components/icon"
 import styles from "./styles"
 import { isAndroid } from "../../utils/os-utils"
+import { useDarkTheme } from "../../utils/ui-utils"
 
 const renderDeleteButton = (label, remove) => (
   <View style={[{ width: 70 }]}>
@@ -19,8 +20,6 @@ const renderDeleteButton = (label, remove) => (
 )
 
 const Labels = ({ remove, navigation, labels }) => {
-  const darkMode = useColorScheme() === "dark"
-
   return (
     <Screen>
       <Header title="Tags" backBtn />
@@ -28,7 +27,7 @@ const Labels = ({ remove, navigation, labels }) => {
         <View>
           {labels.map(label => (
             <Swipeable key={label.id} renderRightActions={() => renderDeleteButton(label, remove)} containerStyle={styles.swiperWrap}>
-              <RectButton key={label.id} style={[styles.wrap, darkMode && styles.wrapDark]} onPress={() => navigation.navigate("LabelEdit", { label })}>
+              <RectButton key={label.id} style={[styles.wrap, useDarkTheme() && styles.wrapDark]} onPress={() => navigation.navigate("LabelEdit", { label })}>
                 <View key={label.id} style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <View style={{ width: 30, height: 30, backgroundColor: label.color, marginRight: 10, borderRadius: 50 }} />

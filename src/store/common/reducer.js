@@ -27,6 +27,12 @@ const common = (state = initialState, action) => {
         language: action.language,
       }
 
+    case "SET_THEME":
+      return {
+        ...state,
+        theme: action.theme,
+      }
+
     case "ERASE":
       return initialState
 

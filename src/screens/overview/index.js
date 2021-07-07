@@ -27,6 +27,7 @@ export const filterByMonth = (transactions, currentMonth) => (
 export default connect(
   state => ({
     darkMode: state.common.darkMode,
+    theme: state.common.theme,
     accounts: state.accounts.items,
     accountFilter: state.accounts.accountFilter,
     monthFilter: state.transactions.monthFilter,

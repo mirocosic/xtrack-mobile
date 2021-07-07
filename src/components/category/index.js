@@ -5,6 +5,7 @@ export default connect(
   state => ({
     transactions: state.transactions.entries,
     darkMode: state.common.darkMode,
+    theme: state.common.theme,
   }),
 
   dispatch => ({

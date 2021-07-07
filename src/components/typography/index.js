@@ -1,7 +1,7 @@
 import React from "react"
 import { Text } from "react-native"
 import { connect } from "react-redux"
-import { useDarkMode } from "react-native-dark-mode"
+import { useTheme } from "../../utils/ui-utils"
 import __ from "../../utils/translations"
 
 import styles from "./styles"
@@ -10,23 +10,23 @@ export const font = "DIN 30640 Pro"
 
 const CopyCmp = (props) => {
   const { style, children } = props
-  const defaultStyle = useDarkMode() ? styles.copyDark : styles.copy
+  const defaultStyle = useTheme() === "dark" ? styles.copyDark : styles.copy
   return (
     <Text style={{ ...defaultStyle, ...style }}>{__(children)}</Text>
   )
 }
 
 const CopyBlueCmp = (props) => {
-  const { darkMode, style, children } = props
-  const defaultStyle = useDarkMode() ? styles.copyDark : styles.copyBlue
+  const { style, children } = props
+  const defaultStyle = useTheme() === "dark" ? styles.copyDark : styles.copyBlue
   return (
     <Text style={{ ...defaultStyle, ...style }}>{__(children)}</Text>
   )
 }
 
 const TitleCmp = (props) => {
-  const { darkMode, style, children } = props
-  const defaultStyle = useDarkMode() ? styles.titleDark : styles.title
+  const { style, children } = props
+  const defaultStyle = useTheme() === "dark" ? styles.titleDark : styles.title
   return (
     <Text style={{ ...defaultStyle, ...style }}>{__(children)}</Text>
   )

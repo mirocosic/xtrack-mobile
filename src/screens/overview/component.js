@@ -128,8 +128,8 @@ class Overview extends Component {
   }
 
   render() {
-    const { accounts, transactions } = this.props
-    const darkMode = this.context === "dark"
+    const { accounts, transactions, theme } = this.props
+    const darkMode =  theme === "system" ? this.context === "dark" : theme === "dark"
     return (
       <Screen>
         <ScrollView style={{ padding: 20, marginTop: 20 }} contentContainerStyle={{ paddingBottom: 40 }}>

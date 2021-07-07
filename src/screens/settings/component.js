@@ -21,6 +21,19 @@ class Settings extends Component {
     )
   }
 
+  selectTheme = () => {
+    const {setTheme} = this.props
+    Alert.alert(
+      __("Select theme"),
+      __("Please choose your preferred app theme"),
+      [
+        { text: "Light", onPress: () => setTheme("light") },
+        { text: "Dark", onPress: () => setTheme("dark") },
+        { text: "System", onPress: () => setTheme("system") },
+      ],
+    )
+  }
+
   generateTransactions = () => {
     const { accounts, categories, add } = this.props;
     const defaultAccount = accounts.find(acc => acc.defaultAccount)
@@ -39,7 +52,7 @@ class Settings extends Component {
   }
 
   render() {
-    const { navigation, openOnForm, toggleOpenOnForm, language } = this.props
+    const { navigation, openOnForm, toggleOpenOnForm, language, theme } = this.props
 
     return (
       <Screen style={{ paddingTop: 20 }}>
@@ -129,15 +142,23 @@ class Settings extends Component {
             <Switch value={openOnForm} onValueChange={toggleOpenOnForm} />
           </View>
 
-          <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between", display: "none" }}>
+          {/* <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between", display: "none" }}>
             <Copy>Language</Copy>
             <TouchableOpacity onPress={this.selectLanguage}>
               <Copy>{language.name}</Copy>
             </TouchableOpacity>
+          </View> */}
+
+          <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+            <Copy>Theme</Copy>
+            <TouchableOpacity onPress={this.selectTheme}>
+              <Copy>{theme}</Copy>
+            </TouchableOpacity>
           </View>
+
         </View>
 
-        <Copy style={{ textAlign: "center", marginTop: 50 }}>App version: 1.0.11 (4)</Copy>
+        <Copy style={{ textAlign: "center", marginTop: 50 }}>App version: 1.0.12 (2)</Copy>
       </Screen>
     )
   }

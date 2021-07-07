@@ -1,18 +1,18 @@
 import React from "react"
 import { View, TouchableOpacity } from "react-native"
-import { useDarkMode } from "react-native-dark-mode"
 import { useNavigation } from "@react-navigation/native"
 
 import { Title } from "../typography"
 import Icon from "../icon"
 import __ from "../../utils/translations"
 import styles from "./styles"
+import { useDarkTheme } from "../../utils/ui-utils"
 
 export default ({ backBtn, backBtnPress, actionBtn, actionBtnPress, style, icon, title, children }) => {
   const navigation = useNavigation()
 
   return (
-    <View style={[styles.container, style, useDarkMode() && styles.containerDark]}>
+    <View style={[styles.container, style, useDarkTheme() && styles.containerDark]}>
       {backBtn && (
         <TouchableOpacity
           style={styles.backBtn}
