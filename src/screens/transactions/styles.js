@@ -54,4 +54,16 @@ export default StyleSheet.create({
 
   searchTextDark: { backgroundColor: palette.darkGray },
 
+  section: {
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderColor: palette.gray,
+    backgroundColor: palette.light,
+  },
+
+  sectionDark: {
+    backgroundColor: palette.black
+  }
+
 })

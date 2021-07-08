@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Animated, View, TouchableOpacity, TextInput, FlatList } from "react-native"
+import { Animated, View, Text, TouchableOpacity, TextInput, FlatList, SectionList } from "react-native"
 import { get } from "lodash"
 import { DarkModeContext } from "react-native-dark-mode"
 
@@ -22,13 +22,13 @@ class Transactions extends Component {
   }
 
   componentDidMount() {
-    this.scrollView && setTimeout(() => this.scrollView.scrollTo({ x: 0, y: 60, animated: false }), 100)
+    this.scrollView && setTimeout(() => this.scrollView.scrollTo({ x: 0, y: 0, animated: false }), 100)
   }
 
   render() {
     const { height, searchTerm } = this.state
-    const { navigation, accountFilter, categoryFilter, openDrawer, appliedLabelsFilter, entries } = this.props
-    const darkMode = this.context === "dark"
+    const { navigation, accountFilter, categoryFilter, openDrawer, appliedLabelsFilter, entries, theme } = this.props
+    const darkMode =  theme === "system" ? this.context === "dark" : theme === "dark"
     const filtersApplied = accountFilter || categoryFilter || appliedLabelsFilter.length || false;
 
     const headerHeight = height.interpolate({
@@ -68,7 +68,25 @@ class Transactions extends Component {
         if (searchTerm === "") { return true }
         return item.note.includes(searchTerm)
       })
-      .reverse()
+      //.reverse()
+
+    const sectionsList = transactions.reduce((sections, transaction) => {
+      const date = new Date(transaction.timestamp)
+      const transactionDate = date.toLocaleDateString("en-US", {
+        month: "long",
+        year: "numeric"
+      })
+      const sectionIdx = sections.findIndex((s) => s.date == transactionDate)
+       if (sectionIdx > -1) {
+         sections[sectionIdx].data.push(transaction)
+       } else {
+         sections.push({date: transactionDate, data: [transaction]})
+       }
+      return sections
+    }, [] )
+    .map((section) => ({date: section.date,
+        data: section.data.sort((a,b) => a.timestamp < b.timestamp)
+      }))
 
     return (
       <Screen>
@@ -105,9 +123,9 @@ class Transactions extends Component {
               </View>
             )
             : (
-              <FlatList
-                style={[{ marginTop: 75, backgroundColor: "white" }, darkMode && { backgroundColor: palette.dark }]}
-                data={transactions}
+              <SectionList
+                style={[{ marginTop: 80, backgroundColor: "white" }, darkMode && { backgroundColor: palette.dark }]}
+                sections={sectionsList}
                 initialNumToRender={20}
                 ListHeaderComponent={() => (
                   <View style={[styles.searchWrap, darkMode && styles.searchWrapDark]}>
@@ -119,6 +137,11 @@ class Transactions extends Component {
                         placeholderTextColor="gray"
                         onChangeText={text => this.setState({ searchTerm: text })} />
                     </View>
+                  </View>
+                )}
+                renderSectionHeader={({section: {date}}) => (
+                  <View style={[styles.section, darkMode && styles.sectionDark]}>
+                    <Copy>{date}</Copy>
                   </View>
                 )}
                 renderItem={({ item }) => (

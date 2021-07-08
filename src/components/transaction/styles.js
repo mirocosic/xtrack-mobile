@@ -11,7 +11,7 @@ export default StyleSheet.create({
     paddingBottom: 0,
     backgroundColor: "white",
     borderBottomColor: palette.gray,
-    borderWidth: 1,
+    borderBottomWidth: 1,
   },
 
   background: {

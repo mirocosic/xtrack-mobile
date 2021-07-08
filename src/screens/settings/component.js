@@ -41,11 +41,11 @@ class Settings extends Component {
 
     for (let i = 0; i < 100; i++) {
       add({
-        timestamp: Date.now(),
+        timestamp: Date.now() - (i * 86400000),
         type: "expense",
         categoryId: defaultCategory?.id,
         accountId: defaultAccount?.id,
-        amount: 233,
+        amount: 37,
         labels: [],
       })
     }
