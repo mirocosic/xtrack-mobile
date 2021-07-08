@@ -1,13 +1,32 @@
 import React from "react"
-import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native"
-import { createStackNavigator, CardStyleInterpolators, TransitionPresets } from "@react-navigation/stack"
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from "@react-navigation/native"
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+  TransitionPresets,
+} from "@react-navigation/stack"
 import { createDrawerNavigator } from "@react-navigation/drawer"
 import { Host } from "react-native-portalize"
 
 import BottomBarNavigator from "./bottom-bar-navigator"
 import {
-  TransactionForm, Dashboard, Settings, Categories, Accounts, Labels,
-  CategoryEdit, Splash, Overview, AccountEdit, LabelEdit, Backup, Onboarding,
+  TransactionForm,
+  Dashboard,
+  Settings,
+  Categories,
+  Accounts,
+  Labels,
+  CategoryEdit,
+  Splash,
+  Overview,
+  AccountEdit,
+  LabelEdit,
+  Backup,
+  Onboarding,
 } from "../screens"
 import DrawerContent from "../components/drawer"
 import { useDarkTheme } from "../utils/ui-utils"
@@ -16,8 +35,8 @@ const MainStack = createStackNavigator()
 const RootStack = createStackNavigator()
 const Drawer = createDrawerNavigator()
 
-const MainStackScreen =  () => (
-    <MainStack.Navigator initialRouteName="Splash" headerMode="none">
+const MainStackScreen = () => (
+  <MainStack.Navigator initialRouteName="Splash" headerMode="none">
     <MainStack.Screen name="Main" component={BottomBarNavigator} />
     <MainStack.Screen name="Splash" component={Splash} />
     <MainStack.Screen name="Onboarding" component={Onboarding} />
@@ -33,19 +52,20 @@ const MainStackScreen =  () => (
 
 const Main = () => (
   <Host>
-    <RootStack.Navigator initialRouteName="App" headerMode="none" mode="modal"
-       screenOptions={{
+    <RootStack.Navigator
+      initialRouteName="App"
+      headerMode="none"
+      mode="modal"
+      screenOptions={{
         cardOverlayEnabled: true,
-        ...TransitionPresets.ModalPresentationIOS}}>
-
+        ...TransitionPresets.ModalPresentationIOS,
+      }}>
       <RootStack.Screen name="App" component={MainStackScreen} />
       <RootStack.Screen name="TransactionForm" component={TransactionForm} />
 
       <MainStack.Screen name="CategoryEdit" component={CategoryEdit} />
       <MainStack.Screen name="AccountEdit" component={AccountEdit} />
       <MainStack.Screen name="LabelEdit" component={LabelEdit} />
-
-      
     </RootStack.Navigator>
   </Host>
 )
@@ -56,12 +76,15 @@ export default () => (
       openByDefault={true}
       screenOptions={{
         drawerPosition: "right",
-        headerShown: false
+        drawerType: "front",
+        headerShown: false,
+        gestureEnabled: true,
+        swipeEnabled: true,
       }}
-      drawerContent={({ navigation }) => <DrawerContent navigation={navigation} />}>
-      <Drawer.Screen
-        name="Main"
-        component={Main}/>
+      drawerContent={({ navigation }) => (
+        <DrawerContent navigation={navigation} />
+      )}>
+      <Drawer.Screen name="Main" component={Main} />
     </Drawer.Navigator>
   </NavigationContainer>
 )
