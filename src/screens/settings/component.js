@@ -8,21 +8,26 @@ import __ from "../../utils/translations"
 import styles from "./styles"
 
 class Settings extends Component {
-
   selectLanguage = () => {
     const { setLanguage } = this.props
     Alert.alert(
       __("Select language"),
       __("Please choose your preferred language"),
       [
-        { text: "English", onPress: () => setLanguage({ code: "eng", name: "English" }) },
-        { text: "Hrvatski", onPress: () => setLanguage({ code: "hrv", name: "Hrvatski" }) },
+        {
+          text: "English",
+          onPress: () => setLanguage({ code: "eng", name: "English" }),
+        },
+        {
+          text: "Hrvatski",
+          onPress: () => setLanguage({ code: "hrv", name: "Hrvatski" }),
+        },
       ],
     )
   }
 
   selectTheme = () => {
-    const {setTheme} = this.props
+    const { setTheme } = this.props
     Alert.alert(
       __("Select theme"),
       __("Please choose your preferred app theme"),
@@ -35,13 +40,13 @@ class Settings extends Component {
   }
 
   generateTransactions = () => {
-    const { accounts, categories, add } = this.props;
+    const { accounts, categories, add } = this.props
     const defaultAccount = accounts.find(acc => acc.defaultAccount)
     const defaultCategory = categories.find(cat => cat.defaultCategory)
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 300; i++) {
       add({
-        timestamp: Date.now() - (i * 86400000),
+        timestamp: Date.now() - i * 86400000,
         type: "expense",
         categoryId: defaultCategory?.id,
         accountId: defaultAccount?.id,
@@ -52,11 +57,16 @@ class Settings extends Component {
   }
 
   render() {
-    const { navigation, openOnForm, toggleOpenOnForm, language, theme } = this.props
+    const {
+      navigation,
+      openOnForm,
+      toggleOpenOnForm,
+      language,
+      theme,
+    } = this.props
 
     return (
       <Screen style={{ paddingTop: 20 }}>
-
         <View style={styles.settingWrap} />
 
         <TouchableOpacity
@@ -69,7 +79,11 @@ class Settings extends Component {
             </Copy>
           </View>
 
-          <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
+          <Icon
+            type="chevronRight"
+            style={{ backgroundColor: "transparent" }}
+            textStyle={{ color: "gray" }}
+          />
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -81,20 +95,27 @@ class Settings extends Component {
               Create separate accounts for your transactions
             </Copy>
           </View>
-          <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
+          <Icon
+            type="chevronRight"
+            style={{ backgroundColor: "transparent" }}
+            textStyle={{ color: "gray" }}
+          />
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => navigation.navigate("Labels")}
-          style={styles.settingWrap}
-        >
+          style={styles.settingWrap}>
           <View>
             <Copy>Tags</Copy>
             <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
               Tag your transactions with labels for easy tracking
             </Copy>
           </View>
-          <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
+          <Icon
+            type="chevronRight"
+            style={{ backgroundColor: "transparent" }}
+            textStyle={{ color: "gray" }}
+          />
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -103,10 +124,15 @@ class Settings extends Component {
           <View style={{ maxWidth: 300 }}>
             <Copy>Backup/Restore</Copy>
             <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
-              Make a local backup of your data and restore it if you delete the app.
+              Make a local backup of your data and restore it if you delete the
+              app.
             </Copy>
           </View>
-          <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
+          <Icon
+            type="chevronRight"
+            style={{ backgroundColor: "transparent" }}
+            textStyle={{ color: "gray" }}
+          />
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -119,7 +145,11 @@ class Settings extends Component {
             </Copy>
           </View>
 
-          <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
+          <Icon
+            type="chevronRight"
+            style={{ backgroundColor: "transparent" }}
+            textStyle={{ color: "gray" }}
+          />
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -132,12 +162,21 @@ class Settings extends Component {
             </Copy>
           </View>
 
-          <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
+          <Icon
+            type="chevronRight"
+            style={{ backgroundColor: "transparent" }}
+            textStyle={{ color: "gray" }}
+          />
         </TouchableOpacity>
 
         <View style={{ padding: 20 }}>
-
-          <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+          <View
+            style={{
+              marginTop: 10,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
             <Copy>Open app on transaction form</Copy>
             <Switch value={openOnForm} onValueChange={toggleOpenOnForm} />
           </View>
@@ -149,16 +188,23 @@ class Settings extends Component {
             </TouchableOpacity>
           </View> */}
 
-          <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+          <View
+            style={{
+              marginTop: 10,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}>
             <Copy>Theme</Copy>
             <TouchableOpacity onPress={this.selectTheme}>
               <Copy>{theme}</Copy>
             </TouchableOpacity>
           </View>
-
         </View>
 
-        <Copy style={{ textAlign: "center", marginTop: 50 }}>App version: 1.0.12 (3)</Copy>
+        <Copy style={{ textAlign: "center", marginTop: 50 }}>
+          App version: 1.0.13 (2)
+        </Copy>
       </Screen>
     )
   }
