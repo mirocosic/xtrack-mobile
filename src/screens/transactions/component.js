@@ -101,7 +101,6 @@ class Transactions extends Component {
         }
         return item.note.includes(searchTerm)
       })
-    //.reverse()
 
     const sectionsList = transactions
       .reduce((sections, transaction) => {
@@ -110,10 +109,7 @@ class Transactions extends Component {
           month: "long",
           year: "numeric",
         })
-        const transactionDate = date.toLocaleDateString("en-US", {
-          month: "numeric",
-          year: "numeric",
-        })
+        const transactionDate = date.toISOString().split("-")[0] + date.toISOString().split("-")[1]
         const sectionIdx = sections.findIndex(s => s.date == transactionDate)
         if (sectionIdx > -1) {
           sections[sectionIdx].data.push(transaction)
@@ -132,8 +128,6 @@ class Transactions extends Component {
         data: section.data.sort((a, b) => a.timestamp < b.timestamp),
       }))
       .sort((a, b) => a.date < b.date)
-
-    console.log(sectionsList)
 
     return (
       <Screen>
