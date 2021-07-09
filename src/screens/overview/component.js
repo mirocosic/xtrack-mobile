@@ -128,20 +128,23 @@ class Overview extends Component {
   }
 
   render() {
-    const { accounts, transactions, theme } = this.props
+    const { accounts, transactions, theme, navigation } = this.props
     const darkMode =  theme === "system" ? this.context === "dark" : theme === "dark"
     return (
       <Screen>
-        <ScrollView style={{ padding: 20, marginTop: 20 }} contentContainerStyle={{ paddingBottom: 40 }}>
-          <View style={styles.inlineStart}>
+        <ScrollView style={{ paddingTop: 20, marginTop: 20 }} contentContainerStyle={{ paddingBottom: 40 }}>
+          <View style={[styles.inlineStart, {paddingHorizontal: 10}]}>
             <Title>Net worth: </Title>
             <Copy style={{ fontWeight: "bold", fontSize: 20 }}>{formatCurrency(this.calculateNetWorth())}</Copy>
           </View>
 
-          <View style={styles.inlineStart}>
+          <View style={[styles.inlineStart, {paddingHorizontal: 10, paddingBottom: 20}]}>
             <Copy style={{ marginLeft: 5 }}>Savings Rate: </Copy>
             <Copy style={{ fontWeight: "bold", fontSize: 16 }}> {this.calcSavingsRate()}</Copy>
           </View>
+
+          <ScrollView contentContainerStyle={{padding: 10}}
+             horizontal snapToInterval={320} decelerationRate="fast" showsHorizontalScrollIndicator={false}>
 
           {accounts.map((acc) => {
             const income = parseFloat(calculateIncome(transactions, { type: "account", value: acc }))
@@ -150,18 +153,19 @@ class Overview extends Component {
 
             return (
               <View key={acc.id} style={[styles.accountWrap, darkMode && styles.accountWrapDark]}>
-                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-                  <View>
-                    <Copy style={{ fontWeight: "bold", fontSize: 22, paddingBottom: 5 }}>{acc.name}</Copy>
-                    <Icon type={acc.icon} textStyle={{ fontSize: 30, color: palette.darkBlue }} />
+                <View>
+                  <View style={{flexDirection: "row", alignItems: "center", paddingBottom: 15}}>
+                    <Icon type={acc.icon} textStyle={{ fontSize: 30, color: acc.color }} />
+                    <Copy style={{ fontWeight: "bold", fontSize: 22, paddingBottom: 5, paddingLeft: 10 }}>{acc.name}</Copy>
+                    
                   </View>
 
                   <View>
-                    <Copy style={{ fontSize: 20, color: palette.green, textAlign: "right" }}>+{formatCurrency(income, acc.currency)}</Copy>
-                    <Copy style={{ marginVertical: 5, fontSize: 20, color: palette.red, textAlign: "right" }}>
+                    <Copy style={{ fontSize: 18, color: palette.green}}>+{formatCurrency(income, acc.currency)}</Copy>
+                    <Copy style={{ marginVertical: 5, fontSize: 18, color: palette.red}}>
                       -{formatCurrency(expenses, acc.currency)}
                     </Copy>
-                    <Copy style={{ fontSize: 20, color: palette.blue, textAlign: "right" }}>
+                    <Copy style={{ fontSize: 18, color: palette.blue }}>
                       {formatCurrency(startingBalance + income - expenses, acc.currency)}
                     </Copy>
                   </View>
@@ -169,6 +173,15 @@ class Overview extends Component {
               </View>
             )
           })}
+
+           <TouchableOpacity onPress={() => navigation.navigate("AccountEdit")}
+            style={[styles.accountWrap, darkMode && styles.accountWrapDark, {alignItems: "center", justifyContent: "center"}]}>
+            <Title>Add account</Title>
+           </TouchableOpacity>
+
+          </ScrollView>
+
+          <View style={{padding: 20}}>
 
           <Title style={{ textAlign: "center", marginTop: 20, marginBottom: 20 }}>All time breakdown</Title>
 
@@ -185,6 +198,8 @@ class Overview extends Component {
           </View>
 
           {this.renderExpenses(this.sortByCategory(transactions.filter(t => t.type === "expense")))}
+
+          </View>
         </ScrollView>
       </Screen>
     )

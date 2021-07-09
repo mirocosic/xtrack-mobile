@@ -7,8 +7,7 @@ export default StyleSheet.create({
   ...globalStyles,
 
   wrap: {
-    paddingLeft: 20,
-    paddingRight: 20,
+    
   },
 
   row: {
@@ -28,11 +27,24 @@ export default StyleSheet.create({
 
   accountWrap: {
     backgroundColor: "white",
-    marginTop: 20,
+    marginHorizontal: 10,
+    width: 300,
     padding: 10,
     borderRadius: 10,
+
+    shadowColor: "#000",
+    shadowOffset: {
+	    width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+
+    elevation: 4,
   },
 
-  accountWrapDark: { backgroundColor: palette.darkGray },
+  accountWrapDark: { 
+    backgroundColor: palette.darkGray,
+   },
 
 })
