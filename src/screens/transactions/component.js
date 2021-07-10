@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Animated, Text, View, TouchableOpacity, TextInput, SectionList } from "react-native"
+import { Animated, Text, View, SafeAreaView, TouchableOpacity, TextInput, SectionList } from "react-native"
 import { get } from "lodash"
 import { DarkModeContext } from "react-native-dark-mode"
 
@@ -9,6 +9,7 @@ import Icon from "../../components/icon"
 import Transaction from "../../components/transaction"
 import { Copy } from "../../components/typography"
 import palette from "../../utils/palette"
+import { safePaddingBottom } from "../../utils/ui-utils"
 
 import styles from "./styles"
 
@@ -147,7 +148,8 @@ class Transactions extends Component {
               </View>
             </View>
             <SectionList
-              style={[{ backgroundColor: "white" }, darkMode && { backgroundColor: palette.dark }]}
+              style={[{ backgroundColor: palette.light }, darkMode && { backgroundColor: palette.dark }]}
+              contentContainerStyle={{paddingBottom: safePaddingBottom(110)}}
               sections={sectionsList}
               initialNumToRender={20}
               renderSectionHeader={({ section: { date, title } }) => (

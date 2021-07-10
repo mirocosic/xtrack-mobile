@@ -38,11 +38,12 @@ export default () => (
       showIcon: true,
       upperCaseLabel: false,
       indicatorStyle: { backgroundColor: palette.secondary, fontFamily: font },
+      labelStyle: { fontSize: 12},
       style: {
         justifyContent: "space-around",
         backgroundColor: useDarkTheme() ? palette.darkGray : "#ffffff",
-        height: 65 + safePaddingBottom(),
-        paddingBottom: safePaddingBottom(),
+        height: safePaddingBottom(70),
+        paddingBottom: safePaddingBottom(10),
       },
     }}
   >
