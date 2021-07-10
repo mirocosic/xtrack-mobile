@@ -21,38 +21,27 @@ export default StyleSheet.create({
   },
 
   searchWrap: {
-    height: 60,
-    justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
     backgroundColor: "white",
     borderBottomWidth: 1,
+    borderTopWidth: 1,
     borderColor: "gray",
   },
 
   searchWrapDark: { backgroundColor: palette.dark },
 
   searchInnerWrap: {
-    backgroundColor: "#e6e6e6",
     flexDirection: "row",
+    alignItems: "center",
     flex: 1,
-    margin: 25,
-    marginTop: 30,
-    borderRadius: 10,
   },
 
-  searchInnerWrapDark: { backgroundColor: palette.darkGray },
+  searchInnerWrapDark: { backgroundColor: palette.dark },
 
   searchText: {
-    backgroundColor: "#e6e6e6",
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingRight: 80,
-    paddingLeft: 20,
-    marginLeft: 0,
+    flex: 1,
   },
-
-  searchTextDark: { backgroundColor: palette.darkGray },
 
   section: {
     paddingHorizontal: 10,
