@@ -408,6 +408,7 @@ class TransactionForm extends Component {
               value={transaction.note}
               placeholder="enter note..."
               placeholderTextColor="gray"
+              maxLength={30}
               style={[styles.textInput, darkMode && styles.textInputDark, { marginLeft: 0, padding: 10, height: 40, width: "100%" }]}
               keyboardAppearance={darkMode ? "dark" : "light"}
               />
