@@ -10,15 +10,9 @@ import moment from "moment"
 import { get } from "lodash"
 import { DarkModeContext } from "react-native-dark-mode"
 
-import {
-  Screen,
-  Header,
-  Label,
-  CustomKeyboard,
-  TransactionType,
-  PrimaryButton,
-  TertiaryButton,
-} from "../../components"
+import { Screen, Header, Label, CustomKeyboard, TransactionType, PrimaryButton, TertiaryButton } from "../../components"
+import SelectAccountModal from "../../components/modals/select-account"
+import SelectLabelsModal from "../../components/modals/select-labels"
 import { Copy, CopyBlue } from "../../components/typography"
 import Icon from "../../components/icon"
 import { formatCurrency } from "../../utils/currency"
@@ -172,27 +166,6 @@ class TransactionForm extends Component {
     }
   }
 
-  renderAccounts = () => {
-    const { accounts } = this.props
-    const { transaction, accountType } = this.state
-    return accounts.map(account => (
-      <TouchableOpacity
-        key={account.id}
-        onPress={() => {
-          accountType === "from"
-            ? this.setState({ transaction: { ...transaction, fromAccountId: account.id, currency: account.currency } })
-            : this.setState({ transaction: { ...transaction, accountId: account.id, currency: account.currency } })
-          this.accountsModal.current.close()
-        }}
-      >
-        <View style={{ flexDirection: "row", alignItems: "center", margin: 5 }}>
-          <Icon type={get(account, "icon", "")} style={{ marginRight: 10 }} textStyle={{ color: get(account, "color", "blue") }} />
-          <Copy>{account.name}</Copy>
-        </View>
-
-      </TouchableOpacity>
-    ))
-  }
 
   renderCategories = () => {
     const { transactions, categories } = this.props
@@ -218,30 +191,6 @@ class TransactionForm extends Component {
 
         </TouchableOpacity>
       ))
-  }
-
-  renderLabels = () => {
-    const { labels } = this.props
-    const { transaction } = this.state
-
-    return labels.map(label => (
-      <TouchableOpacity
-        key={label.id}
-        onPress={() => {
-          this.setState({
-            transaction: {
-              ...transaction,
-              ...{ labels: [...transaction.labels, { uuid: makeUUID(), ...label }] },
-            },
-          })
-
-          this.labelsModal.current.close()
-        }}
-      >
-        <Label key={label.uuid} label={label} style={{ width: 70 }} />
-
-      </TouchableOpacity>
-    ))
   }
 
   removeLabel = (label) => {
@@ -310,16 +259,13 @@ class TransactionForm extends Component {
   }
 
   render() {
-    const { transaction, moreOptionsOpen } = this.state
-    const { navigation, changeTransactionAmount, theme } = this.props
+    const { transaction, moreOptionsOpen, accountType } = this.state
+    const { navigation, changeTransactionAmount, theme, accounts, labels } = this.props
     const darkMode =  theme === "system" ? this.context === "dark" : theme === "dark"
 
     return (
       <Screen style={{ paddingLeft: 0, paddingRight: 0 }}>
-        <Header
-          title="Transaction form"
-          style={{paddingTop: 10}}
-        />
+        <Header title="Transaction form" style={{paddingTop: 10}} />
 
         <View style={styles.wrap}>
 
@@ -486,45 +432,33 @@ class TransactionForm extends Component {
 
         </View>
 
-        {
-            !moreOptionsOpen
+        { !moreOptionsOpen && (
+            <CustomKeyboard
+              handlePress={value => this.setState({ transaction: { ...transaction, ...{ amount: transaction.amount + value } } })}
+              handleSubmit={() => this.submitForm()}
+              setAmount={value => this.setState({ transaction: { ...transaction, ...{ amount: value } } })}
+              del={() => this.setState({
+                transaction: {
+                  ...transaction,
+                  ...{ amount: transaction.amount.substring(0, transaction.amount.length - 1) },
+                },
+              })}
+            />
+        )}
 
-              && (
-                <CustomKeyboard
-                  handlePress={value => this.setState({ transaction: { ...transaction, ...{ amount: transaction.amount + value } } })}
-                  handleSubmit={() => this.submitForm()}
-                  setAmount={value => this.setState({ transaction: { ...transaction, ...{ amount: value } } })}
-                  del={() => this.setState({
-                    transaction: {
-                      ...transaction,
-                      ...{ amount: transaction.amount.substring(0, transaction.amount.length - 1) },
-                    },
-                  })}
-                />
-              )
-          }
+         {/* MODALS   */}
 
-
-        <Modalize
-          onOpen={() => Keyboard.dismiss()}
-          adjustToContentHeight
-          modalStyle={[styles.modal, darkMode && styles.modalDark]}
-          ref={this.accountsModal}>
-          <ScrollView style={{ minHeight: 200, maxHeight: 400, padding: 10 }}>
-            {this.renderAccounts(transaction.type)}
-            <TouchableOpacity
-              style={{ position: "absolute", right: 10 }}
-              onPress={() => this.accountsModal.current.close()}>
-              <Icon type="times" textStyle={{ color: "teal" }} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.inline, { justifyContent: "flex-start", paddingLeft: 5 }]}
-              onPress={() => navigation.navigate("AccountEdit", {})}>
-              <Icon type="plus" textStyle={{ color: "teal" }} />
-              <Copy style={{ fontSize: 14 }}>Add new account</Copy>
-            </TouchableOpacity>
-          </ScrollView>
-        </Modalize>
+        <SelectAccountModal 
+          ref={this.accountsModal}
+          transaction={transaction}
+          accounts={accounts}
+          navigation={this.props.navigation}
+          onSelect={account => {
+            accountType === "from"
+              ? this.setState({ transaction: { ...transaction, fromAccountId: account.id, currency: account.currency } })
+              : this.setState({ transaction: { ...transaction, accountId: account.id, currency: account.currency } })
+            this.accountsModal.current.close()
+          }}/>
 
         <Modalize
           onOpen={() => Keyboard.dismiss()}
@@ -547,26 +481,22 @@ class TransactionForm extends Component {
           </ScrollView>
         </Modalize>
 
-        <Modalize
-          onOpen={() => Keyboard.dismiss()}
-          adjustToContentHeight
-          modalStyle={[styles.modal, darkMode && styles.modalDark]}
-          ref={this.labelsModal}>
-          <ScrollView style={{ minHeight: 200, maxHeight: 400, padding: 10 }}>
-            {this.renderLabels()}
-            <TouchableOpacity
-              style={{ position: "absolute", right: 10 }}
-              onPress={() => this.labelsModal.current.close()}>
-              <Icon type="times" textStyle={{ color: "teal" }} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.inline, { justifyContent: "flex-start", paddingLeft: 5 }]}
-              onPress={() => navigation.navigate("LabelEdit", {})}>
-              <Icon type="plus" textStyle={{ color: "teal" }} />
-              <Copy style={{ fontSize: 14 }}>Add new tag</Copy>
-            </TouchableOpacity>
-          </ScrollView>
-        </Modalize>
+        <SelectLabelsModal
+          ref={this.labelsModal}
+          navigation={navigation}
+          transaction={transaction}
+          labels={labels}
+          onSelect={(label) => {
+            this.setState({
+              transaction: {
+                ...transaction,
+                ...{ labels: [...transaction.labels, { uuid: makeUUID(), ...label }] },
+              },
+            })
+            this.labelsModal.current.close()
+          }}/>
+
+        
 
         <Modalize
           onOpen={() => Keyboard.dismiss()}
@@ -574,8 +504,7 @@ class TransactionForm extends Component {
           modalStyle={[styles.modal, darkMode && styles.modalDark]}
           scrollViewProps={{ scrollEnabled: false }}
           ref={this.calendarModal}>
-          <ScrollView style={{ minHeight: 400, maxHeight: 400, padding: 10 }}>
-
+          <View style={{ minHeight: 400, maxHeight: 400, padding: 10 }}>
             <Calendar
               renderArrow={(direction) => {
                 if (direction === "left") {
@@ -595,27 +524,29 @@ class TransactionForm extends Component {
               onDayPress={(day) => {
                 this.setState({ transaction: { ...transaction, ...{ timestamp: day.timestamp } } })
                 this.calendarModal.current.close()
-              }}
-              />
-
-          </ScrollView>
+              }}/>
+          </View>
         </Modalize>
 
         <Modalize
           onOpen={() => Keyboard.dismiss()}
           modalHeight={400}
+          modalStyle={[styles.modal, darkMode && styles.modalDark]}
           scrollViewProps={{ scrollEnabled: false }}
-          HeaderComponent={<View style={{ backgroundColor: "white", height: 20, borderTopRightRadius: 10, borderTopLeftRadius: 10 }} />}
           ref={this.recurringCalendarModal}>
-          <View style={{ height: 500, width: "100%", padding: 10, backgroundColor: "white", borderRadius: 10 }}>
-
+          <View style={{ minHeight: 400, maxHeight: 400, padding: 10 }}>
             <Calendar
-              theme={{ todayTextColor: "teal" }}
+              theme={{
+                monthTextColor: darkMode ? palette.blue : palette.darkGray,
+                arrowColor: darkMode ? palette.blue : palette.darkGray,
+                dayTextColor: darkMode ? "white" : "black",
+                todayTextColor: palette.blue,
+                calendarBackground: darkMode ? palette.darkGray : "white",
+              }}
               onDayPress={(day) => {
                 this.setState({ transaction: { ...transaction, recurring: { ...transaction.recurring, endTimestamp: day.timestamp } } })
                 this.recurringCalendarModal.current.close()
-              }}
-              />
+              }}/>
 
           </View>
         </Modalize>
