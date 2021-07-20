@@ -5,14 +5,16 @@ import {
 } from "react-native";
 import { Calendar } from "react-native-calendars"
 import { Modalize } from "react-native-modalize"
-import Collapsible from "react-native-collapsible"
+
 import moment from "moment"
 import { get } from "lodash"
 import { DarkModeContext } from "react-native-dark-mode"
 
 import { Screen, Header, Label, CustomKeyboard, TransactionType, PrimaryButton, TertiaryButton } from "../../components"
 import SelectAccountModal from "../../components/modals/select-account"
+import SelectCategoryModal from "../../components/modals/select-category"
 import SelectLabelsModal from "../../components/modals/select-labels"
+import FormMoreOptions from "../../components/form-more-options"
 import { Copy, CopyBlue } from "../../components/typography"
 import Icon from "../../components/icon"
 import { formatCurrency } from "../../utils/currency"
@@ -31,13 +33,9 @@ class TransactionForm extends Component {
   }
 
   catModal = React.createRef()
-
   accountsModal = React.createRef()
-
   labelsModal = React.createRef()
-
   calendarModal = React.createRef()
-
   recurringCalendarModal = React.createRef()
 
   componentDidMount() {
@@ -167,32 +165,6 @@ class TransactionForm extends Component {
   }
 
 
-  renderCategories = () => {
-    const { transactions, categories } = this.props
-    const { transaction } = this.state
-    const categoriesWithCount = categories.map(cat => ({
-      ...cat,
-      count: transactions.filter(t => get(t, "categoryId") === cat.id).length,
-    }))
-
-    return categoriesWithCount
-      .sort((a, b) => b.count - a.count)
-      .map(cat => (
-        <TouchableOpacity
-          key={cat.id}
-          onPress={() => {
-            this.setState({ transaction: { ...transaction, categoryId: cat.id } })
-            this.catModal.current.close()
-          }}>
-          <View style={{ flexDirection: "row", alignItems: "center", margin: 5 }}>
-            <Icon type={get(cat, "icon", "")} textStyle={{ color: cat.color || "blue" }} style={{ marginRight: 10 }} />
-            <Copy>{cat.name}</Copy>
-          </View>
-
-        </TouchableOpacity>
-      ))
-  }
-
   removeLabel = (label) => {
     const { transaction } = this.state
     this.setState({
@@ -290,8 +262,7 @@ class TransactionForm extends Component {
                 style={{ backgroundColor: darkMode ? "white" : "white", width: 0, height: 0, fontSize: 0, display: "none" }}
                 keyboardAppearance={darkMode ? "dark" : "light"}
                 keyboardType="numeric"
-                returnKeyType="done"
-                />
+                returnKeyType="done"/>
             </View>
           </View>
 
@@ -318,17 +289,17 @@ class TransactionForm extends Component {
           <View style={styles.formFieldWrap} />
 
           { transaction.type === "transfer" && (
-          <View style={styles.formFieldWrap}>
-            <Copy>From Account:</Copy>
-            <TouchableOpacity
-              style={[styles.selectBox, darkMode && styles.selectBoxDark]}
-              onPress={() => {
-                this.accountsModal.current.open()
-                this.setState({ accountType: "from" })
-              }}>
-              { this.renderAccount(transaction.fromAccountId)}
-            </TouchableOpacity>
-          </View>
+            <View style={styles.formFieldWrap}>
+              <Copy>From Account:</Copy>
+              <TouchableOpacity
+                style={[styles.selectBox, darkMode && styles.selectBoxDark]}
+                onPress={() => {
+                  this.accountsModal.current.open()
+                  this.setState({ accountType: "from" })
+                }}>
+                { this.renderAccount(transaction.fromAccountId)}
+              </TouchableOpacity>
+            </View>
           )}
 
           <View style={styles.formFieldWrap}>
@@ -356,8 +327,7 @@ class TransactionForm extends Component {
               placeholderTextColor="gray"
               maxLength={30}
               style={[styles.textInput, darkMode && styles.textInputDark, { marginLeft: 0, padding: 10, height: 40, width: "100%" }]}
-              keyboardAppearance={darkMode ? "dark" : "light"}
-              />
+              keyboardAppearance={darkMode ? "dark" : "light"}/>
           </View>
 
           { !moreOptionsOpen
@@ -369,66 +339,19 @@ class TransactionForm extends Component {
                 <CopyBlue>More Options</CopyBlue>
               </TouchableOpacity>
             )
-            : (
-              <View>
-                <View style={[styles.formFieldWrap, { alignItems: "center" }]}>
-                  <Copy>Recurring</Copy>
-                  <Switch
-                    value={!!transaction.recurring}
-                    onValueChange={() => this.setState({ transaction: { ...transaction, recurring: !transaction.recurring } })}
-                    />
-                </View>
-
-                <Collapsible collapsed={transaction.recurring === false} style={{ padding: 20, paddingTop: 10 }}>
-                  <View style={styles.inlineBetween}>
-                    <Copy>Every</Copy>
-                    <TouchableOpacity onPress={() => this.selectRecurringSchedule()}>
-                      <Copy>{ (transaction.recurring && transaction.recurring.frequency) || "Month"}</Copy>
-                    </TouchableOpacity>
-                  </View>
-                  <View style={styles.inlineBetween}>
-                    <Copy>End Date</Copy>
-                    <TouchableOpacity
-                      style={{ flexDirection: "row", alignItems: "center" }}
-                      onPress={() => this.recurringCalendarModal.current.open()}>
-                      <Icon type="calendar-alt" textStyle={{ color: "teal" }} style={{ marginLeft: 0 }} />
-                      <Copy style={{ margin: 0 }}>
-                        { transaction.recurring && moment(transaction.recurring.endTimestamp).format("MMM Do YYYY")}
-                      </Copy>
-                    </TouchableOpacity>
-                  </View>
-                </Collapsible>
-
-                <View style={styles.formFieldWrap}>
-                  <TouchableOpacity
-                    style={{ backgroundColor: "teal", padding: 5, paddingLeft: 10, paddingRight: 10, borderRadius: 20 }}
-                    onPress={() => this.labelsModal.current.open()}>
-                    <Copy style={{ color: "white", fontSize: 12 }}>Add Tags</Copy>
-                  </TouchableOpacity>
-                  <View style={styles.labels}>
-
-                    {transaction?.labels?.map(label => (
-                      <Label key={label.uuid} label={label} removeLabel={() => this.removeLabel(label)} />
-                    ))}
-
-                  </View>
-                </View>
-
-                <TouchableOpacity
-                  hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                  style={{ alignItems: "center", margin: 20 }}
-                  onPress={() => this.setState({ moreOptionsOpen: false })}
-                  >
-                  <CopyBlue>Less Options</CopyBlue>
-                </TouchableOpacity>
-
-                <PrimaryButton label="Save" onPress={() => this.submitForm()} style={{ borderRadius: 5 }} />
-
-                <TertiaryButton label="Delete" onPress={() => this.deleteTransaction(transaction)} style={{ borderRadius: 5 }} />
-              </View>
-            )
-
-            }
+            : <FormMoreOptions
+                navigation={navigation}
+                transaction={transaction}
+                labels={labels}
+                selectSchedule={this.selectRecurringSchedule}
+                submitForm={this.submitForm}
+                deleteTransaction={() => this.deleteTransaction(transaction)}
+                toggleRecuring={() => this.setState({ transaction: { ...transaction, recurring: !transaction.recurring } })}
+                closeMoreOptions={() => this.setState({ moreOptionsOpen: false })}
+                onRemoveLabel={(label) => this.removeLabel(label)}
+                labelsModalRef={this.labelsModal}
+                recurringCalendarModalRef={this.recurringCalendarModal}
+              />}
 
         </View>
 
@@ -457,30 +380,18 @@ class TransactionForm extends Component {
             accountType === "from"
               ? this.setState({ transaction: { ...transaction, fromAccountId: account.id, currency: account.currency } })
               : this.setState({ transaction: { ...transaction, accountId: account.id, currency: account.currency } })
-            this.accountsModal.current.close()
-          }}/>
+            this.accountsModal.current.close()}}/>
 
-        <Modalize
-          onOpen={() => Keyboard.dismiss()}
-          adjustToContentHeight
-          modalStyle={[styles.modal, darkMode && styles.modalDark]}
-          ref={this.catModal}>
-          <ScrollView style={{ minHeight: 200, maxHeight: 400, padding: 10 }}>
-            {this.renderCategories()}
-            <TouchableOpacity
-              style={{ position: "absolute", right: 10 }}
-              onPress={() => this.catModal.current.close()}>
-              <Icon type="times" textStyle={{ color: "teal" }} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.inline, { justifyContent: "flex-start", paddingLeft: 5 }]}
-              onPress={() => navigation.navigate("CategoryEdit", {})}>
-              <Icon type="plus" textStyle={{ color: "teal" }} />
-              <Copy style={{ fontSize: 14 }}>Add new category</Copy>
-            </TouchableOpacity>
-          </ScrollView>
-        </Modalize>
+        <SelectCategoryModal
+          ref={this.catModal}
+          navigation={this.props.navigation}
+          categories={this.props.categories}
+          transactions={this.props.transactions}
+          onSelect={(cat) => {
+            this.setState({ transaction: { ...transaction, categoryId: cat.id } })
+            this.catModal.current.close()}}/>
 
+        
         <SelectLabelsModal
           ref={this.labelsModal}
           navigation={navigation}
@@ -493,8 +404,7 @@ class TransactionForm extends Component {
                 ...{ labels: [...transaction.labels, { uuid: makeUUID(), ...label }] },
               },
             })
-            this.labelsModal.current.close()
-          }}/>
+            this.labelsModal.current.close()}}/>
 
         
 

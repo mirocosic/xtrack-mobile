@@ -3,7 +3,6 @@ import { View, TouchableOpacity, Keyboard, ScrollView } from "react-native"
 import { Modalize } from "react-native-modalize"
 import { get } from "lodash"
 
-import { Label } from "../../../components"
 import Icon from "../../icon"
 import { Copy } from "../../typography"
 import { useDarkTheme } from "../../../utils/ui-utils"
@@ -11,7 +10,12 @@ import styles from "./styles"
 
 
 export default React.forwardRef((props, ref) => {
-  const { labels, onSelect, transaction, navigation } = props
+  const { categories, onSelect, transactions, navigation } = props
+
+  const categoriesWithCount = categories.map(cat => ({
+    ...cat,
+    count: transactions.filter(t => get(t, "categoryId") === cat.id).length,
+  }))
 
   return (
     <Modalize
@@ -21,25 +25,32 @@ export default React.forwardRef((props, ref) => {
       ref={ref}>
       <ScrollView style={{ minHeight: 200, maxHeight: 400, padding: 10 }}>
 
-        {labels.map(label => (
-          <TouchableOpacity
-            key={label.id}
-            onPress={() => onSelect(label)}>
-            <Label key={label.uuid} label={label} style={{ width: 70 }} />
-          </TouchableOpacity>
-        ))}
+        {categoriesWithCount
+          .sort((a, b) => b.count - a.count)
+          .map(cat => (
+            <TouchableOpacity
+              key={cat.id}
+              onPress={() => onSelect(cat)}>
+              <View style={{ flexDirection: "row", alignItems: "center", margin: 5 }}>
+                <Icon type={get(cat, "icon", "")} textStyle={{ color: cat.color || "blue" }} style={{ marginRight: 10 }} />
+                <Copy>{cat.name}</Copy>
+              </View>
+            </TouchableOpacity>
+          ))}
 
         <TouchableOpacity
           style={{ position: "absolute", right: 10 }}
           onPress={() => ref.current.close()}>
           <Icon type="times" textStyle={{ color: "teal" }} />
         </TouchableOpacity>
+
         <TouchableOpacity
           style={[styles.inline, { justifyContent: "flex-start", paddingLeft: 5 }]}
-          onPress={() => navigation.navigate("LabelEdit", {})}>
+          onPress={() => navigation.navigate("CategoryEdit", {})}>
           <Icon type="plus" textStyle={{ color: "teal" }} />
-          <Copy style={{ fontSize: 14 }}>Add new tag</Copy>
+          <Copy style={{ fontSize: 14 }}>Add new category</Copy>
         </TouchableOpacity>
+
       </ScrollView>
     </Modalize>
   ) 
