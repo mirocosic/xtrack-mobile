@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Animated, Text, View, SafeAreaView, TouchableOpacity, TextInput, SectionList } from "react-native"
+import { Animated, View, TouchableOpacity } from "react-native"
 import { get } from "lodash"
 import { DarkModeContext } from "react-native-dark-mode"
 
@@ -9,14 +9,27 @@ import Icon from "../../components/icon"
 import Transaction from "../../components/transaction"
 import { Copy } from "../../components/typography"
 import palette from "../../utils/palette"
-import { safePaddingBottom } from "../../utils/ui-utils"
+import { safePaddingBottom, safePaddingTop } from "../../utils/ui-utils"
 
+import transactionsHeader from "../../../assets/images/transactions-header.png"
 import styles from "./styles"
+
+const hasFilterLabel = (item, appliedLabelsFilter) => {
+  if (!item.labels.length) { return false }
+  let hasFilterLabel = false
+  item.labels.forEach(label => {
+    if (appliedLabelsFilter.find(filter => filter.id === label.id)) {
+      hasFilterLabel = true
+    }
+  })
+  return hasFilterLabel
+}
 
 class Transactions extends Component {
   static contextType = DarkModeContext
 
   scrollView = React.createRef()
+  scrollY = new Animated.Value(0)
 
   state = {
     height: new Animated.Value(0),
@@ -29,8 +42,7 @@ class Transactions extends Component {
         key={item.id}
         transaction={item}
         toggleScroll={val => this.setState({ scrollEnabled: val })}
-        navigation={this.props.navigation}
-      />
+        navigation={this.props.navigation}/>
     )
   }
 
@@ -41,43 +53,10 @@ class Transactions extends Component {
     const filtersApplied = accountFilter || categoryFilter || appliedLabelsFilter.length || false
 
     const transactions = entries
-      .filter(item => {
-        if (!accountFilter) {
-          return true
-        }
-        if (!get(item, "account")) {
-          return true
-        }
-        return get(item, "accountId") === accountFilter.id
-      })
-      .filter(item => {
-        if (!categoryFilter) {
-          return true
-        }
-        return get(item, "categoryId") === categoryFilter.id
-      })
-      .filter(item => {
-        if (appliedLabelsFilter.length === 0) {
-          return true
-        }
-        if (!item.labels.length) {
-          return false
-        }
-
-        let hasFilterLabel = false
-        item.labels.forEach(label => {
-          if (appliedLabelsFilter.find(filter => filter.id === label.id)) {
-            hasFilterLabel = true
-          }
-        })
-        return hasFilterLabel
-      })
-      .filter(item => {
-        if (searchTerm === "") {
-          return true
-        }
-        return item.note && item.note.toLowerCase().includes(searchTerm.toLowerCase())
-      })
+      .filter(item => !accountFilter || !get(item, "account") || get(item, "accountId") === accountFilter.id)
+      .filter(item => !categoryFilter || get(item, "categoryId") === categoryFilter.id)
+      .filter(item => appliedLabelsFilter.length === 0 || hasFilterLabel(item, appliedLabelsFilter))
+      .filter(item => searchTerm === "" || (item.note && item.note.toLowerCase().includes(searchTerm.toLowerCase())))
 
     const sectionsList = transactions
       .reduce((sections, transaction) => {
@@ -108,31 +87,38 @@ class Transactions extends Component {
 
     return (
       <Screen>
+        <Animated.View style={{ position: "absolute", zIndex: 100, width: "100%"}}>
           <Header
             title="Transactions"
-            style={{  width: "100%", alignItems: "center", justifyContent: "center", }}>
+            style={{  width: "100%", alignItems: "center", justifyContent: "center"}}>
             <TouchableOpacity
               onPress={() => navigation.openDrawer()}
               style={{ position: "absolute", right: 10, bottom: 5 }}>
               <Icon
                 type="filter"
                 style={{ backgroundColor: "transparent" }}
-                textStyle={{ fontSize: 12, color: filtersApplied ? "black" : "white",}}/>
+                textStyle={{ fontSize: 12, color: filtersApplied ? "black" : "white"}}/>
             </TouchableOpacity>
           </Header>
+        </Animated.View>
 
-       
         {!entries.length ? (
           <View style={{ flex: 1, alignItems: "center", justifyContent: "center", margin: 20,}}>
-            <Copy style={{ textAlign: "center" }}>
-              Hey! Seems like you don&apos;t have any transactions.
-            </Copy>
-            <Copy />
+            <Copy style={{ textAlign: "center" }}>Hey! Seems like you don&apos;t have any transactions.</Copy>
             <Copy>Add some!</Copy>
           </View>
         ) : (
-          <View>
-            <View style={[styles.searchWrap, darkMode && styles.searchWrapDark]}>
+          <View style={{backgroundColor: darkMode ? palette.darkGray : palette.blue, paddingTop: safePaddingTop(50)}}>
+            <View style={{position: "absolute", width: "100%", height: 200, top: safePaddingTop(20)}}>
+              <Animated.Image source={transactionsHeader} resizeMode="contain"
+                   style={[{position: "absolute", width: "100%", height: 200},
+                           {opacity: this.scrollY.interpolate({inputRange: [0, 100], outputRange: [1, 0]})},
+                           {transform: [{ translateY: this.scrollY.interpolate({inputRange: [-100, 0, 100], outputRange:[50, 0, 0], extrapolateRight: "clamp"})},
+                                        { scaleX: this.scrollY.interpolate({inputRange: [-100, 0], outputRange:[1.2, 1], extrapolateRight: "clamp"})},
+                                        { scaleY: this.scrollY.interpolate({inputRange: [-100, 0], outputRange:[1.2, 1], extrapolateRight: "clamp"})}]}]}/>
+            </View>
+
+            {/* <View style={[styles.searchWrap, darkMode && styles.searchWrapDark]}>
               <View style={[ styles.searchInnerWrap, darkMode && styles.searchInnerWrapDark,]}>
                 <Icon
                   type="search"
@@ -146,10 +132,10 @@ class Transactions extends Component {
                   onChangeText={(text) => this.setState({searchTerm: text})}
                   clearButtonMode="while-editing"/>
               </View>
-            </View>
-            <SectionList
-              style={[{ backgroundColor: palette.light }, darkMode && { backgroundColor: palette.dark }]}
-              contentContainerStyle={{paddingBottom: safePaddingBottom(110)}}
+            </View> */}
+            
+            <Animated.SectionList
+              contentContainerStyle={{paddingBottom: safePaddingBottom(110), paddingTop: 160}}
               sections={sectionsList}
               initialNumToRender={20}
               renderSectionHeader={({ section: { date, title } }) => (
@@ -159,7 +145,8 @@ class Transactions extends Component {
               )}
               renderItem={this.renderItem}
               keyExtractor={item => item.id}
-            />
+              onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: this.scrollY } } }], { useNativeDriver: true })}/>
+
           </View>
         )}
       </Screen>
