@@ -108,14 +108,16 @@ class Transactions extends Component {
             <Copy>Add some!</Copy>
           </View>
         ) : (
-          <View style={{backgroundColor: darkMode ? palette.darkGray : palette.blue, paddingTop: safePaddingTop(50)}}>
-            <View style={{position: "absolute", width: "100%", height: 200, top: safePaddingTop(20)}}>
+          <View style={{ paddingTop: safePaddingTop(50)}}>
+            <View style={[{position: "absolute", width: "100%", height: 200, top: safePaddingTop(20)},
+                          {backgroundColor: darkMode ? palette.darkGray : palette.blue}]}>
               <Animated.Image source={transactionsHeader} resizeMode="contain"
-                   style={[{position: "absolute", width: "100%", height: 200},
+                   style={[{backgroundColor: darkMode ? palette.darkGray : palette.blue},
+                           {position: "absolute", width: "100%", height: 200},
                            {opacity: this.scrollY.interpolate({inputRange: [0, 100], outputRange: [1, 0]})},
                            {transform: [{ translateY: this.scrollY.interpolate({inputRange: [-100, 0, 100], outputRange:[50, 0, 0], extrapolateRight: "clamp"})},
-                                        { scaleX: this.scrollY.interpolate({inputRange: [-100, 0], outputRange:[1.2, 1], extrapolateRight: "clamp"})},
-                                        { scaleY: this.scrollY.interpolate({inputRange: [-100, 0], outputRange:[1.2, 1], extrapolateRight: "clamp"})}]}]}/>
+                                        { scaleX: this.scrollY.interpolate({inputRange: [-100, 0], outputRange:[1.4, 1], extrapolateRight: "clamp"})},
+                                        { scaleY: this.scrollY.interpolate({inputRange: [-100, 0], outputRange:[1.4, 1], extrapolateRight: "clamp"})}]}]}/>
             </View>
 
             {/* <View style={[styles.searchWrap, darkMode && styles.searchWrapDark]}>
@@ -135,7 +137,7 @@ class Transactions extends Component {
             </View> */}
             
             <Animated.SectionList
-              contentContainerStyle={{paddingBottom: safePaddingBottom(110), paddingTop: 160}}
+              contentContainerStyle={{paddingBottom: safePaddingBottom(110), paddingTop: 160 }}
               sections={sectionsList}
               initialNumToRender={20}
               renderSectionHeader={({ section: { date, title } }) => (
