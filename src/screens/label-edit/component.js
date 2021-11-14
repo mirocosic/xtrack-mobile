@@ -11,7 +11,6 @@ import { Copy } from "../../components/typography"
 import styles from "./styles"
 
 const colors = ["#FF5722", "#F39A27", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
-
 const defaultLabel = { color: "#0097A7" }
 
 class LabelEdit extends Component {
@@ -32,8 +31,10 @@ class LabelEdit extends Component {
 
 
   render() {
-    const darkMode = this.context === "dark"
+    const { theme } = this.props
+    const darkMode =  theme === "system" ? this.context === "dark" : theme === "dark"
     const { label } = this.state
+    
 
     return (
       <Screen>
