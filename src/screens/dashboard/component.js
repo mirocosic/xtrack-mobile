@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, ScrollView, Alert, Dimensions, StatusBar, TouchableOpacity, Animated } from "react-native"
+import { View, Appearance, Alert, Dimensions, StatusBar, TouchableOpacity, Animated } from "react-native"
 import { get } from "lodash"
 import moment from "moment"
 import SplashScreen from "react-native-splash-screen"
@@ -184,11 +184,12 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { transactions, navigation } = this.props
+    const { transactions, navigation, theme } = this.props
     const { width } = Dimensions.get("window")
     const currentMonth = moment()
     currentMonth.subtract(24, "month")
-    const darkMode = this.context === "dark"
+    const systemTheme = Appearance.getColorScheme();
+    const darkMode = theme === "system" ? systemTheme === "dark" : theme === "dark"
 
     return (
       <Screen>
@@ -246,9 +247,10 @@ class Dashboard extends Component {
 
                   { idx !== 23
                     ? (
-                      <TouchableOpacity onPress={() => this.scrollView.scrollTo({ x: width * 23, animated: true })}>
+                      <TouchableOpacity onPress={() => this.scrollView.scrollTo({ x: width * 23, animated: true })}
+                                        hitSlop={{top: 10, right: 10, bottom: 10, left: 10}}>
                         <View style={[styles.inline, { width: 10 }]}>
-                          <Icon type="forward" style={{ marginRight: 0 }} textStyle={{ fontSize: 12 }} />
+                          <Icon type="forward" style={{ marginRight: 5 }} textStyle={{ fontSize: 12, color: darkMode ? palette.light : palette.dark }} />
                         </View>
                       </TouchableOpacity>
                     ) : <View />
@@ -325,9 +327,10 @@ class Dashboard extends Component {
               <Animated.ScrollView key={month} style={[styles.monthContainer, {opacity}]}>
 
                 <View style={[styles.inlineBetween, { marginTop: 15, marginBottom: 15 }]}>
-                  <TouchableOpacity onPress={() => this.scrollView.scrollTo({ x: width * 23, animated: true })}>
+                  <TouchableOpacity onPress={() => this.scrollView.scrollTo({ x: width * 23, animated: true })}
+                                    hitSlop={{top: 10, right: 10, bottom: 10, left: 10}}>
                     <View style={[styles.inline, { width: 10 }]}>
-                      <Icon type="backward" style={{ marginLeft: 0 }} textStyle={{ fontSize: 12 }} />
+                      <Icon type="backward" style={{ marginLeft: 2 }} textStyle={{ fontSize: 12, color: darkMode ? palette.light : palette.dark }} />
                     </View>
                   </TouchableOpacity>
 

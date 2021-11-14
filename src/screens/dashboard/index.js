@@ -4,6 +4,7 @@ import Component from "./component"
 export default connect(
   state => ({
     darkMode: state.common.darkMode,
+    theme: state.common.theme,
     openOnForm: state.common.openOnForm,
     accounts: state.accounts.items,
     accountFilter: state.accounts.accountFilter,
