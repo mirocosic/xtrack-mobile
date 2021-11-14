@@ -8,6 +8,7 @@ export default connect(
     categories: state.categories.items,
     selected: state.categories.selectedCategory,
     darkMode: state.common.darkMode,
+    theme: state.common.theme,
   }),
 
   dispatch => ({

@@ -63,7 +63,8 @@ class CategoryEdit extends Component {
 
   render() {
     const { category } = this.state
-    const darkMode = this.context === "dark"
+    const { theme } = this.props
+    const darkMode =  theme === "system" ? this.context === "dark" : theme === "dark"
     return (
       <Screen>
         <Header
