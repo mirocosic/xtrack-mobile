@@ -66,144 +66,146 @@ class Settings extends Component {
     } = this.props
 
     return (
-      <Screen style={{ paddingTop: 20 }}>
-        <View style={styles.settingWrap} />
+      <Screen style={{ paddingTop: 20, justifyContent: "space-between"}}>
+        <View>
+          <View style={styles.settingWrap} />
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Categories")}
-          style={styles.settingWrap}>
-          <View>
-            <Copy>Categories</Copy>
-            <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
-              Customize categories to group your transactions
-            </Copy>
-          </View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Categories")}
+            style={styles.settingWrap}>
+            <View>
+              <Copy>Categories</Copy>
+              <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
+                Customize categories to group your transactions
+              </Copy>
+            </View>
 
-          <Icon
-            type="chevronRight"
-            style={{ backgroundColor: "transparent" }}
-            textStyle={{ color: "gray" }}
-          />
-        </TouchableOpacity>
+            <Icon
+              type="chevronRight"
+              style={{ backgroundColor: "transparent" }}
+              textStyle={{ color: "gray" }}
+            />
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Accounts")}
-          style={styles.settingWrap}>
-          <View>
-            <Copy>Accounts</Copy>
-            <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
-              Create separate accounts for your transactions
-            </Copy>
-          </View>
-          <Icon
-            type="chevronRight"
-            style={{ backgroundColor: "transparent" }}
-            textStyle={{ color: "gray" }}
-          />
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Accounts")}
+            style={styles.settingWrap}>
+            <View>
+              <Copy>Accounts</Copy>
+              <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
+                Create separate accounts for your transactions
+              </Copy>
+            </View>
+            <Icon
+              type="chevronRight"
+              style={{ backgroundColor: "transparent" }}
+              textStyle={{ color: "gray" }}
+            />
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Labels")}
-          style={styles.settingWrap}>
-          <View>
-            <Copy>Tags</Copy>
-            <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
-              Tag your transactions with labels for easy tracking
-            </Copy>
-          </View>
-          <Icon
-            type="chevronRight"
-            style={{ backgroundColor: "transparent" }}
-            textStyle={{ color: "gray" }}
-          />
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Labels")}
+            style={styles.settingWrap}>
+            <View>
+              <Copy>Tags</Copy>
+              <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
+                Tag your transactions with labels for easy tracking
+              </Copy>
+            </View>
+            <Icon
+              type="chevronRight"
+              style={{ backgroundColor: "transparent" }}
+              textStyle={{ color: "gray" }}
+            />
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Backup")}
-          style={styles.settingWrap}>
-          <View style={{ maxWidth: 300 }}>
-            <Copy>Backup/Restore</Copy>
-            <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
-              Make a local backup of your data and restore it if you delete the
-              app.
-            </Copy>
-          </View>
-          <Icon
-            type="chevronRight"
-            style={{ backgroundColor: "transparent" }}
-            textStyle={{ color: "gray" }}
-          />
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Backup")}
+            style={styles.settingWrap}>
+            <View style={{ maxWidth: 300 }}>
+              <Copy>Backup/Restore</Copy>
+              <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
+                Make a local backup of your data and restore it if you delete the
+                app.
+              </Copy>
+            </View>
+            <Icon
+              type="chevronRight"
+              style={{ backgroundColor: "transparent" }}
+              textStyle={{ color: "gray" }}
+            />
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Onboarding")}
-          style={styles.settingWrap}>
-          <View>
-            <Copy>Onboarding</Copy>
-            <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
-              Check out the onboarding carousel!
-            </Copy>
-          </View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Onboarding")}
+            style={styles.settingWrap}>
+            <View>
+              <Copy>Onboarding</Copy>
+              <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
+                Check out the onboarding carousel!
+              </Copy>
+            </View>
 
-          <Icon
-            type="chevronRight"
-            style={{ backgroundColor: "transparent" }}
-            textStyle={{ color: "gray" }}
-          />
-        </TouchableOpacity>
+            <Icon
+              type="chevronRight"
+              style={{ backgroundColor: "transparent" }}
+              textStyle={{ color: "gray" }}
+            />
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => this.generateTransactions()}
-          style={styles.settingWrap}>
-          <View>
-            <Copy>Dummy Data</Copy>
-            <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
-              Generate Demo Dummy Transactions (x100)
-            </Copy>
-          </View>
+          <TouchableOpacity
+            onPress={() => this.generateTransactions()}
+            style={styles.settingWrap}>
+            <View>
+              <Copy>Dummy Data</Copy>
+              <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
+                Generate Demo Dummy Transactions (x100)
+              </Copy>
+            </View>
 
-          <Icon
-            type="chevronRight"
-            style={{ backgroundColor: "transparent" }}
-            textStyle={{ color: "gray" }}
-          />
-        </TouchableOpacity>
+            <Icon
+              type="chevronRight"
+              style={{ backgroundColor: "transparent" }}
+              textStyle={{ color: "gray" }}
+            />
+          </TouchableOpacity>
 
-        <View style={{ padding: 20 }}>
-          <View
-            style={{
-              marginTop: 10,
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}>
-            <Copy>Open app on transaction form</Copy>
-            <Switch value={openOnForm} onValueChange={toggleOpenOnForm} />
-          </View>
+          <View style={{ padding: 20 }}>
+            <View
+              style={{
+                marginTop: 10,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}>
+              <Copy>Open app on transaction form</Copy>
+              <Switch value={openOnForm} onValueChange={toggleOpenOnForm} />
+            </View>
 
-          {/* <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between", display: "none" }}>
-            <Copy>Language</Copy>
-            <TouchableOpacity onPress={this.selectLanguage}>
-              <Copy>{language.name}</Copy>
-            </TouchableOpacity>
-          </View> */}
+            {/* <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between", display: "none" }}>
+              <Copy>Language</Copy>
+              <TouchableOpacity onPress={this.selectLanguage}>
+                <Copy>{language.name}</Copy>
+              </TouchableOpacity>
+            </View> */}
 
-          <View
-            style={{
-              marginTop: 10,
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}>
-            <Copy>Theme</Copy>
-            <TouchableOpacity onPress={this.selectTheme}>
-              <Copy>{theme}</Copy>
-            </TouchableOpacity>
+            <View
+              style={{
+                marginTop: 10,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}>
+              <Copy>Theme</Copy>
+              <TouchableOpacity onPress={this.selectTheme}>
+                <Copy>{theme}</Copy>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
 
-        <Copy style={{ textAlign: "center", marginTop: 50 }}>
-          App version: 1.0.13 (5)
+        <Copy style={{ textAlign: "right", marginBottom: 10, marginRight: 10}}>
+           v1.0.14 (42)
         </Copy>
       </Screen>
     )
