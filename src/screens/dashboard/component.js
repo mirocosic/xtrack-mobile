@@ -44,7 +44,8 @@ const renderBudget = (value, budget) => {
   const result = Math.round((value / budget) * 100)
   let color = false
   if (result >= 100) { color = palette.red } else if (result >= 80) { color = palette.orange } else { color = false }
-  return budget && budget > 0 && <Copy style={{ fontSize: 12, color }}>({result}%)</Copy>
+  const copyStyle = color ? {fontSize: 12, color} : {fontSize: 12}
+  return budget && budget > 0 && <Copy style={copyStyle}>({result}%)</Copy>
 }
 
 class Dashboard extends Component {
