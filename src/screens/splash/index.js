@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from "react"
-import { useWindowDimensions, Animated } from "react-native"
+import { connect } from "react-redux"
+import { useWindowDimensions, Animated, Appearance, StatusBar } from "react-native"
 import SplashScreen from "react-native-splash-screen"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import LinearGradient from "react-native-linear-gradient"
@@ -7,12 +8,33 @@ import LinearGradient from "react-native-linear-gradient"
 import Screen from "../../components/screen"
 import logo from "../../../assets/images/logo-white.png"
 
-const Splash = ({navigation}) => {
+
+// set initial status bar style based on app and system settings
+const setStatusBarStyle = (theme) => {
+  const systemTheme = Appearance.getColorScheme()
+
+  if (theme !== "system") {
+    if (theme === "dark") {
+      StatusBar.setBarStyle("light-content", true)
+    } else {
+      StatusBar.setBarStyle("dark-content", true)
+    }
+  } else {
+    if (systemTheme === "dark") {
+      StatusBar.setBarStyle("light-content", true)
+    } else {
+      StatusBar.setBarStyle("dark-content", true)
+    }
+  }
+}
+
+const Splash = ({navigation, theme}) => {
 
   const window = useWindowDimensions()
   const opacity = useRef(new Animated.Value(0)).current 
   const [animationDone, setAnimationDone] = useState(false)
   const [navigationTarget, setNavigationTarget] = useState(false)
+
   const fadeInLogo = () => {
     Animated.timing(opacity, {
       toValue: 1,
@@ -24,6 +46,7 @@ const Splash = ({navigation}) => {
   useEffect(() => {
     SplashScreen.hide()
     fadeInLogo()
+    setStatusBarStyle(theme)
   }, [])
 
   useEffect(() => {
@@ -54,4 +77,9 @@ const Splash = ({navigation}) => {
   )
 }
 
-export default Splash
+export default connect(
+  (state) => ({
+    theme: state.common.theme
+  }),
+  null
+)(Splash)
