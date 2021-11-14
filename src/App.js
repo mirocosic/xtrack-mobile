@@ -12,31 +12,27 @@ import "intl/locale-data/jsonp/en"
 
 // if (!__DEV__) { Sentry.config("https://c5c6fad7bce3480fa962382c9a01ee1e@sentry.io/1427686").install() }
 
-
-// set initial status bar color
-
-const systemTheme = Appearance.getColorScheme()
-if (theme === "system") {
-
-  if (systemTheme === "dark") {
-    StatusBar.setBarStyle("light-content", true)
-  } else {
-    StatusBar.setBarStyle("dark-content", true)
-  }
-}
-
-// register event listener for system changes.
-Appearance.addChangeListener(event => {
+// get the appTheme from store, and if set to "system", update the status bar to provided systemTheme prop
+const updateStatusBarStyle = (systemTheme) => {
   const state = store.getState();
-  const theme = get(state, "common.theme")
+  const appTheme = get(state, "common.theme")
 
-  if (theme === "system") {
-    if (event.colorScheme === "dark") {
+  if (appTheme === "system") {
+    if (systemTheme === "dark") {
       StatusBar.setBarStyle("light-content", true)
     } else {
       StatusBar.setBarStyle("dark-content", true)
     }
   }
+}
+
+// set initial status bar color
+const systemTheme = Appearance.getColorScheme()
+updateStatusBarStyle(systemTheme)
+
+// register event listener for system changes.
+Appearance.addChangeListener(event => {
+  updateStatusBarStyle(event.colorScheme)
 })
 
 export default () => (
