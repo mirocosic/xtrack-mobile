@@ -131,8 +131,8 @@ android {
         applicationId "com.mirocosic.xtrack"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 41
-        versionName "1.0.14"
+        versionCode 42
+        versionName "1.0.15"
         multiDexEnabled true
     }
     signingConfigs {

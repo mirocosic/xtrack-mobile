@@ -467,7 +467,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = xtrack_mobile/xtrack_mobile.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = QDRTVHPM2W;
 				HEADER_SEARCH_PATHS = (
@@ -478,7 +478,7 @@
 				);
 				INFOPLIST_FILE = xtrack_mobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.14;
+				MARKETING_VERSION = 1.0.15;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -501,7 +501,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = xtrack_mobile/xtrack_mobile.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_TEAM = QDRTVHPM2W;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -511,7 +511,7 @@
 				);
 				INFOPLIST_FILE = xtrack_mobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.14;
+				MARKETING_VERSION = 1.0.15;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
