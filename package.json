@@ -1,5 +1,5 @@
 {
-  "name": "XTrack",
+  "name": "xtrack",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -10,7 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^1.15.5",
+    "@react-native-async-storage/async-storage": "^1.15.11",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-firebase/app": "^7.1.4",
     "@react-navigation/bottom-tabs": "^5.11.11",

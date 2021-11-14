@@ -12,7 +12,6 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		211AD73CA9364BFAA3D2362A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5921A97B3045437A9E3B1FF7 /* libz.tbd */; };
-		3132F406861241C282C920CC /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 226418C2A71049B9BFB441D1 /* libRNGestureHandler.a */; };
 		4E1B9A3623748ED200B867C3 /* DINNeuzeitGroteskPro-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E1B9A3423748ED100B867C3 /* DINNeuzeitGroteskPro-Light.ttf */; };
 		4E1B9A3723748ED200B867C3 /* DINNeuzeitGroteskPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E1B9A3523748ED100B867C3 /* DINNeuzeitGroteskPro-Bold.ttf */; };
 		4E37FC15237819CF00074365 /* Font Awesome 5 Pro-Light-300.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4E37FC10237819CE00074365 /* Font Awesome 5 Pro-Light-300.otf */; };
@@ -28,27 +27,9 @@
 		4EF11E132198DBC700824335 /* Font-Awesome-5-Free-Regular-400.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EF11E122198DBC700824335 /* Font-Awesome-5-Free-Regular-400.ttf */; };
 		4EF11E152198EA3B00824335 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EF11E142198EA3B00824335 /* FontAwesome.ttf */; };
 		4EF11E172198EC6200824335 /* Font-Awesome-5-Free-Solid-900.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EF11E162198EC6200824335 /* Font-Awesome-5-Free-Solid-900.ttf */; };
-		570C73BEAAE94832BAC7E53A /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3226FDE0AE45A8AC0F619C /* libRNCAsyncStorage.a */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		F54F31FF3E30C0DEFA2D2D63 /* libPods-xtrack_mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A7AD1D1E39CC60FF212A2D2 /* libPods-xtrack_mobile.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		4E5B35322312EAE500467824 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B7F8024455BF42A3934CF5E1 /* RNGestureHandler.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNGestureHandler;
-		};
-		4E5B35342312EAE500467824 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B7F8024455BF42A3934CF5E1 /* RNGestureHandler.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = B5C32A36220C603B000FFB8D;
-			remoteInfo = "RNGestureHandler-tvOS";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		4EF11DE12198770A00824335 /* Embed App Extensions */ = {
@@ -75,7 +56,6 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = xtrack_mobile/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = xtrack_mobile/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = xtrack_mobile/main.m; sourceTree = "<group>"; };
-		226418C2A71049B9BFB441D1 /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
 		27495AB8CDBBC7179FA9A4C4 /* Pods-xtrack_mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xtrack_mobile.release.xcconfig"; path = "Target Support Files/Pods-xtrack_mobile/Pods-xtrack_mobile.release.xcconfig"; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		34A3366899A71184995FFF13 /* Pods-xtrack_mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xtrack_mobile.debug.xcconfig"; path = "Target Support Files/Pods-xtrack_mobile/Pods-xtrack_mobile.debug.xcconfig"; sourceTree = "<group>"; };
@@ -108,13 +88,8 @@
 		4EF11E142198EA3B00824335 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = ../assets/fonts/FontAwesome.ttf; sourceTree = "<group>"; };
 		4EF11E162198EC6200824335 /* Font-Awesome-5-Free-Solid-900.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Font-Awesome-5-Free-Solid-900.ttf"; path = "../assets/fonts/Font-Awesome-5-Free-Solid-900.ttf"; sourceTree = "<group>"; };
 		5921A97B3045437A9E3B1FF7 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		B0B30CFA5948378C7AD664CD /* Pods-xtrack_mobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xtrack_mobileTests.debug.xcconfig"; path = "Target Support Files/Pods-xtrack_mobileTests/Pods-xtrack_mobileTests.debug.xcconfig"; sourceTree = "<group>"; };
-		B7F8024455BF42A3934CF5E1 /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
-		DE3226FDE0AE45A8AC0F619C /* libRNCAsyncStorage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCAsyncStorage.a; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		EE72A51CEAB04711B89F1D6D /* libRNSentry.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSentry.a; sourceTree = "<group>"; };
 		F3C4053A0E24E2AF4CD4F138 /* libPods-xtrack_mobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-xtrack_mobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FF178A608DB873DA2F0338C5 /* Pods-xtrack_mobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xtrack_mobileTests.release.xcconfig"; path = "Target Support Files/Pods-xtrack_mobileTests/Pods-xtrack_mobileTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,8 +100,6 @@
 				4E577C952416521B00251270 /* CloudKit.framework in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
 				211AD73CA9364BFAA3D2362A /* libz.tbd in Frameworks */,
-				570C73BEAAE94832BAC7E53A /* libRNCAsyncStorage.a in Frameworks */,
-				3132F406861241C282C920CC /* libRNGestureHandler.a in Frameworks */,
 				F54F31FF3E30C0DEFA2D2D63 /* libPods-xtrack_mobile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -201,15 +174,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		4E5B352E2312EAE400467824 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4E5B35332312EAE500467824 /* libRNGestureHandler.a */,
-				4E5B35352312EAE500467824 /* libRNGestureHandler-tvOS.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		4EF11DE821987D6B00824335 /* XTrackWidget */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,20 +192,9 @@
 		4EFDFFC12252100B007431A1 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				EE72A51CEAB04711B89F1D6D /* libRNSentry.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				DE3226FDE0AE45A8AC0F619C /* libRNCAsyncStorage.a */,
-				226418C2A71049B9BFB441D1 /* libRNGestureHandler.a */,
 			);
 			name = "Recovered References";
-			sourceTree = "<group>";
-		};
-		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				B7F8024455BF42A3934CF5E1 /* RNGestureHandler.xcodeproj */,
-			);
-			name = Libraries;
 			sourceTree = "<group>";
 		};
 		83CBB9F61A601CBA00E9B192 = {
@@ -249,7 +202,6 @@
 			children = (
 				4E1B9A2F23748EB800B867C3 /* Resources */,
 				13B07FAE1A68108700A75B9A /* xtrack_mobile */,
-				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* xtrack_mobileTests */,
 				4EF11DE821987D6B00824335 /* XTrackWidget */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -275,8 +227,6 @@
 			children = (
 				34A3366899A71184995FFF13 /* Pods-xtrack_mobile.debug.xcconfig */,
 				27495AB8CDBBC7179FA9A4C4 /* Pods-xtrack_mobile.release.xcconfig */,
-				B0B30CFA5948378C7AD664CD /* Pods-xtrack_mobileTests.debug.xcconfig */,
-				FF178A608DB873DA2F0338C5 /* Pods-xtrack_mobileTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -342,35 +292,12 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 4E5B352E2312EAE400467824 /* Products */;
-					ProjectRef = B7F8024455BF42A3934CF5E1 /* RNGestureHandler.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* xtrack_mobile */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		4E5B35332312EAE500467824 /* libRNGestureHandler.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNGestureHandler.a;
-			remoteRef = 4E5B35322312EAE500467824 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4E5B35352312EAE500467824 /* libRNGestureHandler-tvOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libRNGestureHandler-tvOS.a";
-			remoteRef = 4E5B35342312EAE500467824 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		13B07F8E1A680F5B00A75B9A /* Resources */ = {
@@ -540,7 +467,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = xtrack_mobile/xtrack_mobile.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 8;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = QDRTVHPM2W;
 				HEADER_SEARCH_PATHS = (
@@ -574,7 +501,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = xtrack_mobile/xtrack_mobile.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = QDRTVHPM2W;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -644,7 +571,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -690,7 +617,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
