@@ -30,6 +30,7 @@ import {
 } from "../screens"
 import DrawerContent from "../components/drawer"
 import { useDarkTheme } from "../utils/ui-utils"
+import { isIos } from "../utils/os-utils"
 
 const MainStack = createStackNavigator()
 const RootStack = createStackNavigator()
@@ -50,6 +51,8 @@ const MainStackScreen = () => (
   </MainStack.Navigator>
 )
 
+const transitionPreset = isIos ? TransitionPresets.ModalPresentationIOS : TransitionPresets.ScaleFromCenterAndroid
+
 const Main = () => (
   <Host>
     <RootStack.Navigator
@@ -58,8 +61,9 @@ const Main = () => (
       mode="modal"
       screenOptions={{
         cardOverlayEnabled: true,
-        ...TransitionPresets.ModalPresentationIOS,
-      }}>
+        ...transitionPreset
+      }}
+      >
       <RootStack.Screen name="App" component={MainStackScreen} />
       <RootStack.Screen name="TransactionForm" component={TransactionForm} />
 
