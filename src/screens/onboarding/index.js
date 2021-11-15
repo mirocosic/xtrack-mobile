@@ -6,6 +6,7 @@ import SplashScreen from "react-native-splash-screen"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
 import Screen from "../../components/screen"
+import { Copy } from "../../components"
 
 const { width } = Dimensions.get("window")
 
@@ -159,14 +160,18 @@ const Onboarding = ({ navigation }) => {
           opacity: opacityBtn,
           transform: [{ translateY: positionY }],
         }}>
-        <RectButton
-          style={{ width: 300, borderColor: "white", borderWidth: 2, borderRadius: 25, height: 50, alignItems: "center", justifyContent: "center" }}
-          onPress={() => {
-            AsyncStorage.setItem("@onboarding-done", "true")
-            navigation.navigate("Main")
-          }}>
-          <Text style={{ fontSize: 16, fontWeight: "bold", color: "white" }}>Let's go!</Text>
-        </RectButton>
+          <View style={{ overflow:"hidden", width: 300, borderColor: "white", borderRadius: 25, height: 50 }}>
+          <RectButton
+            
+            onPress={() => {
+              AsyncStorage.setItem("@onboarding-done", "true")
+              navigation.navigate("Main")
+            }}>
+            <View style={{ width: 300, borderColor: "white", borderWidth: 2, borderRadius: 25, height: 50, alignItems: "center", justifyContent: "center" }}>
+              <Copy style={{ fontSize: 16, fontWeight: "bold", color: "white" }}>Let's go!</Copy>
+            </View>
+          </RectButton>
+          </View>
       </Animated.View>
     </Screen>
   )
