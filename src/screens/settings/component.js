@@ -205,7 +205,7 @@ class Settings extends Component {
         </View>
 
         <Copy style={{ textAlign: "right", marginBottom: 10, marginRight: 10}}>
-           v1.0.15 (42)
+           v1.0.16 (43)
         </Copy>
       </Screen>
     )
