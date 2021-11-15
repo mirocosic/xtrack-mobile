@@ -40,7 +40,7 @@ const renderCategory = (categories, id) => {
 
 const Transaction = ({ transaction, selectTransaction, deleteTransaction, navigation, categories }) => {
 
-  const HEIGHT = 65
+  const HEIGHT = 70
   
   renderRightActions = (progress, dragX) => {
     const trans = dragX.interpolate({
@@ -79,7 +79,7 @@ const Transaction = ({ transaction, selectTransaction, deleteTransaction, naviga
                 <Copy>{transaction.note}</Copy>
                 <View style={styles.labels}>
                   {transaction.labels
-                    && transaction.labels.map(label => <Label key={label.uuid} label={label} style={{ marginLeft: 5, paddingRight: 10 }} />)}
+                    && transaction.labels.map(label => <Label key={label.uuid} label={label} style={{ marginLeft: 5, paddingRight: 10, marginBottom: 5 }} />)}
                 </View>
               </View>
             </View>
