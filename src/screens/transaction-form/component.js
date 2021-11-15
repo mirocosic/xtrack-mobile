@@ -20,6 +20,7 @@ import Icon from "../../components/icon"
 import { formatCurrency } from "../../utils/currency"
 import { makeUUID } from "../../utils/helper-gnomes"
 import palette from "../../utils/palette"
+import { isAndroid } from "../../utils/os-utils"
 import styles from "./styles"
 
 class TransactionForm extends Component {
@@ -237,7 +238,7 @@ class TransactionForm extends Component {
 
     return (
       <Screen style={{ paddingLeft: 0, paddingRight: 0 }}>
-        <Header title="Transaction form" style={{paddingTop: 10}} />
+        <Header title="Transaction form" style={{paddingTop: 10}} backBtn={isAndroid}/>
 
         <View style={styles.wrap}>
 
