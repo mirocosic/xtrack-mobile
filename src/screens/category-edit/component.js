@@ -29,7 +29,8 @@ class CategoryEdit extends Component {
   handleSave = (category) => {
     const { edit, add, setDefault, navigation } = this.props
     category.id ? edit(category) : add(category)
-    category.defaultCategory && setDefault(category)
+    //update default categories on edit only
+    category.id && category.defaultCategory && setDefault(category)
     navigation.goBack()
   }
 

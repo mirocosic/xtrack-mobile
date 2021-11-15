@@ -45,7 +45,7 @@ class AccountEdit extends Component {
   handleSave = (account) => {
     const { edit, add, setDefault, navigation } = this.props
     account.id ? edit(account) : add(account)
-    account.defaultAccount && setDefault(account)
+    account.id && account.defaultAccount && setDefault(account)
     navigation.goBack()
   }
 

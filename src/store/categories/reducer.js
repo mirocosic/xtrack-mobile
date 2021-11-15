@@ -22,7 +22,16 @@ const categories = (state = initialState, action) => {
       return {
         ...state,
         items: [
-          ...state.items,
+          ...state.items.map(item => {
+            if (action.category.defaultCategory) {
+              return {
+                ...item,
+                defaultCategory: false,
+              } 
+            } else {
+              return item
+            }
+          }),
           {
             id: makeUUID(),
             name: action.category.name,
@@ -30,7 +39,7 @@ const categories = (state = initialState, action) => {
             type: action.category.type,
             icon: action.category.icon,
             color: action.category.color,
-            defaultCategory: state.items.length === 0,
+            defaultCategory: action.category.defaultCategory || state.items.length === 0,
           },
         ],
       }
@@ -51,6 +60,7 @@ const categories = (state = initialState, action) => {
       }
 
     case "SET_DEFAULT_CATEGORY":
+      console.log(action.category)
       return {
         ...state,
         items: state.items.map((item) => {
@@ -59,8 +69,12 @@ const categories = (state = initialState, action) => {
               ...item,
               defaultCategory: false,
             }
+          } else {
+            return {
+              ...item,
+              defaultCategory: true
+            }
           }
-          return action.category;
         }),
       }
 

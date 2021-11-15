@@ -9,7 +9,7 @@ const categories = (state = initialState, action) => {
       return {
         ...state,
         items: [
-          ...state.items,
+          ...state.items.map(item => action.account.defaultAccount ? {...item, defaultAccount: false} : item),
           {
             id: makeUUID(),
             name,
@@ -17,7 +17,7 @@ const categories = (state = initialState, action) => {
             color,
             startingBalance,
             currency,
-            defaultAccount: state.items.length === 0,
+            defaultAccount: action.account.defaultAccount || state.items.length === 0,
           },
         ],
       }
