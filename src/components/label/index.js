@@ -3,6 +3,7 @@ import { View, TouchableOpacity } from "react-native"
 import Icon from "../icon"
 import { Copy } from "../typography"
 import palette from "../../utils/palette"
+import { isIos } from "../../utils/os-utils"
 import styles from "./styles"
 
 export default class Label extends Component {
@@ -26,9 +27,10 @@ export default class Label extends Component {
         <Copy style={{ fontSize: 12, color: this.labelCopyColor(label.color) }}>{label.name}</Copy>
         {removeLabel && (
           <TouchableOpacity onPress={() => removeLabel(label)} style={styles.removeLabel}>
-            <View style={{ backgroundColor: "white", borderRadius: 10, width: 16, height: 16, alignItems: "center", justifyContent: "center" }}>
-              <Icon type="times" textStyle={{ color: label.color, fontSize: 12 }} style={{ marginTop: 1, marginLeft: 2 }} />
-            </View>
+              <Icon 
+                type="times"
+                textStyle={{ color: label.color, fontSize: 12}} 
+                style={[{ backgroundColor: "white", borderRadius: 10, width: 16, height: 16}, isIos && {paddingTop: 1, paddingLeft: 1}]} />
           </TouchableOpacity>
         )}
       </View>

@@ -14,7 +14,7 @@ export default StyleSheet.create({
     alignItems: "center",
     paddingTop: 2,
     paddingBottom: 2,
-    paddingLeft: 10,
+    paddingLeft: 5,
     paddingRight: 0,
     margin: 5,
     borderRadius: 20,
@@ -23,7 +23,7 @@ export default StyleSheet.create({
   removeLabel: {
     borderRadius: 5,
     paddingLeft: 5,
-    paddingRight: 5,
+    paddingRight: 2,
     marginLeft: 5,
   },
 })
