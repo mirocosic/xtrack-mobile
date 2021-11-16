@@ -4,7 +4,9 @@ import { useWindowDimensions, Animated, Appearance, StatusBar } from "react-nati
 import SplashScreen from "react-native-splash-screen"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import LinearGradient from "react-native-linear-gradient"
+import changeNavigationBarColor from 'react-native-navigation-bar-color';
 
+import palette from "../../utils/palette"
 import Screen from "../../components/screen"
 import logo from "../../../assets/images/logo-white.png"
 
@@ -16,14 +18,18 @@ const setStatusBarStyle = (theme) => {
   if (theme !== "system") {
     if (theme === "dark") {
       StatusBar.setBarStyle("light-content", true)
+      changeNavigationBarColor(palette.darkGreyHex)
     } else {
       StatusBar.setBarStyle("dark-content", true)
+      changeNavigationBarColor(palette.light)
     }
   } else {
     if (systemTheme === "dark") {
       StatusBar.setBarStyle("light-content", true)
+      changeNavigationBarColor(palette.darkGreyHex)
     } else {
       StatusBar.setBarStyle("dark-content", true)
+      changeNavigationBarColor(palette.light)
     }
   }
 }

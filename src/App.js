@@ -4,7 +4,9 @@ import { Provider } from "react-redux"
 import { PersistGate } from "redux-persist/lib/integration/react"
 import { DarkModeProvider } from "react-native-dark-mode"
 import { get } from "lodash"
+import changeNavigationBarColor from 'react-native-navigation-bar-color'
 
+import palette from "./utils/palette"
 import { persistor, store } from "./store"
 import AppNavigator from "./navigators/app-navigator"
 import "intl"
@@ -20,8 +22,10 @@ const updateStatusBarStyle = (systemTheme) => {
   if (appTheme === "system") {
     if (systemTheme === "dark") {
       StatusBar.setBarStyle("light-content", true)
+      changeNavigationBarColor(palette.darkGreyHex)
     } else {
       StatusBar.setBarStyle("dark-content", true)
+      changeNavigationBarColor(palette.light)
     }
   }
 }
