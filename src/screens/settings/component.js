@@ -227,7 +227,7 @@ export default (props) => {
         </View>
 
         <Copy style={{ textAlign: "right", marginBottom: 10, marginRight: 10}}>
-           v1.0.16 (43)
+           v1.0.17 (44)
         </Copy>
       </Screen>
     )
