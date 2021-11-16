@@ -19,6 +19,7 @@ export default StyleSheet.create({
     margin: 5,
     width: 50,
     height: 50,
+    borderRadius: 5,
   },
 
   selectedColor: {

@@ -88,7 +88,10 @@ class LabelEdit extends Component {
               <TouchableOpacity
                 key={color}
                 style={[styles.colorBox, label.color === color && styles.selectedColor, { backgroundColor: color }]}
-                onPress={() => this.setState({ label: { ...label, color } })}
+                onPress={() => {
+                  this.setState({ label: { ...label, color } })
+                  this.colorModal.current.close()
+                }}
               />
             ))}
           </View>
