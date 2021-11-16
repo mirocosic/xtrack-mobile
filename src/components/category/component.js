@@ -9,6 +9,7 @@ import { get } from "lodash"
 import Icon from "../icon"
 import { Copy } from "../typography"
 import styles from "./styles"
+import palette from "../../utils/palette"
 
 class Category extends Component {
   static contextType = DarkModeContext
@@ -80,6 +81,7 @@ class Category extends Component {
         <RectButton
           key={cat.id}
           style={[styles.wrap, darkMode && styles.wrapDark]}
+          rippleColor={darkMode ? palette.darkGray : palette.lightBlue}
           onPress={() => navigation.navigate("CategoryEdit", { id: cat.id })}>
           <View
             key={cat.id}

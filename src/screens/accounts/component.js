@@ -12,6 +12,7 @@ import Icon from "../../components/icon"
 import styles from "./styles"
 import { formatCurrency } from "../../utils/currency"
 import { isAndroid } from "../../utils/os-utils"
+import palette from "../../utils/palette"
 
 const accountBalance = (account, transactions) => {
   if (transactions.length === 0) return 0
@@ -78,8 +79,11 @@ class Accounts extends Component {
           <View style={{ borderColor: "gray", borderTopWidth: 1 }}>
             {accounts.map(account => (
               <Swipeable key={account.id} renderRightActions={() => this.renderDeleteButton(account)} containerStyle={styles.swiperWrap}>
-                <RectButton onPress={() => navigation.navigate("AccountEdit", { id: account.id })}>
-                  <View key={account.id} style={[styles.wrap, darkMode && styles.wrapDark]}>
+                <RectButton 
+                  key={account.id}
+                  onPress={() => navigation.navigate("AccountEdit", { id: account.id })}
+                  style={[styles.wrap, darkMode && styles.wrapDark]}
+                  rippleColor={darkMode ? palette.darkGray : palette.lightBlue}>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                       <Icon type={account.icon} style={{ marginRight: 10 }} textStyle={{ color: account.color, fontSize: 20 }} />
                       <Copy>
@@ -89,13 +93,7 @@ class Accounts extends Component {
                       {account.defaultAccount && <Icon type="star" textStyle={{ color: "orange", fontSize: 10 }} />}
                     </View>
 
-                    <RectButton
-                      onPress={() => {
-                        navigation.navigate("AccountEdit")
-                      }}>
-                      <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
-                    </RectButton>
-                  </View>
+                    <Icon type="chevronRight" style={{ backgroundColor: "transparent" }} textStyle={{ color: "gray" }} />
                 </RectButton>
               </Swipeable>
             ))}

@@ -1,15 +1,19 @@
 import React, { Component } from "react"
 import { View, Switch, Alert, TouchableOpacity } from "react-native"
+import { RectButton } from "react-native-gesture-handler"
 
 import Icon from "../../components/icon"
 import Screen from "../../components/screen"
 import { Copy } from "../../components/typography"
 import __ from "../../utils/translations"
 import styles from "./styles"
+import { useDarkTheme } from "../../utils/ui-utils"
+import palette from "../../utils/palette"
 
-class Settings extends Component {
-  selectLanguage = () => {
-    const { setLanguage } = this.props
+///class Settings extends Component {
+export default (props) => {
+  const selectLanguage = () => {
+    const { setLanguage } = props
     Alert.alert(
       __("Select language"),
       __("Please choose your preferred language"),
@@ -26,8 +30,8 @@ class Settings extends Component {
     )
   }
 
-  selectTheme = () => {
-    const { setTheme } = this.props
+  const selectTheme = () => {
+    const { setTheme } = props
     Alert.alert(
       __("Select theme"),
       __("Please choose your preferred app theme"),
@@ -39,8 +43,8 @@ class Settings extends Component {
     )
   }
 
-  generateTransactions = () => {
-    const { accounts, categories, add } = this.props
+  const generateTransactions = () => {
+    const { accounts, categories, add } = props
     const defaultAccount = accounts.find(acc => acc.defaultAccount)
     const defaultCategory = categories.find(cat => cat.defaultCategory)
 
@@ -56,119 +60,136 @@ class Settings extends Component {
     }
   }
 
-  render() {
     const {
       navigation,
       openOnForm,
       toggleOpenOnForm,
       language,
       theme,
-    } = this.props
+    } = props
 
     return (
       <Screen style={{ paddingTop: 20, justifyContent: "space-between"}}>
         <View>
           <View style={styles.settingWrap} />
 
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Categories")}
-            style={styles.settingWrap}>
-            <View>
-              <Copy>Categories</Copy>
-              <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
-                Customize categories to group your transactions
-              </Copy>
-            </View>
+          <View style={styles.settingWrap}>
+            <RectButton
+              onPress={() => navigation.navigate("Categories")}
+              rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue}
+              style={styles.settingContent}>
+              <View>
+                <Copy>Categories</Copy>
+                <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
+                  Customize categories to group your transactions
+                </Copy>
+              </View>
 
-            <Icon
-              type="chevronRight"
-              style={{ backgroundColor: "transparent" }}
-              textStyle={{ color: "gray" }}
-            />
-          </TouchableOpacity>
+              <Icon
+                type="chevronRight"
+                style={{ backgroundColor: "transparent" }}
+                textStyle={{ color: "gray" }}
+              />
+            </RectButton>
+          </View>
 
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Accounts")}
-            style={styles.settingWrap}>
-            <View>
-              <Copy>Accounts</Copy>
-              <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
-                Create separate accounts for your transactions
-              </Copy>
-            </View>
-            <Icon
-              type="chevronRight"
-              style={{ backgroundColor: "transparent" }}
-              textStyle={{ color: "gray" }}
-            />
-          </TouchableOpacity>
+          <View style={styles.settingWrap}>
+            <RectButton
+              onPress={() => navigation.navigate("Accounts")}
+              rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue}
+              style={styles.settingContent}>
+              <View>
+                <Copy>Accounts</Copy>
+                <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
+                  Create separate accounts for your transactions
+                </Copy>
+              </View>
+              <Icon
+                type="chevronRight"
+                style={{ backgroundColor: "transparent" }}
+                textStyle={{ color: "gray" }}
+              />
+            </RectButton>
+          </View>
 
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Labels")}
-            style={styles.settingWrap}>
-            <View>
-              <Copy>Tags</Copy>
-              <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
-                Tag your transactions with labels for easy tracking
-              </Copy>
-            </View>
-            <Icon
-              type="chevronRight"
-              style={{ backgroundColor: "transparent" }}
-              textStyle={{ color: "gray" }}
-            />
-          </TouchableOpacity>
+          <View style={styles.settingWrap}>
+            <RectButton
+              onPress={() => navigation.navigate("Labels")}
+              rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue}
+              style={styles.settingContent}>
+              <View>
+                <Copy>Tags</Copy>
+                <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
+                  Tag your transactions with labels for easy tracking
+                </Copy>
+              </View>
+              <Icon
+                type="chevronRight"
+                style={{ backgroundColor: "transparent" }}
+                textStyle={{ color: "gray" }}
+              />
+            </RectButton>
+          </View>
 
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Backup")}
-            style={styles.settingWrap}>
-            <View style={{ maxWidth: 300 }}>
-              <Copy>Backup/Restore</Copy>
-              <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
-                Make a local backup of your data and restore it if you delete the
-                app.
-              </Copy>
-            </View>
-            <Icon
-              type="chevronRight"
-              style={{ backgroundColor: "transparent" }}
-              textStyle={{ color: "gray" }}
-            />
-          </TouchableOpacity>
+          <View style={styles.settingWrap}>
+            <RectButton
+              onPress={() => navigation.navigate("Backup")}
+              rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue}
+              style={styles.settingContent}>
+              <View style={{ maxWidth: 300 }}>
+                <Copy>Backup/Restore</Copy>
+                <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
+                  Make a local backup of your data and restore it if you delete the
+                  app.
+                </Copy>
+              </View>
+              <Icon
+                type="chevronRight"
+                style={{ backgroundColor: "transparent" }}
+                textStyle={{ color: "gray" }}
+              />
+            </RectButton>
+          </View>
 
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Onboarding")}
-            style={styles.settingWrap}>
-            <View>
-              <Copy>Onboarding</Copy>
-              <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
-                Check out the onboarding carousel!
-              </Copy>
-            </View>
+          <View style={styles.settingWrap}>
+            <RectButton
+              onPress={() => navigation.navigate("Onboarding")}
+              rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue}
+              style={styles.settingContent}>
+              <View>
+                <Copy>Onboarding</Copy>
+                <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
+                  Check out the onboarding carousel!
+                </Copy>
+              </View>
 
-            <Icon
-              type="chevronRight"
-              style={{ backgroundColor: "transparent" }}
-              textStyle={{ color: "gray" }}
-            />
-          </TouchableOpacity>
+              <Icon
+                type="chevronRight"
+                style={{ backgroundColor: "transparent" }}
+                textStyle={{ color: "gray" }}
+              />
+            </RectButton>
+          </View>
 
-          <TouchableOpacity
-            onPress={() => this.generateTransactions()}
-            style={styles.settingWrap}>
-            <View>
-              <Copy>Dummy Data</Copy>
-              <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
-                Generate Demo Dummy Transactions (x100)
-              </Copy>
-            </View>
+          <View style={styles.settingWrap}>
+            <RectButton
+              onPress={() => generateTransactions()}
+              rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue}
+              style={styles.settingContent}>
+              <View>
+                <Copy>Dummy Data</Copy>
+                <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
+                  Generate Demo Dummy Transactions (x100)
+                </Copy>
+              </View>
 
-            <Icon
-              type="chevronRight"
-              style={{ backgroundColor: "transparent" }}
-              textStyle={{ color: "gray" }}
-            />
-          </TouchableOpacity>
+              <Icon
+                type="chevronRight"
+                style={{ backgroundColor: "transparent" }}
+                textStyle={{ color: "gray" }}
+              />
+            </RectButton>
+          </View>
 
           <View style={{ padding: 20 }}>
             <View
@@ -184,7 +205,7 @@ class Settings extends Component {
 
             {/* <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between", display: "none" }}>
               <Copy>Language</Copy>
-              <TouchableOpacity onPress={this.selectLanguage}>
+              <TouchableOpacity onPress={selectLanguage}>
                 <Copy>{language.name}</Copy>
               </TouchableOpacity>
             </View> */}
@@ -197,7 +218,7 @@ class Settings extends Component {
                 justifyContent: "space-between",
               }}>
               <Copy>Theme</Copy>
-              <TouchableOpacity onPress={this.selectTheme}>
+              <TouchableOpacity onPress={selectTheme}>
                 <Copy>{theme}</Copy>
               </TouchableOpacity>
             </View>
@@ -209,7 +230,4 @@ class Settings extends Component {
         </Copy>
       </Screen>
     )
-  }
 }
-
-export default Settings

@@ -97,7 +97,7 @@ class Transactions extends Component {
               <Icon
                 type="filter"
                 style={{ backgroundColor: "transparent" }}
-                textStyle={{ fontSize: 12, color: filtersApplied ? "black" : "white"}}/>
+                textStyle={{ fontSize: 12, color: filtersApplied ? palette.red : palette.light}}/>
             </TouchableOpacity>
           </Header>
         </Animated.View>

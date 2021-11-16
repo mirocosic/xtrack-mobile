@@ -10,6 +10,7 @@ import Icon from "../../components/icon"
 import styles from "./styles"
 import { isAndroid } from "../../utils/os-utils"
 import { useDarkTheme } from "../../utils/ui-utils"
+import palette from "../../utils/palette"
 
 const renderDeleteButton = (label, remove) => (
   <View style={[{ width: 70 }]}>
@@ -27,7 +28,11 @@ const Labels = ({ remove, navigation, labels }) => {
         <View>
           {labels.map(label => (
             <Swipeable key={label.id} renderRightActions={() => renderDeleteButton(label, remove)} containerStyle={styles.swiperWrap}>
-              <RectButton key={label.id} style={[styles.wrap, useDarkTheme() && styles.wrapDark]} onPress={() => navigation.navigate("LabelEdit", { label })}>
+              <RectButton 
+                key={label.id} 
+                style={[styles.wrap, useDarkTheme() && styles.wrapDark]}
+                rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue}
+                onPress={() => navigation.navigate("LabelEdit", { label })}>
                 <View key={label.id} style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <View style={{ width: 30, height: 30, backgroundColor: label.color, marginRight: 10, borderRadius: 50 }} />
