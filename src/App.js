@@ -5,6 +5,7 @@ import { PersistGate } from "redux-persist/lib/integration/react"
 import { DarkModeProvider } from "react-native-dark-mode"
 import { get } from "lodash"
 import changeNavigationBarColor from 'react-native-navigation-bar-color'
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import palette from "./utils/palette"
 import { persistor, store } from "./store"
@@ -13,6 +14,7 @@ import "intl"
 import "intl/locale-data/jsonp/en"
 
 // if (!__DEV__) { Sentry.config("https://c5c6fad7bce3480fa962382c9a01ee1e@sentry.io/1427686").install() }
+
 
 // get the appTheme from store, and if set to "system", update the status bar to provided systemTheme prop
 const updateStatusBarStyle = (systemTheme) => {
@@ -43,9 +45,9 @@ export default () => (
   <Provider store={store}>
     <DarkModeProvider>
       <PersistGate persistor={persistor}>
-
-        <AppNavigator />
-
+        <SafeAreaProvider>
+          <AppNavigator />
+        </SafeAreaProvider>
       </PersistGate>
     </DarkModeProvider>
   </Provider>

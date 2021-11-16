@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { View, Switch, Alert, TouchableOpacity } from "react-native"
 import { RectButton } from "react-native-gesture-handler"
+import { useSafeAreaInsets } from 'react-native-safe-area-context'; 
 
 import Icon from "../../components/icon"
 import Screen from "../../components/screen"
@@ -68,11 +69,11 @@ export default (props) => {
       theme,
     } = props
 
-    return (
-      <Screen style={{ paddingTop: 20, justifyContent: "space-between"}}>
-        <View>
-          <View style={styles.settingWrap} />
+    const insets = useSafeAreaInsets();
 
+    return (
+      <Screen style={{ paddingTop: insets.top, justifyContent: "space-between"}}>
+        <View>
           <View style={styles.settingWrap}>
             <RectButton
               onPress={() => navigation.navigate("Categories")}
