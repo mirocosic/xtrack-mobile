@@ -6,7 +6,6 @@ import {
 } from "@react-navigation/native"
 import {
   createStackNavigator,
-  CardStyleInterpolators,
   TransitionPresets,
 } from "@react-navigation/stack"
 import { createDrawerNavigator } from "@react-navigation/drawer"

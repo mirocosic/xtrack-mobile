@@ -1,6 +1,5 @@
-import React, { Component } from "react"
+import React from "react"
 import { View, TouchableOpacity } from "react-native"
-import { DarkModeContext } from "react-native-dark-mode"
 import { DrawerContentScrollView } from "@react-navigation/drawer"
 
 import { PrimaryButton } from "../buttons"
@@ -8,12 +7,9 @@ import Icon from "../icon"
 import { Title, Copy } from "../typography"
 import palette from "../../utils/palette"
 import styles from "./styles"
+import { useDarkTheme } from "../../utils/ui-utils"
 
-export default class Drawer extends Component {
-  static contextType = DarkModeContext
-
-  render() {
-    const darkMode = this.context === "dark"
+export default (props) => {
     const {
       categories,
       accounts,
@@ -27,14 +23,14 @@ export default class Drawer extends Component {
       categoryFilter,
       labels,
       appliedLabelsFilter,
-    } = this.props
+    } = props
 
     return (
-      <DrawerContentScrollView style={{paddingHorizontal: 20}}>
+      <DrawerContentScrollView style={{paddingHorizontal: 20, backgroundColor: useDarkTheme() ? palette.dark : palette.light }}>
         <View style={styles.contentHeader}>
           <Title>Filters</Title>
           <TouchableOpacity onPress={() => navigation.closeDrawer()}>
-            <Icon type="times" style={{ backgroundColor: darkMode ? palette.dark : "white" }} textStyle={{ color: darkMode ? "white" : "black" }} />
+            <Icon type="times" style={{ backgroundColor: useDarkTheme() ? palette.dark : "white" }} textStyle={{ color: useDarkTheme() ? "white" : "black" }} />
           </TouchableOpacity>
         </View>
 
@@ -121,4 +117,3 @@ export default class Drawer extends Component {
       </DrawerContentScrollView>
     )
   }
-}
