@@ -56,14 +56,14 @@ const Transaction = ({ transaction, selectTransaction, deleteTransaction, naviga
   };
 
   return (
-      <Swipeable renderRightActions={renderRightActions} containerStyle={{backgroundColor: "red"} }>
+      <Swipeable renderRightActions={renderRightActions} containerStyle={{backgroundColor: "red", borderBottomColor: palette.gray, borderBottomWidth: 1} }>
         <RectButton
-            style={{ height: HEIGHT }}
+            style={[styles.container, useDarkTheme() && styles.containerDark, { height: HEIGHT }]}
+            rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue}
             onPress={() => {
               selectTransaction(transaction)
               navigation.navigate("TransactionForm", { transactionId: transaction.id })
             }}>
-            <View style={[styles.container, { height: HEIGHT }, useDarkTheme() && styles.containerDark]}>
               <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                 {renderCategory(categories, transaction.categoryId)}
                 <Text style={[styles.amount, getAmountColor(transaction.type)]}>{formatCurrency(transaction.amount, transaction.currency)}</Text>
@@ -82,7 +82,6 @@ const Transaction = ({ transaction, selectTransaction, deleteTransaction, naviga
                     && transaction.labels.map(label => <Label key={label.uuid} label={label} style={{ marginLeft: 5, paddingRight: 10, marginBottom: 5 }} />)}
                 </View>
               </View>
-            </View>
           </RectButton>
         </Swipeable>
   )
