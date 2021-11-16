@@ -48,6 +48,7 @@ class LabelEdit extends Component {
               <Copy>Name</Copy>
               <TextInput
                 ref={this.input}
+                autoFocus={!label.id}
                 style={[styles.input, darkMode && styles.inputDark]}
                 onChangeText={text => this.setState({ label: { ...label, name: text } })}
                 placeholder="tag name"
