@@ -101,7 +101,7 @@ class Accounts extends Component {
         </ScrollView>
 
         <View style={[isAndroid && { paddingBottom: 10 }, { width: "80%", left: "10%", bottom: 20, position: "absolute" }]}>
-          <TouchableOpacity onPress={() => navigation.navigate("AccountEdit")}>
+          <TouchableOpacity onPress={() => navigation.navigate("AccountEdit")} style={styles.addWrap}>
             <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={["#2292f4", "#2031f4"]} style={[{ height: 50, width: 200 }, styles.add]}>
               <Copy style={{ color: "white" }}>Add new account</Copy>
             </LinearGradient>

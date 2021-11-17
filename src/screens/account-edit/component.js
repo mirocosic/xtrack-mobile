@@ -161,7 +161,7 @@ class AccountEdit extends Component {
             </View>
           </View>
 
-          <TouchableOpacity onPress={() => this.handleSave(account)}>
+          <TouchableOpacity onPress={() => this.handleSave(account)} style={styles.addWrap}>
             <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={["#2292f4", "#2031f4"]} style={[{ height: 50, width: 200 }, styles.add]}>
               <Copy style={{ color: "white" }}>Save</Copy>
             </LinearGradient>

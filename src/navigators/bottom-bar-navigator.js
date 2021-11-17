@@ -78,6 +78,15 @@ export default () => (
                 height: 60,
                 alignItems: "center",
                 borderRadius: 40,
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 5,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+
+                elevation: 5,
               }}>
 
               <LinearGradient

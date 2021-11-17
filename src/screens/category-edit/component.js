@@ -147,7 +147,7 @@ class CategoryEdit extends Component {
             </View>
           </View>
 
-          <TouchableOpacity onPress={() => this.handleSave(category)}>
+          <TouchableOpacity onPress={() => this.handleSave(category)} style={styles.addWrap}>
             <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={["#2292f4", "#2031f4"]} style={[{ height: 50, width: 200 }, styles.add]}>
               <Copy style={{ color: "white" }}>Save</Copy>
             </LinearGradient>

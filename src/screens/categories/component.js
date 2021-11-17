@@ -31,7 +31,8 @@ const Categories = ({ categories, navigation, selectCategory }) => (
 
     <View style={[isAndroid && { paddingBottom: 10 }, { width: "80%", left: "10%", bottom: 20, position: "absolute" }]}>
       <TouchableOpacity
-        onPress={() => navigation.navigate("CategoryEdit", { id: false })}>
+        onPress={() => navigation.navigate("CategoryEdit", { id: false })}
+        style={styles.addWrap}>
         <LinearGradient
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
