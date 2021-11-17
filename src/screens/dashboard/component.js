@@ -387,7 +387,8 @@ class Dashboard extends Component {
                 <Transaction
                   key={item.id}
                   transaction={item}
-                  navigation={navigation} />),
+                  navigation={navigation} 
+                  handlePress={() => this.breakdownModal.current.close()}/>),
               keyExtractor: item => item.id,
             }}
             ref={this.breakdownModal} />

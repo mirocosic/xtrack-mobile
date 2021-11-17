@@ -1,5 +1,6 @@
 import React from "react"
 import { View, TouchableOpacity } from "react-native"
+import { RectButton, BorderlessButton } from "react-native-gesture-handler"
 import { Copy } from "../typography"
 import palette from "../../utils/palette"
 import styles from "./styles"
@@ -8,11 +9,13 @@ export const PrimaryButton = props => {
   const { label, onPress, style } = props
 
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={[{ backgroundColor: palette.blue, ...styles.wrap }, style]}>
+    <RectButton
+      onPress={onPress}
+      style={[{ backgroundColor: palette.blue, ...styles.wrap }, style]}>
+      <View>
         <Copy style={styles.label}>{label}</Copy>
       </View>
-    </TouchableOpacity>
+    </RectButton>
   )
 }
 
@@ -34,7 +37,7 @@ export const TertiaryButton = props => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={{ ...styles.wrap }}>
-        <Copy style={styles.label}>{label}</Copy>
+        <Copy>{label}</Copy>
       </View>
     </TouchableOpacity>
   )

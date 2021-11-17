@@ -1,10 +1,9 @@
-import React, { useRef } from 'react';
-import {View, Switch, TouchableOpacity} from 'react-native';
-import { Modalize } from 'react-native-modalize';
+import React, { useRef } from 'react'
+import {View, Switch, TouchableOpacity} from 'react-native'
 import Collapsible from "react-native-collapsible"
+import { BorderlessButton } from 'react-native-gesture-handler'
 import moment from "moment"
 
-import SelectLabelsModal from '../modals/select-labels'
 import { Copy, CopyBlue } from "../typography"
 import { Label, PrimaryButton, TertiaryButton } from "../../components"
 import Icon from "../icon"
@@ -12,7 +11,7 @@ import styles from './styles'
 
 export default (props) => {
 
-    const { toggleRecuring, navigation, transaction, labels, selectSchedule, submitForm, 
+    const { toggleRecuring, transaction, selectSchedule, submitForm, 
             deleteTransaction, closeMoreOptions, onRemoveLabel, labelsModalRef, recurringCalendarModalRef} = props
 
     return (
@@ -22,7 +21,7 @@ export default (props) => {
             <Switch value={!!transaction.recurring} onValueChange={toggleRecuring} />
         </View>
 
-        <Collapsible collapsed={transaction.recurring === false} style={{ padding: 20, paddingTop: 10 }}>
+        <Collapsible collapsed={!!transaction.recurring === false} style={{ padding: 20, paddingTop: 10 }}>
             <View style={styles.inlineBetween}>
                 <Copy>Every</Copy>
                 <TouchableOpacity onPress={selectSchedule}>

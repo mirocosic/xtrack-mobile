@@ -1,5 +1,6 @@
 import React, { Component, useState } from "react"
 import { Text, TouchableOpacity } from "react-native"
+import { RectButton } from "react-native-gesture-handler"
 import { useDarkTheme } from "../../utils/ui-utils"
 import styles from "./styles"
 
@@ -7,7 +8,7 @@ export default ({handlePress, small, digit}) => {
   const [isPressed, setIsPressed] = useState(false)
 
   return (
-    <TouchableOpacity
+    <RectButton
         underlayColor="teal"
         activeOpacity={0.6}
         onPressIn={() => setIsPressed(true)}
@@ -28,6 +29,6 @@ export default ({handlePress, small, digit}) => {
           ]}>
           {digit}
         </Text>
-      </TouchableOpacity>
+      </RectButton>
   )
 }

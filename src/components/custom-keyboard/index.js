@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { View, Text, TouchableOpacity } from "react-native"
+import { RectButton } from "react-native-gesture-handler"
 
 import palette from "../../utils/palette"
 import Digit from "../digit"
@@ -18,7 +19,7 @@ export default ({handlePress, setAmount, handleSubmit, del}) => {
   }
 
   const handleOperation = (operation) => {
-    setInput(`${input} ${operation} `)
+    setInput(`${input}${operation}`)
     setCalculationMode(true)
   }
 
@@ -28,9 +29,14 @@ export default ({handlePress, setAmount, handleSubmit, del}) => {
   }
 
   const calculate = () => {
-    setInput(`${input} = ${eval(input)}`)
+    setInput(input ? `${input} = ${eval(input)}` : "")
     setCalculationMode(false)
-    setAmount(eval(input).toString())
+    setAmount(input ? eval(input).toString() : "0")
+  }
+
+  const handleDel = () => {
+    setInput(input.substring(0, input.length - 1))
+    !calculationMode && del()
   }
 
   return (
@@ -75,13 +81,13 @@ export default ({handlePress, setAmount, handleSubmit, del}) => {
 
           <View>
             <Digit digit="C" handlePress={() => handleClear()} small />
-            <Digit digit="DEL" handlePress={() => del()} small />
+            <Digit digit="DEL" handlePress={() => handleDel()} small />
 
-            <TouchableOpacity
+            <RectButton
               style={[styles.digit, !calculationMode && { backgroundColor: palette.blue }]}
               onPress={() => (calculationMode ? calculate() : handleSubmit())}>
               <Text style={{ color: !calculationMode ? "white" : "black" }}>{calculationMode ? "=" : "OK"}</Text>
-            </TouchableOpacity>
+            </RectButton>
           </View>
         </View>
       </View>

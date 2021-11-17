@@ -38,7 +38,7 @@ const renderCategory = (categories, id) => {
   )
 }
 
-const Transaction = ({ transaction, selectTransaction, deleteTransaction, navigation, categories }) => {
+const Transaction = ({ transaction, selectTransaction, deleteTransaction, navigation, categories, handlePress }) => {
 
   const HEIGHT = 70
   
@@ -63,6 +63,7 @@ const Transaction = ({ transaction, selectTransaction, deleteTransaction, naviga
             onPress={() => {
               selectTransaction(transaction)
               navigation.navigate("TransactionForm", { transactionId: transaction.id })
+              handlePress && handlePress()
             }}>
               <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                 {renderCategory(categories, transaction.categoryId)}

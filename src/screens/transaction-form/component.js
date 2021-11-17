@@ -5,6 +5,7 @@ import {
 } from "react-native";
 import { Calendar } from "react-native-calendars"
 import { Modalize } from "react-native-modalize"
+import { connectActionSheet } from '@expo/react-native-action-sheet';
 
 import moment from "moment"
 import { get } from "lodash"
@@ -208,7 +209,8 @@ class TransactionForm extends Component {
 
   selectRecurringSchedule = () => {
     const { transaction } = this.state
-    ActionSheetIOS.showActionSheetWithOptions({
+    
+    this.props.showActionSheetWithOptions({
       options: ["Day", "Week", "Month", "Year", "Cancel"],
       cancelButtonIndex: 4,
     }, (btnIdx) => {
@@ -361,7 +363,7 @@ class TransactionForm extends Component {
               handlePress={value => this.setState({ transaction: { ...transaction, ...{ amount: transaction.amount + value } } })}
               handleSubmit={() => this.submitForm()}
               setAmount={value => this.setState({ transaction: { ...transaction, ...{ amount: value } } })}
-              del={() => this.setState({
+              del={() => transaction.amount && this.setState({
                 transaction: {
                   ...transaction,
                   ...{ amount: transaction.amount.substring(0, transaction.amount.length - 1) },
@@ -467,4 +469,4 @@ class TransactionForm extends Component {
   }
 }
 
-export default TransactionForm
+export default connectActionSheet(TransactionForm)

@@ -3,7 +3,7 @@ import { View } from "react-native"
 import ReactNativeHapticFeedback from "react-native-haptic-feedback"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { useDarkMode } from "react-native-dark-mode"
-import { RectButton } from "react-native-gesture-handler"
+import { RectButton, TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler"
 import LinearGradient from "react-native-linear-gradient"
 
 import { Dashboard, Overview, Settings, Transactions } from "../screens"
@@ -70,31 +70,32 @@ export default () => (
       component={AddRedirector}
       options={{
         tabBarIcon: () => (
-          <RectButton
-            activeOpacity={0.5}
-            style={{
-              marginBottom: 20,
-              width: 60,
-              height: 60,
-              marginTop: -20,
-              alignItems: "center",
-              borderRadius: 40
-            }}>
-
-            <LinearGradient
-              colors={["#2292f4", "#2031f4"]}
-              style={[{
-                height: 60,
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={{
+                marginBottom: 20,
                 width: 60,
-                borderRadius: 30,
+                height: 60,
+                marginTop: -20,
                 alignItems: "center",
-                justifyContent: "center",
-              }]}>
-              <Icon
-                textStyle={{ fontSize: 30, color: "white" }}
-                type="plus" />
-            </LinearGradient>
-          </RectButton>
+                borderRadius: 40,
+                overflow: 'hidden',
+              }}>
+
+              <LinearGradient
+                colors={["#2292f4", "#2031f4"]}
+                style={[{
+                  height: 60,
+                  width: 60,
+                  borderRadius: 30,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }]}>
+                <Icon
+                  textStyle={{ fontSize: 30, color: "white" }}
+                  type="plus" />
+              </LinearGradient>
+            </TouchableOpacity>
         ),
       }}
     />

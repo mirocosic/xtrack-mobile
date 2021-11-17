@@ -6,6 +6,7 @@ import { DarkModeProvider } from "react-native-dark-mode"
 import { get } from "lodash"
 import changeNavigationBarColor from 'react-native-navigation-bar-color'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 
 import palette from "./utils/palette"
 import { persistor, store } from "./store"
@@ -45,9 +46,11 @@ export default () => (
   <Provider store={store}>
     <DarkModeProvider>
       <PersistGate persistor={persistor}>
-        <SafeAreaProvider>
-          <AppNavigator />
-        </SafeAreaProvider>
+        <ActionSheetProvider>
+          <SafeAreaProvider>
+            <AppNavigator />
+          </SafeAreaProvider>
+        </ActionSheetProvider>
       </PersistGate>
     </DarkModeProvider>
   </Provider>
