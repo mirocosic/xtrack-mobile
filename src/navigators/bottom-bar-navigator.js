@@ -73,13 +73,11 @@ export default () => (
             <TouchableOpacity
               activeOpacity={0.8}
               style={{
-                marginBottom: 20,
+                marginBottom: 40,
                 width: 60,
                 height: 60,
-                marginTop: -20,
                 alignItems: "center",
                 borderRadius: 40,
-                overflow: 'hidden',
               }}>
 
               <LinearGradient

@@ -44,6 +44,9 @@ const solid = [
   Icons.envelope,
   Icons.couch,
 
+  Icons.checkSquare,
+  Icons.squareRootAlt,
+
   Icons.filter,
   Icons.snowflake,
   Icons.paw,

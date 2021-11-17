@@ -7,8 +7,8 @@ import LinearGradient from "react-native-linear-gradient"
 import Screen from "../../components/screen"
 import Header from "../../components/header"
 import { Copy } from "../../components/typography"
-
 import styles from "./styles"
+import { isAndroid } from "../../utils/os-utils"
 
 const colors = ["#FF5722", "#F39A27", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
 const defaultLabel = { color: "#0097A7" }
@@ -38,7 +38,7 @@ class LabelEdit extends Component {
 
     return (
       <Screen>
-        <Header title={label.name} backBtn />
+        <Header title={label.name} backBtn={isAndroid} />
 
         <View style={{ padding: 20, flex: 1, justifyContent: "space-between" }}>
 

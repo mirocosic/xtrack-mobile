@@ -86,7 +86,6 @@ class TransactionForm extends Component {
     }
 
     if (!transaction.id && transaction.recurring) {
-      navigation.goBack()
       setTimeout(() => addRecurring(transaction.recurring))
     }
   }

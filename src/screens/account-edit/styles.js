@@ -15,10 +15,11 @@ export default StyleSheet.create({
 
   input: {
     color: "black",
-    fontSize: 20,
+    fontSize: 16,
     width: 200,
     borderBottomWidth: 1,
     borderColor: palette.gray,
+    textAlign: "right"
   },
 
   inputDark: {
@@ -87,4 +88,17 @@ export default StyleSheet.create({
   },
 
   modalDark: { backgroundColor: palette.darkGray },
+
+  balanceInput: { 
+    fontSize: 16, 
+    borderBottomWidth: 1, 
+    width: 50, 
+    borderColor: palette.gray,
+    textAlign: "right"
+  },
+
+  balanceInputDark: {
+    borderColor: palette.light,
+    color: palette.light
+  }
 })

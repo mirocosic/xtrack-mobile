@@ -10,6 +10,8 @@ import CategoryIcons from "../../components/category-icons"
 import Icon from "../../components/icon"
 import { Copy, CopyBlue } from "../../components/typography"
 import styles from "./styles"
+import { isAndroid } from "../../utils/os-utils"
+import palette from "../../utils/palette"
 
 const colors = ["#FF5722", "#F39A27", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"]
 
@@ -71,7 +73,7 @@ class CategoryEdit extends Component {
         <Header
           icon={<Icon type={category.icon} textStyle={{ color: category.color }} />}
           title={category.name}
-          backBtn
+          backBtn={isAndroid}
           actionBtn={<Icon type="trash-alt" />}
           actionBtnPress={() => this.deleteCategory(category)}
         />
@@ -99,7 +101,7 @@ class CategoryEdit extends Component {
 
             <View style={[styles.inlineBetween, { margin: 10 }]}>
               <Copy>Icon</Copy>
-              <TouchableOpacity onPress={() => this.iconsModal.current.open()}>
+              <TouchableOpacity onPress={() => this.iconsModal.current.open() }>
                 <Icon type={category.icon} textStyle={{ color: category.color, fontSize: 30 }} />
               </TouchableOpacity>
             </View>
@@ -107,14 +109,19 @@ class CategoryEdit extends Component {
             <View style={[styles.inlineBetween, { margin: 10 }]}>
               <Copy>Color</Copy>
               <TouchableOpacity onPress={() => this.colorModal.current.open()}>
-                <View style={{ width: 40, height: 40, backgroundColor: category.color, borderRadius: 5 }} />
+                <View style={{ width: 35, height: 30, backgroundColor: category.color, borderRadius: 5 }} />
               </TouchableOpacity>
             </View>
 
             <View style={[styles.inlineBetween, { margin: 10 }]}>
               <Copy>Default category</Copy>
               <TouchableOpacity onPress={() => this.setState({ category: { ...category, defaultCategory: !category.defaultCategory } })}>
-                <CopyBlue style={{ fontSize: 20 }}>{category.defaultCategory ? "Yes" : "No"}</CopyBlue>
+                {category.defaultCategory ? 
+                <View style={{width: 30, height:30, borderRadius: 4, borderWidth: 2, borderColor: darkMode ? palette.light : palette.dark}}/>
+                : 
+                <View style={{width: 30, height:30, borderRadius: 4, borderWidth: 2, borderColor: darkMode ? palette.light : palette.dark, alignItems: "center", justifyContent: "center"}}>
+                  <Icon type="check" textStyle={{fontSize: 18, color: darkMode ? palette.light : palette.dark}} />
+                </View>}
               </TouchableOpacity>
             </View>
 

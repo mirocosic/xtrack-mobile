@@ -15,11 +15,12 @@ export default StyleSheet.create({
 
   input: {
     color: "black",
-    fontSize: 20,
+    fontSize: 16,
     margin: 20,
     width: 200,
     borderBottomWidth: 1,
     borderColor: palette.gray,
+    textAlign: "right"
   },
 
   inputDark: {
