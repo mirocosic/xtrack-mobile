@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, TextInput, TouchableOpacity } from "react-native"
+import { View, ScrollView, TextInput, TouchableOpacity } from "react-native"
 import { Modalize } from "react-native-modalize"
 import { DarkModeContext } from "react-native-dark-mode"
 import LinearGradient from "react-native-linear-gradient"
@@ -40,10 +40,9 @@ class LabelEdit extends Component {
       <Screen>
         <Header title={label.name} backBtn={isAndroid} />
 
-        <View style={{ padding: 20, flex: 1, justifyContent: "space-between" }}>
+        <ScrollView contentContainerStyle={{ padding: 20, flex: 1, justifyContent: "space-between" }}>
 
           <View>
-
             <View style={styles.inputContainer}>
               <Copy>Name</Copy>
               <TextInput
@@ -53,9 +52,7 @@ class LabelEdit extends Component {
                 onChangeText={text => this.setState({ label: { ...label, name: text } })}
                 placeholder="tag name"
                 placeholderTextColor="gray"
-                value={label.name}
-            />
-
+                value={label.name}/>
             </View>
 
             <View style={[styles.inlineBetween, { margin: 10 }]}>
@@ -78,7 +75,7 @@ class LabelEdit extends Component {
             </LinearGradient>
           </TouchableOpacity>
 
-        </View>
+        </ScrollView>
 
         <Modalize
           adjustToContentHeight

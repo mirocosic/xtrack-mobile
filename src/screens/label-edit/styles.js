@@ -10,8 +10,8 @@ export default StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     paddingTop: 20,
-    paddingLeft: 30,
-    paddingRight: 20,
+    paddingLeft: 15,
+    paddingRight: 15,
     minHeight: 100,
   },
 

@@ -11,7 +11,7 @@ import styles from "./styles"
 const Categories = ({ categories, navigation, selectCategory }) => (
 
   <Screen>
-    <Header title="Categories" backBtn />
+    <Header title="Categories" backBtn withInsets />
     <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
       <View>
         {categories

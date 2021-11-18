@@ -90,6 +90,7 @@ class Transactions extends Component {
         <Animated.View style={{ position: "absolute", zIndex: 100, width: "100%"}}>
           <Header
             title="Transactions"
+            withInsets
             style={{  width: "100%", alignItems: "center", justifyContent: "center"}}>
             <TouchableOpacity
               onPress={() => navigation.openDrawer()}

@@ -12,6 +12,7 @@ import { Copy, CopyBlue } from "../../components/typography"
 import styles from "./styles"
 import { isAndroid } from "../../utils/os-utils"
 import palette from "../../utils/palette"
+import { BorderlessButton } from "react-native-gesture-handler"
 
 const colors = ["#FF5722", "#F39A27", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"]
 
@@ -73,10 +74,7 @@ class CategoryEdit extends Component {
         <Header
           icon={<Icon type={category.icon} textStyle={{ color: category.color }} />}
           title={category.name}
-          backBtn={isAndroid}
-          actionBtn={<Icon type="trash-alt" />}
-          actionBtnPress={() => this.deleteCategory(category)}
-        />
+          backBtn={isAndroid}/>
 
         <ScrollView style={{ margin: 20 }} contentContainerStyle={{ flex: 1, justifyContent: "space-between" }}>
           <View>
@@ -147,11 +145,18 @@ class CategoryEdit extends Component {
             </View>
           </View>
 
-          <TouchableOpacity onPress={() => this.handleSave(category)} style={styles.addWrap}>
-            <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={["#2292f4", "#2031f4"]} style={[{ height: 50, width: 200 }, styles.add]}>
-              <Copy style={{ color: "white" }}>Save</Copy>
-            </LinearGradient>
-          </TouchableOpacity>
+          <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+            <BorderlessButton onPress={() => this.deleteCategory(category)}>
+              <Icon type="trash-alt" textStyle={{color: darkMode ? palette.light : palette.dark}} />
+            </BorderlessButton>
+            <TouchableOpacity onPress={() => this.handleSave(category)} style={styles.addWrap}>
+              <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={["#2292f4", "#2031f4"]} style={[styles.add]}>
+                <Copy style={{ color: "white" }}>Save</Copy>
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
+
+          
         </ScrollView>
 
         <Modalize adjustToContentHeight modalStyle={[styles.modal, darkMode && styles.modalDark]} ref={this.colorModal}>
