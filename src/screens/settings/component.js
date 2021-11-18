@@ -245,7 +245,7 @@ const Settings = (props) => {
         </View>
 
         <Copy style={{ textAlign: "right", marginBottom: 10, marginRight: 10}}>
-           v1.0.17 (44)
+           v1.0.18 (45)
         </Copy>
       </Screen>
     )
