@@ -5,7 +5,6 @@ import palette from "../../utils/palette"
 export default StyleSheet.create({
   container: {
     backgroundColor: palette.blue,
-    paddingTop: safePaddingTop(10),
     paddingBottom: 10,
   },
 
@@ -15,7 +14,6 @@ export default StyleSheet.create({
     zIndex: 100,
     color: "white",
     position: "absolute",
-    top: safePaddingTop(8),
     left: 20,
   },
 
@@ -23,6 +21,5 @@ export default StyleSheet.create({
     alignItems: "center",
     position: "absolute",
     right: 20,
-    top: safePaddingTop(8),
   },
 })

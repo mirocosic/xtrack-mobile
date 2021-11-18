@@ -4,6 +4,7 @@ import { Modalize } from "react-native-modalize"
 import { DarkModeContext } from "react-native-dark-mode"
 import { get } from "lodash"
 import LinearGradient from "react-native-linear-gradient"
+import { BorderlessButton } from "react-native-gesture-handler"
 
 import { Screen, Header } from "../../components"
 import CategoryIcons from "../../components/category-icons"
@@ -84,10 +85,7 @@ class AccountEdit extends Component {
         <Header
           icon={<Icon type={account.icon} textStyle={{ color: account.color }} />}
           title={account.name}
-          backBtn={isAndroid}
-          actionBtn={<Icon type="trash-alt" />}
-          actionBtnPress={() => this.handleDelete(account)}
-        />
+          backBtn={isAndroid}/>
 
         <ScrollView style={{ padding: 20 }} contentContainerStyle={{ flex: 1, justifyContent: "space-between" }}>
           <View>
@@ -161,11 +159,17 @@ class AccountEdit extends Component {
             </View>
           </View>
 
-          <TouchableOpacity onPress={() => this.handleSave(account)} style={styles.addWrap}>
-            <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={["#2292f4", "#2031f4"]} style={[{ height: 50, width: 200 }, styles.add]}>
-              <Copy style={{ color: "white" }}>Save</Copy>
-            </LinearGradient>
-          </TouchableOpacity>
+          <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+            <BorderlessButton onPress={() => this.handleDelete(account)}>
+              <Icon type="trash-alt" textStyle={{color: darkMode ? palette.light : palette.dark}} />
+            </BorderlessButton>
+            <TouchableOpacity onPress={() => this.handleSave(account)} style={styles.addWrap}>
+              <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={["#2292f4", "#2031f4"]} style={[styles.add]}>
+                <Copy style={{ color: "white" }}>Save</Copy>
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
+
         </ScrollView>
 
         <Modalize adjustToContentHeight modalStyle={[styles.modal, darkMode && styles.modalDark]} ref={this.iconsModal}>

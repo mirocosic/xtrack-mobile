@@ -66,7 +66,7 @@ export function Backup(props) {
 
     return (
       <Screen>
-        <Header title="Backup / Restore" backBtn />
+        <Header title="Backup / Restore" backBtn withInsets />
         <View style={{ flex: 1, padding: 20, alignItems: "center" }}>
           {
             backups.map((item) => (

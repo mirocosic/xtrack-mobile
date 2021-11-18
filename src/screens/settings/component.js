@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { View, Switch, Alert, TouchableOpacity } from "react-native"
 import { RectButton } from "react-native-gesture-handler"
 import { useSafeAreaInsets } from 'react-native-safe-area-context'; 
+import { connectActionSheet } from '@expo/react-native-action-sheet';
 
 import Icon from "../../components/icon"
 import Screen from "../../components/screen"
@@ -11,8 +12,10 @@ import styles from "./styles"
 import { useDarkTheme } from "../../utils/ui-utils"
 import palette from "../../utils/palette"
 
-///class Settings extends Component {
-export default (props) => {
+const Settings = (props) => {
+
+  const darkMode = useDarkTheme()
+
   const selectLanguage = () => {
     const { setLanguage } = props
     Alert.alert(
@@ -32,16 +35,31 @@ export default (props) => {
   }
 
   const selectTheme = () => {
-    const { setTheme } = props
-    Alert.alert(
-      __("Select theme"),
-      __("Please choose your preferred app theme"),
-      [
-        { text: "Light", onPress: () => setTheme("light") },
-        { text: "Dark", onPress: () => setTheme("dark") },
-        { text: "System", onPress: () => setTheme("system") },
-      ],
-    )
+    const { setTheme, theme } = props
+
+    props.showActionSheetWithOptions({
+      options: ["Light", "Dark", "System", "Cancel"],
+      cancelButtonIndex: 3,
+      title: "Select app theme",
+      userInterfaceStyle: theme,
+      containerStyle: { backgroundColor: darkMode ? palette.dark : palette.light},
+      textStyle: { color: darkMode ? palette.light : palette.dark},
+      titleTextStyle: { color: darkMode ? palette.lightGray : palette.gray}
+    }, (btnIdx) => {
+      switch (btnIdx) {
+        case 0:
+          setTheme("light")
+          break;
+        case 1:
+          setTheme("dark")
+          break;
+        case 2:
+          setTheme("system")
+          break;
+        default:
+          break;
+      }
+    })
   }
 
   const generateTransactions = () => {
@@ -220,7 +238,7 @@ export default (props) => {
               }}>
               <Copy>Theme</Copy>
               <TouchableOpacity onPress={selectTheme}>
-                <Copy>{theme}</Copy>
+                <Copy style={{textTransform: 'capitalize'}}>{theme}</Copy>
               </TouchableOpacity>
             </View>
           </View>
@@ -232,3 +250,5 @@ export default (props) => {
       </Screen>
     )
 }
+
+export default connectActionSheet(Settings)

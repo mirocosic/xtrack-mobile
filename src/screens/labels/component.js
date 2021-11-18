@@ -23,7 +23,7 @@ const renderDeleteButton = (label, remove) => (
 const Labels = ({ remove, navigation, labels }) => {
   return (
     <Screen>
-      <Header title="Tags" backBtn />
+      <Header title="Tags" backBtn withInsets />
       <ScrollView>
         <View>
           {labels.map(label => (

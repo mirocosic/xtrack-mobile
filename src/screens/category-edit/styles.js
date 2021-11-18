@@ -30,6 +30,8 @@ export default StyleSheet.create({
 
 
   addWrap: {
+    flex: 1,
+    marginLeft: 10, 
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -42,7 +44,7 @@ export default StyleSheet.create({
   },
 
   add: {
-    marginTop: 50,
+    
     width: "100%",
     height: 40,
     borderRadius: 10,
@@ -85,8 +87,8 @@ export default StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     paddingTop: 20,
-    paddingLeft: 30,
-    paddingRight: 20,
+    paddingLeft: 15,
+    paddingRight: 15,
   },
 
   colorBox: {

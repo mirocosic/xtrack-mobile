@@ -74,7 +74,7 @@ class Accounts extends Component {
 
     return (
       <Screen>
-        <Header title="Accounts" backBtn />
+        <Header title="Accounts" backBtn withInsets />
         <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
           <View style={{ borderColor: "gray", borderTopWidth: 1 }}>
             {accounts.map(account => (
