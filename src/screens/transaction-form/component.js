@@ -181,7 +181,7 @@ class TransactionForm extends Component {
     const category = categories.find(cat => id === cat.id)
 
     return (
-      <View style={{ flexDirection: "row", alignItems: "center", width: 170 }}>
+      <View style={{ flexDirection: "row", alignItems: "center", width: 165 }}>
         <Icon
           type={get(category, "icon", "")}
           textStyle={{ color: get(category, "color", "blue") }}
@@ -196,10 +196,11 @@ class TransactionForm extends Component {
     const account = accounts.find(acc => id === acc.id)
 
     return (
-      <View style={{ flexDirection: "row", alignItems: "center", width: 170 }}>
+      // TODO: refactor this style
+      <View style={{ flexDirection: "row", alignItems: "center", width: 165 }}>
         <Icon
-          type={get(account, "icon", "")}
-          textStyle={{ color: get(account, "color", "blue") }}
+          type={get(account, "icon", "hand-pointer")}
+          textStyle={{ color: get(account, "color", "teal") }}
         />
         <Copy>{account ? account.name : <Copy style={{ fontStyle: "italic" }}>select account</Copy>}</Copy>
       </View>
@@ -235,6 +236,7 @@ class TransactionForm extends Component {
   render() {
     const { transaction, moreOptionsOpen, accountType } = this.state
     const { navigation, changeTransactionAmount, theme, accounts, labels } = this.props
+    const isTransfer = transaction.type === "transfer"
     const darkMode =  theme === "system" ? this.context === "dark" : theme === "dark"
 
     return (
@@ -290,38 +292,38 @@ class TransactionForm extends Component {
 
           <View style={styles.formFieldWrap} />
 
-          { transaction.type === "transfer" && (
-            <View style={styles.formFieldWrap}>
-              <Copy>From Account:</Copy>
+          <View style={isTransfer && {flexDirection: "row", justifyContent: "space-between"}}>
+
+            { isTransfer && (
+              <View style={styles.formFieldColumnWrap}>
+                <Copy>From</Copy>
+                <TouchableOpacity
+                  style={[styles.selectBox, darkMode && styles.selectBoxDark]}
+                  onPress={() => {
+                    this.accountsModal.current.open()
+                    this.setState({ accountType: "from" })
+                  }}>
+                  { this.renderAccount(transaction.fromAccountId)}
+                </TouchableOpacity>
+              </View>
+            )}
+
+            <View style={isTransfer ? styles.formFieldColumnWrap : styles.formFieldWrap}>
+              <Copy>{isTransfer ? "To " : "Account"}</Copy>
               <TouchableOpacity
                 style={[styles.selectBox, darkMode && styles.selectBoxDark]}
                 onPress={() => {
                   this.accountsModal.current.open()
-                  this.setState({ accountType: "from" })
-                }}>
-                { this.renderAccount(transaction.fromAccountId)}
+                  this.setState({ accountType: "to" })
+                }}
+                >
+                { this.renderAccount(transaction.accountId) }
               </TouchableOpacity>
-            </View>
-          )}
 
-          <View style={styles.formFieldWrap}>
-            <View style={styles.inlineStart}>
-              <Copy>{transaction.type === "transfer" && "To "}</Copy>
-              <Copy>Account</Copy>
             </View>
-            <TouchableOpacity
-              style={[styles.selectBox, darkMode && styles.selectBoxDark]}
-              onPress={() => {
-                this.accountsModal.current.open()
-                this.setState({ accountType: "to" })
-              }}
-              >
-              { this.renderAccount(transaction.accountId) }
-            </TouchableOpacity>
-
           </View>
 
-          <View style={[styles.formFieldWrap, { alignItems: "center", paddingBottom: 10 }]}>
+          <View style={[styles.formFieldWrap, { alignItems: "center", paddingBottom: 5 }]}>
             <TextInput
               onChangeText={value => this.setState({ transaction: { ...transaction, note: value } })}
               value={transaction.note}

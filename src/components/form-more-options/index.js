@@ -8,8 +8,12 @@ import { Copy, CopyBlue } from "../typography"
 import { Label, PrimaryButton, TertiaryButton } from "../../components"
 import Icon from "../icon"
 import styles from './styles'
+import { useDarkTheme } from '../../utils/ui-utils'
+import palette from '../../utils/palette'
 
 export default (props) => {
+
+  const darkMode = useDarkTheme()
 
     const { toggleRecuring, transaction, selectSchedule, submitForm, 
             deleteTransaction, closeMoreOptions, onRemoveLabel, labelsModalRef, recurringCalendarModalRef} = props
@@ -62,11 +66,14 @@ export default (props) => {
             <CopyBlue>Less Options</CopyBlue>
         </TouchableOpacity>
 
-        <PrimaryButton label="Save" onPress={submitForm} style={{ borderRadius: 5 }} />
-
-        <TertiaryButton label="Delete" onPress={deleteTransaction} style={{ borderRadius: 5 }} />
-
-        
+        <View style={{flexDirection: "row", alignItems: "center"}}>
+          <BorderlessButton onPress={deleteTransaction}>
+            <Icon type="trash-alt" style={{marginRight: 10}} 
+                        textStyle={{color: darkMode ? palette.light : palette.dark}}
+                        />
+          </BorderlessButton>
+          <PrimaryButton label="Save" onPress={submitForm} style={{ borderRadius: 5, flex: 1 }} />
+        </View>
     </View>
     )
 }

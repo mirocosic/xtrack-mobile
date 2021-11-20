@@ -19,6 +19,11 @@ export default StyleSheet.create({
     marginTop: 10,
   },
 
+  formFieldColumnWrap: {
+    justifyContent: "space-between",
+    marginTop: 10,
+  },
+
   welcome: {
     color: "white",
     textAlign: "center",
