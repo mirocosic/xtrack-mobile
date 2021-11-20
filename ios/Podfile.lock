@@ -1,22 +1,4 @@
 PODS:
-  - appcenter-analytics (3.1.2):
-    - AppCenter/Analytics
-    - AppCenterReactNativeShared
-    - React
-  - appcenter-core (3.1.2):
-    - AppCenterReactNativeShared
-    - React
-  - appcenter-crashes (3.1.2):
-    - AppCenter/Crashes
-    - AppCenterReactNativeShared
-    - React
-  - AppCenter/Analytics (3.3.4):
-    - AppCenter/Core
-  - AppCenter/Core (3.3.4)
-  - AppCenter/Crashes (3.3.4):
-    - AppCenter/Core
-  - AppCenterReactNativeShared (3.1.2):
-    - AppCenter/Core (= 3.3.4)
   - boost-for-react-native (1.63.0)
   - BVLinearGradient (2.5.6):
     - React
@@ -67,7 +49,7 @@ PODS:
     - nanopb/encode (= 1.30906.0)
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
-  - PromisesObjC (1.2.11)
+  - PromisesObjC (1.2.12)
   - RCTRequired (0.63.3)
   - RCTTypeSafety (0.63.3):
     - FBLazyVector (= 0.63.3)
@@ -356,9 +338,6 @@ PODS:
   - Yoga (1.14.0)
 
 DEPENDENCIES:
-  - appcenter-analytics (from `../node_modules/appcenter-analytics/ios`)
-  - appcenter-core (from `../node_modules/appcenter/ios`)
-  - appcenter-crashes (from `../node_modules/appcenter-crashes/ios`)
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -406,8 +385,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - AppCenter
-    - AppCenterReactNativeShared
     - boost-for-react-native
     - Firebase
     - FirebaseCore
@@ -420,12 +397,6 @@ SPEC REPOS:
     - Sentry
 
 EXTERNAL SOURCES:
-  appcenter-analytics:
-    :path: "../node_modules/appcenter-analytics/ios"
-  appcenter-core:
-    :path: "../node_modules/appcenter/ios"
-  appcenter-crashes:
-    :path: "../node_modules/appcenter-crashes/ios"
   BVLinearGradient:
     :path: "../node_modules/react-native-linear-gradient"
   DoubleConversion:
@@ -512,11 +483,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  AppCenter: 0487be185c038ed2ecc5ed38219af1dcd280af23
-  appcenter-analytics: 86931681ba39a34856727e415d39e7d4693ad7fe
-  appcenter-core: 1cca3f4d1f01e820710dc82e14ad2b4806a4f907
-  appcenter-crashes: 5da5dca952c3d1a3eea2d596748d94ec0412fbd1
-  AppCenterReactNativeShared: 66667cd2dfad295b84bbf0f462e0e139e2128284
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   DoubleConversion: cde416483dac037923206447da6e1454df403714
@@ -533,7 +499,7 @@ SPEC CHECKSUMS:
   lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
   lottie-react-native: 4dff8fe8d10ddef9e7880e770080f4a56121397e
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
-  PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
+  PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   RCTRequired: 48884c74035a0b5b76dbb7a998bd93bcfc5f2047
   RCTTypeSafety: edf4b618033c2f1c5b7bc3d90d8e085ed95ba2ab
   React: f36e90f3ceb976546e97df3403e37d226f79d0e3
@@ -572,4 +538,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 8a9d93071e516bdaec01a34457a63a492d052689
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2
