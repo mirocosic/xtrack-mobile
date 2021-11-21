@@ -234,6 +234,7 @@ const Settings = (props) => {
               </TouchableOpacity>
             </View> */}
 
+
             <View
               style={{
                 marginTop: 10,
