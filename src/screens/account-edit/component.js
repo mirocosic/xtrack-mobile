@@ -93,6 +93,7 @@ class AccountEdit extends Component {
               <Copy>Name</Copy>
               <TextInput
                 ref={this.input}
+                multiline
                 autoFocus={!account.id}
                 style={[styles.input, darkMode && styles.inputDark]}
                 onChangeText={text => this.setState({

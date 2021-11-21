@@ -32,20 +32,18 @@ export default StyleSheet.create({
     backgroundColor: "teal",
   },
 
-  textInput: {
+  noteInput: {
     color: "black",
-    margin: 10,
-    width: 100,
     backgroundColor: "white",
+    marginVertical: 10,
     borderRadius: 5,
+    padding: 10, 
+    height: 40, 
+    width: "100%" 
   },
 
-  textInputDark: {
+  noteInputDark: {
     color: "white",
-    fontSize: 20,
-    width: 200,
-    padding: 10,
-    margin: 10,
     backgroundColor: palette.darkGray,
   },
 

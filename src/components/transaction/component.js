@@ -1,7 +1,7 @@
 import React from "react"
-import { Animated, Text, View, Dimensions, useWindowDimensions } from "react-native"
+import {  Text, View } from "react-native"
 import moment from "moment"
-import { get } from "lodash"
+import { get, truncate } from "lodash"
 
 import { PanGestureHandler, State, RectButton } from "react-native-gesture-handler"
 import Swipeable from 'react-native-gesture-handler/Swipeable'
@@ -31,9 +31,9 @@ const renderCategory = (categories, id) => {
   const category = categories.find(cat => id === cat.id)
 
   return (
-    <View style={{ flexDirection: "row", alignItems: "center" }}>
+    <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
       <Icon type={get(category, "icon", "")} textStyle={{ color: get(category, "color", "blue") }} style={{ padding: 5, marginRight: 10 }} />
-      <Copy>{category && category.name}</Copy>
+      <Copy style={{flex:1}}>{category && truncate(category.name, {length: 150})}</Copy>
     </View>
   )
 }
@@ -59,13 +59,14 @@ const Transaction = ({ transaction, selectTransaction, deleteTransaction, naviga
       <Swipeable renderRightActions={renderRightActions} containerStyle={{backgroundColor: "red", borderBottomColor: palette.gray, borderBottomWidth: 1} }>
         <RectButton
             style={[styles.container, useDarkTheme() && styles.containerDark, { height: HEIGHT }]}
+            activeOpacity={useDarkTheme() ? 0.8 : 0.1}
             rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue}
             onPress={() => {
               selectTransaction(transaction)
               navigation.navigate("TransactionForm", { transactionId: transaction.id })
               handlePress && handlePress()
             }}>
-              <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+              <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", flex: 1 }}>
                 {renderCategory(categories, transaction.categoryId)}
                 <Text style={[styles.amount, getAmountColor(transaction.type)]}>{formatCurrency(transaction.amount, transaction.currency)}</Text>
               </View>

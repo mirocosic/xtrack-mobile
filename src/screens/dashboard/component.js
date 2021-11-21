@@ -134,15 +134,13 @@ class Dashboard extends Component {
         return (
           <TouchableOpacity
             key={item[0]}
-            style={{ ...styles.row, paddingLeft: 10 }}
+            style={{ ...styles.row, paddingLeft: 10, flex: 1 }}
             onPress={() => {
               this.setState({ breakdownTransactions: filterByCategory(currentMonthTransactions, cat.id) })
               this.breakdownModal.current.open()
             }}
           >
-            <View
-              style={{ flexDirection: "row", alignItems: "center" }}
-              >
+            <View style={{ flexDirection: "row", alignItems: "center", flex: 1, paddingRight: 15 }}>
               <Icon
                 type={get(cat, "icon", "")}
                 textStyle={{ color: cat.color || "blue", fontSize: 12 }}
@@ -152,7 +150,6 @@ class Dashboard extends Component {
 
             </View>
             <Copy style={{ fontSize: 14 }}>
-
               {` ${formatCurrency(item[1])} `}
             </Copy>
 

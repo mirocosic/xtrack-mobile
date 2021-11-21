@@ -8,7 +8,7 @@ import { Modalize } from "react-native-modalize"
 import { connectActionSheet } from '@expo/react-native-action-sheet';
 
 import moment from "moment"
-import { get } from "lodash"
+import { get, truncate } from "lodash"
 import { DarkModeContext } from "react-native-dark-mode"
 
 import { Screen, Header, Label, CustomKeyboard, TransactionType, PrimaryButton, TertiaryButton } from "../../components"
@@ -181,12 +181,12 @@ class TransactionForm extends Component {
     const category = categories.find(cat => id === cat.id)
 
     return (
-      <View style={{ flexDirection: "row", alignItems: "center", width: 165 }}>
+      <View style={{ flexDirection: "row", alignItems: "center", width: 165}}>
         <Icon
           type={get(category, "icon", "")}
           textStyle={{ color: get(category, "color", "blue") }}
         />
-        <Copy>{category ? category.name : <Copy style={{ fontStyle: "italic" }}>select category</Copy>}</Copy>
+        <Copy style={{flexWrap: "wrap", width: 120}}>{category ? truncate(category.name, {length: 35}) : <Copy style={{ fontStyle: "italic" }}>select category</Copy>}</Copy>
       </View>
     )
   }
@@ -202,7 +202,7 @@ class TransactionForm extends Component {
           type={get(account, "icon", "hand-pointer")}
           textStyle={{ color: get(account, "color", "teal") }}
         />
-        <Copy>{account ? account.name : <Copy style={{ fontStyle: "italic" }}>select account</Copy>}</Copy>
+        <Copy style={{flexWrap: "wrap", width: 120}}>{account ? truncate(account.name, {length: 30}) : <Copy style={{ fontStyle: "italic" }}>select account</Copy>}</Copy>
       </View>
     )
   }
@@ -330,7 +330,7 @@ class TransactionForm extends Component {
               placeholder="enter note..."
               placeholderTextColor="gray"
               maxLength={30}
-              style={[styles.textInput, darkMode && styles.textInputDark, { marginLeft: 0, padding: 10, height: 40, width: "100%" }]}
+              style={[styles.noteInput, darkMode && styles.noteInputDark]}
               keyboardAppearance={darkMode ? "dark" : "light"}/>
           </View>
 

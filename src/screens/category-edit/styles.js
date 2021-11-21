@@ -44,7 +44,6 @@ export default StyleSheet.create({
   },
 
   add: {
-    
     width: "100%",
     height: 40,
     borderRadius: 10,

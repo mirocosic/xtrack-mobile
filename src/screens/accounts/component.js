@@ -82,9 +82,10 @@ class Accounts extends Component {
                 <RectButton 
                   key={account.id}
                   onPress={() => navigation.navigate("AccountEdit", { id: account.id })}
+                  activeOpacity={darkMode ? 0.5 : 0.1}
                   style={[styles.wrap, darkMode && styles.wrapDark]}
                   rippleColor={darkMode ? palette.darkGray : palette.lightBlue}>
-                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
                       <Icon type={account.icon} style={{ marginRight: 10 }} textStyle={{ color: account.color, fontSize: 20 }} />
                       <Copy>
                         {`${account.name} `}

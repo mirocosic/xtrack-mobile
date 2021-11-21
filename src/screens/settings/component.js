@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 import { View, Switch, Alert, TouchableOpacity } from "react-native"
 import { RectButton } from "react-native-gesture-handler"
 import { useSafeAreaInsets } from 'react-native-safe-area-context'; 
@@ -83,7 +83,6 @@ const Settings = (props) => {
       navigation,
       openOnForm,
       toggleOpenOnForm,
-      language,
       theme,
     } = props
 
@@ -95,6 +94,7 @@ const Settings = (props) => {
           <View style={styles.settingWrap}>
             <RectButton
               onPress={() => navigation.navigate("Categories")}
+              activeOpacity={useDarkTheme() ? 0.5 : 0.1}
               rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue}
               style={styles.settingContent}>
               <View>
@@ -115,6 +115,7 @@ const Settings = (props) => {
           <View style={styles.settingWrap}>
             <RectButton
               onPress={() => navigation.navigate("Accounts")}
+              activeOpacity={useDarkTheme() ? 0.5 : 0.1}
               rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue}
               style={styles.settingContent}>
               <View>
@@ -134,6 +135,7 @@ const Settings = (props) => {
           <View style={styles.settingWrap}>
             <RectButton
               onPress={() => navigation.navigate("Labels")}
+              activeOpacity={useDarkTheme() ? 0.5 : 0.1}
               rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue}
               style={styles.settingContent}>
               <View>
@@ -153,6 +155,7 @@ const Settings = (props) => {
           <View style={styles.settingWrap}>
             <RectButton
               onPress={() => navigation.navigate("Backup")}
+              activeOpacity={useDarkTheme() ? 0.5 : 0.1}
               rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue}
               style={styles.settingContent}>
               <View style={{ maxWidth: 300 }}>
@@ -173,6 +176,7 @@ const Settings = (props) => {
           <View style={styles.settingWrap}>
             <RectButton
               onPress={() => navigation.navigate("Onboarding")}
+              activeOpacity={useDarkTheme() ? 0.5 : 0.1}
               rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue}
               style={styles.settingContent}>
               <View>
@@ -193,6 +197,7 @@ const Settings = (props) => {
           <View style={styles.settingWrap}>
             <RectButton
               onPress={() => generateTransactions()}
+              activeOpacity={useDarkTheme() ? 0.5 : 0.1}
               rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue}
               style={styles.settingContent}>
               <View>

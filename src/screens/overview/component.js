@@ -47,7 +47,7 @@ class Overview extends Component {
       const cat = categories.find(c => c.name === item[0])
       return (
         <View key={item[0]} style={{ ...styles.row, paddingLeft: 10 }}>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View style={{ flexDirection: "row", alignItems: "center", flex: 1, paddingRight: 15 }}>
             <Icon
               type={get(cat, "icon", "")}
               textStyle={{ color: cat.color || "blue", fontSize: 12 }}
@@ -154,9 +154,9 @@ class Overview extends Component {
             return (
               <View key={acc.id} style={[styles.accountWrap, darkMode && styles.accountWrapDark]}>
                 <View>
-                  <View style={{flexDirection: "row", alignItems: "center", paddingBottom: 15}}>
+                  <View style={{flexDirection: "row", alignItems: "center", paddingBottom: 15, flex: 1}}>
                     <Icon type={acc.icon} textStyle={{ fontSize: 30, color: acc.color }} />
-                    <Copy style={{ fontWeight: "bold", fontSize: 22, paddingBottom: 5, paddingLeft: 10 }}>{acc.name}</Copy>
+                    <Copy style={{ fontWeight: "bold", fontSize: 22, paddingBottom: 5, paddingLeft: 10, flex: 1 }}>{acc.name}</Copy>
                     
                   </View>
 

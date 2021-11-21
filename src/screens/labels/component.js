@@ -31,6 +31,7 @@ const Labels = ({ remove, navigation, labels }) => {
               <RectButton 
                 key={label.id} 
                 style={[styles.wrap, useDarkTheme() && styles.wrapDark]}
+                activeOpacity={useDarkTheme() ? 0.5 : 0.1}
                 rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue}
                 onPress={() => navigation.navigate("LabelEdit", { label })}>
                 <View key={label.id} style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>

@@ -31,9 +31,9 @@ export default React.forwardRef((props, ref) => {
             <TouchableOpacity
               key={cat.id}
               onPress={() => onSelect(cat)}>
-              <View style={{ flexDirection: "row", alignItems: "center", margin: 5 }}>
+              <View style={{ flexDirection: "row", alignItems: "center", margin: 5, flex:1 }}>
                 <Icon type={get(cat, "icon", "")} textStyle={{ color: cat.color || "blue" }} style={{ marginRight: 10 }} />
-                <Copy>{cat.name}</Copy>
+                <Copy style={{flex: 1}}>{cat.name}</Copy>
               </View>
             </TouchableOpacity>
           ))}

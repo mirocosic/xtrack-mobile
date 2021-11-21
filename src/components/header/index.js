@@ -3,6 +3,7 @@ import { View, TouchableOpacity } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { BorderlessButton } from "react-native-gesture-handler"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
+import { truncate } from "lodash"
 
 import { Title } from "../typography"
 import Icon from "../icon"
@@ -25,9 +26,9 @@ export default ({ withInsets, backBtn, backBtnPress, actionBtn, actionBtnPress, 
           <Icon type="chevronLeft" style={{ backgroundColor: "transparent" }} textStyle={{ color: "white" }} />
         </BorderlessButton>
       )}
-      <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+      <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center", flexWrap: "wrap" }}>
         {icon}
-        <Title style={{ alignSelf: "center", color: "white" }}>{__(title)}</Title>
+        <Title style={{ alignSelf: "center", color: "white" }}>{truncate(title)}</Title>
       </View>
 
       {actionBtn && (

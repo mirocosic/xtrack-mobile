@@ -82,6 +82,7 @@ class CategoryEdit extends Component {
               <Copy>Name</Copy>
               <TextInput
                 ref={this.input}
+                multiline
                 autoFocus={!category.id}
                 style={[styles.input, darkMode && styles.inputDark]}
                 onChangeText={text => this.setState({

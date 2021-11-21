@@ -5,7 +5,7 @@ import { DarkModeContext } from "react-native-dark-mode"
 import Swipeable from "react-native-gesture-handler/Swipeable"
 import { RectButton } from "react-native-gesture-handler"
 
-import { get } from "lodash"
+import { get, truncate } from "lodash"
 import Icon from "../icon"
 import { Copy } from "../typography"
 import styles from "./styles"
@@ -81,22 +81,21 @@ class Category extends Component {
         <RectButton
           key={cat.id}
           style={[styles.wrap, darkMode && styles.wrapDark]}
+          activeOpacity={darkMode ? 0.5 : 0.1}
           rippleColor={darkMode ? palette.darkGray : palette.lightBlue}
           onPress={() => navigation.navigate("CategoryEdit", { id: cat.id })}>
           <View
             key={cat.id}
             style={[styles.categoryWrap, darkMode && styles.catWrapDark]}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
               <Icon
                 type={cat.icon}
                 style={{ marginRight: 10 }}
                 textStyle={{ color: get(cat, "color", "blue") }}
               />
-              <Copy>
-                {`${cat.name} `}
-                <Copy style={{ fontSize: 10 }}>{`(${this.countTransactions(
-                  cat.id,
-                )})`}</Copy>
+              <Copy style={{flexWrap: "wrap", flex: 1}}>
+                {`${truncate(cat.name, {length: 135})} `}
+                <Copy style={{ fontSize: 10 }}>{`(${this.countTransactions(cat.id)})`}</Copy>
               </Copy>
               {cat.defaultCategory && (
                 <Icon
