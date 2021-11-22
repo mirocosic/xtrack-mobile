@@ -49,7 +49,9 @@ class LabelEdit extends Component {
       <Screen>
         <Header title={label.name} backBtn={isAndroid} />
 
-        <ScrollView contentContainerStyle={{ padding: 20, flex: 1, justifyContent: "space-between" }}>
+        <ScrollView
+          scrollEnabled={false}
+          contentContainerStyle={{ padding: 20, flex: 1, justifyContent: "space-between" }}>
 
           <View>
             <View style={styles.inputContainer}>

@@ -76,7 +76,10 @@ class CategoryEdit extends Component {
           title={category.name}
           backBtn={isAndroid}/>
 
-        <ScrollView style={{ margin: 20 }} contentContainerStyle={{ flex: 1, justifyContent: "space-between" }}>
+        <ScrollView
+          scrollEnabled={false}
+          style={{ margin: 20 }}
+          contentContainerStyle={{ flex: 1, justifyContent: "space-between" }}>
           <View>
             <View style={styles.inputContainer}>
               <Copy>Name</Copy>

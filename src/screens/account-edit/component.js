@@ -87,7 +87,10 @@ class AccountEdit extends Component {
           title={account.name}
           backBtn={isAndroid}/>
 
-        <ScrollView style={{ padding: 20 }} contentContainerStyle={{ flex: 1, justifyContent: "space-between" }}>
+        <ScrollView
+          scrollEnabled={false}
+          style={{ padding: 20 }}
+          contentContainerStyle={{ flex: 1, justifyContent: "space-between" }}>
           <View>
             <View style={styles.inputContainer}>
               <Copy>Name</Copy>
