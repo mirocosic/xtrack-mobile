@@ -38,22 +38,37 @@ const transactions = (state = initialState, action) => {
       return {
         ...state,
         entries: state.entries.map((item) => {
-          if (item.parentTransactionId !== action.transaction.parentTransactionId) { return item }
-
-          return action.transaction
-        }),
+          if (item.parentTransactionId !== transaction.parentTransactionId) { 
+            return item
+          } else if (item.id === transaction.id) {
+            return transaction
+          } else {
+            return {
+              ...transaction,
+              id: item.id,
+              timestamp: item.timestamp
+            }
+          }
+        })
       }
 
-      // TODO: vidjeti da li je ovo potrebno
-      // case "EDIT_FUTURE_RECURRING_TRANSACTIONS":
-      //   return {
-      //     ...state,
-      //     entries: state.entries.map((item) => {
-      //       if (item.parentTransactionId !== action.transaction.parentTransactionId) { return item }
-      //
-      //       return action.transaction
-      //     }),
-      //   }
+    case "EDIT_FUTURE_RECURRING_TRANSACTIONS":
+      return {
+        ...state,
+        entries: state.entries.map((item) => {
+          if (item.parentTransactionId !== transaction.parentTransactionId) {
+            return item 
+          } else if (item.timestamp > transaction.timestamp) {
+            return {
+              ...transaction,
+              id: item.id,
+              timestamp: item.timestamp
+            }
+          } else {
+            return item
+          }
+        }),
+      }
 
     case "SELECT_TRANSACTION":
       return {
