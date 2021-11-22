@@ -91,17 +91,24 @@ class TransactionForm extends Component {
   }
 
   editTransaction = (transaction) => {
-    const { navigation, edit, editAllRecurring, editFutureRecurring } = this.props
+    const { navigation, edit, editAllRecurring, editFutureRecurring, theme } = this.props
+    const darkMode =  theme === "system" ? this.context === "dark" : theme === "dark"
+
     if (!transaction.recurring) {
       edit(transaction)
       navigation.goBack()
-    } else if (Platform.OS === "ios") {
-      ActionSheetIOS.showActionSheetWithOptions(
+    } else {
+      this.props.showActionSheetWithOptions(
         {
           options: ["Edit All", "Edit Future Transactions", "Edit Only This", "Cancel"],
           cancelButtonIndex: 3,
           title: "Warning!",
           message: "This is a recurring transaction. Please choose to edit all transactions, all future transactions, or only this one.",
+          userInterfaceStyle: theme,
+          containerStyle: { backgroundColor: darkMode ? palette.dark : palette.light},
+          textStyle: { color: darkMode ? palette.light : palette.dark},
+          titleTextStyle: { color: darkMode ? palette.lightGray : palette.gray},
+          messageTextStyle: { color: darkMode ? palette.lightGray : palette.gray}
         }, (btnIdx) => {
           switch (btnIdx) {
             case 0:
@@ -121,44 +128,44 @@ class TransactionForm extends Component {
           }
         },
       )
-    } else {
-      Alert.alert("Warning!", "This is recurring transaction. Need to add Android specific code for edit.")
     }
   }
 
   deleteTransaction = (transaction) => {
-    const { navigation, remove, removeFutureRecurring, removeAllRecurring } = this.props
+    const { navigation, remove, removeFutureRecurring, removeAllRecurring, theme } = this.props
+    const darkMode =  theme === "system" ? this.context === "dark" : theme === "dark"
 
     if (transaction.recurring) {
-      if (Platform.OS === "ios") {
-        ActionSheetIOS.showActionSheetWithOptions(
-          {
-            options: ["Delete All", "Delete Future Transactions", "Delete Only This", "Cancel"],
-            cancelButtonIndex: 3,
-            title: "Warning!",
-            message: "This is a recurring transaction. Please choose to delete all transactions, all future transactions, or only this one.",
-          }, (btnIdx) => {
-            switch (btnIdx) {
-              case 0:
-                removeAllRecurring(transaction)
-                navigation.goBack()
-                break
-              case 1:
-                removeFutureRecurring(transaction)
-                navigation.goBack()
-                break
-              case 2:
-                remove(transaction)
-                navigation.goBack()
-                break
-              default:
-                break
-            }
-          },
-        )
-      } else {
-        Alert.alert("Warning!", "This is recurring transaction. Need to add Android specific code for deletion.")
-      }
+      this.props.showActionSheetWithOptions(
+        {
+          options: ["Delete All", "Delete Future Transactions", "Delete Only This", "Cancel"],
+          cancelButtonIndex: 3,
+          title: "Warning!",
+          message: "This is a recurring transaction. Please choose to delete all transactions, all future transactions, or only this one.",
+          userInterfaceStyle: theme,
+          containerStyle: { backgroundColor: darkMode ? palette.dark : palette.light},
+          textStyle: { color: darkMode ? palette.light : palette.dark},
+          titleTextStyle: { color: darkMode ? palette.lightGray : palette.gray},
+          messageTextStyle: { color: darkMode ? palette.lightGray : palette.gray}
+        }, (btnIdx) => {
+          switch (btnIdx) {
+            case 0:
+              removeAllRecurring(transaction)
+              navigation.goBack()
+              break
+            case 1:
+              removeFutureRecurring(transaction)
+              navigation.goBack()
+              break
+            case 2:
+              remove(transaction)
+              navigation.goBack()
+              break
+            default:
+              break
+          }
+        },
+      )
     } else {
       remove({ id: transaction.id })
       navigation.goBack()
@@ -209,10 +216,17 @@ class TransactionForm extends Component {
 
   selectRecurringSchedule = () => {
     const { transaction } = this.state
+    const { theme } = this.props
+    const darkMode =  theme === "system" ? this.context === "dark" : theme === "dark"
     
     this.props.showActionSheetWithOptions({
       options: ["Day", "Week", "Month", "Year", "Cancel"],
       cancelButtonIndex: 4,
+      title: "Select occurence interval",
+      userInterfaceStyle: theme,
+      containerStyle: { backgroundColor: darkMode ? palette.dark : palette.light},
+      textStyle: { color: darkMode ? palette.light : palette.dark},
+      titleTextStyle: { color: darkMode ? palette.lightGray : palette.gray}
     }, (btnIdx) => {
       switch (btnIdx) {
         case 0:
