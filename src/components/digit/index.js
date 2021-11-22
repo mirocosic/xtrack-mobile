@@ -1,6 +1,7 @@
 import React, { Component, useState } from "react"
 import { Text, TouchableOpacity } from "react-native"
 import { RectButton } from "react-native-gesture-handler"
+import palette from "../../utils/palette"
 import { useDarkTheme } from "../../utils/ui-utils"
 import styles from "./styles"
 
@@ -9,7 +10,7 @@ export default ({handlePress, small, digit}) => {
 
   return (
     <RectButton
-        underlayColor="teal"
+        underlayColor={palette.blue}
         activeOpacity={0.6}
         onPressIn={() => setIsPressed(true)}
         onPressOut={() => setIsPressed(false)}
