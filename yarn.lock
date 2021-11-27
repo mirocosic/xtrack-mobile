@@ -1662,6 +1662,13 @@
   dependencies:
     type-detect "4.0.8"
 
+"@stream-io/flat-list-mvcp@^0.10.1":
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/@stream-io/flat-list-mvcp/-/flat-list-mvcp-0.10.1.tgz#ee7058c247729556959b19a281ae9e74e20f3e65"
+  integrity sha512-/snvyGqEO/7WKrcFOUxh1s1GPfYaUOwr7wyWgZogOUrGXE75zzEvOe39mooMoCJ8G92govZoAO5LCkftXQUoAQ==
+  dependencies:
+    lodash.debounce "^4.0.8"
+
 "@types/babel__core@^7.1.0":
   version "7.1.14"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.14.tgz#faaeefc4185ec71c389f4501ee5ec84b170cc402"
@@ -7012,6 +7019,11 @@ react-native-animate-number@^0.1.2:
   integrity sha1-1BxaeE4F+deI2vv3sVhYTGXoz0c=
   dependencies:
     react-timer-mixin "^0.13.3"
+
+react-native-bidirectional-infinite-scroll@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/react-native-bidirectional-infinite-scroll/-/react-native-bidirectional-infinite-scroll-0.3.3.tgz#31e83e30514be2eaaa889b97d01149c8a08576ec"
+  integrity sha512-zxYJDjrxTkGqg83WH3fSdufg79XZ7xDDn9HdHlKo9avAcz92Rf28/ivDeUM2aOUmmboqJK8BqtVByT6cF/taYg==
 
 react-native-calendars@^1.403.0:
   version "1.1263.0"

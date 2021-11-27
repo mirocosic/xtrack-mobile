@@ -6,7 +6,7 @@ import { useDarkMode } from "react-native-dark-mode"
 import { RectButton, TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler"
 import LinearGradient from "react-native-linear-gradient"
 
-import { Dashboard, Overview, Settings, Transactions } from "../screens"
+import { Dashboard, Overview, Settings, Transactions, DashboardFL } from "../screens"
 import Icon from "../components/icon"
 import palette from "../utils/palette"
 import { font } from "../components/typography"
@@ -47,9 +47,18 @@ export default () => (
       },
     }}
   >
-    <Tab.Screen
+    {/* <Tab.Screen
       name={__("Dashboard")}
       component={Dashboard}
+      options={{
+        tabBarIcon: ({ color }) => (
+          <Icon style={{ backgroundColor: useDarkTheme() ? palette.darkGray : "white" }} textStyle={{ fontSize: 26, color }} type="tasks" />
+        ),
+      }}
+    /> */}
+    <Tab.Screen
+      name={__("Dashboard FL")}
+      component={DashboardFL}
       options={{
         tabBarIcon: ({ color }) => (
           <Icon style={{ backgroundColor: useDarkTheme() ? palette.darkGray : "white" }} textStyle={{ fontSize: 26, color }} type="tasks" />
