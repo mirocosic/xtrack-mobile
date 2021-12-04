@@ -118,7 +118,7 @@ class CategoryEdit extends Component {
             <View style={[styles.inlineBetween, { margin: 10 }]}>
               <Copy>Default category</Copy>
               <TouchableOpacity onPress={() => this.setState({ category: { ...category, defaultCategory: !category.defaultCategory } })}>
-                {category.defaultCategory ? 
+                {!category.defaultCategory ? 
                 <View style={{width: 30, height:30, borderRadius: 4, borderWidth: 2, borderColor: darkMode ? palette.light : palette.dark}}/>
                 : 
                 <View style={{width: 30, height:30, borderRadius: 4, borderWidth: 2, borderColor: darkMode ? palette.light : palette.dark, alignItems: "center", justifyContent: "center"}}>
