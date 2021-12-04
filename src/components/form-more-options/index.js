@@ -1,15 +1,16 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import {View, Switch, TouchableOpacity} from 'react-native'
 import Collapsible from "react-native-collapsible"
 import { BorderlessButton } from 'react-native-gesture-handler'
 import moment from "moment"
 
 import { Copy, CopyBlue } from "../typography"
-import { Label, PrimaryButton, TertiaryButton } from "../../components"
+import { Label, PrimaryButton } from "../../components"
 import Icon from "../icon"
 import styles from './styles'
 import { useDarkTheme } from '../../utils/ui-utils'
 import palette from '../../utils/palette'
+import __ from "../../utils/translations"
 
 export default (props) => {
 

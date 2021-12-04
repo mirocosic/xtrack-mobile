@@ -1,8 +1,5 @@
 import React, { Component } from "react"
-import {
-  View, TextInput, TouchableOpacity,
-  Keyboard, Switch, Platform, ActionSheetIOS, Alert, ScrollView,
-} from "react-native";
+import { View, TextInput, TouchableOpacity, Keyboard, Alert } from "react-native";
 import { Calendar } from "react-native-calendars"
 import { Modalize } from "react-native-modalize"
 import { connectActionSheet } from '@expo/react-native-action-sheet';
@@ -22,6 +19,7 @@ import { formatCurrency } from "../../utils/currency"
 import { makeUUID } from "../../utils/helper-gnomes"
 import palette from "../../utils/palette"
 import { isAndroid } from "../../utils/os-utils"
+import __ from "../../utils/translations"
 import styles from "./styles"
 
 class TransactionForm extends Component {
@@ -220,9 +218,9 @@ class TransactionForm extends Component {
     const darkMode =  theme === "system" ? this.context === "dark" : theme === "dark"
     
     this.props.showActionSheetWithOptions({
-      options: ["Day", "Week", "Month", "Year", "Cancel"],
+      options: [__("Day"), __("Week"), __("Month"), __("Year"), __("Cancel")],
       cancelButtonIndex: 4,
-      title: "Select occurence interval",
+      title: __("Select occurence interval"),
       userInterfaceStyle: theme,
       containerStyle: { backgroundColor: darkMode ? palette.dark : palette.light},
       textStyle: { color: darkMode ? palette.light : palette.dark},
@@ -341,7 +339,7 @@ class TransactionForm extends Component {
             <TextInput
               onChangeText={value => this.setState({ transaction: { ...transaction, note: value } })}
               value={transaction.note}
-              placeholder="enter note..."
+              placeholder={__("enter note...")}
               placeholderTextColor="gray"
               maxLength={30}
               style={[styles.noteInput, darkMode && styles.noteInputDark]}

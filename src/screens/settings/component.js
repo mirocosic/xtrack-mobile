@@ -84,6 +84,7 @@ const Settings = (props) => {
       openOnForm,
       toggleOpenOnForm,
       theme,
+      language
     } = props
 
     const insets = useSafeAreaInsets();
@@ -227,12 +228,12 @@ const Settings = (props) => {
               <Switch value={openOnForm} onValueChange={toggleOpenOnForm} />
             </View>
 
-            {/* <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between", display: "none" }}>
+            <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
               <Copy>Language</Copy>
               <TouchableOpacity onPress={selectLanguage}>
                 <Copy>{language.name}</Copy>
               </TouchableOpacity>
-            </View> */}
+            </View>
 
 
             <View
