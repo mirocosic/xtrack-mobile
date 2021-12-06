@@ -16,6 +16,14 @@ const CopyCmp = (props) => {
   )
 }
 
+const CopyInvertedCmp = (props) => {
+  const { style, children } = props
+  const defaultStyle = useTheme() === "light" ? styles.copyDark : styles.copy
+  return (
+    <Text style={{ ...defaultStyle, ...style }}>{__(children)}</Text>
+  )
+}
+
 const CopyBlueCmp = (props) => {
   const { style, children } = props
   const defaultStyle = useTheme() === "dark" ? styles.copyDark : styles.copyBlue
@@ -36,6 +44,11 @@ export const Copy = connect(
   state => ({ language: state.common.language }),
   null,
 )(CopyCmp)
+
+export const CopyInverted = connect(
+  state => ({ language: state.common.language }),
+  null,
+)(CopyInvertedCmp)
 
 export const CopyBlue = connect(
   state => ({ darkMode: state.common.darkMode }),

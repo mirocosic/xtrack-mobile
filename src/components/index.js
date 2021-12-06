@@ -7,7 +7,7 @@ import CustomKeyboard from "./custom-keyboard"
 import TransactionType from "./transaction-type"
 import Transaction from "./transaction"
 import Icon from "./icon"
-import { Copy, Title } from "./typography"
+import { Copy, CopyInverted, Title } from "./typography"
 
 export {
   Screen,
@@ -21,6 +21,7 @@ export {
   TransactionType,
   Icon,
   Copy,
+  CopyInverted,
   Title,
   Transaction,
 }
