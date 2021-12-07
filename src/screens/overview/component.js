@@ -1,7 +1,18 @@
 import React, { Component } from "react"
-import { ScrollView, View, Text, TouchableOpacity, Alert } from "react-native"
+import { ScrollView, View, Text, TouchableOpacity, Alert, Appearance, Dimensions } from "react-native"
 import { DarkModeContext } from "react-native-dark-mode"
-import { get } from "lodash"
+import { RectButton } from "react-native-gesture-handler"
+import { get, isEmpty } from "lodash"
+
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  ProgressChart,
+  ContributionGraph,
+  StackedBarChart
+} from "react-native-chart-kit";
+
 
 import { Screen, Icon, Copy, Title } from "../../components"
 import __ from "../../utils/translations"
@@ -26,6 +37,10 @@ const sum = transactions => transactions.reduce((acc, transaction) => acc + calc
 class Overview extends Component {
   static contextType = DarkModeContext
 
+  state = {
+    showExpensesChart: true
+  }
+
   static navigationOptions = () => ({ tabBarIcon: ({ tintColor }) => <Icon style={{ backgroundColor: "white" }} textStyle={{ fontSize: 26, color: tintColor }} type="tachometer-alt" /> })
 
   sortByCategory = (expenses) => {
@@ -39,6 +54,28 @@ class Overview extends Component {
 
     return result
   }
+
+  prepDataForPieChart = (expenses) => {
+    // rewrite this darkmode labels stupidity
+    const { theme } = this.props
+    const systemTheme = Appearance.getColorScheme();
+    const darkMode = theme === "system" ? systemTheme === "dark" : theme === "dark"
+
+    return Object.entries(expenses)
+      .sort((a, b) => b[1] - a[1])
+      .map((item) => {
+        const { categories } = this.props
+        const cat = categories.find(c => c.name === item[0])
+        return {
+          name: item[0],
+          amount: item[1],
+          color: cat.color,
+          legendFontColor: darkMode ? "white" : "black"
+
+        }
+      })
+    }
+
 
   renderExpenses = expenses => Object.entries(expenses)
     .sort((a, b) => b[1] - a[1])
@@ -130,6 +167,9 @@ class Overview extends Component {
   render() {
     const { accounts, transactions, theme, navigation } = this.props
     const darkMode =  theme === "system" ? this.context === "dark" : theme === "dark"
+    const sortedIncome = this.sortByCategory(transactions.filter(t => t.type === "income"))
+    const sortedExpenses = this.sortByCategory(transactions.filter(t => t.type === "expense"))
+
     return (
       <Screen>
         <ScrollView style={{ paddingTop: 20, marginTop: 20 }} contentContainerStyle={{ paddingBottom: 40 }}>
@@ -183,21 +223,63 @@ class Overview extends Component {
 
           <View style={{padding: 20}}>
 
-          <Title style={{ textAlign: "center", marginTop: 20, marginBottom: 20 }}>All time breakdown</Title>
+            <Title style={{ textAlign: "center", marginTop: 20, marginBottom: 20 }}>All time breakdown</Title>
 
-          <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
-            <Copy style={{ fontSize: 18 }}>Income: </Copy>
-            <Copy style={{ fontSize: 18, color: palette.green }}>{formatCurrency(sum(transactions.filter(t => t.type === "income")))}</Copy>
-          </View>
+            <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
+              <Copy style={{ fontSize: 18 }}>Income: </Copy>
+              <Copy style={{ fontSize: 18, color: palette.green }}>{formatCurrency(sum(transactions.filter(t => t.type === "income")))}</Copy>
+            </View>
 
-          {this.renderExpenses(this.sortByCategory(transactions.filter(t => t.type === "income")))}
+            {this.renderExpenses(sortedIncome)}
 
-          <View style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}>
-            <Copy style={{ fontSize: 18 }}>Expenses: </Copy>
-            <Copy style={{ fontSize: 18, color: palette.red }}>{formatCurrency(sum(transactions.filter(t => t.type === "expense")))}</Copy>
-          </View>
+            <View style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}>
+              <Copy style={{ fontSize: 18 }}>Expenses: </Copy>
+              <Copy style={{ fontSize: 18, color: palette.red }}>{formatCurrency(sum(transactions.filter(t => t.type === "expense")))}</Copy>
+            </View>
 
-          {this.renderExpenses(this.sortByCategory(transactions.filter(t => t.type === "expense")))}
+            {this.renderExpenses(sortedExpenses)}
+
+            <View style={{paddingVertical: 20}}>
+
+              <View style={[styles.inline]}>
+
+                {
+                  !isEmpty(sortedExpenses) &&
+                  <RectButton onPress={() => this.setState({showExpensesChart: true})}
+                    style={[styles.chartTab, this.state.showExpensesChart && styles.chartTabSelected]}>
+                    <Copy style={this.state.showExpensesChart && {color: "white"}}>Expenses</Copy>
+                  </RectButton>
+                }
+
+
+                {
+                  !isEmpty(sortedIncome) &&
+                  <RectButton onPress={() => this.setState({showExpensesChart: false})}
+                    style={[styles.chartTab, !this.state.showExpensesChart && styles.chartTabSelected, darkMode && styles.chartTabDark]}>
+                    <Copy style={!this.state.showExpensesChart && {color: "white"}}>Income</Copy>
+                  </RectButton>
+                }
+
+
+                </View>
+
+              <PieChart
+                data={this.prepDataForPieChart(this.state.showExpensesChart ? sortedExpenses : sortedIncome)}
+                width={Dimensions.get("window").width} // from react-native
+                height={220}
+                accessor="amount"
+                chartConfig={{
+                  color: (opacity = 1) => `rgba(150, 215, 115, ${opacity})`,
+                  style: {
+                    borderRadius: 16
+                  },
+                }}
+                style={{
+                  marginVertical: 8,
+                  borderRadius: 16
+                }}
+              />
+            </View>
 
           </View>
         </ScrollView>

@@ -47,4 +47,17 @@ export default StyleSheet.create({
     backgroundColor: palette.darkGray,
    },
 
+   chartTab: {
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    margin: 10, 
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: "white"
+  },
+
+  chartTabSelected: {
+    backgroundColor: palette.blue
+  }
+
 })
