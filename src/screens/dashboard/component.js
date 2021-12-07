@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { View, Appearance, Alert, Dimensions, StatusBar, TouchableOpacity, Animated } from "react-native"
-import { get } from "lodash"
+import { get, isEmpty } from "lodash"
 import moment from "moment"
 import SplashScreen from "react-native-splash-screen"
 import { Modalize } from "react-native-modalize"
@@ -136,8 +136,13 @@ class Dashboard extends Component {
     // this.setState({ title: moment().subtract(screenNum, "month").format("MMMM") })
   }
 
-  prepDataForPieChart = (expenses) => (
-    Object.entries(expenses)
+  prepDataForPieChart = (expenses) => {
+    // rewrite this darkmode labels stupidity
+    const { theme } = this.props
+    const systemTheme = Appearance.getColorScheme();
+    const darkMode = theme === "system" ? systemTheme === "dark" : theme === "dark"
+
+    return Object.entries(expenses)
       .sort((a, b) => b[1] - a[1])
       .map((item) => {
         const { categories } = this.props
@@ -146,11 +151,11 @@ class Dashboard extends Component {
           name: item[0],
           amount: item[1],
           color: cat.color,
-          legendFontColor: "white"
+          legendFontColor: darkMode ? "white" : "black"
 
         }
       })
-  )
+    }
 
 
   renderExpenses = (expenses, currentMonthTransactions, modal) => (
@@ -322,17 +327,57 @@ class Dashboard extends Component {
 
 
 
+
+
+
                 <View style={{paddingTop: 50, paddingBottom: 50}}>
+
+                  {/* <BarChart
+                    style={{
+                      marginVertical: 8,
+                      borderRadius: 16
+                    }}
+                    data={{
+                      labels: ["Expenses", "Income"],
+                      datasets: [
+                        {
+                          data: [expenses, income]
+                        }
+                      ]
+                    }}
+                    width={Dimensions.get("window").width - 40} // from react-native
+                    height={200}
+                    yAxisLabel="%"
+                    chartConfig={{
+                      color: (opacity = 1) => `rgba(150, 215, 115, ${opacity})`,
+                      style: {
+                        borderRadius: 16
+                      },
+                    }}
+                  /> */}
+
+
+
                   <View style={[styles.inline]}>
-                    <RectButton onPress={() => this.setState({showExpensesChart: true})}
-                      style={[styles.chartTab, this.state.showExpensesChart && styles.chartTabSelected]}>
-                      <Copy>Expenses</Copy>
-                    </RectButton>
+
+                    {
+                      !isEmpty(sortedExpenses) &&
+                      <RectButton onPress={() => this.setState({showExpensesChart: true})}
+                        style={[styles.chartTab, this.state.showExpensesChart && styles.chartTabSelected]}>
+                        <Copy style={this.state.showExpensesChart && {color: "white"}}>Expenses</Copy>
+                      </RectButton>
+                    }
                     
-                    <RectButton onPress={() => this.setState({showExpensesChart: false})}
-                      style={[styles.chartTab, !this.state.showExpensesChart && styles.chartTabSelected]}>
-                      <Copy>Income</Copy>
-                    </RectButton>
+
+                    {
+                      !isEmpty(sortedIncome) &&
+                      <RectButton onPress={() => this.setState({showExpensesChart: false})}
+                        style={[styles.chartTab, !this.state.showExpensesChart && styles.chartTabSelected, darkMode && styles.chartTabDark]}>
+                        <Copy style={!this.state.showExpensesChart && {color: "white"}}>Income</Copy>
+                      </RectButton>
+                    }
+                    
+                    
                   </View>
 
                   <PieChart
@@ -341,12 +386,7 @@ class Dashboard extends Component {
                     height={220}
                     accessor="amount"
                     chartConfig={{
-                      backgroundColor: "#e26a00",
-                      backgroundGradientFrom: "#fb8c00",
-                      backgroundGradientTo: "#ffa726",
-                      decimalPlaces: 2, // optional, defaults to 2dp
-                      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                      labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      color: (opacity = 1) => `rgba(150, 215, 115, ${opacity})`,
                       style: {
                         borderRadius: 16
                       },
@@ -435,15 +475,24 @@ class Dashboard extends Component {
 
                 <View style={{paddingTop: 50, paddingBottom: 50}}>
                   <View style={[styles.inline]}>
-                    <RectButton onPress={() => this.setState({showExpensesChart: true})}
-                      style={[styles.chartTab, this.state.showExpensesChart && styles.chartTabSelected]}>
-                      <Copy>Expenses</Copy>
-                    </RectButton>
+
+                    {
+                      !isEmpty(sortedExpenses) &&
+                      <RectButton onPress={() => this.setState({showExpensesChart: true})}
+                        style={[styles.chartTab, this.state.showExpensesChart && styles.chartTabSelected]}>
+                        <Copy>Expenses</Copy>
+                      </RectButton>
+                    }
+
+                    {
+                      !isEmpty(sortedIncome) &&
+                      <RectButton onPress={() => this.setState({showExpensesChart: false})}
+                        style={[styles.chartTab, !this.state.showExpensesChart && styles.chartTabSelected]}>
+                        <Copy>Income</Copy>
+                      </RectButton>
+                    }
                     
-                    <RectButton onPress={() => this.setState({showExpensesChart: false})}
-                      style={[styles.chartTab, !this.state.showExpensesChart && styles.chartTabSelected]}>
-                      <Copy>Income</Copy>
-                    </RectButton>
+                    
                   </View>
 
                   <PieChart
@@ -452,12 +501,7 @@ class Dashboard extends Component {
                     height={220}
                     accessor="amount"
                     chartConfig={{
-                      backgroundColor: "#e26a00",
-                      backgroundGradientFrom: "#fb8c00",
-                      backgroundGradientTo: "#ffa726",
-                      decimalPlaces: 2, // optional, defaults to 2dp
                       color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                      labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                       style: {
                         borderRadius: 16
                       },
