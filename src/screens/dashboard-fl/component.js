@@ -2,15 +2,17 @@ import React, { useState, useRef } from "react"
 import { View, Dimensions, TouchableOpacity, Animated } from "react-native"
 import { Modalize } from "react-native-modalize"
 import { Portal } from "react-native-portalize"
-import { get } from "lodash"
+import { get, isEmpty } from "lodash"
 import moment from "moment"
+import { PieChart } from "react-native-chart-kit"
+import { RectButton } from "react-native-gesture-handler"
 
 import { Screen, Icon, Copy, Title, Transaction } from "../../components"
 import styles from "./styles"
 import palette from "../../utils/palette"
 import { calcAmount } from "../../utils/helper-gnomes"
 import { formatCurrency } from "../../utils/currency"
-import { useTheme } from "../../utils/ui-utils"
+import { useDarkTheme } from "../../utils/ui-utils"
 
 
 const initItems = [
@@ -83,10 +85,11 @@ export default (props) => {
   const WIDTH = Dimensions.get("window").width
   const currentMonth = moment()
   const { transactions } = props
-  const darkMode = useTheme()
+  const darkMode = useDarkTheme()
   const flatListRef = useRef()
   const breakdownModal = useRef()
   const scrollX = new Animated.Value(0)
+  const [showExpensesChart, setShowExpensesChart] = useState(true)
 
 
   const addViewItems = () => {
@@ -128,6 +131,22 @@ export default (props) => {
     }
     return `${rate}% ${emoji}`
   }
+
+  prepDataForPieChart = (expenses) => {
+    return Object.entries(expenses)
+      .sort((a, b) => b[1] - a[1])
+      .map((item) => {
+        const { categories } = props
+        const cat = categories.find(c => c.name === item[0])
+        return {
+          name: item[0],
+          amount: item[1],
+          color: cat.color,
+          legendFontColor: darkMode ? "white" : "black"
+        }
+      })
+    }
+
 
 
   renderExpenses = (expenses, currentMonthTransactions, modal) => (
@@ -174,12 +193,14 @@ export default (props) => {
     const currentMonthIncome = filterByMonth(transactions.filter(t => t.type === "income"), month.toDate()).sort(compare)
     const currentItemIndex = items.findIndex((i) => i.id === item.id)
     const currentMonthIndex = items.findIndex((item) => item.id === 0)
+    
 
     const transX = scrollX.interpolate({
       inputRange: [(currentItemIndex - 1) * WIDTH, currentItemIndex * WIDTH , WIDTH * (currentItemIndex + 1)],
       outputRange: [200, 0, -200],
     })
 
+    // todo: fix opacity animation
     const opacity = scrollX.interpolate({
       inputRange: [(currentItemIndex - 1) * WIDTH, currentItemIndex * WIDTH , WIDTH * (currentItemIndex + 1)],
       outputRange: [0, 1, 0],
@@ -187,7 +208,7 @@ export default (props) => {
     })
 
     return (
-      <Animated.ScrollView style={[styles.monthContainer, {opacity}]}>
+      <Animated.ScrollView style={[styles.monthContainer]}>
         
         <View style={[styles.inlineBetween, { marginTop: 15, marginBottom: 15 }]}>
           { item.id > 0
@@ -195,12 +216,14 @@ export default (props) => {
               <TouchableOpacity onPress={() => flatListRef.current.scrollToIndex({ index: currentMonthIndex, animated: true })}
                                 hitSlop={{top: 10, right: 10, bottom: 10, left: 10}}>
                 <View style={[styles.inline, { width: 10 }]}>
-                  <Icon type="backward" style={{ marginRight: 5 }} textStyle={{ fontSize: 12, color: darkMode ? palette.light : palette.dark }} />
+                  <Icon type="backward" style={{ marginRight: 5 }} textStyle={{ fontSize: 12, color: darkMode ? palette.light : palette.darkHex }} />
                 </View>
               </TouchableOpacity>
             ) : <View />
           }
-          <Animated.View style={{transform: [{translateX: transX}]}}>
+          <Animated.View 
+          //style={{transform: [{translateX: transX}]}}
+          >
             <Title>{month.format("MMMM YYYY")}</Title>
           </Animated.View>
           
@@ -210,7 +233,7 @@ export default (props) => {
               <TouchableOpacity onPress={() => flatListRef.current.scrollToIndex({ index: currentMonthIndex, animated: true })}
                                 hitSlop={{top: 10, right: 10, bottom: 10, left: 10}}>
                 <View style={[styles.inline, { width: 10 }]}>
-                  <Icon type="forward" style={{ marginRight: 5 }} textStyle={{ fontSize: 12, color: darkMode ? palette.light : palette.dark }} />
+                  <Icon type="forward" style={{ marginRight: 5 }} textStyle={{ fontSize: 12, color: darkMode ? palette.light : palette.darkHex }} />
                 </View>
               </TouchableOpacity>
             ) : <View />
@@ -252,6 +275,75 @@ export default (props) => {
           <Copy style={{ fontSize: 18 }}>Savings Rate: </Copy>
           <Copy style={{ fontSize: 18, color: palette.blue }}>{calcSavingsRate(income, expenses)}</Copy>
         </View>
+
+        <View style={{paddingTop: 50, paddingBottom: 50}}>
+
+          {/* <BarChart
+            style={{
+              marginVertical: 8,
+              borderRadius: 16
+            }}
+            data={{
+              labels: ["Expenses", "Income"],
+              datasets: [
+                {
+                  data: [expenses, income]
+                }
+              ]
+            }}
+            width={Dimensions.get("window").width - 40} // from react-native
+            height={200}
+            yAxisLabel="%"
+            chartConfig={{
+              color: (opacity = 1) => `rgba(150, 215, 115, ${opacity})`,
+              style: {
+                borderRadius: 16
+              },
+            }}
+          /> */}
+
+
+
+          <View style={[styles.inline]}>
+
+            {
+              !isEmpty(sortedExpenses) &&
+              <RectButton onPress={() => setShowExpensesChart(true)}
+                style={[styles.chartTab, showExpensesChart && styles.chartTabSelected]}>
+                <Copy style={showExpensesChart && {color: "white"}}>Expenses</Copy>
+              </RectButton>
+            }
+            
+
+            {
+              !isEmpty(sortedIncome) &&
+              <RectButton onPress={() => setShowExpensesChart(false)}
+                style={[styles.chartTab, !showExpensesChart && styles.chartTabSelected, darkMode && styles.chartTabDark]}>
+                <Copy style={!showExpensesChart && {color: "white"}}>Income</Copy>
+              </RectButton>
+            }
+            
+            
+          </View>
+
+          <PieChart
+            data={prepDataForPieChart(showExpensesChart ? sortedExpenses : sortedIncome)}
+            width={Dimensions.get("window").width} // from react-native
+            height={220}
+            accessor="amount"
+            chartConfig={{
+              color: (opacity = 1) => `rgba(150, 215, 115, ${opacity})`,
+              style: {
+                borderRadius: 16
+              },
+            }}
+            style={{
+              marginVertical: 8,
+              borderRadius: 16
+            }}
+          />
+        </View>
+
       </Animated.ScrollView>
     )
   }
@@ -262,11 +354,12 @@ export default (props) => {
         ref={flatListRef}
         data={items}
 
-        scrollEventThrottle={16}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-          { useNativeDriver: true },
-        )}
+        // scrollEventThrottle={16}
+        // onScroll={Animated.event(
+        //   [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+        //   { useNativeDriver: true },
+        // )}
+
         renderItem={renderItem}
         horizontal
         pagingEnabled
@@ -277,7 +370,6 @@ export default (props) => {
         keyExtractor={(item) => item.id}
         windowSize={3}
         onEndReached={addViewItems}
-        onEndReachedThreshold={0.1}
       />
 
       <Portal>

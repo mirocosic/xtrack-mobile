@@ -57,7 +57,7 @@ export default () => (
       }}
     /> */}
     <Tab.Screen
-      name={__("Dashboard FL")}
+      name={__("Dashboard")}
       component={DashboardFL}
       options={{
         tabBarIcon: ({ color }) => (
