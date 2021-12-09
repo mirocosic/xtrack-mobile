@@ -1,4 +1,4 @@
-import { get } from "lodash"
+import { get, map } from "lodash"
 import { store } from "../store"
 
 const translations = {
@@ -54,6 +54,28 @@ const translations = {
     No: "Ne",
     Currency: "Valuta",
     "Default account": "Zadani račun",
+    "enter note...": "unesi bilješku...",
+    "Recurring": "Ponavljajuća",
+    "Add Tags": "Dodaj oznake",
+    "Add new tag": "Dodaj novu oznaku",
+    "Every": "Svaki",
+    "End Date": "Krajnji datum",
+    "Day": "Dan",
+    "Week": "Tjedan",
+    "Month": "Mjesec",
+    "Year": "Godina",
+    "Cancel": "Odustani",
+    "Select occurence interval": "Odaberi interval ponavljanja",
+    "All time breakdown": "Ukupni raspis",
+    "Filters": "Filteri",
+    "Clear": "Očisti",
+    "Monthly Budget": "Mjesečni budžet",
+    "add budget": "unesi budžet",
+
+    "Become a master of your finances": "Postani majstor svojih financija",
+    "Secure your financial future": "Osiguraj svoju financijsku budućnost",
+    "Track all your expenses in one place": "Prati sve troškove na jednom mjestu",
+    "Let's go!": "Krenimo!"
   },
 
 }

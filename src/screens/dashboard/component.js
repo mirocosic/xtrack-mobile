@@ -1,11 +1,22 @@
 import React, { Component } from "react"
 import { View, Appearance, Alert, Dimensions, StatusBar, TouchableOpacity, Animated } from "react-native"
-import { get } from "lodash"
+import { get, isEmpty } from "lodash"
 import moment from "moment"
 import SplashScreen from "react-native-splash-screen"
 import { Modalize } from "react-native-modalize"
 import { Portal } from "react-native-portalize"
 import { DarkModeContext } from "react-native-dark-mode"
+import { RectButton } from "react-native-gesture-handler"
+
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  ProgressChart,
+  ContributionGraph,
+  StackedBarChart
+} from "react-native-chart-kit";
+
 
 import { Screen, Icon, Copy, Title, Transaction } from "../../components"
 import __ from "../../utils/translations"
@@ -56,7 +67,8 @@ class Dashboard extends Component {
     showScrollToEnd: false,
     showScrollToStart: false,
     breakdownTransactions: [],
-    scrollX: new Animated.Value(0)
+    scrollX: new Animated.Value(0),
+    showExpensesChart: true
   }
 
   breakdownModal = React.createRef()
@@ -123,6 +135,27 @@ class Dashboard extends Component {
     // const screenNum = Math.round(23 - (event.nativeEvent.contentOffset.x / width))
     // this.setState({ title: moment().subtract(screenNum, "month").format("MMMM") })
   }
+
+  prepDataForPieChart = (expenses) => {
+    // rewrite this darkmode labels stupidity
+    const { theme } = this.props
+    const systemTheme = Appearance.getColorScheme();
+    const darkMode = theme === "system" ? systemTheme === "dark" : theme === "dark"
+
+    return Object.entries(expenses)
+      .sort((a, b) => b[1] - a[1])
+      .map((item) => {
+        const { categories } = this.props
+        const cat = categories.find(c => c.name === item[0])
+        return {
+          name: item[0],
+          amount: item[1],
+          color: cat.color,
+          legendFontColor: darkMode ? "white" : "black"
+
+        }
+      })
+    }
 
 
   renderExpenses = (expenses, currentMonthTransactions, modal) => (
@@ -212,6 +245,7 @@ class Dashboard extends Component {
             const currentMonthTransactions = filterByMonth(transactions.filter(t => t.type === "expense"), currentMonth.toDate()).sort(compare)
             const currentMonthIncome = filterByMonth(transactions.filter(t => t.type === "income"), currentMonth.toDate()).sort(compare)
 
+
             const opacity = this.state.scrollX.interpolate({
               inputRange: [(idx - 1) * width, idx * width , width * (idx + 1)],
               outputRange: [0, 1, 0],
@@ -291,6 +325,80 @@ class Dashboard extends Component {
                   <Copy style={{ fontSize: 18, color: palette.blue }}>{this.calcSavingsRate(income, expenses)}</Copy>
                 </View>
 
+
+
+
+
+
+                <View style={{paddingTop: 50, paddingBottom: 50}}>
+
+                  {/* <BarChart
+                    style={{
+                      marginVertical: 8,
+                      borderRadius: 16
+                    }}
+                    data={{
+                      labels: ["Expenses", "Income"],
+                      datasets: [
+                        {
+                          data: [expenses, income]
+                        }
+                      ]
+                    }}
+                    width={Dimensions.get("window").width - 40} // from react-native
+                    height={200}
+                    yAxisLabel="%"
+                    chartConfig={{
+                      color: (opacity = 1) => `rgba(150, 215, 115, ${opacity})`,
+                      style: {
+                        borderRadius: 16
+                      },
+                    }}
+                  /> */}
+
+
+
+                  <View style={[styles.inline]}>
+
+                    {
+                      !isEmpty(sortedExpenses) &&
+                      <RectButton onPress={() => this.setState({showExpensesChart: true})}
+                        style={[styles.chartTab, this.state.showExpensesChart && styles.chartTabSelected]}>
+                        <Copy style={this.state.showExpensesChart && {color: "white"}}>Expenses</Copy>
+                      </RectButton>
+                    }
+                    
+
+                    {
+                      !isEmpty(sortedIncome) &&
+                      <RectButton onPress={() => this.setState({showExpensesChart: false})}
+                        style={[styles.chartTab, !this.state.showExpensesChart && styles.chartTabSelected, darkMode && styles.chartTabDark]}>
+                        <Copy style={!this.state.showExpensesChart && {color: "white"}}>Income</Copy>
+                      </RectButton>
+                    }
+                    
+                    
+                  </View>
+
+                  <PieChart
+                    data={this.prepDataForPieChart(this.state.showExpensesChart ? sortedExpenses : sortedIncome)}
+                    width={Dimensions.get("window").width} // from react-native
+                    height={220}
+                    accessor="amount"
+                    chartConfig={{
+                      color: (opacity = 1) => `rgba(150, 215, 115, ${opacity})`,
+                      style: {
+                        borderRadius: 16
+                      },
+                    }}
+                    style={{
+                      marginVertical: 8,
+                      borderRadius: 16
+                    }}
+                  />
+                </View>
+
+
               </Animated.ScrollView>
             )
 
@@ -362,6 +470,47 @@ class Dashboard extends Component {
                 <View style={[styles.inlineBetween, styles.alignCenter]}>
                   <Copy style={{ fontSize: 18 }}>Savings Rate: </Copy>
                   <Copy style={{ fontSize: 18, color: palette.blue }}>{this.calcSavingsRate(income, expenses)}</Copy>
+                </View>
+
+
+                <View style={{paddingTop: 50, paddingBottom: 50}}>
+                  <View style={[styles.inline]}>
+
+                    {
+                      !isEmpty(sortedExpenses) &&
+                      <RectButton onPress={() => this.setState({showExpensesChart: true})}
+                        style={[styles.chartTab, this.state.showExpensesChart && styles.chartTabSelected]}>
+                        <Copy>Expenses</Copy>
+                      </RectButton>
+                    }
+
+                    {
+                      !isEmpty(sortedIncome) &&
+                      <RectButton onPress={() => this.setState({showExpensesChart: false})}
+                        style={[styles.chartTab, !this.state.showExpensesChart && styles.chartTabSelected]}>
+                        <Copy>Income</Copy>
+                      </RectButton>
+                    }
+                    
+                    
+                  </View>
+
+                  <PieChart
+                    data={this.prepDataForPieChart(this.state.showExpensesChart ? sortedExpenses : sortedIncome)}
+                    width={Dimensions.get("window").width} // from react-native
+                    height={220}
+                    accessor="amount"
+                    chartConfig={{
+                      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      style: {
+                        borderRadius: 16
+                      },
+                    }}
+                    style={{
+                      marginVertical: 8,
+                      borderRadius: 16
+                    }}
+                  />
                 </View>
 
               </Animated.ScrollView>

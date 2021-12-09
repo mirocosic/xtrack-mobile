@@ -12,6 +12,7 @@ import { Copy, CopyBlue } from "../../components/typography"
 import styles from "./styles"
 import { isAndroid } from "../../utils/os-utils"
 import palette from "../../utils/palette"
+import __ from "../../utils/translations"
 import { BorderlessButton } from "react-native-gesture-handler"
 
 const colors = ["#FF5722", "#F39A27", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"]
@@ -118,7 +119,7 @@ class CategoryEdit extends Component {
             <View style={[styles.inlineBetween, { margin: 10 }]}>
               <Copy>Default category</Copy>
               <TouchableOpacity onPress={() => this.setState({ category: { ...category, defaultCategory: !category.defaultCategory } })}>
-                {category.defaultCategory ? 
+                {!category.defaultCategory ? 
                 <View style={{width: 30, height:30, borderRadius: 4, borderWidth: 2, borderColor: darkMode ? palette.light : palette.dark}}/>
                 : 
                 <View style={{width: 30, height:30, borderRadius: 4, borderWidth: 2, borderColor: darkMode ? palette.light : palette.dark, alignItems: "center", justifyContent: "center"}}>
@@ -142,7 +143,7 @@ class CategoryEdit extends Component {
                 returnKeyType="done"
                 keyboardType="numeric"
                 onSubmitEditing={() => this.handleSave(category)}
-                placeholder="add budget"
+                placeholder={__("add budget")}
                 placeholderTextColor="gray"
                 value={category.budget}
               />

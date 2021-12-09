@@ -37,7 +37,7 @@ const Drawer = createDrawerNavigator()
 
 const MainStackScreen = () => (
   <MainStack.Navigator initialRouteName="Splash" headerMode="none">
-    <MainStack.Screen name="Main" component={BottomBarNavigator} />
+    <MainStack.Screen name="Main" component={BottomBarNavigator} options={{gestureEnabled: false}} />
     <MainStack.Screen name="Splash" component={Splash} />
     <MainStack.Screen name="Onboarding" component={Onboarding} />
     <MainStack.Screen name="Dashboard" component={Dashboard} />

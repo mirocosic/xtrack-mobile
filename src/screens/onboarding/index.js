@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 
 import Screen from "../../components/screen"
 import { Copy } from "../../components"
+import __ from "../../utils/translations"
 
 const { width } = Dimensions.get("window")
 
@@ -118,7 +119,7 @@ const Onboarding = ({ navigation }) => {
         <View style={{ flex: 1, width, alignItems: "center", justifyContent: "center", padding: 20 }}>
           <View style={{ marginTop: 150 }}>
             <Animated.Text style={{ textAlign: "center", color: "white", fontSize: 30, fontWeight: "800", transform: [{ translateX: trans1 }] }}>
-              Become a master of your finances
+              {__("Become a master of your finances")}
             </Animated.Text>
             <Text style={{ textAlign: "center", marginTop: 20, color: "white", fontSize: 16 }}>
               Do you feel like you have no idea where your money goes? Would you like to know your spending habits?
@@ -129,7 +130,7 @@ const Onboarding = ({ navigation }) => {
         <View style={{ flex: 1, width, alignItems: "center", justifyContent: "center", padding: 20 }}>
           <View style={{ marginTop: 150 }}>
             <Animated.Text style={{ textAlign: "center", color: "white", fontSize: 30, fontWeight: "800", transform: [{ translateX: trans2 }] }}>
-              Secure your financial future
+              {__("Secure your financial future")}
             </Animated.Text>
             <Text style={{ textAlign: "center", marginTop: 20, color: "white", fontSize: 16 }}>
               Are you afraid of retirement age and not sure that you'll be financialy safe? Take control of your finances and be sure about your financial future! 
@@ -140,7 +141,7 @@ const Onboarding = ({ navigation }) => {
         <View style={{ flex: 1, width, alignItems: "center", justifyContent: "center", padding: 20 }}>
           <View style={{ marginTop: 150 }}>
             <Animated.Text style={{ textAlign: "center", color: "white", fontSize: 30, fontWeight: "800", transform: [{ translateX: trans3 }] }}>
-              Track all your expenses in one place
+              {__("Track all your expenses in one place")}
             </Animated.Text>
             <Text style={{ textAlign: "center", marginTop: 20, color: "white", fontSize: 16 }}>
               XTrack will enable you to have an in-depth knowledge of your finances at a glance!
