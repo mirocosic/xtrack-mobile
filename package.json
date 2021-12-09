@@ -30,7 +30,6 @@
     "react": "17.0.2",
     "react-native": "0.66.3",
     "react-native-animate-number": "^0.1.2",
-    "react-native-bidirectional-infinite-scroll": "^0.3.3",
     "react-native-calendars": "^1.403.0",
     "react-native-collapsible": "^1.5.1",
     "react-native-color-wheel": "^0.1.7",

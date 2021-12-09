@@ -1,11 +1,9 @@
-import React, { useState, useRef, useEffect, useLayoutEffect } from "react"
-import { ScrollView, View, Text, Dimensions, TouchableOpacity, Animated, FlatList } from "react-native"
-//import { FlatList } from "react-native-bidirectional-infinite-scroll";
+import React, { useState, useRef } from "react"
+import { View, Dimensions, TouchableOpacity, Animated } from "react-native"
 import { Modalize } from "react-native-modalize"
 import { Portal } from "react-native-portalize"
 import { get } from "lodash"
 import moment from "moment"
-
 
 import { Screen, Icon, Copy, Title, Transaction } from "../../components"
 import styles from "./styles"
@@ -13,11 +11,24 @@ import palette from "../../utils/palette"
 import { calcAmount } from "../../utils/helper-gnomes"
 import { formatCurrency } from "../../utils/currency"
 import { useTheme } from "../../utils/ui-utils"
-import { isIos } from "../../utils/os-utils"
-
 
 
 const initItems = [
+  {id: -23},
+  {id: -22},
+  {id: -21},
+  {id: -20},
+  {id: -19},
+  {id: -18},
+  {id: -17},
+  {id: -16},
+  {id: -15},
+  {id: -14},
+  {id: -13},
+  {id: -12},
+  {id: -11},
+  {id: -10},
+  {id: -9},
   {id: -8},
   {id: -7},
   {id: -6},
@@ -29,7 +40,6 @@ const initItems = [
   {id: 0},
   {id: 1},
   {id: 2},
-  {id: 3},
 ]
 
 const compare = (a, b) => {
@@ -69,11 +79,7 @@ const renderBudget = (value, budget) => {
 
 export default (props) => {
   const [items, setItems] = useState(initItems)
-  const [curIdx, setCurIdx] = useState(8)
-  
-  const [viewId, setViewId] = useState(0)
   const [breakdownTransactions, setBreakdownTransactions] = useState([])
-  const HEIGHT = Dimensions.get("window").height
   const WIDTH = Dimensions.get("window").width
   const currentMonth = moment()
   const { transactions } = props
@@ -83,33 +89,16 @@ export default (props) => {
   const scrollX = new Animated.Value(0)
 
 
-  const getCurrentView = (offsetX) => {
-    const WIDTH = Dimensions.get("window").width
-    const curViewIndex = Math.round(offsetX / WIDTH)
-
-
-    if (curIdx === curViewIndex) {
-      return
-    } else {
-      setCurIdx(curViewIndex)
-      setViewId(items[curViewIndex].id)
-      
-    }
-
-    if (Math.round(offsetX / WIDTH) === (items.length - 1 )) {
-      setItems((items) => {
-        const lastId = items[items.length -1].id
-        return [
-          ...items,
-          {id: lastId + 1},
-          {id: lastId + 2},
-          {id: lastId + 3},
-          {id: lastId + 4},
-          {id: lastId + 5}
-        ]
-      })
-    }
-
+  const addViewItems = () => {
+    setItems((items) => {
+      const lastId = items[items.length -1].id
+      return [
+        ...items,
+        {id: lastId + 1},
+        {id: lastId + 2},
+        {id: lastId + 3},
+      ]
+    })
   }
 
   const sortByCategory = (expenses) => {
@@ -185,7 +174,6 @@ export default (props) => {
     const currentMonthIncome = filterByMonth(transactions.filter(t => t.type === "income"), month.toDate()).sort(compare)
     const currentItemIndex = items.findIndex((i) => i.id === item.id)
     const currentMonthIndex = items.findIndex((item) => item.id === 0)
-    const defItem = items.find((i) => i.id == 0)
 
     const transX = scrollX.interpolate({
       inputRange: [(currentItemIndex - 1) * WIDTH, currentItemIndex * WIDTH , WIDTH * (currentItemIndex + 1)],
@@ -229,8 +217,6 @@ export default (props) => {
           }
 
         </View>
-        
-
 
         <TouchableOpacity
           style={[styles.inlineBetween, { marginBottom: 10 }]}
@@ -270,29 +256,6 @@ export default (props) => {
     )
   }
 
-  useLayoutEffect(() => {
-    
-    if (curIdx === 0){
-      setItems((items) => {
-        const firstId = items[0].id
-        return [
-          {id: firstId - 5},
-          {id: firstId - 4},
-          {id: firstId - 3},
-          {id: firstId - 2},
-          {id: firstId - 1},
-          ...items,
-          
-        ]
-      })
-    }
-    
-  },[curIdx])
-
-  useEffect(() => {
-    flatListRef.current.scrollToIndex({index: items.findIndex((i) => i.id === viewId), animated: false})
-  }, [items])
-
   return (
     <Screen>
       <Animated.FlatList
@@ -302,19 +265,19 @@ export default (props) => {
         scrollEventThrottle={16}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-          { useNativeDriver: false,
-            listener: (e) => getCurrentView(get(e, "nativeEvent.contentOffset.x"))
-           },
+          { useNativeDriver: true },
         )}
         renderItem={renderItem}
         horizontal
         pagingEnabled
-        initialScrollIndex={8}
+        initialScrollIndex={23}
         getItemLayout={(items, index) => (
           {length: WIDTH, offset: WIDTH * index, index}
         )}
         keyExtractor={(item) => item.id}
-        windowSize={5}
+        windowSize={3}
+        onEndReached={addViewItems}
+        onEndReachedThreshold={0.1}
       />
 
       <Portal>
