@@ -25,19 +25,24 @@ class TransactionType extends Component {
   })
 
   onClick = type => {
+    const { setType } = this.props
     const { xOffset } = this.state
     let position = 0
+
     switch (type) {
       case "expense":
         position = 0
+        setType("expense")
         this.setState({ currentType: "expense" })
         break
       case "income":
         position = 120
+        setType("income")
         this.setState({ currentType: "income" })
         break
       case "transfer":
         position = 240
+        setType("transfer")
         this.setState({ currentType: "transfer" })
         break
       default:
@@ -52,7 +57,6 @@ class TransactionType extends Component {
   }
 
   render() {
-    const { setType } = this.props
     const { xOffset, currentType } = this.state
 
     const color = xOffset.interpolate({
@@ -75,13 +79,8 @@ class TransactionType extends Component {
           direction={Directions.RIGHT}
           onHandlerStateChange={({ nativeEvent }) => {
             if (nativeEvent.state === State.ACTIVE) {
-              if (currentType === "expense") {
-                this.onClick("income")
-              }
-
-              if (currentType === "income") {
-                this.onClick("transfer")
-              }
+              if (currentType === "expense") { this.onClick("income")}
+              if (currentType === "income") { this.onClick("transfer")}
             }
 
             if (nativeEvent.state === State.END) {
@@ -93,13 +92,8 @@ class TransactionType extends Component {
             direction={Directions.LEFT}
             onHandlerStateChange={({ nativeEvent }) => {
               if (nativeEvent.state === State.ACTIVE) {
-                if (currentType === "transfer") {
-                  this.onClick("income")
-                }
-
-                if (currentType === "income") {
-                  this.onClick("expense")
-                }
+                if (currentType === "transfer") { this.onClick("income")}
+                if (currentType === "income") { this.onClick("expense")}
               }
 
               ReactNativeHapticFeedback.trigger("impactLight")
@@ -119,37 +113,29 @@ class TransactionType extends Component {
               />
 
               <TouchableOpacity
-                onPress={() => {
-                  setType("expense")
-                  this.onClick("expense")
-                }}
+                onPress={() => this.onClick("expense")}
                 style={[styles.transactionTypeButton]}>
                 <View style={styles.typeWrap}>
                   <Copy style={{ color: "white" }}>EXPENSE</Copy>
                 </View>
               </TouchableOpacity>
+
               <TouchableOpacity
-                onPress={() => {
-                  setType("income")
-                  this.onClick("income")
-                }}
-                style={[styles.transactionTypeButton]}
-              >
+                onPress={() => this.onClick("income")}
+                style={[styles.transactionTypeButton]}>
                 <View style={styles.typeWrap}>
-                  <Copy style={{ color: "white" }}>{__("INCOME")}</Copy>
+                  <Copy style={{ color: "white" }}>INCOME</Copy>
                 </View>
               </TouchableOpacity>
+
               <TouchableOpacity
-                onPress={() => {
-                  setType("transfer")
-                  this.onClick("transfer")
-                }}
-                style={[styles.transactionTypeButton]}
-              >
+                onPress={() => this.onClick("transfer")}
+                style={[styles.transactionTypeButton]}>
                 <View style={styles.typeWrap}>
                   <Copy style={{ color: "white" }}>TRANSFER</Copy>
                 </View>
               </TouchableOpacity>
+
             </Animated.View>
           </FlingGestureHandler>
         </FlingGestureHandler>
