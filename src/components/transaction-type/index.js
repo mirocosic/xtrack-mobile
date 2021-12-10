@@ -123,8 +123,7 @@ class TransactionType extends Component {
                   setType("expense")
                   this.onClick("expense")
                 }}
-                style={[styles.transactionTypeButton]}
-              >
+                style={[styles.transactionTypeButton]}>
                 <View style={styles.typeWrap}>
                   <Copy style={{ color: "white" }}>EXPENSE</Copy>
                 </View>

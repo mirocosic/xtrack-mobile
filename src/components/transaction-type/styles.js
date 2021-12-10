@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native"
 
 export default StyleSheet.create({
-  typeWrap: { paddingTop: 2 },
+  typeWrap: { paddingTop: 0 },
 
   formFieldWrap: {
     height: 30,
@@ -21,8 +21,6 @@ export default StyleSheet.create({
     textAlign: "center",
     alignItems: "center",
     width: 80,
-    paddingTop: 5,
-    paddingBottom: 10,
   },
 
   slider: {
