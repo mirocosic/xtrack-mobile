@@ -9,6 +9,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 
 import palette from "./utils/palette"
+import { isAndroid } from "./utils/os-utils"
 import { persistor, store } from "./store"
 import AppNavigator from "./navigators/app-navigator"
 import "intl"
@@ -25,9 +26,11 @@ const updateStatusBarStyle = (systemTheme) => {
   if (appTheme === "system") {
     if (systemTheme === "dark") {
       StatusBar.setBarStyle("light-content", true)
+      isAndroid && StatusBar.setBackgroundColor(palette.darkGreyHex, true)
       changeNavigationBarColor(palette.darkGreyHex)
     } else {
       StatusBar.setBarStyle("dark-content", true)
+      isAndroid && StatusBar.setBackgroundColor(palette.light, true)
       changeNavigationBarColor(palette.light)
     }
   }

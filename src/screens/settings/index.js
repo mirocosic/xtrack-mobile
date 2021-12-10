@@ -3,24 +3,29 @@ import { connect } from "react-redux";
 import Component from "./component";
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
 import palette from "../../utils/palette"
+import { isAndroid } from "../../utils/os-utils"
 
 const changeStatusBar = (theme) => {
   switch (theme) {
     case "dark":
       StatusBar.setBarStyle("light-content", true)
+      isAndroid && StatusBar.setBackgroundColor(palette.darkGreyHex, true)
       changeNavigationBarColor(palette.darkGreyHex)
       break;
     case "light":
       StatusBar.setBarStyle("dark-content", true)
+      isAndroid && StatusBar.setBackgroundColor(palette.light, true)
       changeNavigationBarColor(palette.light)
       break;
     case "system":
       const systemTheme = Appearance.getColorScheme()
       if (systemTheme === "dark") {
         StatusBar.setBarStyle("light-content", true)
+        isAndroid && StatusBar.setBackgroundColor(palette.darkGreyHex, true)
         changeNavigationBarColor(palette.darkGreyHex)
       } else {
         StatusBar.setBarStyle("dark-content", true)
+        isAndroid && StatusBar.setBackgroundColor(palette.light, true)
         changeNavigationBarColor(palette.light)
       }
       break;

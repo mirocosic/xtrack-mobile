@@ -78,7 +78,6 @@ class Dashboard extends Component {
   componentDidMount() {
     const { route, navigation, openOnForm } = this.props
     const { width } = Dimensions.get("window")
-    !isIos && StatusBar.setBackgroundColor(palette.blue)
     setTimeout(() => this.scrollView.scrollTo({ x: width * 23, y: 0, animated: false }), 100)
     setTimeout((()=> openOnForm && navigation.navigate("TransactionForm", { clearForm: true })), 0)
     setTimeout(() => SplashScreen.hide(), 500)

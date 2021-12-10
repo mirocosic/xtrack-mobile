@@ -7,6 +7,7 @@ import LinearGradient from "react-native-linear-gradient"
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
 
 import palette from "../../utils/palette"
+import { isAndroid } from "../../utils/os-utils"
 import Screen from "../../components/screen"
 import logo from "../../../assets/images/logo-white.png"
 
@@ -18,17 +19,21 @@ const setStatusBarStyle = (theme) => {
   if (theme !== "system") {
     if (theme === "dark") {
       StatusBar.setBarStyle("light-content", true)
+      isAndroid && StatusBar.setBackgroundColor(palette.darkGreyHex, true)
       changeNavigationBarColor(palette.darkGreyHex)
     } else {
       StatusBar.setBarStyle("dark-content", true)
+      isAndroid && StatusBar.setBackgroundColor(palette.light, true)
       changeNavigationBarColor(palette.light)
     }
   } else {
     if (systemTheme === "dark") {
       StatusBar.setBarStyle("light-content", true)
+      isAndroid && StatusBar.setBackgroundColor(palette.darkGreyHex, true)
       changeNavigationBarColor(palette.darkGreyHex)
     } else {
       StatusBar.setBarStyle("dark-content", true)
+      isAndroid && StatusBar.setBackgroundColor(palette.light, true)
       changeNavigationBarColor(palette.light)
     }
   }
