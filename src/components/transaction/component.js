@@ -1,5 +1,5 @@
 import React from "react"
-import {  Text, View } from "react-native"
+import { LayoutAnimation, Text, View, Platform, UIManager } from "react-native"
 import moment from "moment"
 import { get, truncate } from "lodash"
 
@@ -13,6 +13,13 @@ import { formatCurrency } from "../../utils/currency"
 import palette from "../../utils/palette"
 import { useDarkTheme } from "../../utils/ui-utils"
 import styles from "./styles"
+
+
+if (Platform.OS === 'android') {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
 
 const getAmountColor = (type) => {
   switch (type) {
@@ -48,8 +55,12 @@ const Transaction = ({ transaction, selectTransaction, deleteTransaction, naviga
       outputRange: [-20, 0, 0, 1],
     });
     return (
-      <RectButton style={{backgroundColor: "red", alignItems: "center", padding: 10, justifyContent: "center"}} 
-                  onPress={() => deleteTransaction(transaction)}>
+      <RectButton
+        style={{backgroundColor: "red", alignItems: "center", padding: 10, justifyContent: "center"}}
+        onPress={() => {
+          LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+          deleteTransaction(transaction)
+        }}>
         <Icon type="trash" />
       </RectButton>
     );
@@ -57,6 +68,7 @@ const Transaction = ({ transaction, selectTransaction, deleteTransaction, naviga
 
   return (
       <Swipeable renderRightActions={renderRightActions} containerStyle={{backgroundColor: "red", borderBottomColor: palette.gray, borderBottomWidth: 1} }>
+      
         <RectButton
             style={[styles.container, useDarkTheme() && styles.containerDark, { height: HEIGHT }]}
             activeOpacity={useDarkTheme() ? 0.8 : 0.1}
