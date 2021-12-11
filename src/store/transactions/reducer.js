@@ -130,7 +130,7 @@ const transactions = (state = initialState, action) => {
             fromAccountId: accountId,
             // type,
             type: "expense",
-            amount: -amount,
+            amount: amount,
             note,
             categoryId,
             labels,
