@@ -13,6 +13,7 @@ import { Copy, CopyBlue } from "../../components/typography"
 import styles from "./styles"
 import { isAndroid } from "../../utils/os-utils"
 import palette from "../../utils/palette"
+import __ from "../../utils/translations"
 
 const colors = ["#FF5722", "#F39A27", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"]
 
@@ -106,7 +107,7 @@ class AccountEdit extends Component {
                   },
                 })
                 }
-                placeholder="account name"
+                placeholder={__("account name")}
                 placeholderTextColor="gray"
                 value={account.name}
               />

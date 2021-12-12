@@ -48,7 +48,7 @@ export default connect(
   dispatch => ({
     toggleDarkMode: () => dispatch({ type: "TOGGLE_DARK_MODE" }),
     toggleOpenOnForm: () => dispatch({ type: "TOGGLE_OPEN_ON_FORM" }),
-    setLanguage: language => dispatch({ type: "SWITCH_LANGUAGE", language }),
+    setLanguage: language => dispatch({ type: "SET_LANGUAGE", language }),
     setTheme: theme => {
       changeStatusBar(theme)
       dispatch({ type: "SET_THEME", theme })},

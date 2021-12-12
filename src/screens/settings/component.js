@@ -17,18 +17,20 @@ const Settings = (props) => {
   const darkMode = useDarkTheme()
 
   const selectLanguage = () => {
-    const { setLanguage } = props
+    const { setLanguage,navigation } = props
     Alert.alert(
       __("Select language"),
       __("Please choose your preferred language"),
       [
         {
           text: "English",
-          onPress: () => setLanguage({ code: "eng", name: "English" }),
+          onPress: () => {
+            setLanguage({ code: "eng", name: "English" })},
         },
         {
           text: "Hrvatski",
-          onPress: () => setLanguage({ code: "hrv", name: "Hrvatski" }),
+          onPress: () => {
+            setLanguage({ code: "hrv", name: "Hrvatski" })},
         },
       ],
     )
@@ -38,9 +40,9 @@ const Settings = (props) => {
     const { setTheme, theme } = props
 
     props.showActionSheetWithOptions({
-      options: ["Light", "Dark", "System", "Cancel"],
+      options: [__("Light"), __("Dark"), __("System"), __("Cancel")],
       cancelButtonIndex: 3,
-      title: "Select app theme",
+      title: __("Select app theme"),
       userInterfaceStyle: theme,
       containerStyle: { backgroundColor: darkMode ? palette.dark : palette.light},
       textStyle: { color: darkMode ? palette.light : palette.dark},
@@ -162,8 +164,7 @@ const Settings = (props) => {
               <View style={{ maxWidth: 300 }}>
                 <Copy>Backup/Restore</Copy>
                 <Copy style={{ fontSize: 12, color: "gray", marginTop: 5 }}>
-                  Make a local backup of your data and restore it if you delete the
-                  app.
+                  Make a local backup of your data and restore it if you delete the app
                 </Copy>
               </View>
               <Icon
@@ -245,7 +246,7 @@ const Settings = (props) => {
               }}>
               <Copy>Theme</Copy>
               <TouchableOpacity onPress={selectTheme}>
-                <Copy style={{textTransform: 'capitalize'}}>{theme}</Copy>
+                <Copy style={{textTransform: 'capitalize'}}>{__(theme)}</Copy>
               </TouchableOpacity>
             </View>
           </View>

@@ -5,7 +5,8 @@ const translations = {
   eng: {},
 
   hrv: {
-    Language: "Jezik",
+    "Language": "Jezik",
+    "Please choose your preferred language": "Odaberi svoj preferirani jezik aplikacije",
     "Welcome to XTrack!": "Dobrodošli u XTrack!",
     "Go to app": "Kreni",
     Dashboard: "Kontrola",
@@ -25,11 +26,13 @@ const translations = {
     Transfer: "Prijenos",
     "Expenses: ": "Troškovi: ",
     Balance: "Bilanca",
-    Account: "Račun",
+    "Account": "Račun",
+    "account name": "ime računa",
     "Balance: ": "Bilanca: ",
     "Savings Rate: ": "Stopa štednje: ",
     "Net worth: ": "Neto vrijednost: ",
-    Category: "Kategorija",
+    "Category": "Kategorija",
+    "category name": "naziv kategorije",
     Categories: "Kategorije",
     Accounts: "Računi",
     Tags: "Oznake",
@@ -53,11 +56,23 @@ const translations = {
     Yes: "Da",
     No: "Ne",
     Currency: "Valuta",
+
+    "Theme": "Tema",
+    "Light": "Svijetla",
+    "light": "Svijetla",
+    "Dark": "Tamna",
+    "dark": "Tamna",
+    "System": "Sistemska",
+    "system": "Sistemska",
+    "Select app theme": "Odaberi temu aplikacije",
+
     "Default account": "Zadani račun",
     "enter note...": "unesi bilješku...",
     "Recurring": "Ponavljajuća",
     "Add Tags": "Dodaj oznake",
     "Add new tag": "Dodaj novu oznaku",
+    "Add new category": "Dodaj novu kategoriju",
+    "Add new account": "Dodaj novi račun",
     "Every": "Svaki",
     "End Date": "Krajnji datum",
     "Day": "Dan",
@@ -72,22 +87,35 @@ const translations = {
     "Monthly Budget": "Mjesečni budžet",
     "add budget": "unesi budžet",
 
+    "Select language": "Odaberi jezik",
+
+
     "Become a master of your finances": "Postani majstor svojih financija",
     "Secure your financial future": "Osiguraj svoju financijsku budućnost",
     "Track all your expenses in one place": "Prati sve troškove na jednom mjestu",
-    "Let's go!": "Krenimo!"
+    "Let's go!": "Kreni!",
+
+    "Customize categories to group your transactions": "Prilagodi kategorije za lakše grupiranje transakcija",
+    "Create separate accounts for your transactions": "Kreiraj odvojene račune za svoje transakcije",
+    "Tag your transactions with labels for easy tracking": "Označi svoje transakcije za lakši pregled",
+    "Make a local backup of your data and restore it if you delete the app": "Napravi lokalnu kopiju podataka i vrati podatke u slučaju brisanja aplikacije",
+    "Check out the onboarding carousel!": "Pogledaj uvodni opis aplikacije",
+    "Generate Demo Dummy Transactions (x100)": "Generiraj Demo transakcije (x100)"
+
   },
 
 }
 
+const state = store.getState();
+const language = get(state, "common.language.code")
+console.log("state lng: ", language)
+
 const translate = (string) => {
   const state = store.getState();
-  const language = get(state, "common.language.code")
+const language = get(state, "common.language.code")
+  
   if (!language) { return string; }
-  if (!get(translations, [language, string])) { return string; }
-
-  return get(translations, [language, string])
-
+  return get(translations, [language, string], string)
 }
 
 export default translate;

@@ -96,7 +96,7 @@ class CategoryEdit extends Component {
                   },
                 })
                 }
-                placeholder="category name"
+                placeholder={__("category name")}
                 placeholderTextColor="gray"
                 value={category.name}
               />
