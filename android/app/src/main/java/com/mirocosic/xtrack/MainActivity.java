@@ -1,4 +1,6 @@
 package com.mirocosic.xtrack;
+import expo.modules.ReactActivityDelegateWrapper;
+import com.facebook.react.ReactActivityDelegate;
 
 import com.facebook.react.ReactActivity;
 
@@ -12,4 +14,11 @@ public class MainActivity extends ReactActivity {
     protected String getMainComponentName() {
         return "com.mirocosic.xtrack";
     }
+
+  @Override
+  protected ReactActivityDelegate createReactActivityDelegate() {
+    return new ReactActivityDelegateWrapper(this,
+      new ReactActivityDelegate(this, getMainComponentName())
+    );
+  }
 }
