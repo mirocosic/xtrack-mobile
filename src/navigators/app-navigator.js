@@ -76,7 +76,7 @@ const Main = () => (
 export default () => (
   <NavigationContainer theme={useDarkTheme() ? DarkTheme : DefaultTheme}>
     <Drawer.Navigator
-      openByDefault={true}
+      defaultStatus="closed"
       screenOptions={{
         drawerPosition: "right",
         drawerType: "front",

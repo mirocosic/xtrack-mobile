@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import { View, Dimensions, TouchableOpacity, Animated } from "react-native"
 import { Modalize } from "react-native-modalize"
 import { Portal } from "react-native-portalize"
@@ -85,7 +85,7 @@ export default (props) => {
   const [breakdownTransactions, setBreakdownTransactions] = useState([])
   const WIDTH = Dimensions.get("window").width
   const currentMonth = moment()
-  const { transactions } = props
+  const { transactions, openOnForm, navigation } = props
   const darkMode = useDarkTheme()
   const flatListRef = useRef()
   const breakdownModal = useRef()
@@ -351,6 +351,10 @@ export default (props) => {
       </Animated.ScrollView>
     )
   }
+
+  useEffect(() => {
+    setTimeout((() => openOnForm && navigation.navigate("TransactionForm", { clearForm: true })), 0)
+  }, [])
 
   return (
     <Screen>
