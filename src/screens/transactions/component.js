@@ -87,7 +87,7 @@ class Transactions extends Component {
 
     return (
       <Screen>
-        <Animated.View style={{ position: "absolute", zIndex: 100, width: "100%"}}>
+        <Animated.View style={{ position: "relative", zIndex: 100, width: "100%"}}>
           <Header
             title="Transactions"
             withInsets
@@ -109,8 +109,8 @@ class Transactions extends Component {
             <Copy>Add some!</Copy>
           </View>
         ) : (
-          <View style={{ paddingTop: safePaddingTop(50)}}>
-            <View style={[{position: "absolute", width: "100%", height: 200, top: safePaddingTop(20)},
+          <View style={{ paddingTop: 0}}>
+            <View style={[{position: "absolute", width: "100%", height: 200, top: -20},
                           {backgroundColor: darkMode ? palette.darkGray : palette.blue}]}>
               <Animated.Image source={transactionsHeader} resizeMode="contain"
                    style={[{backgroundColor: darkMode ? palette.darkGray : palette.blue},
