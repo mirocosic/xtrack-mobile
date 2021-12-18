@@ -13,6 +13,7 @@ import palette from "../../utils/palette"
 import { calcAmount } from "../../utils/helper-gnomes"
 import { formatCurrency } from "../../utils/currency"
 import { useDarkTheme } from "../../utils/ui-utils"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 
 const initItems = [
@@ -90,6 +91,7 @@ export default (props) => {
   const breakdownModal = useRef()
   const scrollX = new Animated.Value(0)
   const [showExpensesChart, setShowExpensesChart] = useState(true)
+  const insets = useSafeAreaInsets()
 
 
   const addViewItems = () => {
@@ -193,6 +195,8 @@ export default (props) => {
     const currentMonthIncome = filterByMonth(transactions.filter(t => t.type === "income"), month.toDate()).sort(compare)
     const currentItemIndex = items.findIndex((i) => i.id === item.id)
     const currentMonthIndex = items.findIndex((item) => item.id === 0)
+
+   
     
 
     const transX = scrollX.interpolate({
@@ -380,6 +384,7 @@ export default (props) => {
           modalTopOffset={100}
           flatListProps={{
             style: { paddingBottom: 20 },
+            contentContainerStyle: {paddingBottom: insets.bottom, overflow: "hidden", borderRadius: 10},
             showsVerticalScrollIndicator: false,
             data: breakdownTransactions,
             initialNumToRender: 20,
@@ -390,6 +395,7 @@ export default (props) => {
                 navigation={props.navigation} 
                 handlePress={() => breakdownModal.current.close()}/>),
             keyExtractor: item => item.id,
+            ItemSeparatorComponent: () => (<View style={styles.separator}/>)
           }}/>
       </Portal>
 

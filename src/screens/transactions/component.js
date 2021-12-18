@@ -146,6 +146,7 @@ class Transactions extends Component {
                   <Copy>{title}</Copy>
                 </View>
               )}
+              ItemSeparatorComponent={() => (<View style={styles.separator} />)}
               renderItem={this.renderItem}
               keyExtractor={item => item.id}
               onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: this.scrollY } } }], { useNativeDriver: true })}/>

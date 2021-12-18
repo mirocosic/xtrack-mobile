@@ -53,6 +53,11 @@ export default StyleSheet.create({
 
   sectionDark: {
     backgroundColor: palette.black
+  },
+
+  separator: {
+    borderBottomWidth: 1,
+    borderColor: palette.gray
   }
 
 })

@@ -67,7 +67,7 @@ const Transaction = ({ transaction, selectTransaction, deleteTransaction, naviga
   };
 
   return (
-      <Swipeable renderRightActions={renderRightActions} containerStyle={{backgroundColor: "red", borderBottomColor: palette.gray, borderBottomWidth: 1} }>
+      <Swipeable renderRightActions={renderRightActions} containerStyle={{backgroundColor: "red"} }>
       
         <RectButton
             style={[styles.container, useDarkTheme() && styles.containerDark, { height: HEIGHT }]}

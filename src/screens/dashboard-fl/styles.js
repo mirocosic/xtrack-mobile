@@ -65,6 +65,12 @@ export default StyleSheet.create({
 
   chartTabSelected: {
     backgroundColor: palette.blue
+  },
+
+  separator: {
+    borderBottomWidth: 1,
+    borderColor: palette.gray
+
   }
 
 

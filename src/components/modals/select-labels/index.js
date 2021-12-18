@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { View, TouchableOpacity, Keyboard, ScrollView } from "react-native"
 import { Modalize } from "react-native-modalize"
 import { get } from "lodash"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 import { Label } from "../../../components"
 import Icon from "../../icon"
@@ -12,6 +13,7 @@ import styles from "./styles"
 
 export default React.forwardRef((props, ref) => {
   const { labels, onSelect, transaction, navigation } = props
+  const insets = useSafeAreaInsets()
 
   return (
     <Modalize
@@ -19,7 +21,9 @@ export default React.forwardRef((props, ref) => {
       adjustToContentHeight
       modalStyle={[styles.modal, useDarkTheme() && styles.modalDark]}
       ref={ref}>
-      <ScrollView style={{ minHeight: 200, maxHeight: 400, padding: 10 }}>
+      <ScrollView 
+        style={{ minHeight: 200, maxHeight: 400, padding: 10 }}
+        contentContainerStyle={{paddingBottom: insets.bottom}}>
 
         {labels.map(label => (
           <TouchableOpacity
