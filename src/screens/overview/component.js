@@ -3,16 +3,7 @@ import { ScrollView, View, Text, TouchableOpacity, Alert, Appearance, Dimensions
 import { DarkModeContext } from "react-native-dark-mode"
 import { RectButton } from "react-native-gesture-handler"
 import { get, isEmpty } from "lodash"
-
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart
-} from "react-native-chart-kit";
-
+import { PieChart } from "react-native-chart-kit";
 
 import { Screen, Icon, Copy, Title } from "../../components"
 import __ from "../../utils/translations"

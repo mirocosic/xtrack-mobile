@@ -5,6 +5,7 @@ export default connect(
   state => ({
     transactions: state.transactions.entries,
     accounts: state.accounts.items,
+    categories: state.categories.items,
     selected: state.categories.selectedCategory,
     darkMode: state.common.darkMode,
     theme: state.common.theme,
