@@ -24,7 +24,7 @@ export const calculateTransactions = (transactions, transactionType, filter = { 
   let filteredTransactions = []
   switch (filter.type) {
     case "account":
-      filteredTransactions = transactions.filter(item => filter.value.id === get(item, "accountId") && item.type === transactionType)
+      filteredTransactions = transactions.filter(item => (filter.value.id === get(item, "accountId") || filter.value.id === get(item, "fromAccountId")) && item.type === transactionType && !item.isTransfer)
       break;
 
     case "month":
@@ -58,4 +58,8 @@ export const calculateIncome = (transactions, filter = { type: false, value: fal
 
 export const calculateExpenses = (transactions, filter = { type: false, value: false }, normalize = false) => (
   calculateTransactions(transactions, "expense", filter, normalize)
+)
+
+export const calculateTransfers = (transactions, filter = { type: false, value: false }, normalize = false) => (
+  calculateTransactions(transactions, "transfer", filter, normalize)
 )

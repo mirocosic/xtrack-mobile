@@ -187,17 +187,23 @@ export default (props) => {
 
   const renderItem = ({item}) => {
     const month = item.id >= 0 ? currentMonth.clone().add(item.id, "month") : currentMonth.clone().subtract(Math.abs(item.id), "month")
-    const income = sum(filterByMonth(transactions.filter(t => t.type === "income"), month.toDate()))
-    const expenses = sum(filterByMonth(transactions.filter(t => t.type === "expense"), month.toDate()))
-    const sortedExpenses = sortByCategory(filterByMonth(transactions.filter(t => t.type === "expense"), month.toDate()))
-    const sortedIncome = sortByCategory(filterByMonth(transactions.filter(t => t.type === "income"), month.toDate()))
-    const currentMonthTransactions = filterByMonth(transactions.filter(t => t.type === "expense"), month.toDate()).sort(compare)
-    const currentMonthIncome = filterByMonth(transactions.filter(t => t.type === "income"), month.toDate()).sort(compare)
+    const filterTransactions = (type) => filterByMonth(transactions.filter(t => t.type === type && !t.isTransfer), month.toDate())
+
+    const income = sum(filterTransactions("income"))
+    const expenses = sum(filterTransactions("expense"))
+    const transfers = sum(filterTransactions("transfer"))
+
+    const sortedExpenses = sortByCategory(filterTransactions("income"))
+    const sortedIncome = sortByCategory(filterTransactions("expense"))
+    const sortedTransfers = sortByCategory(filterTransactions("transfer"))
+
+    const currentMonthExpenses = filterTransactions("income").sort(compare)
+    const currentMonthIncome = filterTransactions("expense").sort(compare)
+    const currentMonthTransfers = filterTransactions("transfer").sort(compare)
+
     const currentItemIndex = items.findIndex((i) => i.id === item.id)
     const currentMonthIndex = items.findIndex((item) => item.id === 0)
 
-   
-    
 
     const transX = scrollX.interpolate({
       inputRange: [(currentItemIndex - 1) * WIDTH, currentItemIndex * WIDTH , WIDTH * (currentItemIndex + 1)],
@@ -261,14 +267,26 @@ export default (props) => {
         <TouchableOpacity
           style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}
           onPress={() => {
-            setBreakdownTransactions(currentMonthTransactions)
+            setBreakdownTransactions(currentMonthExpenses)
             breakdownModal.current.open()
           }}>
           <Copy style={{ fontSize: 18 }}>Expenses: </Copy>
           <Copy style={{ fontSize: 18, color: palette.red }}>{formatCurrency(expenses)}</Copy>
         </TouchableOpacity>
         
-        {renderExpenses(sortedExpenses, currentMonthTransactions)}
+        {renderExpenses(sortedExpenses, currentMonthExpenses)}
+
+        <TouchableOpacity
+          style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}
+          onPress={() => {
+            setBreakdownTransactions(currentMonthTransfers)
+            breakdownModal.current.open()
+          }}>
+          <Copy style={{ fontSize: 18 }}>Transfers: </Copy>
+          <Copy style={{ fontSize: 18, color: palette.white }}>{formatCurrency(transfers)}</Copy>
+        </TouchableOpacity>
+        
+        {renderExpenses(sortedTransfers, currentMonthTransfers)}
 
         <View style={[styles.inlineBetween, { marginTop: 30, paddingTop: 10, borderTopWidth: 1 }]}>
           <Copy style={{ fontSize: 18 }}>Balance: </Copy>

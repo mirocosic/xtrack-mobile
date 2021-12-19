@@ -49,8 +49,9 @@ export default ({accounts, transactions, categories, navigation, route: { params
     )
   })
 
-  const sortedIncome = sortByCategory(transactions.filter(t => t.type === "income").filter(t => t.accountId === account.id))
-  const sortedExpenses = sortByCategory(transactions.filter(t => t.type === "expense").filter(t => t.accountId === account.id))
+  const sortedIncome = sortByCategory(transactions.filter(t => t.type === "income" && !t.isTransfer).filter(t => t.accountId === account.id))
+  const sortedExpenses = sortByCategory(transactions.filter(t => t.type === "expense" && !t.isTransfer).filter(t => t.accountId === account.id))
+  const sortedTransfers = sortByCategory(transactions.filter(t => t.type === "transfer" && !t.isTransfer).filter(t => t.accountId === account.id || t.fromAccountId === account.id))
 
   return (
     <Screen>
@@ -63,17 +64,24 @@ export default ({accounts, transactions, categories, navigation, route: { params
 
         <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
           <Copy style={{ fontSize: 18 }}>Income: </Copy>
-          <Copy style={{ fontSize: 18, color: palette.green }}>{formatCurrency(sum(transactions.filter(t => t.type === "income").filter(t => t.accountId === account.id)))}</Copy>
+          <Copy style={{ fontSize: 18, color: palette.green }}>{formatCurrency(sum(transactions.filter(t => t.type === "income" && !t.isTransfer).filter(t => t.accountId === account.id)))}</Copy>
         </View>
 
         {renderExpenses(sortedIncome)}
 
         <View style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}>
           <Copy style={{ fontSize: 18 }}>Expenses: </Copy>
-          <Copy style={{ fontSize: 18, color: palette.red }}>{formatCurrency(sum(transactions.filter(t => t.type === "expense").filter(t => t.accountId === account.id)))}</Copy>
+          <Copy style={{ fontSize: 18, color: palette.red }}>{formatCurrency(sum(transactions.filter(t => t.type === "expense" && !t.isTransfer).filter(t => t.accountId === account.id)))}</Copy>
         </View>
 
         {renderExpenses(sortedExpenses)}
+
+        <View style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}>
+          <Copy style={{ fontSize: 18 }}>Transfers: </Copy>
+          <Copy style={{ fontSize: 18, color: palette.white }}>{formatCurrency(sum(transactions.filter(t => t.type === "transfer" && !t.isTransfer).filter(t => t.accountId === account.id || t.fromAccountId === account.id)))}</Copy>
+        </View>
+
+        {renderExpenses(sortedTransfers)}
 
         <View style={{paddingVertical: 20}}>
 

@@ -119,6 +119,7 @@ const transactions = (state = initialState, action) => {
       }
 
     case "TRANSFER_TRANSACTION":
+      const transferTransactionId = makeUUID()
       return {
         ...state,
         entries: [
@@ -128,34 +129,34 @@ const transactions = (state = initialState, action) => {
             timestamp,
             accountId: fromAccountId,
             fromAccountId: accountId,
-            // type,
             type: "expense",
             isTransfer: true,
             amount: amount,
             note,
             categoryId,
             labels,
+            parentTransactionId: transferTransactionId
           },
           {
             id: makeUUID(),
             timestamp,
             accountId,
             fromAccountId,
-            // type,
             type: "income",
             isTransfer: true,
             amount,
             note,
             categoryId,
             labels,
+            parentTransactionId: transferTransactionId
           },
           {
-            id: makeUUID(),
+            id: transferTransactionId,
             timestamp,
             accountId,
             fromAccountId,
             type: "transfer",
-            isTransfer: true,
+            isTransfer: false, //hack for calculations, not needed if transaction type is transfer
             amount,
             note,
             categoryId,

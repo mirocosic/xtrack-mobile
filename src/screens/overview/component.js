@@ -8,7 +8,7 @@ import { PieChart } from "react-native-chart-kit";
 import { Screen, Icon, Copy, Title } from "../../components"
 import __ from "../../utils/translations"
 import { formatCurrency } from "../../utils/currency"
-import { calcAmount, calculateIncome, calculateExpenses } from "../../utils/helper-gnomes"
+import { calcAmount, calculateIncome, calculateExpenses, calculateTransfers } from "../../utils/helper-gnomes"
 import palette from "../../utils/palette"
 import styles from "./styles"
 
@@ -158,8 +158,9 @@ class Overview extends Component {
   render() {
     const { accounts, transactions, theme, navigation } = this.props
     const darkMode =  theme === "system" ? this.context === "dark" : theme === "dark"
-    const sortedIncome = this.sortByCategory(transactions.filter(t => t.type === "income"))
-    const sortedExpenses = this.sortByCategory(transactions.filter(t => t.type === "expense"))
+    const sortedIncome = this.sortByCategory(transactions.filter(t => t.type === "income" && !t.isTransfer))
+    const sortedExpenses = this.sortByCategory(transactions.filter(t => t.type === "expense" && !t.isTransfer))
+    const sortedTransfers = this.sortByCategory(transactions.filter(t => t.type === "transfer" && !t.isTransfer))
 
     return (
       <Screen>
@@ -180,6 +181,7 @@ class Overview extends Component {
           {accounts.map((acc) => {
             const income = parseFloat(calculateIncome(transactions, { type: "account", value: acc }))
             const expenses = parseFloat(calculateExpenses(transactions, { type: "account", value: acc }))
+            const transfers = parseFloat(calculateTransfers(transactions, { type: "account", value: acc }))
             const startingBalance = acc.startingBalance ? parseFloat(acc.startingBalance) : 0
 
             return (
@@ -194,13 +196,28 @@ class Overview extends Component {
                   </View>
 
                   <View>
-                    <Copy style={{ fontSize: 18, color: palette.green}}>+{formatCurrency(income, acc.currency)}</Copy>
-                    <Copy style={{ marginVertical: 5, fontSize: 18, color: palette.red}}>
-                      -{formatCurrency(expenses, acc.currency)}
-                    </Copy>
-                    <Copy style={{ fontSize: 18, color: palette.blue }}>
-                      {formatCurrency(startingBalance + income - expenses, acc.currency)}
-                    </Copy>
+                    <View style={styles.inlineBetween}>
+                      <Copy style={{fontSize: 14}}>Income</Copy>
+                      <Copy style={{ fontSize: 18, color: palette.green}}>+{formatCurrency(income, acc.currency)}</Copy>
+                    </View>
+
+                    <View style={styles.inlineBetween}>
+                      <Copy style={{fontSize: 14}}>Expenses</Copy>
+                      <Copy style={{ marginVertical: 5, fontSize: 18, color: palette.red}}> -{formatCurrency(expenses, acc.currency)}</Copy>
+                    </View>
+
+                    <View style={styles.inlineBetween}>
+                      <Copy style={{fontSize: 14}}>Transfers</Copy>
+                      <Copy style={{ fontSize: 18, color: palette.white}}>{formatCurrency(transfers, acc.currency)}</Copy>
+                    </View>
+
+                    <View style={[styles.inlineBetween, {marginTop: 15}]}>
+                      <Copy style={{fontSize: 14}}>Total</Copy>
+                      <Copy style={{ fontSize: 18, color: palette.blue }}>{formatCurrency(startingBalance + income - expenses, acc.currency)}</Copy>
+                    </View>
+                    
+                    
+                    
                   </View>
                 </View>
               </RectButton>
@@ -220,17 +237,24 @@ class Overview extends Component {
 
             <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
               <Copy style={{ fontSize: 18 }}>Income: </Copy>
-              <Copy style={{ fontSize: 18, color: palette.green }}>{formatCurrency(sum(transactions.filter(t => t.type === "income")))}</Copy>
+              <Copy style={{ fontSize: 18, color: palette.green }}>{formatCurrency(sum(transactions.filter(t => t.type === "income" && !t.isTransfer)))}</Copy>
             </View>
 
             {this.renderExpenses(sortedIncome)}
 
             <View style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}>
               <Copy style={{ fontSize: 18 }}>Expenses: </Copy>
-              <Copy style={{ fontSize: 18, color: palette.red }}>{formatCurrency(sum(transactions.filter(t => t.type === "expense")))}</Copy>
+              <Copy style={{ fontSize: 18, color: palette.red }}>{formatCurrency(sum(transactions.filter(t => t.type === "expense" && !t.isTransfer)))}</Copy>
             </View>
 
             {this.renderExpenses(sortedExpenses)}
+
+            <View style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}>
+              <Copy style={{ fontSize: 18 }}>Transfers: </Copy>
+              <Copy style={{ fontSize: 18, color: palette.white }}>{formatCurrency(sum(transactions.filter(t => t.type === "transfer")))}</Copy>
+            </View>
+
+            {this.renderExpenses(sortedTransfers)}
 
             <View style={{paddingVertical: 20}}>
 
