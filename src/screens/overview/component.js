@@ -192,7 +192,9 @@ class Overview extends Component {
             const startingBalance = acc.startingBalance ? parseFloat(acc.startingBalance) : 0
 
             return (
-              <View key={acc.id} style={[styles.accountWrap, darkMode && styles.accountWrapDark]}>
+              <RectButton
+                onPress={() => navigation.navigate("AccountDetails", {accountId: acc.id})}
+                key={acc.id} style={[styles.accountWrap, darkMode && styles.accountWrapDark]}>
                 <View>
                   <View style={{flexDirection: "row", alignItems: "center", paddingBottom: 15, flex: 1}}>
                     <Icon type={acc.icon} textStyle={{ fontSize: 30, color: acc.color }} />
@@ -210,7 +212,7 @@ class Overview extends Component {
                     </Copy>
                   </View>
                 </View>
-              </View>
+              </RectButton>
             )
           })}
 

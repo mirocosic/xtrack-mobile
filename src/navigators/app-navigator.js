@@ -23,6 +23,7 @@ import {
   Splash,
   Overview,
   AccountEdit,
+  AccountDetails,
   LabelEdit,
   Backup,
   Onboarding,
@@ -69,6 +70,8 @@ const Main = () => (
       <MainStack.Screen name="CategoryEdit" component={CategoryEdit} />
       <MainStack.Screen name="AccountEdit" component={AccountEdit} />
       <MainStack.Screen name="LabelEdit" component={LabelEdit} />
+
+      <MainStack.Screen name="AccountDetails" component={AccountDetails} />
     </RootStack.Navigator>
   </Host>
 )

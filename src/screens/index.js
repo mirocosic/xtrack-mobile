@@ -8,6 +8,7 @@ import Categories from "./categories"
 import CategoryEdit from "./category-edit"
 import Accounts from "./accounts"
 import AccountEdit from "./account-edit"
+import AccountDetails from "./account-details"
 import Labels from "./labels"
 import LabelEdit from "./label-edit"
 import Transactions from "./transactions"
@@ -26,6 +27,7 @@ export {
   CategoryEdit,
   Accounts,
   AccountEdit,
+  AccountDetails, 
   Labels,
   LabelEdit,
   Transactions,
