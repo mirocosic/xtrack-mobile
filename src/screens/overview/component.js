@@ -208,7 +208,7 @@ class Overview extends Component {
 
                     <View style={styles.inlineBetween}>
                       <Copy style={{fontSize: 14}}>Transfers</Copy>
-                      <Copy style={{ fontSize: 18, color: palette.white}}>{formatCurrency(transfers, acc.currency)}</Copy>
+                      <Copy style={{ fontSize: 18 }}>{formatCurrency(transfers, acc.currency)}</Copy>
                     </View>
 
                     <View style={[styles.inlineBetween, {marginTop: 15}]}>
@@ -251,7 +251,7 @@ class Overview extends Component {
 
             <View style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}>
               <Copy style={{ fontSize: 18 }}>Transfers: </Copy>
-              <Copy style={{ fontSize: 18, color: palette.white }}>{formatCurrency(sum(transactions.filter(t => t.type === "transfer")))}</Copy>
+              <Copy style={{ fontSize: 18 }}>{formatCurrency(sum(transactions.filter(t => t.type === "transfer")))}</Copy>
             </View>
 
             {this.renderExpenses(sortedTransfers)}

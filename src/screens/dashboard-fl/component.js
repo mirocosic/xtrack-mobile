@@ -193,12 +193,12 @@ export default (props) => {
     const expenses = sum(filterTransactions("expense"))
     const transfers = sum(filterTransactions("transfer"))
 
-    const sortedExpenses = sortByCategory(filterTransactions("expense"))
     const sortedIncome = sortByCategory(filterTransactions("income"))
+    const sortedExpenses = sortByCategory(filterTransactions("expense"))
     const sortedTransfers = sortByCategory(filterTransactions("transfer"))
 
-    const currentMonthExpenses = filterTransactions("income").sort(compare)
-    const currentMonthIncome = filterTransactions("expense").sort(compare)
+    const currentMonthIncome = filterTransactions("income").sort(compare)
+    const currentMonthExpenses = filterTransactions("expense").sort(compare)
     const currentMonthTransfers = filterTransactions("transfer").sort(compare)
 
     const currentItemIndex = items.findIndex((i) => i.id === item.id)
@@ -284,7 +284,7 @@ export default (props) => {
               breakdownModal.current.open()
             }}>
             <Copy style={{ fontSize: 18 }}>Transfers: </Copy>
-            <Copy style={{ fontSize: 18, color: palette.white }}>{formatCurrency(transfers)}</Copy>
+            <Copy style={{ fontSize: 18}}>{formatCurrency(transfers)}</Copy>
           </TouchableOpacity>
         }
         
