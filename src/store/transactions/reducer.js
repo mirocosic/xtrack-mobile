@@ -1,5 +1,5 @@
 import moment from "moment"
-import { get } from "lodash"
+import { get, reject } from "lodash"
 import initialState from "./initial-state";
 import { makeUUID } from "../../utils/helper-gnomes"
 
@@ -79,7 +79,7 @@ const transactions = (state = initialState, action) => {
     case "DELETE_TRANSACTION":
       return {
         ...state,
-        entries: state.entries.filter(item => item.id !== action.transaction.id),
+        entries: reject(state.entries, item => item.id === action.transaction.id || item.parentTransactionId === action.transaction.id)
       }
 
     case "REMOVE_ALL_RECURRING_TRANSACTIONS":

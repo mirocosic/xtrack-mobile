@@ -53,6 +53,7 @@ class Transactions extends Component {
     const filtersApplied = accountFilter || categoryFilter || appliedLabelsFilter.length || false
 
     const transactions = entries
+      .filter(item => !item.isTransfer)
       .filter(item => !accountFilter || !get(item, "account") || get(item, "accountId") === accountFilter.id)
       .filter(item => !categoryFilter || get(item, "categoryId") === categoryFilter.id)
       .filter(item => appliedLabelsFilter.length === 0 || hasFilterLabel(item, appliedLabelsFilter))

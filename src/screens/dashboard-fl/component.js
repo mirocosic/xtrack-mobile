@@ -193,8 +193,8 @@ export default (props) => {
     const expenses = sum(filterTransactions("expense"))
     const transfers = sum(filterTransactions("transfer"))
 
-    const sortedExpenses = sortByCategory(filterTransactions("income"))
-    const sortedIncome = sortByCategory(filterTransactions("expense"))
+    const sortedExpenses = sortByCategory(filterTransactions("expense"))
+    const sortedIncome = sortByCategory(filterTransactions("income"))
     const sortedTransfers = sortByCategory(filterTransactions("transfer"))
 
     const currentMonthExpenses = filterTransactions("income").sort(compare)
@@ -276,15 +276,17 @@ export default (props) => {
         
         {renderExpenses(sortedExpenses, currentMonthExpenses)}
 
-        <TouchableOpacity
-          style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}
-          onPress={() => {
-            setBreakdownTransactions(currentMonthTransfers)
-            breakdownModal.current.open()
-          }}>
-          <Copy style={{ fontSize: 18 }}>Transfers: </Copy>
-          <Copy style={{ fontSize: 18, color: palette.white }}>{formatCurrency(transfers)}</Copy>
-        </TouchableOpacity>
+        { currentMonthTransfers.length > 0 &&
+          <TouchableOpacity
+            style={[styles.inlineBetween, { marginBottom: 10, paddingTop: 20 }]}
+            onPress={() => {
+              setBreakdownTransactions(currentMonthTransfers)
+              breakdownModal.current.open()
+            }}>
+            <Copy style={{ fontSize: 18 }}>Transfers: </Copy>
+            <Copy style={{ fontSize: 18, color: palette.white }}>{formatCurrency(transfers)}</Copy>
+          </TouchableOpacity>
+        }
         
         {renderExpenses(sortedTransfers, currentMonthTransfers)}
 
