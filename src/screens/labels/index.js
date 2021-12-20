@@ -6,7 +6,7 @@ export default connect(
 
   dispatch => ({
     add: payload => dispatch({ type: "ADD_LABEL", payload }),
-    remove: payload => dispatch({ type: "DELETE_LABEL", payload }),
+    deleteLabel: payload => dispatch({ type: "DELETE_LABEL", payload }),
     select: payload => dispatch({ type: "SELECT_LABEL", payload }),
   }),
 )(Component)

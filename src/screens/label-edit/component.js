@@ -17,7 +17,7 @@ import { useDarkTheme } from "../../utils/ui-utils"
 const colors = ["#FF5722", "#F39A27", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
 const defaultLabel = { color: "#0097A7" }
 
-export default ({navigation, route: {params}, edit, add, remove}) => {
+export default ({navigation, route: {params}, edit, add, deleteLabel}) => {
 
   const inputRef = useRef(null)
   const colorModal = useRef(null)
@@ -31,7 +31,7 @@ export default ({navigation, route: {params}, edit, add, remove}) => {
   }
 
   const handleDelete = (label) => {
-    remove(label.id)
+    deleteLabel(label.id)
     navigation.goBack()
   }
 
@@ -81,7 +81,7 @@ export default ({navigation, route: {params}, edit, add, remove}) => {
         <Modalize
           adjustToContentHeight
           modalStyle={[styles.modal, darkMode && styles.modalDark]}
-          ref={this.colorModal}>
+          ref={colorModal}>
           <View style={styles.colorPicker}>
             {colors.map(color => (
               <TouchableOpacity

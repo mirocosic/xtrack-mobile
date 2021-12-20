@@ -13,16 +13,17 @@ import { isAndroid } from "../../utils/os-utils"
 import { useDarkTheme } from "../../utils/ui-utils"
 import palette from "../../utils/palette"
 
-const renderDeleteButton = (label, remove) => (
+const renderDeleteButton = (label, deleteLabel) => (
   <View style={[{ width: 70 }]}>
-    <RectButton onPress={() => remove(label.id)} style={styles.deleteButton} activeOpacity={0.5}>
+    <RectButton onPress={() => deleteLabel(label.id)} style={styles.deleteButton} activeOpacity={0.5}>
       <Icon type="trash-alt" />
     </RectButton>
   </View>
 )
 
-const Labels = ({ remove, navigation, labels }) => {
+const Labels = ({ deleteLabel, navigation, labels }) => {
   const insets = useSafeAreaInsets()
+  const darkMode = useDarkTheme()
 
   return (
     <Screen>
@@ -30,12 +31,12 @@ const Labels = ({ remove, navigation, labels }) => {
       <ScrollView contentContainerStyle={{paddingBottom: insets.bottom + 50}}>
         <View>
           {labels.map(label => (
-            <Swipeable key={label.id} renderRightActions={() => renderDeleteButton(label, remove)} containerStyle={styles.swiperWrap}>
+            <Swipeable key={label.id} renderRightActions={() => renderDeleteButton(label, deleteLabel)} containerStyle={styles.swiperWrap}>
               <RectButton 
                 key={label.id} 
-                style={[styles.wrap, useDarkTheme() && styles.wrapDark]}
-                activeOpacity={useDarkTheme() ? 0.5 : 0.1}
-                rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue}
+                style={[styles.wrap, darkMode && styles.wrapDark]}
+                activeOpacity={darkMode ? 0.5 : 0.1}
+                rippleColor={darkMode ? palette.darkGray : palette.lightBlue}
                 onPress={() => navigation.navigate("LabelEdit", { label })}>
                 <View key={label.id} style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
