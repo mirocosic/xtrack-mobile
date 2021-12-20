@@ -39,13 +39,34 @@ const renderCategory = (categories, id) => {
 
   return (
     <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
-      <Icon type={get(category, "icon", "")} textStyle={{ color: get(category, "color", "blue") }} style={{ padding: 5, marginRight: 10 }} />
+      <Icon type={get(category, "icon", "")} textStyle={{ color: get(category, "color", "blue") }} style={{ width: 20, height: 25, margin:2 }} />
       <Copy style={{flex:1}}>{category && truncate(category.name, {length: 150})}</Copy>
     </View>
   )
 }
 
-const Transaction = ({ transaction, selectTransaction, deleteTransaction, navigation, categories, handlePress }) => {
+const renderAccounts = (accounts, transaction) => {
+  const fromAccount = accounts.find(acc => transaction.fromAccountId === acc.id)
+  const account = accounts.find(acc => transaction.accountId === acc.id)
+
+  return (
+    <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "flex-start", flex: 1 }}>
+
+      { fromAccount &&
+        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "flex-start" }}>
+          <Icon type={get(fromAccount, "icon", "")} textStyle={{ color: get(fromAccount, "color", "blue") }} style={{ width: 20, height: 25, margin: 2}} />
+          <Copy>{fromAccount && truncate(fromAccount.name, {length: 150})}</Copy>
+          <Copy> => </Copy>
+        </View>
+      }
+      
+      <Icon type={get(account, "icon", "")} textStyle={{ color: get(account, "color", "blue") }} style={{ width: 20, height: 25, margin: 2}} />
+      <Copy>{account && truncate(account.name, {length: 150})}</Copy>
+    </View>
+  )
+}
+
+const Transaction = ({ transaction, selectTransaction, deleteTransaction, navigation, categories, handlePress, accounts }) => {
 
   const HEIGHT = 70
   
@@ -70,7 +91,7 @@ const Transaction = ({ transaction, selectTransaction, deleteTransaction, naviga
       <Swipeable renderRightActions={renderRightActions} containerStyle={{backgroundColor: "red"} }>
       
         <RectButton
-            style={[styles.container, useDarkTheme() && styles.containerDark, { height: HEIGHT }]}
+            style={[styles.container, useDarkTheme() && styles.containerDark]}
             activeOpacity={useDarkTheme() ? 0.8 : 0.1}
             rippleColor={useDarkTheme() ? palette.darkGray : palette.lightBlue}
             onPress={() => {
@@ -81,6 +102,10 @@ const Transaction = ({ transaction, selectTransaction, deleteTransaction, naviga
               <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", flex: 1 }}>
                 {renderCategory(categories, transaction.categoryId)}
                 <Text style={[styles.amount, getAmountColor(transaction.type)]}>{formatCurrency(transaction.amount, transaction.currency)}</Text>
+              </View>
+
+              <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", flex: 1 }}>
+                {renderAccounts(accounts, transaction)}
               </View>
 
               <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
