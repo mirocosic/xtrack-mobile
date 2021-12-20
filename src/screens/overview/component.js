@@ -196,9 +196,17 @@ class Overview extends Component {
                   </View>
 
                   <View>
+
+                    { acc.startingBalance > 0 &&
+                      <View style={styles.inlineBetween}>
+                        <Copy style={{fontSize: 14}}>Starting</Copy>
+                        <Copy style={{ marginVertical: 5, fontSize: 18 }}>+{formatCurrency(acc.startingBalance, acc.currency)}</Copy>
+                      </View>
+                    }
+
                     <View style={styles.inlineBetween}>
                       <Copy style={{fontSize: 14}}>Income</Copy>
-                      <Copy style={{ fontSize: 18, color: palette.green}}>+{formatCurrency(income, acc.currency)}</Copy>
+                      <Copy style={{ marginVertical: 5, fontSize: 18, color: palette.green}}>+{formatCurrency(income, acc.currency)}</Copy>
                     </View>
 
                     <View style={styles.inlineBetween}>
@@ -213,7 +221,7 @@ class Overview extends Component {
 
                     <View style={[styles.inlineBetween, {marginTop: 15}]}>
                       <Copy style={{fontSize: 14}}>Total</Copy>
-                      <Copy style={{ fontSize: 18, color: palette.blue }}>{formatCurrency(startingBalance + income - expenses, acc.currency)}</Copy>
+                      <Copy style={{ fontSize: 18, color: palette.blue }}>{formatCurrency(startingBalance + income - expenses + transfers, acc.currency)}</Copy>
                     </View>
                     
                     

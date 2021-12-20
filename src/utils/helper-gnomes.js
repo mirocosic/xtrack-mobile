@@ -38,18 +38,17 @@ export const calculateTransactions = (transactions, transactionType, filter = { 
 
   // filter future transactions
   const pastTransactions = filteredTransactions.filter(item => moment(item.timestamp) <= moment())
-
   if (pastTransactions.length === 0) { return 0 }
 
-  let total
+  // when I fix the multiple currencies thingy
+  // if (normalize) {
+  //   total = pastTransactions.reduce((acc, transaction) => acc + calcAmount(transaction), 0)
+  // } else {
+  //   total = pastTransactions.reduce((acc, transaction) => acc + parseFloat(transaction.amount), 0)
+  // }
 
-  if (normalize) {
-    total = pastTransactions.reduce((acc, transaction) => acc + calcAmount(transaction), 0)
-  } else {
-    total = pastTransactions.reduce((acc, transaction) => acc + parseFloat(transaction.amount), 0)
-  }
+  return pastTransactions.reduce((acc, transaction) => acc + parseFloat(transaction.amount), 0)
 
-  return total
 }
 
 export const calculateIncome = (transactions, filter = { type: false, value: false }, normalize = false) => (
@@ -60,6 +59,17 @@ export const calculateExpenses = (transactions, filter = { type: false, value: f
   calculateTransactions(transactions, "expense", filter, normalize)
 )
 
-export const calculateTransfers = (transactions, filter = { type: false, value: false }, normalize = false) => (
-  calculateTransactions(transactions, "transfer", filter, normalize)
-)
+export const calculateTransfers = (transactions, filter = { type: false, value: false }, normalize = false) => {
+  //calculateTransactions(transactions, "transfer", filter, normalize)
+  const transferExpenses = transactions
+                      .filter(item => filter.value.id === get(item, "accountId") && item.type === "expense" && item.isTransfer)
+                      .filter(item => moment(item.timestamp) <= moment())
+  const transferIncome = transactions
+                    .filter(item => (filter.value.id === get(item, "accountId")) && item.type === "income" && item.isTransfer)
+                    .filter(item => moment(item.timestamp) <= moment())
+
+  const totalExpenses = transferExpenses.reduce((acc, transaction) => acc + parseFloat(transaction.amount), 0)
+  const totalIncome = transferIncome.reduce((acc, transaction) => acc + parseFloat(transaction.amount), 0)
+  return totalIncome - totalExpenses
+}
+

@@ -62,6 +62,11 @@ export default ({accounts, transactions, categories, navigation, route: { params
 
       <ScrollView style={{padding: 20}}>
 
+      <View style={[styles.inlineBetween, { marginBottom: 30 }]}>
+          <Copy style={{ fontSize: 18 }}>Starting Balance: </Copy>
+          <Copy style={{ fontSize: 18 }}>{formatCurrency(account.startingBalance)}</Copy>
+        </View>
+
         <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
           <Copy style={{ fontSize: 18 }}>Income: </Copy>
           <Copy style={{ fontSize: 18, color: palette.green }}>{formatCurrency(sum(transactions.filter(t => t.type === "income" && !t.isTransfer).filter(t => t.accountId === account.id)))}</Copy>
