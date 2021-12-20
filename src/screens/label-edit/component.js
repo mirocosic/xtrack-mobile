@@ -1,9 +1,9 @@
-import React, { Component } from "react"
+import React, { useRef, useState } from "react"
 import { View, ScrollView, TextInput, TouchableOpacity } from "react-native"
 import { Modalize } from "react-native-modalize"
-import { DarkModeContext } from "react-native-dark-mode"
 import LinearGradient from "react-native-linear-gradient"
 import { BorderlessButton } from "react-native-gesture-handler"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 import Screen from "../../components/screen"
 import Header from "../../components/header"
@@ -12,38 +12,28 @@ import { Icon } from "../../components"
 import styles from "./styles"
 import { isAndroid } from "../../utils/os-utils"
 import palette from "../../utils/palette"
+import { useDarkTheme } from "../../utils/ui-utils"
 
 const colors = ["#FF5722", "#F39A27", "#2196F3", "#0097A7", "#673AB7", "#3F51B5"];
 const defaultLabel = { color: "#0097A7" }
 
-class LabelEdit extends Component {
+export default ({navigation, route: {params}, edit, add, remove}) => {
 
-  static contextType = DarkModeContext
+  const inputRef = useRef(null)
+  const colorModal = useRef(null)
+  const darkMode = useDarkTheme()
+  const insets = useSafeAreaInsets()
+  const [label, setLabel] = useState(params.label || defaultLabel)
 
-  state = { label: this.props.route.params.label || defaultLabel }
-
-  input = React.createRef()
-
-  colorModal = React.createRef()
-
-  handleSave = (label) => {
-    const { edit, add, navigation } = this.props
+  const handleSave = (label) => {
     label.id ? edit(label) : add(label)
     navigation.goBack()
   }
 
-  handleDelete = (label) => {
-    const { navigation } = this.props
-    this.props.delete(label.id)
+  const handleDelete = (label) => {
+    remove(label.id)
     navigation.goBack()
   }
-
-
-  render() {
-    const { theme } = this.props
-    const darkMode =  theme === "system" ? this.context === "dark" : theme === "dark"
-    const { label } = this.state
-    
 
     return (
       <Screen>
@@ -51,16 +41,16 @@ class LabelEdit extends Component {
 
         <ScrollView
           scrollEnabled={false}
-          contentContainerStyle={{ padding: 20, flex: 1, justifyContent: "space-between" }}>
+          contentContainerStyle={{ paddingHorizontal: 20, paddingTop: 20, flex: 1, justifyContent: "space-between" }}>
 
           <View>
             <View style={styles.inputContainer}>
               <Copy>Name</Copy>
               <TextInput
-                ref={this.input}
+                ref={inputRef}
                 autoFocus={!label.id}
                 style={[styles.input, darkMode && styles.inputDark]}
-                onChangeText={text => this.setState({ label: { ...label, name: text } })}
+                onChangeText={text => setLabel({ ...label, name: text })}
                 placeholder="tag name"
                 placeholderTextColor="gray"
                 value={label.name}/>
@@ -68,18 +58,18 @@ class LabelEdit extends Component {
 
             <View style={[styles.inlineBetween, { margin: 10 }]}>
               <Copy>Color</Copy>
-              <TouchableOpacity onPress={() => this.colorModal.current.open()}>
+              <TouchableOpacity onPress={() => colorModal.current.open()}>
                 <View style={{ width: 40, height: 40, backgroundColor: label.color, borderRadius: 5 }} />
               </TouchableOpacity>
             </View>
 
           </View>
 
-          <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
-            <BorderlessButton onPress={() => {this.handleDelete(label)}}>
-              <Icon type="trash-alt" textStyle={{color: darkMode ? palette.light : palette.dark}} />
+          <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: insets.bottom}}>
+            <BorderlessButton onPress={() => {handleDelete(label)}}>
+              <Icon type="trash-alt" textStyle={{color: darkMode ? palette.light : palette.dark}} style={{borderColor: darkMode ? palette.light : palette.dark, borderWidth: 1, borderRadius: 10}}/>
             </BorderlessButton>
-            <TouchableOpacity onPress={() => this.handleSave(label)} style={styles.addWrap}>
+            <TouchableOpacity onPress={() => handleSave(label)} style={styles.addWrap}>
               <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={["#2292f4", "#2031f4"]} style={[styles.add]}>
                 <Copy style={{ color: "white" }}>Save</Copy>
               </LinearGradient>
@@ -98,8 +88,8 @@ class LabelEdit extends Component {
                 key={color}
                 style={[styles.colorBox, label.color === color && styles.selectedColor, { backgroundColor: color }]}
                 onPress={() => {
-                  this.setState({ label: { ...label, color } })
-                  this.colorModal.current.close()
+                  setLabel({ ...label, color })
+                  colorModal.current.close()
                 }}
               />
             ))}
@@ -108,7 +98,4 @@ class LabelEdit extends Component {
 
       </Screen>
     )
-  }
 }
-
-export default LabelEdit

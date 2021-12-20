@@ -5,6 +5,7 @@ import { DarkModeContext } from "react-native-dark-mode"
 import { get } from "lodash"
 import LinearGradient from "react-native-linear-gradient"
 import { BorderlessButton } from "react-native-gesture-handler"
+import { withSafeAreaInsets } from "react-native-safe-area-context"
 
 import { Screen, Header } from "../../components"
 import CategoryIcons from "../../components/category-icons"
@@ -78,7 +79,7 @@ class AccountEdit extends Component {
   }
 
   render() {
-    const { theme } = this.props
+    const { theme, insets } = this.props
     const darkMode =  theme === "system" ? this.context === "dark" : theme === "dark"
     const { account } = this.state
     return (
@@ -90,7 +91,7 @@ class AccountEdit extends Component {
 
         <ScrollView
           scrollEnabled={false}
-          style={{ padding: 20 }}
+          style={{ paddingHorizontal: 20, paddingTop: 20 }}
           contentContainerStyle={{ flex: 1, justifyContent: "space-between" }}>
           <View>
             <View style={styles.inputContainer}>
@@ -164,9 +165,9 @@ class AccountEdit extends Component {
             </View>
           </View>
 
-          <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+          <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: insets.bottom}}>
             <BorderlessButton onPress={() => this.handleDelete(account)}>
-              <Icon type="trash-alt" textStyle={{color: darkMode ? palette.light : palette.dark}} />
+              <Icon type="trash-alt" textStyle={{color: darkMode ? palette.light : palette.dark}} style={{borderColor: darkMode ? palette.light : palette.dark, borderWidth: 1, borderRadius: 10}} />
             </BorderlessButton>
             <TouchableOpacity onPress={() => this.handleSave(account)} style={styles.addWrap}>
               <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={["#2292f4", "#2031f4"]} style={[styles.add]}>
@@ -239,4 +240,4 @@ class AccountEdit extends Component {
   }
 }
 
-export default AccountEdit
+export default withSafeAreaInsets(AccountEdit)

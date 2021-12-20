@@ -5,6 +5,7 @@ import { DarkModeContext } from "react-native-dark-mode"
 import Swipeable from "react-native-gesture-handler/Swipeable"
 import { RectButton, TouchableOpacity } from "react-native-gesture-handler"
 import LinearGradient from "react-native-linear-gradient"
+import { withSafeAreaInsets } from "react-native-safe-area-context"
 
 import { Screen, Header } from "../../components"
 import { Copy } from "../../components/typography"
@@ -13,6 +14,7 @@ import styles from "./styles"
 import { formatCurrency } from "../../utils/currency"
 import { isAndroid } from "../../utils/os-utils"
 import palette from "../../utils/palette"
+import { inlineStyles } from "react-native-svg"
 
 const accountBalance = (account, transactions) => {
   if (transactions.length === 0) return 0
@@ -69,13 +71,13 @@ class Accounts extends Component {
   }
 
   render() {
-    const { navigation, accounts, transactions, theme } = this.props
+    const { navigation, accounts, transactions, theme, insets } = this.props
     const darkMode =  theme === "system" ? this.context === "dark" : theme === "dark"
 
     return (
       <Screen>
         <Header title="Accounts" backBtn withInsets />
-        <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
+        <ScrollView contentContainerStyle={{ paddingBottom: insets.bottom + 50 }}>
           <View style={{ borderColor: "gray", borderTopWidth: 1 }}>
             {accounts.map(account => (
               <Swipeable key={account.id} renderRightActions={() => this.renderDeleteButton(account)} containerStyle={styles.swiperWrap}>
@@ -101,7 +103,7 @@ class Accounts extends Component {
           </View>
         </ScrollView>
 
-        <View style={[isAndroid && { paddingBottom: 10 }, { width: "80%", left: "10%", bottom: 20, position: "absolute" }]}>
+        <View style={[isAndroid && { paddingBottom: 10 }, { width: "80%", left: "10%", bottom: insets.bottom, position: "absolute" }]}>
           <TouchableOpacity onPress={() => navigation.navigate("AccountEdit")} style={styles.addWrap}>
             <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={["#2292f4", "#2031f4"]} style={[{ height: 50, width: 200 }, styles.add]}>
               <Copy style={{ color: "white" }}>Add new account</Copy>
@@ -113,4 +115,4 @@ class Accounts extends Component {
   }
 }
 
-export default Accounts
+export default withSafeAreaInsets(Accounts)

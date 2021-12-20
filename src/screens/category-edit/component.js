@@ -4,6 +4,7 @@ import { Modalize } from "react-native-modalize"
 import { DarkModeContext } from "react-native-dark-mode"
 import { get } from "lodash"
 import LinearGradient from "react-native-linear-gradient"
+import { withSafeAreaInsets } from "react-native-safe-area-context"
 
 import { Screen, Header } from "../../components"
 import CategoryIcons from "../../components/category-icons"
@@ -25,9 +26,7 @@ class CategoryEdit extends Component {
   state = { category: this.props.categories.filter(item => this.props.route.params.id === item.id)[0] || defaultCategory }
 
   input = React.createRef()
-
   iconsModal = React.createRef()
-
   colorModal = React.createRef()
 
   handleSave = (category) => {
@@ -68,7 +67,7 @@ class CategoryEdit extends Component {
 
   render() {
     const { category } = this.state
-    const { theme } = this.props
+    const { theme, insets } = this.props
     const darkMode =  theme === "system" ? this.context === "dark" : theme === "dark"
     return (
       <Screen>
@@ -79,7 +78,7 @@ class CategoryEdit extends Component {
 
         <ScrollView
           scrollEnabled={false}
-          style={{ margin: 20 }}
+          style={{ marginHorizontal: 20 }}
           contentContainerStyle={{ flex: 1, justifyContent: "space-between" }}>
           <View>
             <View style={styles.inputContainer}>
@@ -150,9 +149,9 @@ class CategoryEdit extends Component {
             </View>
           </View>
 
-          <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+          <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: insets.bottom}}>
             <BorderlessButton onPress={() => this.deleteCategory(category)}>
-              <Icon type="trash-alt" textStyle={{color: darkMode ? palette.light : palette.dark}} />
+              <Icon type="trash-alt" textStyle={{color: darkMode ? palette.light : palette.dark}} style={{borderColor: darkMode ? palette.light : palette.dark, borderWidth: 1, borderRadius: 10}}/>
             </BorderlessButton>
             <TouchableOpacity onPress={() => this.handleSave(category)} style={styles.addWrap}>
               <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={["#2292f4", "#2031f4"]} style={[styles.add]}>
@@ -195,4 +194,4 @@ class CategoryEdit extends Component {
   }
 }
 
-export default CategoryEdit
+export default withSafeAreaInsets(CategoryEdit)

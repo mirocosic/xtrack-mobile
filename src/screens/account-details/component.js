@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { View, Dimensions } from "react-native"
+import { ScrollView, View, Dimensions } from "react-native"
 import { RectButton } from "react-native-gesture-handler"
 import { get, isEmpty } from "lodash"
 import { PieChart } from "react-native-chart-kit";
@@ -60,7 +60,7 @@ export default ({accounts, transactions, categories, navigation, route: { params
         title={account.name}
         backBtn={isAndroid}/>
 
-      <View style={{padding: 20}}>
+      <ScrollView style={{padding: 20}}>
 
         <View style={[styles.inlineBetween, { marginBottom: 10 }]}>
           <Copy style={{ fontSize: 18 }}>Income: </Copy>
@@ -125,7 +125,7 @@ export default ({accounts, transactions, categories, navigation, route: { params
           />
         </View>
 
-      </View>
+      </ScrollView>
     </Screen>
   )
 }

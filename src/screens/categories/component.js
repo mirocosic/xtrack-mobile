@@ -2,17 +2,22 @@ import React from "react"
 import { View, ScrollView } from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import LinearGradient from "react-native-linear-gradient"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 import { Screen, Header, Copy } from "../../components"
 import Category from "../../components/category"
 import { isAndroid } from "../../utils/os-utils"
 import styles from "./styles"
 
-const Categories = ({ categories, navigation, selectCategory }) => (
+const Categories = ({ categories, navigation, selectCategory }) => {
+
+  const insets = useSafeAreaInsets()
+
+  return (
 
   <Screen>
     <Header title="Categories" backBtn withInsets />
-    <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
+    <ScrollView contentContainerStyle={{ paddingBottom: insets.bottom + 50}}>
       <View>
         {categories
           .sort((a, b) => a.name < b.name)
@@ -29,7 +34,7 @@ const Categories = ({ categories, navigation, selectCategory }) => (
       </View>
     </ScrollView>
 
-    <View style={[isAndroid && { paddingBottom: 10 }, { width: "80%", left: "10%", bottom: 20, position: "absolute" }]}>
+    <View style={[isAndroid && { paddingBottom: 10 }, { width: "80%", left: "10%", bottom: insets.bottom, position: "absolute" }]}>
       <TouchableOpacity
         onPress={() => navigation.navigate("CategoryEdit", { id: false })}
         style={styles.addWrap}>
@@ -45,6 +50,6 @@ const Categories = ({ categories, navigation, selectCategory }) => (
 
   </Screen>
 
-)
+)}
 
 export default Categories

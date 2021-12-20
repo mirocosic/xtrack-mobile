@@ -3,6 +3,7 @@ import { View, ScrollView, useColorScheme, TouchableOpacity } from "react-native
 import Swipeable from "react-native-gesture-handler/Swipeable"
 import { RectButton } from "react-native-gesture-handler"
 import LinearGradient from "react-native-linear-gradient"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 import { Screen, Header } from "../../components"
 import { Copy } from "../../components/typography"
@@ -21,10 +22,12 @@ const renderDeleteButton = (label, remove) => (
 )
 
 const Labels = ({ remove, navigation, labels }) => {
+  const insets = useSafeAreaInsets()
+
   return (
     <Screen>
       <Header title="Tags" backBtn withInsets />
-      <ScrollView>
+      <ScrollView contentContainerStyle={{paddingBottom: insets.bottom + 50}}>
         <View>
           {labels.map(label => (
             <Swipeable key={label.id} renderRightActions={() => renderDeleteButton(label, remove)} containerStyle={styles.swiperWrap}>
@@ -48,7 +51,7 @@ const Labels = ({ remove, navigation, labels }) => {
         </View>
       </ScrollView>
 
-      <View style={[isAndroid && { paddingBottom: 10 }, { width: "80%", left: "10%", bottom: 20, position: "absolute" }]}>
+      <View style={[isAndroid && { paddingBottom: 10 }, { width: "80%", left: "10%", bottom: insets.bottom, position: "absolute" }]}>
         <TouchableOpacity onPress={() => navigation.navigate("LabelEdit", { label: { color: "#0097A7" } })}>
           <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={["#2292f4", "#2031f4"]} style={[{ height: 50, width: 200 }, styles.add]}>
             <Copy style={{ color: "white" }}>Add new tag</Copy>
