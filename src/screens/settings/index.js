@@ -39,6 +39,7 @@ export default connect(
     darkMode: state.common.darkMode,
     theme: state.common.theme,
     openOnForm: state.common.openOnForm,
+    allTrans: state.common.allTrans,
     language: state.common.language,
     theme: state.common.theme,
     accounts: state.accounts.items,
@@ -48,6 +49,7 @@ export default connect(
   dispatch => ({
     toggleDarkMode: () => dispatch({ type: "TOGGLE_DARK_MODE" }),
     toggleOpenOnForm: () => dispatch({ type: "TOGGLE_OPEN_ON_FORM" }),
+    toggleAllTrans: () => dispatch({ type: "TOGGLE_ALL_TRANS" }),
     setLanguage: language => dispatch({ type: "SET_LANGUAGE", language }),
     setTheme: theme => {
       changeStatusBar(theme)

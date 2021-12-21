@@ -12,6 +12,7 @@ export default connect(
     expenses: state.transactions.expenses,
     income: state.transactions.income,
     theme: state.common.theme,
+    allTrans: state.common.allTrans,
   }),
 
   dispatch => ({

@@ -1,8 +1,9 @@
 import React from "react"
-import { View, Switch, Alert, TouchableOpacity } from "react-native"
+import { View, Alert, TouchableOpacity } from "react-native"
 import { RectButton } from "react-native-gesture-handler"
-import { useSafeAreaInsets } from 'react-native-safe-area-context'; 
-import { connectActionSheet } from '@expo/react-native-action-sheet';
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { connectActionSheet } from '@expo/react-native-action-sheet'
+import ToggleSwitch from 'toggle-switch-react-native'
 
 import Icon from "../../components/icon"
 import Screen from "../../components/screen"
@@ -81,13 +82,7 @@ const Settings = (props) => {
     }
   }
 
-    const {
-      navigation,
-      openOnForm,
-      toggleOpenOnForm,
-      theme,
-      language
-    } = props
+    const { navigation, openOnForm, toggleOpenOnForm, theme, language, allTrans, toggleAllTrans } = props
 
     const insets = useSafeAreaInsets();
 
@@ -219,14 +214,25 @@ const Settings = (props) => {
 
           <View style={{ padding: 20 }}>
             <View
-              style={{
-                marginTop: 10,
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}>
+              style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
               <Copy>Open app on transaction form</Copy>
-              <Switch value={openOnForm} onValueChange={toggleOpenOnForm} />
+              <ToggleSwitch
+                isOn={openOnForm} 
+                onColor={palette.blue}
+                offColor={darkMode ? palette.gray : palette.lightGray}
+                onToggle={toggleOpenOnForm} 
+              />
+            </View>
+
+            <View
+              style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
+              <Copy>Display transfer transactions</Copy>
+              <ToggleSwitch
+                isOn={allTrans} 
+                onColor={palette.blue}
+                offColor={darkMode ? palette.grey : palette.lightGray}
+                onToggle={toggleAllTrans} 
+              />
             </View>
 
             <View style={{ marginTop: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>

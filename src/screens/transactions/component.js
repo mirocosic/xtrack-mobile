@@ -48,12 +48,12 @@ class Transactions extends Component {
 
   render() {
     const { searchTerm } = this.state
-    const { navigation, accountFilter, categoryFilter, appliedLabelsFilter, entries, theme } = this.props
+    const { navigation, accountFilter, categoryFilter, appliedLabelsFilter, entries, theme, allTrans } = this.props
     const darkMode = theme === "system" ? this.context === "dark" : theme === "dark"
     const filtersApplied = accountFilter || categoryFilter || appliedLabelsFilter.length || false
 
     const transactions = entries
-      .filter(item => !item.isTransfer)
+      .filter(item => allTrans ? true : !item.isTransfer)
       .filter(item => !accountFilter || !get(item, "account") || get(item, "accountId") === accountFilter.id)
       .filter(item => !categoryFilter || get(item, "categoryId") === categoryFilter.id)
       .filter(item => appliedLabelsFilter.length === 0 || hasFilterLabel(item, appliedLabelsFilter))

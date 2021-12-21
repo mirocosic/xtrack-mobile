@@ -23,5 +23,6 @@ export default {
   darkMode: false,
   theme: "system",
   openOnForm: false,
+  allTrans: false,
   language: defaultLanguage[defaultLocaleCode],
 }

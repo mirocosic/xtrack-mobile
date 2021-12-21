@@ -21,6 +21,12 @@ const common = (state = initialState, action) => {
         openOnForm: !state.openOnForm,
       }
 
+    case "TOGGLE_ALL_TRANS":
+      return {
+        ...state,
+        allTrans: !state.allTrans,
+      }
+
     case "SET_LANGUAGE":
       return {
         ...state,
