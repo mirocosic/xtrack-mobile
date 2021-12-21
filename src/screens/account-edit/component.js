@@ -56,7 +56,7 @@ class AccountEdit extends Component {
 
   handleDelete = (account) => {
     const { remove, removeTransactions, navigation, transactions } = this.props
-    const count = transactions.filter(item => account.id === get(item, "account.id")).length
+    const count = transactions.filter(item => account.id === get(item, "accountId")).length
     if (count > 0) {
       Alert.alert("Warning!", "Cannot delete account that contains transactions", [
         {
