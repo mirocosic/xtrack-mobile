@@ -49,7 +49,7 @@ const Splash = ({navigation, theme}) => {
   const fadeInLogo = () => {
     Animated.timing(opacity, {
       toValue: 1,
-      duration: 1000,
+      duration: 500,
       useNativeDriver: true
     }).start(() => setAnimationDone(true))
   }
