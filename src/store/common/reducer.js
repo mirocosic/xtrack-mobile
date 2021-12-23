@@ -57,6 +57,9 @@ const common = (state = initialState, action) => {
         drawerIsCanceled: action.isCanceled,
       }
 
+    case "RESTORE_BACKUP":
+      return action.data.common
+
     default:
       return state;
   }

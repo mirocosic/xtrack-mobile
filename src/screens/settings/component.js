@@ -82,7 +82,7 @@ const Settings = (props) => {
     }
   }
 
-    const { navigation, openOnForm, toggleOpenOnForm, theme, language, allTrans, toggleAllTrans } = props
+    const { navigation, openOnForm, toggleOpenOnForm, theme, language, allTrans, toggleAllTrans, appVersion } = props
 
     const insets = useSafeAreaInsets();
 
@@ -259,7 +259,7 @@ const Settings = (props) => {
         </View>
 
         <Copy style={{ textAlign: "right", marginBottom: 10, marginRight: 10}}>
-           v1.0.22 (52)
+          {appVersion}
         </Copy>
       </Screen>
     )

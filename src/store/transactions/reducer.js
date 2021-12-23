@@ -208,6 +208,11 @@ const transactions = (state = initialState, action) => {
         entries: state.entries.filter(item => item.accountId !== action.account.id),
       }
 
+    // prototype restore, not real thing
+    case "RESTORE_BACKUP":
+      //console.log(action.data.transactions.entries)
+      return action.data.transactions
+
     default:
       return state;
   }

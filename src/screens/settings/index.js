@@ -44,6 +44,7 @@ export default connect(
     theme: state.common.theme,
     accounts: state.accounts.items,
     categories: state.categories.items,
+    appVersion: state.common.appVersion,
   }),
 
   dispatch => ({

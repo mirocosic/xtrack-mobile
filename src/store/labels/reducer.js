@@ -58,6 +58,9 @@ const labels = (state = initialState, action) => {
     case "ERASE":
       return { ...initialState }
 
+    case "RESTORE_BACKUP":
+      return action.data.labels
+
     default:
       return state;
   }
