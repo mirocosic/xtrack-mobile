@@ -14,7 +14,6 @@ import styles from "./styles"
 import { formatCurrency } from "../../utils/currency"
 import { isAndroid } from "../../utils/os-utils"
 import palette from "../../utils/palette"
-import { inlineStyles } from "react-native-svg"
 
 const accountBalance = (account, transactions) => {
   if (transactions.length === 0) return 0

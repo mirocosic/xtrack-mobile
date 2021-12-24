@@ -100,7 +100,16 @@ const translations = {
     "Tag your transactions with labels for easy tracking": "Označi svoje transakcije za lakši pregled",
     "Make a local backup of your data and restore it if you delete the app": "Napravi lokalnu kopiju podataka i vrati podatke u slučaju brisanja aplikacije",
     "Check out the onboarding carousel!": "Pogledaj uvodni opis aplikacije",
-    "Generate Demo Dummy Transactions (x100)": "Generiraj Demo transakcije (x100)"
+    "Generate Demo Dummy Transactions (x100)": "Generiraj Demo transakcije (x100)",
+
+    "Create Backup": "Kreiraj kopiju",
+    "Restore backup": "Vrati kopiju",
+    "Are you sure?": "Sigurno?",
+    "Delete": "Obriši",
+    "Do you want to restore this backup? Make sure you have the current state backed up or it will be lost.": "Da li želiš vratiti ovu kopiju? Budi siguran da imaš kopiju trenutnog stanja.",
+    "Do you want to delete this backup? This action cannot be undone.": "Da li želiš obrisati ovu kopiju?",
+
+
 
   },
 
