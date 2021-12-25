@@ -38,7 +38,8 @@ export default (props) => {
   const createBackup = async () => {
     // get current backups from storage
     const backups = await getItem()
-    const parsedBackups = JSON.parse(backups)
+
+    const parsedBackups = backups ? JSON.parse(backups) : []
 
     //get current state
     const state = store.getState()
