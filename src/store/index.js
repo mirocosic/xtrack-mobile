@@ -11,12 +11,14 @@ import categories from "./categories/reducer"
 import accounts from "./accounts/reducer"
 import labels from "./labels/reducer"
 import rootSaga from "./sagas"
+import { storage, reduxStorage } from "./async-storage"
 
 const sagaMiddleware = createSagaMiddleware();
 
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
+  //storage: reduxStorage,
   stateReconciler: autoMergeLevel2, // see "Merge Process" section for details.
 };
 

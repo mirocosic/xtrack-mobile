@@ -7,6 +7,7 @@ import Swipeable from "react-native-gesture-handler/Swipeable"
 import { RectButton } from "react-native-gesture-handler"
 import moment from "moment"
 import AsyncStorage, {useAsyncStorage} from '@react-native-async-storage/async-storage'
+import { storage } from "../../store/async-storage"
 
 import { Screen, Header, Footer, Icon, Copy } from "../../components"
 import { store } from "../../store"
@@ -20,12 +21,13 @@ import __ from "../../utils/translations"
 export default (props) => {
 
   const [backups, setBackups] = useState([])
-  const { getItem, setItem } = useAsyncStorage('@backups')
+  //const { getItem, setItem } = useAsyncStorage('@backups')
   const insets = useSafeAreaInsets()
   const darkMode = useDarkTheme()
 
   const loadBackupsFromStorage = async () => {
-    const backups = await getItem()
+    //const backups = await getItem()
+    const backups = storage.getString("backups")
     const parsedBackups = JSON.parse(backups)
     
     if (parsedBackups && parsedBackups.length > 0) {
@@ -37,7 +39,9 @@ export default (props) => {
 
   const createBackup = async () => {
     // get current backups from storage
-    const backups = await getItem()
+    //const backups = await getItem()
+    const backups = storage.getString("backups")
+    
 
     const parsedBackups = backups ? JSON.parse(backups) : []
 
@@ -54,12 +58,14 @@ export default (props) => {
     ]
 
     //save to storage
-    await setItem(JSON.stringify(newBackups))
+    //await setItem(JSON.stringify(newBackups))
+    storage.set("backups", JSON.stringify(newBackups))
     setBackups(newBackups.map(bkp => ({id: bkp.id, name: bkp.name}))) //clear data from local state
   }
 
   const loadBackup = async (id) => {
-    const backups = await getItem()
+    //const backups = await getItem()
+    const backups = storage.getString("backups")
     const parsedBackups = JSON.parse(backups)
     const backupToRestore = parsedBackups.find(bkp => bkp.id === id)
 
@@ -95,11 +101,13 @@ export default (props) => {
   }
 
   const deleteBackup = async (id) => {
-    const backups = await getItem()
+    //const backups = await getItem()
+    const backups = storage.getString("backups")
     const parsedBackups = JSON.parse(backups)
     const filteredBkps = parsedBackups.filter(bkp => bkp.id !== id)
 
-    await setItem(JSON.stringify(filteredBkps)) 
+    //await setItem(JSON.stringify(filteredBkps))
+    storage.set("backups", JSON.stringify(filteredBkps))
     setBackups(filteredBkps.map(bkp => ({id: bkp.id, name: bkp.name}))) //clear data from local state
   }
 
