@@ -16,6 +16,7 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
+import com.facebook.react.bridge.JSIModulePackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -48,6 +49,11 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected String getJSMainModuleName() {
       return "index";
+    }
+
+    @Override
+    protected JSIModulePackage getJSIModulePackage() {
+      return new xtrackJSIPackage(); // <-- your package's name
     }
   });
 
