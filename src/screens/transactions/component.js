@@ -9,7 +9,7 @@ import Icon from "../../components/icon"
 import Transaction from "../../components/transaction"
 import { Copy } from "../../components/typography"
 import palette from "../../utils/palette"
-import { safePaddingBottom, safePaddingTop } from "../../utils/ui-utils"
+import { safePaddingBottom } from "../../utils/ui-utils"
 
 import transactionsHeader from "../../../assets/images/transactions-header.png"
 import styles from "./styles"
@@ -146,6 +146,9 @@ class Transactions extends Component {
                 <View style={[styles.section, darkMode && styles.sectionDark]}>
                   <Copy>{title}</Copy>
                 </View>
+              )}
+              renderSectionFooter={() => (
+                <View style={{borderBottomWidth: 1, borderColor: palette.gray}}/>
               )}
               ItemSeparatorComponent={() => (<View style={styles.separator} />)}
               renderItem={this.renderItem}
