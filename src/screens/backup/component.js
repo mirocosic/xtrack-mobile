@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context"
 import Swipeable from "react-native-gesture-handler/Swipeable"
 import { RectButton } from "react-native-gesture-handler"
 import moment from "moment"
+import Share from "react-native-share"
 import { storage } from "../../store/async-storage"
 
 import { Screen, Header, Icon, Copy } from "../../components"
@@ -110,13 +111,33 @@ export default (props) => {
     setBackups(filteredBkps.map(bkp => ({id: bkp.id, name: bkp.name}))) //clear data from local state
   }
 
-  const renderDeleteAction = (id) => {
+  const handleExport = () => {
+    Share.open({url: "https://mirocosic.dev"})
+    .then((res) => {
+      console.log(res)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
+  const renderActions = (id) => {
     return (
-      <View style={{ width: 70 }}>
-        <RectButton style={styles.deleteButton} onPress={() => confirmDeleteBackup(id)}>
-          <Icon type="trash-alt" />
-        </RectButton>
+      <View style={{flexDirection: "row"}}>
+        <View style={{ width: 70 }}>
+          <RectButton style={styles.exportButton} onPress={() => handleExport()}>
+            <Icon type="upload" />
+          </RectButton>
+        </View>
+
+        <View style={{ width: 70 }}>
+          <RectButton style={styles.deleteButton} onPress={() => confirmDeleteBackup(id)}>
+            <Icon type="trash-alt" />
+          </RectButton>
+        </View>
+
       </View>
+      
     )
   }
 
@@ -131,7 +152,7 @@ export default (props) => {
           {
             backups.map((item) => (
 
-              <Swipeable key={item.id} renderRightActions={() => renderDeleteAction(item.id)} containerStyle={styles.swiperWrap}>
+              <Swipeable key={item.id} renderRightActions={() => renderActions(item.id)} containerStyle={styles.swiperWrap}>
                 <RectButton 
                   onPress={() => loadBackup(item.id)}
                   activeOpacity={darkMode ? 0.5 : 0.1}

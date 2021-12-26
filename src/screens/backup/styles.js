@@ -37,6 +37,13 @@ export default StyleSheet.create({
     flex: 1,
   },
 
+  exportButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: palette.blue,
+    flex: 1,
+  },
+
   editButton: {
     alignItems: "center",
     justifyContent: "center",
