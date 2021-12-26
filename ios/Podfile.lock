@@ -346,7 +346,7 @@ PODS:
     - React
   - RNFS (2.18.0):
     - React
-  - RNGestureHandler (1.10.3):
+  - RNGestureHandler (2.1.0):
     - React-Core
   - RNLocalize (1.4.3):
     - React-Core
@@ -661,7 +661,7 @@ SPEC CHECKSUMS:
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNFBApp: cd70a6c061bc485994e28c7d58ab760538850f0e
   RNFS: 3ab21fa6c56d65566d1fb26c2228e2b6132e5e32
-  RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
+  RNGestureHandler: e5c7cab5f214503dcefd6b2b0cefb050e1f51c4a
   RNLocalize: 7c7aeda16c01db7a0918981c14875c0a53be9b79
   RNReactNativeHapticFeedback: b83bfb4b537bdd78eb4f6ffe63c6884f7b049ead
   RNReanimated: b04ef2a4f0cb61b062bbcf033f84a9e470f4f60b

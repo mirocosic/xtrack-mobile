@@ -43,7 +43,7 @@
     "react-native-drawer": "^2.5.1",
     "react-native-fontawesome": "mirocosic/react-native-fontawesome",
     "react-native-fs": "^2.14.1",
-    "react-native-gesture-handler": "^1.10.3",
+    "react-native-gesture-handler": "^2.0.0",
     "react-native-haptic-feedback": "^1.8.2",
     "react-native-iphone-x-helper": "^1.3.1",
     "react-native-keyboard-aware-scrollview": "^2.0.0",
