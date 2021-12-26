@@ -1,15 +1,14 @@
-import React, { Component, useEffect, useState } from "react"
-import { Alert, View, ScrollView, TouchableOpacity, Touchable, FlatList } from "react-native"
+import React, { useEffect, useState } from "react"
+import { Alert, View, ScrollView, TouchableOpacity } from "react-native"
 import { get } from "lodash"
 import LinearGradient from "react-native-linear-gradient"
-import { useSafeAreaInsets, withSafeAreaInsets } from "react-native-safe-area-context"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 import Swipeable from "react-native-gesture-handler/Swipeable"
 import { RectButton } from "react-native-gesture-handler"
 import moment from "moment"
-import AsyncStorage, {useAsyncStorage} from '@react-native-async-storage/async-storage'
 import { storage } from "../../store/async-storage"
 
-import { Screen, Header, Footer, Icon, Copy } from "../../components"
+import { Screen, Header, Icon, Copy } from "../../components"
 import { store } from "../../store"
 import { makeUUID } from "../../utils/helper-gnomes"
 import { isAndroid } from "../../utils/os-utils"
@@ -155,14 +154,6 @@ export default (props) => {
           </TouchableOpacity>
         </View>
 
-
-        {/* <Footer>
-          <View style={{ alignItems: "center" }}>
-            <TouchableOpacity onPress={() => createBackup()} style={{padding: 10}}>
-              <CopyBlue>Create new backup</CopyBlue>
-            </TouchableOpacity>
-          </View>
-        </Footer> */}
       </Screen>
     )
   }
