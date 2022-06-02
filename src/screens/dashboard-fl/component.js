@@ -61,8 +61,8 @@ const sum = transactions => transactions.reduce((acc, transaction) => acc + calc
 
 
 const filterByMonth = (transactions, currentDate) => {
-  const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1)
-  const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0)
+  const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1, 2) /// check this for timezone data
+  const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1, 2)
   return transactions.filter(t => t.timestamp > firstDayOfMonth.getTime() && t.timestamp < lastDayOfMonth.getTime())
 }
 
