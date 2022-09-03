@@ -25,5 +25,5 @@ export default {
   openOnForm: false,
   allTrans: false,
   language: defaultLanguage[defaultLocaleCode],
-  appVersion: "v1.1.0 (63)"
+  appVersion: "v1.1.1 (66)"
 }
